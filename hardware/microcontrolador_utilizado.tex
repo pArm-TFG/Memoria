@@ -1,5 +1,5 @@
 Para el desarrollo del la placa que conforma el S2 se ha empleado un microcontrolador dsPIC33EP512GM604.
-Los motivos por los cuales se ha usado un este modelo de DSP son los siguientes: 
+Los motivos por los cuales se ha usado este modelo de DSP son los siguientes: 
 
 \begin{itemize}
 \item En primera instancia, a la cantidad y a la precisión de los PWM que este ofrece, ya que son suficientes para poder controlar todos los motores y además su precisión permite generar una señal adecuada para controlar cada uno de los motores.
@@ -11,6 +11,9 @@ Los motivos por los cuales se ha usado un este modelo de DSP son los siguientes:
 \item Por ultimo se ha elegido un DSP Microchip debido a que todos los integrantes del grupo de desarrollo tiene experiencia previa con este fabricante. Además, dicho fabricante proporciona documentación extensa sobre sus productos.
 
 \end{itemize}
+
+Este microcontrolador gracias a que dispone de puertos UART permite recibir las ordenes y los movimientos necesarios desde el S1, por otro lado, el DSP cuenta con un PLL el cual permite aumentar la frecuencia interna del microcontrolador para incrementar la cantidad de operaciones por segundo que este puede hacer. Después de realizar las operaciones este se encargará de generar las señales PWM necesarias para mover los motores de tal manera que el brazo robótico quede en la posición deseada.
+
 
 
 

@@ -3,14 +3,23 @@ Las razones por las cuales se toma la decisión de fabricar la estructura del br
 \begin{itemize}
   \item Cumplir con el requisito de replicabilidad y asequibilidad: Una de las bases del proyecto es que pueda ser reproducible a bajo coste tanto de recursos como de tiempo. Se decide por tanto construir la estructura física del brazo mediante técnicas de impresión 3D ya que están altamente extendidas y son cada vez mas asequibles.
   
-  \item Características físicos del material: El plástico utilizado para la impresión es ligero y suficientemente resistente para soportar las cargas para las que esta pensado el manipulador.
+  \item Características físicas del material: El plástico utilizado para la impresión es ligero y suficientemente resistente para soportar las cargas para las que esta pensado el manipulador.
   
-  \item Disponibilidad de impresora 3D: Dado que la universidad es capaz de proveer al equipo con una impresora 3D funcional, los costes del proyecto se abaratan si realizamos la estructura con los medios de los que la universidad ya dispone.
+  \item Disponibilidad de impresora 3D: Dado que la universidad es capaz de proveer al equipo con una impresora 3D funcional, los costes del proyecto se abaratan si la estructura es realizada con los medios de los que la universidad ya dispone.
   
-  \item Simplificar el proceso de mejora y personalización: Debido a la naturaleza OpenSoftware y OpenHardware de nuestro proyecto esperamos que las personas puedan contribuir a el mejorándolo y/o personalizándolo. La impresión 3D facilita estas acciones.
+  \item Simplificar el proceso de mejora y personalización: Debido a la naturaleza OpenSoftware y OpenHardware del proyecto se espera que las personas interesadas puedan contribuir a el mejorándolo y/o personalizándolo. La impresión 3D facilita estas acciones.
 \end{itemize}
 
-Aprovechando la licencia GPL 3.0 hemos empleado el modelo 3D proporcionado por UFactory como punto de partida. A partir de este modelo se han impreso las piezas que hemos decidido conservar para nuestro proyecto.
+La impresora que la Universidad pone a disposición del equipo de trabajo es la Ultimaker 3 Extended la cual es capaz de imprimir en una alta variedad de materiales. El equipo ha considerado los siguientes materiales:
+
+\begin{itemize}
+    \item Ultimaker Nylon: Este material es un tipo de poliamida basada en PA6/66. Presenta una absorción de humedad reducida así como una capacidad considerable de resistencia ante tensiones mecánicas. También presenta un bajo coeficiente de fricción.
+    \item CPE+: Este material presenta una alta estabilidad dimensional, con buena resistencia al impacto y a la temperatura. Debido a su alta solidez y su estabilidad dimensional ofrece un buen rendimiento mecánico y gran resistencia al desgaste.
+\end{itemize}
+
+Debido a la naturaleza del proyecto el equipo ha decidido emplear materiales con alta resistencia mecánica y los anteriormente mencionados cumplen con dicha característica.
+
+Aprovechando la licencia GPL 3.0 se ha recuperado el modelo 3D proporcionado por UFactory como punto de partida. A partir de este modelo se han impreso las piezas que hemos decidido conservar para nuestro proyecto.
 
 \begin{figure}[H]
     \centering
@@ -19,7 +28,7 @@ Aprovechando la licencia GPL 3.0 hemos empleado el modelo 3D proporcionado por U
     \label{fig:manipulador_inicial}
 \end{figure}
 
-Las herramientas que hemos usado para visualizar y modificar el modelo y posteriormente imprimir las piezas han sido respectivamente FreeCAD y Slic3r.
+Las herramientas que han sido empleadas para visualizar y modificar el modelo y posteriormente imprimir las piezas han sido respectivamente FreeCAD y Slic3r.
 
 \begin{figure}[H]
     \centering
@@ -37,4 +46,7 @@ El flujo de trabajo que se ha seguido desde el modelo 3D hasta la impresión de 
     \caption{Flujo de trabajo de la impresión 3D}
     \label{fig:flujo_3d}
 \end{figure}
+
+La estructura del brazo es pantográfica, lo que permite controlar todas las articulaciones mediante motores ubicados en la base. Esto es de especial importancia ya que hace posible que las articulaciones finales no carguen con el peso de los motores permitiendo emplear materiales como el plástico para la construcción de la estructura y además dando capacidad al brazo para levantar cargas mas pesadas.
+
 
