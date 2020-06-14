@@ -95,3 +95,58 @@ actividades, como interactuar con las personas o tocar un instrumento.
 \end{figure}
 
 \subsection{Los brazos robóticos}
+
+Con los avances actuales, el mundo de la robótica ha evolucionado a un nuevo nivel: con la inclusión
+de los transistores en lugar de las válvulas de vacío se han podido desarrollar circuitos integrados
+que manejan de manera mucho más sofisticada el control del brazo robótico.
+
+En 1962, la empresa ``Unimate'' introdujo su primer brazo robótico de carácter industrial. Aproximadamente,
+se vendieron 8500 unidades. Este hito es importante en tanto a que se valoraron por primera vez los
+grados de libertad que debían de tener los brazos robóticos. 
+
+Estos planteamientos derivaron en distintos robots famosos que incluso siguen en activo hoy día. En
+1969, Victor Scheinman, de la Universidad de Standford, desarrolló un brazo robótico que funcionaba
+alimentado por la electricidad y que se podía mover en los seis ejes, el cual se llamó ``el brazo de
+Standford''. De forma paralela, Marvin Minsky, del MIT, desarrolló un brazo robótico para la investigación
+naval, para exploración submarina. En particular, el brazo tenía veinte grados de libertad ya que el brazo
+funcionaba mediante electricidad impulsando sistemas hidráulicos. Más tarde, Scheinman continuó
+desarrollando brazos robóticos, creando el ``\textit{Programmable Universal Machine for Assembly}'',
+más conocido como PUMA.
+
+En la actualidad, los brazos robóticos se desarrollan y diseñan para seguir la estructura física
+del cuerpo humano (ver figura \ref{fig:human_body}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.65\linewidth]{pictures/human_body.png}
+    \caption{grados de libertad de un brazo robótico y estructura del cuerpo humano \cite{moran_evolution_2007}.}
+    \label{fig:human_body}
+\end{figure}
+
+De esta estructura anterior, se deducen las siguientes partes:
+
+\begin{itemize}
+    \item Articulación del hombro: dispone de tres grados de libertad que permiten
+    subir y bajar, ir a la izquierda y derecha, y rotar sobre sí mismo.
+    \item Articulación del codo: el codo permite extender, contraer y reorientar tanto
+    la muñeca como la mano. Por lo general, se estima la extensión del codo en unos
+    150\textdegree.
+    \item La muñeca: compone el último elemento del brazo robótico antes de llegar
+    al ``\textit{end--effector}''. Es de los elementos más importantes debido a su
+    gran capacidad de movimiento en las tres dimensiones. Sin esta articulación,
+    el brazo robótico se asemejaría en funcionalidad a un robot pantográfico. Cada vez más,
+    las articulaciones de la muñeca se vuelven complejas y sofisticadas. La muñeca humana,
+    por ejemplo, puede moverse 45\textdegree desde el centro, pero se reduce mucho la
+    capacidad de rotación de la misma. En la actualidad se está investigando cómo poder
+    mejorar la relación de movimientos para permitir una mayor movilidad, pero las 
+    singularidades siguen siendo un gran problema. Por ejemplo, el robot quirúrgico
+    da Vinci, pese a lo avanzado que pueda parecer, tiene problemas de bloqueo de las muñecas
+    del mismo cuando se acerca a posiciones singulares.
+    \item La mano: supone un ``\textit{end--effector}'' diferenciado que define el propóstio
+    y la capacidad del brazo robótico. La mano es una herramienta capaz de realizar múltiples
+    acciones muy variadas entre sí. Actualmente, se sigue investigando de forma activa sobre
+    ello para intentar implementar controles sensoriales, de presión y de movimiento en los
+    ``\textit{end--effector}'' de los robots.
+\end{itemize}
+
+\subsection{La actualidad}
