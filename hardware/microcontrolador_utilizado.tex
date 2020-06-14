@@ -14,8 +14,6 @@ Los motivos por los cuales se ha usado este modelo de DSP son los siguientes:
 
 Una parte critica del proyecto es la precisión y el control de los motores. En este aspecto los PWM del DSP permiten generar ciclos de trabajo a partir de un registro de 16 bits. Para una frecuencia de 50hz (Periodo de 20ms), un giro de 360 grados supondría una duración del nivel alto de 5ms. Es decir que se podrá controlar la rotación entre 0 y 360 grados con $ 2^{16}/4 = 16384$ bits esto supone que obtendremos una precisión máxima de $360/16384 = 0,02197 grados$ que es suficiente para el proyecto.
 
-
-
 Este microcontrolador gracias a que dispone de puertos UART permite recibir las ordenes y los movimientos necesarios desde el S1, por otro lado, el DSP cuenta con un PLL el cual permite aumentar la frecuencia interna del microcontrolador para incrementar la cantidad de operaciones por segundo que este puede hacer. Después de realizar las operaciones este se encargará de generar las señales PWM necesarias para mover los motores de tal manera que el brazo robótico quede en la posición deseada.
 
 
