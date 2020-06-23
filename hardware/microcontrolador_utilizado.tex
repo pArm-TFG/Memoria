@@ -1,27 +1,21 @@
-Para el desarrollo del la placa que conforma el S2 se ha empleado un microcontrolador dsPIC33EP512GM604.
-Los motivos por los cuales se ha usado este modelo de DSP son los siguientes: 
+Para el desarrollo de la placa que conforma el \ac{S2} se ha empleado un microcontrolador ``dsPIC33EP512GM604''.
+Los motivos por los cuales se ha usado este modelo son los siguientes: 
 
 \begin{itemize}
-\item En primera instancia, a la cantidad y a la precisión de los PWM que este ofrece, ya que son suficientes para poder controlar todos los motores y además su precisión permite generar una señal adecuada para controlar cada uno de los motores.
+ \item En primera instancia, a la cantidad y la precisión de los \ac{PWM} que este ofrece, ya que son suficientes para poder controlar todos los motores y su precisión permite generar una señal adecuada para controlar a cada uno de ellos.
 
-\item Por otro lado, debido a la naturaleza de los cálculos que se deben realizar para convertir posiciones cartesianas a ángulos y viceversa, el DSP facilita el calculo de las diferentes operaciones matriciales que permiten esta conversión.
+ \item Por otro lado, debido a la naturaleza de los cálculos que se deben realizar para convertir posiciones cartesianas a ángulos y viceversa, el \ac{DSP} facilita la obtención de los valores de las diferentes operaciones matriciales que permiten esta conversión.
 
-\item Otro aspecto importante es la posibilidad de almacenar hasta 512KB de memoria de programa.
+ \item Otro aspecto importante es la posibilidad de almacenar hasta 512KB de memoria de programa.
 
-\item Por ultimo se ha elegido un DSP Microchip debido a que todos los integrantes del grupo de desarrollo tiene experiencia previa con este fabricante. Además, dicho fabricante proporciona documentación extensa sobre sus productos.
-
+ \item Por último, se ha elegido un \ac{DSP} de Microchip debido a que todos los integrantes del grupo de desarrollo tiene experiencia previa con este fabricante. Además, dicho fabricante proporciona documentación extensa sobre sus productos.
 \end{itemize}
 
-Una parte critica del proyecto es la precisión y el control de los motores. En este aspecto los PWM del DSP permiten generar ciclos de trabajo a partir de un registro de 16 bits. Para una frecuencia de 50hz (Periodo de 20ms), un giro de 360 grados supondría una duración del nivel alto de 5ms. Es decir que se podrá controlar la rotación entre 0 y 360 grados con $ 2^{16}/4 = 16384$ bits esto supone que obtendremos una precisión máxima de $360/16384 = 0,02197 grados$ que es suficiente para el proyecto.
+Una parte crítica del proyecto es la precisión y el control de los motores. En este aspecto, los \ac{PWM} del \ac{DSP} permiten generar ciclos de trabajo a partir de un registro de 16 bits. Para una frecuencia de $50Hz$ (período de $20ms$), un giro de 360\degree{} supondría una duración del nivel alto del \ac{PWM} $5ms$. Es decir, se podrá controlar la rotación entre 0\degree{} y 360\degree{} con 
+$\sfrac{2^{16}}{4} = 16384\,bits$ de control. Esto supone que obtendremos una precisión máxima de $\sfrac{360}{16384} = 0'02197\degree{}$, lo cual es suficiente para el proyecto.
 
-En cuanto a las operaciones matemáticas el DSP cuenta con un circuito PLL (Phase Loop Lock) el cual permite incrementar la frecuencia del oscilador para conseguir de esta manera una mayor cantidad de microinstrucciones por segundo y por tanto un mayor volumen de operaciones.
+En cuanto a las operaciones matemáticas, el \ac{DSP} cuenta con un circuito \ac{PLL}, el cual permite incrementar la frecuencia del oscilador para conseguir de esta manera una mayor cantidad de microinstrucciones por segundo y, por tanto, un mayor volumen de operaciones.
 
-Debido a la complejidad del proyecto y a la gran variedad de sistemas que debemos emplear el código de programa es considerablemente grande. 512KB son suficientes para almacenar la memoria de programa para este proyecto.
+Debido a la complejidad del proyecto y a la gran variedad de sistemas que debemos emplear, el código de programa se espera sea considerablemente grande. 512KB son suficientes para almacenar la memoria de programa para este proyecto.
 
-Este microcontrolador gracias a que dispone de puertos UART permite recibir las ordenes y los movimientos necesarios desde el S1. Realizará las operaciones matemáticas necesarias y después se encargará de generar las señales PWM necesarias para mover los motores de tal manera que el brazo robótico quede en la posición deseada.
-
-
-
-
-
-    
+Este microcontrolador gracias a que dispone de puertos \ac{UART} permite recibir las ordenes y los movimientos necesarios desde el \ac{S1}. Desde \ac{S2}, se realizará las operaciones matemáticas necesarias y después se encargará de generar las señales \ac{PWM} necesarias para mover los motores de tal manera que el brazo robótico quede en la posición deseada.
