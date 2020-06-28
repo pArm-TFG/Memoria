@@ -1,37 +1,36 @@
-En este apartado se describe que tipo de motores se han utilizado, así como las razones que han llevado a utilizar un tipo de motores en lugar de otros.
-
 Dado que en este proyecto se ha planteado la construcción de un manipulador o brazo robótico, los únicos actuadores empleados han sido motores, los cuales dotan de movilidad a la estructura física del brazo.
 
-Cabe destacar que debido a la forma de la estructura física del brazo y dado a que el mismo tiene tres articulaciones móviles, se han empleado tres motores principales en cada una de ellas y un motor auxiliar en el extremo o \textit{end-effector} del manipulador.
+Cabe destacar que, debido a la forma de la estructura física del brazo y dado a que el mismo tiene tres articulaciones móviles, se han empleado tres motores principales en cada una de ellas y un motor auxiliar en el extremo o \textit{end--effector} del manipulador.
 
-Existen varios tipos de motores eléctricos que pueden ser usados para dotar de movilidad a proyectos de robótica de pequeña escala, sin embargo los principales tipos se pueden aglutinar en las siguientes tres categorías:
+Existen varios tipos de motores eléctricos que pueden ser usados para dotar de movilidad a proyectos de robótica de pequeña escala. Sin embargo los principales tipos se pueden aglutinar en las siguientes tres categorías:
+
 \begin{itemize}
-    \item Motores de corriente continua: son los motores eléctricos mas sencillos y básicos, debido a esto, realizar el control de la posición angular del eje y su velocidad de rotación es complicado y requiere aplicar técnicas de control de lazo cerrado. Además, el control físico de este tipo de motores se lleva a cabo mediante una señal PWM actuando sobre un puente H.
+    \item Motores de corriente continua: son los motores eléctricos más sencillos y básicos. Debido a esto, realizar el control de la posición angular del eje y su velocidad de rotación es complicado y requiere aplicar técnicas de control de lazo cerrado. Además, el control físico de este tipo de motores se lleva a cabo mediante una señal \ac{PWM} actuando sobre un puente H.
  
     \begin{figure}[htbp]
     \centering
-    \subfigure[Motor DC real]{\includegraphics[width=40mm]{pictures/DcMotor.jpeg}}
-    \subfigure[Funcionamiento]{\includegraphics[width=40mm]{pictures/Motor DC Magnetic.png}}
+    \subfigure[Motor DC real \cite{noauthor_775-9009f-c-cc_nodate}]{\includegraphics[width=40mm]{pictures/DcMotor.jpeg}}
+    \subfigure[Funcionamiento \cite{noauthor_motor_2020}]{\includegraphics[width=40mm]{pictures/Motor DC Magnetic.png}}
     \caption{Motor de corriente continua} \label{fig:lego}
     \end{figure}
 
 
-    \item Motores paso a paso: se trata de motores eléctricos mas complejos que ofrecen una precisión muy alta en cuanto a posición y velocidad, ya que descomponen su movimiento en pasos de longitud constante. En este tipo de motores se puede realizar control de velocidad y posición del eje del motor mediante técnicas de control de lazo abierto, dado que en este tipo de motores se controla el número de pasos que da el motor, así como cada cuanto tiempo se produce un paso. Este tipo de motores suelen necesitar un \textit{driver} específico para ser controlados.
+    \item Motores paso a paso: se trata de motores eléctricos más complejos que ofrecen una precisión muy alta en cuanto a  control de posición y velocidad, ya que descomponen su movimiento en pasos de longitud constante. En este tipo de motores se puede realizar control de velocidad y posición del eje del motor mediante técnicas de control de lazo abierto, dado que en este tipo de motores se controla el número de pasos que da el motor, así como cada cuanto tiempo se produce un paso. Este tipo de motores suelen necesitar un \textit{driver} específico para ser controlados.
     
     \begin{figure}[H]
     \centering
-    \subfigure[Motor real]{\includegraphics[width=56mm]{pictures/PasoPasoMotor.jpg}}
-    \subfigure[Funcionamiento]{\includegraphics[width=56mm]{pictures/MotorPasoPasoMagnetic.png}}
+    \subfigure[Motor real \cite{banggoodcom_3pcs_nodate}]{\includegraphics[width=56mm]{pictures/PasoPasoMotor.jpg}}
+    \subfigure[Funcionamiento \cite{noauthor_stepper_nodate}]{\includegraphics[width=56mm]{pictures/MotorPasoPasoMagnetic.png}}
     \caption{Motor paso a paso} \label{fig:lego}
     \end{figure}
   
-    \item Servomotores: se trata de motores de corriente continua que incorporan un sistema de control de posición de lazo cerrado, por ello, este tipo de motores ofrecen un control muy simple de la posición angular del eje del motor. A través de una señal PWM enviada al motor, se puede establecer una posición consigna que el eje del motor debe cumplir. Estos motores incluyen un sensor de posición o \textit{encoder} que determina la posición angular del eje del motor y un pequeño microcontrolador que verifica la posición actual del eje en comparación con la posición de consigna establecida, realizando las correcciones necesarias hasta alcanzar dicha posición angular.
+    \item Servomotores: se trata de motores de corriente continua que incorporan un sistema de control de posición de lazo cerrado. Por ello, este tipo de motores ofrecen un control muy simple de la posición angular del eje del motor. A través de una señal \ac{PWM} enviada al motor, se puede establecer una posición consigna que el eje del motor debe cumplir. Estos motores incluyen un sensor de posición o \textit{encoder} que determina la posición angular del eje del motor y un pequeño microcontrolador que verifica la posición actual del eje en comparación con la posición de consigna establecida, realizando las correcciones necesarias hasta alcanzar dicha posición angular.
     %%Poner foto
     
     \begin{figure}[H]
     \centering
-    \subfigure[Servomotor real]{\includegraphics[width=50mm]{pictures/Servo.jpg}}
-    \subfigure[Funcionamiento]{\includegraphics[width=80mm]{pictures/Servo-Motor-Internal-Structure-Illustration.png}}
+    \subfigure[Servomotor real \cite{noauthor_mini_nodate}]{\includegraphics[width=50mm]{pictures/Servo.jpg}}
+    \subfigure[Funcionamiento \cite{noauthor_how_2019}]{\includegraphics[width=80mm]{pictures/Servo-Motor-Internal-Structure-Illustration.png}}
     \caption{Servomotor de corriente continua} \label{fig:lego}
     \end{figure}
     
@@ -39,12 +38,12 @@ Existen varios tipos de motores eléctricos que pueden ser usados para dotar de 
 
 Tras analizar los diferentes tipos de motores anteriormente expuestos, se ha decidido utilizar servomotores para dotar de movilidad al brazo robótico. Esta decisión se fundamenta en los siguientes motivos:
 \begin{itemize}
-    \item Este tipo de motores ofrece un control de posición preciso y simple mediante una señal PWM. A pesar de que dicho control de posición se realiza mediante lazo cerrado internamente dentro del motor, desde un punto de vista externo, no se necesita ningún tipo de realimentación externa, \textit{driver} adicional o circuito de puente H para controlarlos.
+    \item Este tipo de motores ofrece un control de posición preciso y simple mediante una señal \ac{PWM}. A pesar de que dicho control de posición se realiza mediante lazo cerrado internamente dentro del motor, desde un punto de vista externo, no se necesita ningún tipo de realimentación externa, \textit{driver} adicional o circuito de puente H para controlarlos.
     
     \begin{figure}[h!]
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/Senal_PWM.jpg}
-    \caption{Control de posición mediante PWM \cite{noauthor_zona_nodate}}
+    \caption{Control de posición mediante PWM \cite{noauthor_zona_nodate}.}
     \label{fig:}
     \end{figure}
 
@@ -56,11 +55,11 @@ Tras analizar los diferentes tipos de motores anteriormente expuestos, se ha dec
 
 Es importante destacar que existen dos tipos de servomotores:
 \begin{itemize}
-    \item Servomotores de giro limitado: son aquellos servomotores que tienen un rango de rotación limitado, el cual suele ser normalmente de 180º. Son el tipo de servomotor mas sencillo.
+    \item Servomotores de giro limitado: son aquellos servomotores que tienen un rango de rotación limitado, el cual suele ser normalmente de 180º. Son el tipo de servomotor más sencillo.
     \item Servomotores de giro continuo: son aquellos servomotores que tienen rango completo de giro, es decir, pueden realizar giros de 360º.
 \end{itemize}
 
-Dado que ninguna de las articulaciones del motores esta diseñada para realizar giros de más de 180º, se han empleado servomotores de giro limitado.
+Dado que ninguna de las articulaciones del motores está diseñada para realizar giros de más de 180º, se han empleado servomotores de giro limitado.
 
 Otro de los datos que es importante clarificar antes de tomar la decisión de que motores van a ser usados en un proyecto de robótica, es la carga máxima que va tener que desplazar el manipulador robótico. Este dato afecta principalmente al diseño de la estructura física del brazo y a la potencia de los motores escogidos, en especial, el torque que ejercen. 
 
@@ -68,8 +67,8 @@ Finalmente, el modelo de servomotor elegido para las articulaciones ha sido el \
 
 \begin{itemize}
     \item Servomotor de rango limitado de 180º.
-    \item Control mediante señal PWM de 50Hz.
-    \item Alimentación de entre 4V y 6V, utilizando entre 15mA y 200mA. Potencia nominal de 140mA.
+    \item Control mediante señal \ac{PWM} de 50Hz.
+    \item Alimentación de entre $4V$ y $6V$, utilizando entre $15mA$ y $200mA$. Potencia nominal de $140mA$.
     \item Torque máximo ejercido de $27N\cdot cm$, es decir aproximadamente $2.75 Kg\cdot cm$. Este torque garantiza una carga máxima de unos 80g - 100g para el brazo robótico.
     \item Peso de 44g.
     \item Dimensiones 406 x 55,8 x 19 mm
@@ -78,7 +77,7 @@ Finalmente, el modelo de servomotor elegido para las articulaciones ha sido el \
 \begin{figure}[H]
     \centering 
     \includegraphics[width=.35\linewidth]{pictures/ServoParallax.PNG}
-    \caption{Servomotor Parallax utilizado}
+    \caption{Servomotor Parallax utilizado \cite{noauthor_900-00005_nodate}}
     \label{fig:}
 \end{figure}
 
