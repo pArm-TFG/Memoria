@@ -39,51 +39,51 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Ejemplo de cadena cinemática \cite {sharmaGeneralizedUnifiedClosed2017}.\relax }}{13}{figure.caption.36}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Ejemplo de cadena cinemática \cite {sharmaGeneralizedUnifiedClosed2017}.\relax }}{15}{figure.caption.38}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Diagrama del modelo cinemático \cite {RoboyInverseKinematics}.\relax }}{13}{figure.caption.37}%
-\defcounter {refsection}{0}\relax 
-\addvspace {10\p@ }
-\defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Diagrama de bloques del S2\relax }}{17}{figure.caption.38}%
-\defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Diagrama de estados del método main() del orchestrator\relax }}{18}{figure.caption.39}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Diagrama del modelo cinemático \cite {RoboyInverseKinematics}.\relax }}{15}{figure.caption.39}%
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Diagrama de bloques del S2\relax }}{19}{figure.caption.40}%
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Diagrama de estados del método main() del orchestrator\relax }}{20}{figure.caption.41}%
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Concepto inicial del brazo robótico.\relax }}{22}{figure.caption.44}%
+\addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Logotipos de las herramientas utilizadas.\relax }}{23}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Concepto inicial del brazo robótico.\relax }}{24}{figure.caption.44}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Flujo de trabajo del desarrollo y la impresión 3D.\relax }}{23}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Logotipos de las herramientas utilizadas.\relax }}{25}{figure.caption.45}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Una estructura pantográfica que transmite el movimiento de un punto al siguiente \cite {PantographContext}.\relax }}{24}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Flujo de trabajo del desarrollo y la impresión 3D.\relax }}{25}{figure.caption.46}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Área de trabajo de \textit {p}Arm{} \cite {UFACTORYXArmTextbackslashtextbaruArm}.\relax }}{25}{figure.caption.48}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Una estructura pantográfica que transmite el movimiento de un punto al siguiente \cite {PantographContext}.\relax }}{26}{figure.caption.47}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Motor de corriente continua\relax }}{27}{figure.caption.51}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Área de trabajo de \textit {p}Arm{} \cite {UFACTORYXArmTextbackslashtextbaruArm}.\relax }}{27}{figure.caption.48}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Motor DC real \cite {7759009FCCCDatasheetHoja}}}}{27}{figure.caption.51}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Motor de corriente continua\relax }}{29}{figure.caption.51}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Funcionamiento \cite {MotorCorrienteContinua2020}}}}{27}{figure.caption.51}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Motor DC real \cite {7759009FCCCDatasheetHoja}}}}{29}{figure.caption.51}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Motor paso a paso\relax }}{27}{figure.caption.52}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Funcionamiento \cite {MotorCorrienteContinua2020}}}}{29}{figure.caption.51}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Servomotor de corriente continua\relax }}{28}{figure.caption.53}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Motor paso a paso\relax }}{29}{figure.caption.52}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Control de posición mediante PWM \cite {ZonaMakerServomotores}.\relax }}{28}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Servomotor de corriente continua\relax }}{30}{figure.caption.53}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Motor real \cite {banggood.com3pcs42mm12V}}}}{28}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Control de posición mediante PWM \cite {ZonaMakerServomotores}.\relax }}{30}{figure.caption.54}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Funcionamiento \cite {StepperMotorsTypes}}}}{28}{figure.caption.54}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Motor real \cite {banggood.com3pcs42mm12V}}}}{30}{figure.caption.54}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Servomotor real \cite {MiniServomotorEbotics}}}}{28}{figure.caption.54}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Funcionamiento \cite {StepperMotorsTypes}}}}{30}{figure.caption.54}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Funcionamiento \cite {HowServoMotor2019}}}}{28}{figure.caption.54}%
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {Servomotor real \cite {MiniServomotorEbotics}}}}{30}{figure.caption.54}%
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Servomotor Parallax utilizado \cite {90000005ServomotorParallax}\relax }}{29}{figure.caption.55}%
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {Funcionamiento \cite {HowServoMotor2019}}}}{30}{figure.caption.54}%
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Servomotor Parallax utilizado \cite {90000005ServomotorParallax}\relax }}{31}{figure.caption.55}%
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 

@@ -1,0 +1,46 @@
+Dado que se pretende hacer un desarrollo de ingeniería completo, la metodología es un
+punto muy importante en este proyecto.
+
+Primeramente, antes de hacer ningún tipo de desarrollo o implementación, se hizo un
+estudio del problema, y de lo que se pretendía obtener. Por una parte, se comprobó
+hasta qué punto podrían ser reutilizables los diseños provistos por UFACTORY
+en su página de GitHub. Esto permitió diseñar elementos nuevos, adaptar los recursos
+a lo que hay disponible, etc. 
+Por otro lado, se estudió qué placa de control se quería utilizar. Debido a la familiaridad
+de los integrantes del equipo con las placas de la familia ``Microchip'', se plantearon
+distintas alternativas:
+
+\begin{itemize}
+    \item Controladores de gama media de la familia PIC16F.
+    \item Controladores de gama superior de la familia PIC32F.
+    \item Controladores digitales de la señal, de la familia dsPIC.
+\end{itemize}
+
+Se optó por utilizar los últimos mencionados, ya que disponen de un control específico
+matricial y matemático para poder agilizar las operaciones realizadas, de forma que
+los cómputos necesarios se podrían realizar íntegramente en el microcontrolador.
+
+Además, se estudió cómo se quería plantear la comunicación con el brazo: de forma
+completamente autónoma o mediante un equipo auxiliar. Para evitar la complejidad extra
+que habría surgido de desarrollar un sistema de control completamente autónomo del brazo
+por sí solo, se decidió conectarlo a un equipo auxiliar externo que lo gobierne, y que
+el \pArm{} no funcionase si no es estando conectado.
+
+Una vez se definieron estos puntos, se pasó al diseño lógico del sistema que deberán
+tener tanto \ac{S1} como \ac{S2}, mediante especificación de requisitos, diagramas lógicos,
+diagramas físicos, diagramas de diseño, etc. Esta parte del proyecto es de las más 
+importantes, ya que sustenta las ideas y las funcionalidades que habrán de estar presentes
+en el producto final. Mientras tanto, se han ido desarrollando pruebas y mecanismos de
+control para ir asegurando la correcta calidad del trabajo.
+
+Finalmente, una vez completada esta parte de diseño, se pasa a la implementación real.
+Dada la situación del COVID--19, esta fase de implementación se ha retrasado sobremanera,
+impidiendo pues presentar el proyecto en el mes de julio, como estaba previsto, y teniendo
+que acotar los plazos de implementación a, posiblemente, un mes. En el momento de
+implementación, se creará la placa diseñada y se empezará la impresión de distintas piezas
+3D, para comprobar su funcionamiento en conjunto e ir solucionando los posibles errores
+que aparezcan.
+
+Durante este proceso, se ha ido desarrollando además de forma paralela la memoria que 
+acompaña el proyecto, permitiendo ir actualizándola con los últimos cambios y mejoras que
+se han considerado de interés para aparecer descritas.

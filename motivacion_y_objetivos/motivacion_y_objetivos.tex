@@ -1,0 +1,43 @@
+Durante el primer semestre del cuarto curso de Ingeniería de Computadores,
+hay dos asignaturas las cuales propiciaron el desarrollo de este proyecto: robótica
+y sistemas empotrados.
+
+Con la primera, se vio la potencia de los brazos robóticos y se desarrolló un estudio
+sobre un controlador el cual se ha hablado con anterioridad: el $\mu$Arm \cite{UPMRoboticsUarm2019b}.
+Con la segunda asignatura, se vio cómo con sistemas de aplicación específica se podían
+desarrollar circuitos con suficiente potencia como para poder tomar el control de otros
+dispositivos más grandes y complejos aplicando la lógica estudiada a lo largo de los
+años.
+
+Se tomaron en cuenta los conocimientos obtenidos de las asignaturas anteriores
+para empezar un desarrollo que uniera esos dos campos: diseñar un brazo robótico
+impreso en 3D el cual estuviera gobernado por un microcontrolador en una placa de
+control de propósito específico. Para ello, se parte de los diseños 3D provistos
+en la web de UFACTORY \cite{UFACTORYXArmTextbackslashtextbaruArm} para su posterior
+adaptación y reutilización. En lo referente a la placa de control, el brazo original
+utiliza una placa Arduino Mega \cite{ArduinoMega2560}, por lo que se decidió (para dar
+mayor peso a la parte de ingeniería e intentar reducir costes) diseñar e implementar al completo una placa con
+otro microcontrolador para gobernar dicho brazo robótico.
+
+Principalmente, este trabajo se desarrolla bajo las dos perspectivas siguientes:
+\begin{itemize}
+    \item Aplicar en un proyecto de ingeniería real las competencias y técnicas que 
+    se han ido aprendiendo a lo largo de los distintos cursos del Grado de Ingeniería
+    de Computadores (61CI).
+    \item Construir una alternativa asequible y accesible, tanto a niveles de \ac{OS} y
+    \ac{OH}, de un brazo robótico de manera que cualquier persona interesada en este
+    ámbito de la ingeniería pueda introducirse y aprender, e incluso montar el brazo
+    por sí mismo.
+\end{itemize}
+
+Para la primera perspectiva, la forma de afrontarla y desarrollarla está detallada en el
+punto siguiente (\ref{sec:methodology}). Para la perspectiva de desarrollo de un
+producto accesible y asequible, se partió desde el abaratamiento de costes: el brazo
+original $\mu$Arm se encuentra disponible en venta por aproximadamente \$749. Dicho precio,
+pese a no ser especialmente elevado, impide a muchas personas el acceso a la robótica
+en un brazo que pretende ser educativo y útil. Por este motivo, se desarrolla este proyecto
+principalmente para resultar barato. Además, siguiendo con la política del brazo
+original, el proyecto se desarrolla bajo las premisas \ac{OS} y \ac{OH}, de manera que
+inclusive para aquellos que no puedan imprimir el brazo 3D se dispone de forma universal
+todos los diagramas, planos, esquemas, diseños y código fuente que se ha empleado para
+acabar desarrollando el brazo \pArm{}.
