@@ -1,0 +1,59 @@
+\subsection{Objetivos}
+
+El desarrollo de una PCB se considera una de las partes esenciales de este proyecto y por lo tanto su importancia es máxima.
+
+El objetivo principal que persigue el diseñar y construir una PCB en este proyecto es el de dotar al sistema de un centro de cómputo principal, el cual es utilizado para procesar las ordenes de S1, realizar los cálculos pertinentes y ejecutar las acciones necesarias sobre la estructura del brazo robótico.
+
+Se considera  por lo tanto que la PCB es el centro de computo principal del sistema y por lo tanto se encarga de alojar el microcontrolador DSPIC, así como todos los periféricos necesarios para establecer la comunicación con S1, realizar el control de los actuadores y monitorizar el estado del manipulador.
+
+En los siguientes apartados se detalla el proceso de diseño y construcción llevado a cabo para completar la PCB.
+
+\subsection{Componentes principales}
+
+El diseño de la PCB esta completamente estructurado según varios componentes principales, por lo tanto, en este apartado se describe cuales son, las decisiones que han llevado a incluirlos y sus funcionalidades principales dentro del proyecto.
+
+En general se podría decir que los componentes de la PCB se clasifican en tres categorías principales:
+\begin{itemize}
+    \item Componentes de alimentación eléctrica.
+    \item Microcontrolador y componentes auxiliares para su correcto funcionamiento.
+    \item Periféricos destinados a control de actuadores y canales de comunicación.
+\end{itemize}
+
+En primer lugar, los componentes de alimentación eléctrica son aquellos que forman el circuito de alimentación del microcontrolador así como de los actuadores. El circuito eléctrico de alimentación de la PCB se ha diseñado para poder alimentar de forma simultánea al microcontrolador y a cada uno de los cuatro servomotores y por lo tanto, está formado por dos etapas:
+\begin{itemize}
+    \item La PCB recibe una tensión de entrada de 9V y una corriente de entre 1.8A - 2A mediante una clema. Posteriormente esta tensión de alimentación será reducida y adaptada para alimentar a cada una de las etapas de la PCB, es decir, al microcontrolador y servomotores.
+    \item En la primera etapa se reduce el voltaje de alimentación principal a 6V y 0.4A aproximadamente para cada uno de los servomotores, utilizando para ello un regulador LM317 para cada servomotor. Esta alimentación se realiza mediante clemas, a las cuales se deben conectar la alimentación de los motores.
+    \item En la segunda etapa se reduce el voltaje de alimentación principal a 3.3V y 0.15A aproximadamente con objetivo de alimentar el microcontrolador, utilizando para  ello un regulador LM317. Esta alimentación se realiza mediante pistas únicamente.
+\end{itemize}
+
+En segundo lugar, el microcontrolador y sus componentes auxiliares representan el núcleo de la PCB:
+\begin{itemize}
+    \item El DSPIC se encuentra localizado en el centro de la PCB y de el surgen todas las conexiones necesarias hacia los periféricos.
+    \item Los componentes auxiliares del microcontrolador son componentes eléctricos que aseguran el correcto funcionamiento del DSPIC, así como su seguridad. En el caso específico de este microcontrolador, es necesario incluir varios condensadores en las tomas de alimentación.
+\end{itemize}
+
+En último lugar se detallan los principales periféricos que serán empleados:
+\begin{itemize}
+    \item Cristal de cuarzo: mediante este periférico se genera una señal de reloj precisa y de buena calidad de 7Mhz, la cual sera recibida por el microcontrolador y usada como señal de reloj principal del sistema.
+    \item Puerto de programación: mediante este periférico se puede conectar la sonda de programación del microcontrolador y por lo tanto es un elemento esencial.
+    \item Puerto TRIS: mediante este periférico se pueden recibir señales digitales y analógicas las cuales son procesadas por el microcontrolador. En este proyecto se utiliza este periférico para monitorizar los finales de carrera de la estructura del brazo robótico.
+    \item Puerto PWM: mediante este periférico se pueden generar señales PWM, las cuales son completamente necesarias para controlar los servomotores.
+    \item UART: mediante este periférico se establece un canal de comunicación hardware con S1, el cual se usa para recibir ordenes, movimientos y realimentar su resultado de vuelta a S1.
+    \item LEDS de estado: mediante este periférico se muestra el estado del sistema mediante tres diodos LED.
+\end{itemize}
+
+
+
+
+
+\subsection{Diseño lógico esquemático}
+
+\subsection{Diseño físico}
+
+\subsection{Conexionado mediante pistas}
+
+\subsection{Verificaciones del diseño final}
+
+\subsection{Decisiones críticas durante el desarrollo}
+
+\subsection{Construcción}
