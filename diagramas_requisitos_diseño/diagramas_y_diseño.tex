@@ -2,55 +2,118 @@ En base a los anteriores requisitos el grupo de desarrollo ha generado los sigui
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{pictures/S2BlockDiagram.PNG}
-    \caption{Diagrama de bloques del S2}
+    \includegraphics[width=\linewidth]{pictures/S2BlockDiagram.PNG}
+    \caption{Diagrama de bloques del \ac{S2}}
     \label{fig:diagrama_bloques_s2}
 \end{figure}
 
-En el diagrama \ref{fig:diagrama_bloques_s2} se pueden observar los bloques que componen el S2 además de dos tipos de datos los cuales han sido creados para facilitar el control de los motores del brazo.
+En el diagrama \ref{fig:diagrama_bloques_s2} se pueden observar los bloques que componen el \ac{S2} además de dos tipos de datos los cuales han sido creados para facilitar el control de los motores del brazo.
 
 A continuación se explican cada uno de los bloques:
 
 \begin{itemize}
-    \item MotorHandler: Este bloque es capaz de controlar los motores de manera directa empleando el tipo de dato "Movement" enviando la señal necesaria para realizar el movimiento requerido. Además permite verificar el estado de los motores y cancelar los movimientos si esto fuese necesario.
+    \item \texttt{MotorHandler}: este bloque es capaz de controlar los motores de manera directa empleando el tipo de dato ``\texttt{Movement}'' enviando la señal necesaria para realizar el movimiento requerido. Además permite verificar el estado de los motores y cancelar los movimientos si esto fuese necesario.
     
-    \item UART: Este bloque es el encargado de la comunicación asíncrona entre el S1 y el S2. Controla el ratio de baudios de la comunicación y realiza la transmisión y la recepción de información hasta y desde el S1. A través de este bloque se reciben las ordenes procedentes del S1 y se envían los errores y la posición del brazo al S1 desde el S2.
+    \item \texttt{UART}: este bloque es el encargado de la comunicación asíncrona entre el \ac{S1} y el \ac{S2}. Controla el ratio de baudios de la comunicación y realiza la transmisión y la recepción de información hasta y desde el \ac{S1}. A través de este bloque se reciben las ordenes procedentes del \ac{S1} y se envían los errores y la posición del brazo al S1 desde el \ac{S2}.
     
-    \item Orchestrator: Encargado de coordinar los demás bloques. En el se encuentra la lógica principal del S2. Algunas de sus funciones mas importantes son interpretar el flujo de bits que llega desde el S1 para obtener una orden concreta; ordenar el movimiento del brazo empleando los demás bloques o hacer el hadshake inicial entre el S1 y el S2. Posteriormente se entrará mas en detalle en el comportamiento de este bloque al analizar los diagramas de estados.
+    \item \texttt{Orchestrator}: encargado de coordinar los demás bloques. En el se encuentra la lógica principal del \ac{S2}. Algunas de sus funciones mas importantes son interpretar el flujo de bits que llega desde el S1 para obtener una orden concreta; ordenar el movimiento del brazo empleando los demás bloques o hacer el ``hadshake'' inicial entre el \ac{S1} y el \ac{S2}. Posteriormente se entrará mas en detalle en el comportamiento de este bloque al analizar los diagramas de estados.
     
-    \item MovementComputer: Se encarga de computar el movimiento que se tendrá que comunicar a los motores. Para ello deberá obtener las posiciones deseadas gracias al bloque UART y al Orchestrator.
+    \item \texttt{MovementComputer}: se encarga de computar el movimiento que se tendrá que comunicar a los motores. Para ello deberá obtener las posiciones deseadas gracias al bloque UART y al ``\texttt{Orchestrator}''.
 \end{itemize}
 
 A continuación se explican las dos estructuras de datos que se aprecian en el diagrama \ref{fig:diagrama_bloques_s2}
 
 \begin{itemize}
-    \item Motor: Este tipo de dato es empleado por el MotorHandler para saber a que pin debe mandar la señal PWM que gobierna los motores y durante cuantos ticks deberá estar activa dicha señal
+    \item Motor: Este tipo de dato es empleado por el ``MotorHandler'' para saber a que pin debe mandar la señal ``PWM'' que gobierna los motores y durante cuantos ticks deberá estar activa dicha señal
     
-    \item Movement: El MovementComputer genera un array de 3 posiciones de este tipo de dato, uno por cada motor de giro del brazo. El atributo "motor" guarda un integer que representa uno de los motores del brazo; "direction" sirve para conocer la dirección de giro de dicho motor; "expectedDuration" guarda la duración  
+    \item Movement: El ``MovementComputer'' genera un array de 3 posiciones de este tipo de dato, uno por cada motor de giro del brazo. El atributo ``moto'' guarda un integer que representa uno de los motores del brazo; ``direction'' sirve para conocer la dirección de giro de dicho motor; ``expectedDuration'' guarda la duración  
 \end{itemize}
 
 A continuación se explican los diagramas de estados de cada uno de los métodos que aparecen en el diagrama de bloques general.
 
-En el caso del Orchestrator tenemos los siguientes diagramas.
+En el caso del ``Orchestrator'' tenemos los siguientes diagramas.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{pictures/S2OrchestratorMain.PNG}
-    \caption{Diagrama de estados del método main() del orchestrator}
+    \caption{Diagrama de estados del método \texttt{main()} del \textit{orchestrator}.}
     \label{fig:fun_main_orchestrator}
 \end{figure}
 
 Este método solo se ejecutará una vez, en cuanto el sistema se ponga en marcha. 
 
 \begin{itemize}
-    \item checkHealthStatus: Se verifica la situación de los componentes del brazo robótico para confirmar que todos están en un astado adecuado para el funcionamiento. 
-    \item initUart: Se inicializa la UART definiendo un ratio de baudios concreto.
-    \item initMotorHandler: Se inicializa el controlador de los motores.
-    \item initMovementComputer : Se inicializa el computador de movimientos.
-    \item sendHandShakeRequest : Se manda una petición de handshake para verificar si hay algún ordenador conectado. Si se detecta alguno se pasa al siguiente estado, si no, se mantiene en ese estado mandando requests.
-    \item doHandShake : Si en el estado anterior se detecta un ordenador se pasa a este estado. Se realiza una serie de intercambios de información para verificar que el ordenador conectado es adecuado para el control del brazo.
-    \item loop: Se pasa al bucle de funcionamiento si el handshake ha sido correcto.
-    \item errorState: Estado de error al que se llega si en alguno de los estados ocurre algún problema inesperado. 
+    \item \texttt{checkHealthStatus}: Se verifica la situación de los componentes del brazo robótico para confirmar que todos están en un astado adecuado para el funcionamiento. 
+    \item \texttt{initUart}: Se inicializa la UART definiendo un ratio de baudios concreto.
+    \item \texttt{initMotorHandler}: Se inicializa el controlador de los motores.
+    \item \texttt{initMovementComputer}: Se inicializa el computador de movimientos.
+    \item \texttt{sendHandShakeRequest} : Se manda una petición de handshake para verificar si hay algún ordenador conectado. Si se detecta alguno se pasa al siguiente estado, si no, se mantiene en ese estado mandando requests.
+    \item \texttt{doHandShake}: Si en el estado anterior se detecta un ordenador se pasa a este estado. Se realiza una serie de intercambios de información para verificar que el ordenador conectado es adecuado para el control del brazo.
+    \item \texttt{loop}: Se pasa al bucle de funcionamiento si el handshake ha sido correcto.
+    \item \texttt{errorState}: Estado de error al que se llega si en alguno de los estados ocurre algún problema inesperado. 
     
+    
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2OrchestratorLoop.PNG}
+    \caption{Diagrama de estados del método \texttt{loop()} del \textit{orchestrator}.}
+    \label{fig:fun_loop_orchestrator}
+\end{figure}
+
+Este método es el bucle principal del brazo robotico. Tras ejecutar \texttt{main()} el sistema entrará en este bucle y no saldrá hasta que se apaga.
+
+\begin{itemize}
+    \item \texttt{Idle}: el brazo se encuentra ocioso y a la espera de una orden desde el \ac{S1}
+    \item \texttt{interpretBitStream}: tras una interrupción de la UART el \ac{S2} entiende que hay una orden o movimiento procedentes del \ac{S1} y se avanza a este estado. El bitStream es interpretado para saber si es una orden o un movimiento.
+    \item \texttt{executeMovement}: si tras interpretar el bitStream resulta que es un movimiento, el sistema avanza a este estado y se ponen en marcha los demás bloques para poder generar un movimiento en los motores en base a la posición recibida desde \ac{S1}
+    \item \texttt{executeOrder}: si tras interpretar el bitStream resulta que es una orden, el sistema avanza a este estado y se ponen en marcha los bloques necesarios para ejecutar dicha orden.
+    \item \texttt{monitorMovement} : tras empezar a ejecutar un movimiento el brazo empieza a monitorizarlo para poder determinar cuando se ha terminado o, si es cancelado, actualizar la posición en la que se ha quedado el brazo.
+    \item \texttt{errorState}: Estado de error al que se llega si en alguno de los estados ocurre algún problema inesperado. 
+    
+    
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2OrchestratorCheckMotorHealthStatus.PNG}
+    \caption{Diagrama de estados del método \texttt{CheckMotorHealthStatus()} del \textit{orchestrator}.}
+    \label{fig:fun_check_motor_health_status_orchestrator}
+\end{figure}
+
+Este método comprueba el estado de los motores para asegurar que estos tienen un funcionamiento correcto antes de recibir cualquier orden de movimiento.
+
+\begin{itemize}
+    \item \texttt{executeMovement}: se ejecuta un movimiento a una posición en la que todos los fines de carrera sean activados.
+    \item \texttt{interpretBitStream}: se verifica que todos los fines de carrera han sido alcanzados pudiendo concluir que el brazo es capaz de mover todos sus motores.
+    
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2OrchestratorCancelMovement.PNG}
+    \caption{Diagrama de estados del método \texttt{CancelMovement()} del \textit{orchestrator}.}
+    \label{fig:fun_cancel_movement_orchestrator}
+\end{figure}
+
+Este método finaliza un movimiento que se este realizando.
+
+\begin{itemize}
+    \item \texttt{cancelMovment}: se cancela el movimiento y se guarda la posición actual del brazo..
+    
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2OrchestratorComunicateError.PNG}
+    \caption{Diagrama de estados del método \texttt{ComunicateError()} del \textit{orchestrator}.}
+    \label{fig:fun_comunicate_error_orchestrator}
+\end{figure}
+
+Este método comunica un error al \ac{S1}.
+
+\begin{itemize}
+    \item \texttt{cancelMovment}: se comunica un bitStream que representa un error ocurrido en el \ac{S2}
     
 \end{itemize}
