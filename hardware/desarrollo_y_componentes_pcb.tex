@@ -28,7 +28,7 @@ En primer lugar, los componentes de alimentación eléctrica son aquellos que fo
 
 En segundo lugar, el microcontrolador y sus componentes auxiliares representan el núcleo de la PCB:
 \begin{itemize}
-    \item El DSPIC se encuentra localizado en el centro de la PCB y de el surgen todas las conexiones necesarias hacia los periféricos.
+    \item El DSPIC se encuentra localizado en el centro de la PCB y de él surgen todas las conexiones necesarias hacia los periféricos.
     \item Los componentes auxiliares del microcontrolador son componentes eléctricos que aseguran el correcto funcionamiento del DSPIC, así como su seguridad. En el caso específico de este microcontrolador, es necesario incluir varios condensadores en sus pines de alimentación.
 \end{itemize}
 
@@ -56,11 +56,16 @@ El diagrama esquemático esta dividido en dos partes principales, las cuales fac
     \item Diagrama esquemático del microcontrolador y sus periféricos.
 \end{itemize}
 
-En primer lugar se procede a describir detalladamente el diagrama esquemático del circuito de alimentación, el cual contiene las dos etapas de alimentación, incluyendo reguladores de voltaje LM317 y clemas.
+En primer lugar se procede a describir detalladamente el diagrama esquemático del circuito de alimentación, el cual contiene las dos etapas de alimentación, siendo los principales componentes usados los reguladores de voltaje LM317,L7805CV y AZ1117H.
 
 La clema principal de alimentación recibe 9V y 1.8A aproximadamente. Esta alimentación debe ser provista externamente mediante una fuente de alimentación regulable o similares. 
 
-Conectados directamente a la clema principal se encuentran los 5 reguladores de tensión que adaptan la tensión de alimentación a las dos etapas. Tal y como se puede observar, estos reguladores de tensión LM317 deben estar conectados de una forma particular para que cumplan su función correctamente, a continuación se detalla el proceso seguido para establecer su conexionado.
+Conectados directamente a la clema principal se encuentran conectados los reguladores de tensión correspondientes a las dos etapas de alimentación:
+\begin{itemize}
+    \item La primera etapa de alimentación está formada por cuatro reguladores LM317, los cuales alimentan cada uno de los servomotores. En esta etapa de alimentación se reduce el voltaje de 9V a 5.5V.
+    
+    \item La segunda etapa de alimentación está formada por un regulador de tensión L7805CV y un AZ1117H. En esta etapa de alimentación se reduce el voltaje de 9V a 5V usando el primer regulador, y de 5V a 3.3V usando el segundo.
+\end{itemize}
 
 El funcionamiento del regulador LM317 es bastante común, se trata de un regulador de voltaje ajustable que recibe una tensión continua de entrada de entre 3V - 40V, y provee una tensión continua salida de entre 1.25V - 37V; la relación entre la tensión de entrada y salida depende de dos resistencias auxiliares. El conexionado sugerido por el fabricante es el siguiente y se ha obtenido del datasheet del regulador:
 
@@ -81,7 +86,6 @@ La ecuación anterior debe ser usada para realizar los cálculos pertinentes sob
 \begin{itemize}
     \item Se tiene que por definición, el fabricante establece el valor $V_{REF}$ en 1.25V
     \item Por motivos de construcción del regulador, la corriente $I_{ADJ}$ tiene un valor máximo de $100 \mu A$ y por lo tanto el término de la ecuación que la involucra puede ser despreciado.
-    \item El valor recomendado por el fabricante para la resistencia R1 es de $240 \Omega$.
 \end{itemize}
 
 Se tiene por lo tanto que la ecuación funcional a utilizar en el cálculo de R1 y R2 es:
@@ -90,31 +94,56 @@ Se tiene por lo tanto que la ecuación funcional a utilizar en el cálculo de R1
     V_{OUT} = 1.25 \cdot ( 1 + \frac{R2}{240}) 
 \end{equation}
 
-Teniendo en cuenta los voltajes de alimentación requeridos para las dos etapas de alimentación de la PCB, se han realizado los siguientes cálculos para los valores de la resistencia R2:
+Teniendo en cuenta los voltajes de alimentación requeridos para las dos etapas de alimentación de la PCB, se han realizado los siguientes cálculos para los valores de la resistencia R1 y R2:
 \begin{itemize}
-    \item Etapa 1, alimentación de servomotores, 6V y 0.4A requeridos:
+    \item Primera etapa, alimentación de servomotores, 5.5V y 0.4A requeridos:
     \begin{equation}
-        6 = 1.25 \cdot ( 1 + \frac{R2}{240}) 
+        5.5 = 1.25 \cdot ( 1 + \frac{R2}{R1}) 
     \end{equation}
-    Se obtiene que el valor aproximado de R2 es $912 \Omega$, sin embargo por disponibilidad de materiales se escoge un valor de $R2 = 910 \Omega$, garantizando de esta forma un voltaje de salida de aproximadamente 5.989V.
-    
-    \item Etapa 2, alimentación del microcontrolador, 3.3 y 0.15A requeridos:
-    \begin{equation}
-        3.3 = 1.25 \cdot ( 1 + \frac{R2}{240}) 
-    \end{equation}
-    Se obtiene que el valor aproximado de R2 es $393.59 \Omega$, sin embargo por disponibilidad de materiales se escoge un valor de $R2 = 400 \Omega$, garantizando de esta forma un voltaje de salida de aproximadamente 3.34V.
+    Por disponibilidad de materiales, se ha decidido escoger los valores $150 \Omega$ y $500 \Omega$ para los valores de R1 y R2 respectivamente. Tomando en cuenta dichos valores y utilizando la ecuación anterior, se obtiene una reducción de voltaje de 9V a 5.41V, voltaje suficiente para alimentar los servomotores.
 \end{itemize}
 
-Aplicando el conexionado recomendado por el fabricante y los cálculos para el valor de las resistencias se obtiene finalmente el diagrama esquemático del circuito de alimentación:
+Aplicando el conexionado recomendado por el fabricante y los cálculos para el valor de las resistencias se obtiene finalmente el diagrama esquemático del circuito de alimentación de los servomotores:
 
 \begin{figure}[H]
     \centering 
-    \includegraphics[width=.85\linewidth]{pictures/EsquematicoAlimentación.PNG}
-    \caption{Diagrama esquemático del circuito de alimentación}
+    \includegraphics[width=.85\linewidth]{pictures/EsquematicoAlimentaciónServos.PNG}
+    \caption{Diagrama esquemático del circuito de alimentación de los servomotores}
     \label{fig:kdiagram}
 \end{figure}
 
-%% foto de la parte izquierda
+El funcionamiento de los reguladores L7805CV y AZ1117H es simple:
+\begin{itemize}
+    \item El regulador L7805CV recibe un voltaje de entre 7V - 35V y provee un voltaje de salida fijo de 5V. Su conexionado se realiza utilizando dos condensadores auxiliares, tal y como se describe en el datasheet del componente:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=.75\linewidth]{pictures/L7805Datasheet.PNG}
+    \caption{Diagrama de conexionado del regulador L7805}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    \item El regulador AZ1117H recibe un voltaje de hasta 15V y provee un voltaje de salida fijo de 3.3V. Su conexionado se realiza de la misma forma que para el regulador anterior, tal y como se describe en el datasheet del componente:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=.75\linewidth]{pictures/AZ1117Hdatasheet.PNG}
+    \caption{Diagrama de conexionado del regulador AZ1117H}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    En el diagrama anterior se utiliza el modelo que ofrece regulación de voltaje a 5V, sin embargo el modelo usado en el proyecto es el que ofrece regulación de voltaje a 3.3V, siendo su conexionado exactamente igual.
+    
+\end{itemize}
+
+Teniendo en cuenta la información expuesta anteriormente, se ha decidido conectar en serie ambos reguladores, consiguiendo de esta forma una regulación de 9V a 5V y posteriormente una regulación de 5V a 3.3V. El diagrama esquemático final es el siguiente:
+
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=.95\linewidth]{pictures/EsquematicoAlimentaciónPic.PNG}
+    \caption{Diagrama esquemático de la etapa de alimentación del microcontrolador}
+    \label{fig:kdiagram}
+    \end{figure}
 
 Es importante destacar tres aspectos:
 \begin{itemize}
@@ -190,11 +219,17 @@ A continuación se describe el conexionado del resto de puertos y periféricos:
     
     \item Puerto TRIS: se trata del puerto al que se conectan los micro-interruptores que se utilizan en los finales de carrera de la estructura del brazo robótico.
     
-    Para detectar si el brazo robótico se encuentra en uno de sus finales de carrera o zonas límite de movimiento, se utilizan unos micro-interruptores que al ser presionados por el manipulador, realizan cortocircuito. Mediante este cortocircuito y dado que estos micro-interruptores se encuentran conectados a los pines 19, 20, 21 y 22 del microntrolador, se puede realizar la lectura de dichos pines y detectar un nivel alto de 3.3V. De esta manera se consigue saber cuando el manipulador ha alcanzado o no un final de carrera.
+    Para detectar si el brazo robótico se encuentra en uno de sus finales de carrera o zonas límite de movimiento, se utilizan unos micro-interruptores que al ser presionados por el manipulador, realizan cortocircuito. Mediante este cortocircuito y dado que estos micro-interruptores se encuentran conectados a los pines 19, 20, 21 y 22 del microntrolador, se puede realizar la lectura de dichos pines y detectar el estado de micro-interruptor. De esta manera se consigue saber cuando el manipulador ha alcanzado o no un final de carrera.
     
     A continuación se muestra un esquema de lo mencionado anteriormente:
     
-    %% meter foto de como funcionan los finales de carrera
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=.64
+    \linewidth]{pictures/MicroSwitchesSchematic.PNG}
+    \caption{Circuito lógico para los finales de carrera}
+    \label{fig:kdiagram}
+    \end{figure}
     
     Mediante el conexionado anterior, si el micro-interruptor está abierto, se recibe un nivel bajo por el pin del microcontrolador; mientras que si el micro-interruptor está cerrado se recibe un nivel alto por el pin del microcontrolador. 
     
@@ -209,21 +244,99 @@ A continuación se describe el conexionado del resto de puertos y periféricos:
     \label{fig:kdiagram}
     \end{figure}
     
+    \item Puerto PWM: se trata del puerto que permite utilizar el generador de señales PWM del microcontrolador. 
     
+    Dado que en este proyecto se realiza control de servomotores, es completamente necesario el uso de señales PWM para controlar la posición angular de los mismos y por lo tanto se considera a este periférico como uno de los mas relevantes.
     
-    \item Puerto PWM:
+    Los generadores de señal PWM de este microcontrolador poseen las siguientes características técnicas relevantes:
+    \begin{itemize}
+        \item El microcontrolador ofrece 6 generadores de señal PWM de alta precisión y velocidad.
+        \item Cada uno de los generadores posee un registro de 16 bits para la selección de la duración del ciclo de trabajo; este registro esta divido en parte alta y parte baja.
+        \item Es posible utilizar de forma independiente la parte alta y parte baja de cada uno de los generadores, consiguiendo de esta forma dos subgeneradores que producen señales PWM independientes, sin embargo, su precisión se reduce a 8 bits.
+    \end{itemize}
     
-    \item UART:
+    El esquema mostrado por el fabricante para los generadores PWM es el siguiente:
     
-    \item LEDs de estado:
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=.6\linewidth]{pictures/PWMdatasheet.PNG}
+    \caption{Esquema del generador PWM}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Dado que para este proyecto únicamente se necesitan cuatro generadores PWM, se ha decidido utilizar cuatro módulos con precisión de 16 bits. En el caso de utilizar la precisión completa de cada generador, la señal de salida se proporciona por el pin correspondiente a la parte baja del registro. Mediante la información obtenida del pinout del microcontrolador, se tiene que los generadores de PWM 1, 4, 2 y 3 tienen asignados los pines 15, 13, 11 y 9 respectivamente.
+    
+    El conexionado final del puerto PWM en el diagrama esquemático es el siguiente:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=.45\linewidth]{pictures/PWM.PNG}
+    \caption{Diagrama esquemático del puerto PWM}
+    \label{fig:kdiagram}
+    \end{figure}
 
+    \item Puertos UART: se trata de los puertos que permiten la conexión del periférico UART del microcontrolador y mediante los cuales se establece el canal de comunicación con S1.
     
+    Mediante el periférico UART se pueden establecer un canal de comunicación hardware asíncrono en el cual existen diversas configuraciones en cuanto a formato de transmisión de bits y velocidades de comunicación. Suele ser un método de comunicación muy usado en microcontroladores y dispositivos hardware en general. El protocolo UART utiliza un puerto con tres conexiones: emisor (TX), receptor(RX) y GND.
+    
+    El esquema simplificado de este periférico en el datasheet es el siguiente:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=.6\linewidth]{pictures/UARTdatasheet.PNG}
+    \caption{Esquema del periférico UART}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Se ha tomado la decisión de incluir dos puertos UART independientes en la PCB que se ha desarrollado, con el objetivo principalmente de dedicar uno de los canales a envío y recepción de instrucciones; mientras que el otro se usa para realizar labores de depuración y pruebas.
+    
+    El conexionado de los puertos UART  se realiza mediante pines reconfigurables del microcontrolador, en este caso se han utilizado los pines 2 y 3 para el primer canal; además de los pines 3 y 4 para el segundo canal. El diagrama esquemático final es el siguiente:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=.6\linewidth]{pictures/UART.PNG}
+    \caption{Diagrama esquemático de los puertos UART}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    
+    \item LEDs de estado: se trata de tres diodos LED que se utilizan para indicar el estado del brazo robótico y demás aspectos del sistema. 
+    
+    Su conexionado se realizado utilizando los pines reconfigurables 41,42 y 43, los cuales pueden ser usados para habilitar una salida digital. Se considera que un nivel alto enciende el LED mientras que un nivel bajo lo mantiene apagado.
+    
+    A continuación se muestra el diagrama esquemático del circuito:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=.75\linewidth]{pictures/LEDS.PNG}
+    \caption{Diagrama esquemático de los LEDs}
+    \label{fig:kdiagram}
+    \end{figure}
+
+    Teniendo en cuenta que la corriente máxima suministrada  por el microcontrolador es de 18mA para salida digital y el que voltaje elegido ha sido 3.3V, el pin suministraría como mucho una potencia de 0.0594W. Se ha decidido que una potencia adecuada a suministrar sería un 80\% de la máxima, es decir 0.0475W. Para cumplir esta restricción, se ha calculado el valor ideal de la resistencia del esquema anterior y su valor recomendado es de entre $180 \Omega$ y $200 \Omega$.
     
 \end{itemize}
 
+En conclusión, una vista completa sobre el diagrama esquemático del proyecto es la siguiente:
 
-    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=1.05\linewidth]{pictures/EsquematicoCompleto.PNG}
+    \caption{Diagrama esquemático de los LEDs}
+    \label{fig:kdiagram}
+    \end{figure}
+
 \subsection{Diseño y Diagrama físico}
+
+Tal y como se ha descrito en el apartado anterior, el diseño lógico de la PCB se implementa mediante el diagrama esquemático, y su objetivo es el de describir las huellas y conexiones lógicas de los componentes; sin embargo, este diseño es de alto nivel y no es implementable directamente en términos físicos. 
+
+El siguiente paso tras completar el diagrama esquemático es transformar este diseño lógico en un diseño físico mas cercano a la implementación real. 
+
+El diseño físico de una PCB debe ser obtenido directamente de la información establecida en el diseño lógico y por lo tanto, se tiene que transformar el diseño esquemático en un diseño físico, en el cual se deben contemplar los aspectos físicos de los componentes y sus conexiones, además de sus aspectos lógicos.
+
+El objetivo principal del diseño y diagrama físico es el de plasmar la realidad física de los componentes y sus conexiones a partir de un diagrama esquemático, en el cual no se contemplan los aspectos físicos para simplificar el diseño inicial. En general, el diseño y diagrama físico es más complejo y difícil de comprender, por ello, normalmente, la primera etapa del diseño comienza con el diseño lógico y diagrama esquemático.
+
+
 
 \subsection{Conexionado y enrutado mediante pistas}
 

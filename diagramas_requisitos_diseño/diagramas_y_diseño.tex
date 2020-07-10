@@ -114,6 +114,40 @@ Este método finaliza un movimiento que se este realizando.
 Este método comunica un error al \ac{S1}.
 
 \begin{itemize}
-    \item \texttt{cancelMovment}: se comunica un bitStream que representa un error ocurrido en el \ac{S2}
+    \item \texttt{cancelMovment}: se envía un bitStream que representa un error ocurrido en el \ac{S2}
     
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2OrchestratorDoHandShake.PNG}
+    \caption{Diagrama de estados del método \texttt{DoHandShake()} del \textit{orchestrator}.}
+    \label{fig:fun_do_hand_shake_orchestrator}
+\end{figure}
+
+Este método es el encargado de autenticar a los dispositivos entre si y configurar un canal para su posterior comunicación
+
+\begin{itemize}
+    \item \texttt{receiveValue}: se realizan los procedimientos necesarios para recibir un valor desde \ac{S1} a través de la \ac{UART}.
+    \item \texttt{operateValue}: se realiza una operación matemática con el valor recibido para generar de esta manera un identificador.
+    \item \texttt{sendIdentifier}: se envía dicho identificador de vuelta a \ac{S1}.
+    \item \texttt{receiveResponse}: se recibe la respuesta de ac{S1} para saber si el \ac{hand--shake} ha sido realizado con exito.
+    \item \texttt{succesfulHandshake}: en caso de que en el estado
+    \texttt{receiveResponse} se haya recibido una respuesta afirmativa se pasa a este estado que representa que el dispositivo que conforma S1 y S2 han conseguido autenticarse entre si.
+    \item \texttt{unsuccesfulHandshake}: en caso de que en el estado\texttt{receiveResponse} se haya recibido una respuesta negativa se pasa a este estado que representa que el dispositivo que conforma S1 y S2 no han conseguido autenticarse
+    entre si.
+    \item \texttt{errorState}: Estado de error al que se llega si en alguno de los estados ocurre algún problema inesperado. 
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2OrchestratorExecuteMovement.PNG}
+    \caption{Diagrama de estados del método \texttt{ExecuteMovement()} del \textit{orchestrator}.}
+    \label{fig:fun_execute_movement_orchestrator}
+\end{figure}
+
+Este método es el encargado de, una vez recibida la trama de bits que representa movimiento desde el S1, decidir si el movimiento ha sido representado como ángulos o posiciones cartesianas y posteriormente ordenar las operaciones necesarias para que se generen las señales PWM que moveran los motores.
+
+\begin{itemize}
+    \item \texttt{receiveValue}: se realizan los procedimientos necesarios para recibir un valor desde \ac{S1} a través de la \ac{UART}.
 \end{itemize}
