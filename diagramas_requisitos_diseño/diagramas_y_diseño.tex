@@ -149,5 +149,30 @@ Este método es el encargado de autenticar a los dispositivos entre si y configu
 Este método es el encargado de, una vez recibida la trama de bits que representa movimiento desde el S1, decidir si el movimiento ha sido representado como ángulos o posiciones cartesianas y posteriormente ordenar las operaciones necesarias para que se generen las señales PWM que moveran los motores.
 
 \begin{itemize}
-    \item \texttt{receiveValue}: se realizan los procedimientos necesarios para recibir un valor desde \ac{S1} a través de la \ac{UART}.
+    \item \texttt{checkKindOfMovement}: Se verifica si el movimiento ha sido transmitido como una posición cartesiana o como unos ángulos destino para los motores y se procede en consecuencia.
+    \item \texttt{decodeAngles}: En caso de que fueran ángulos, se transita a este estado. Se interpreta la trama de bits y se obtiene el valor numérico de los ángulos.
+    \item \texttt{computeAngleMovement}: Se realizan comprobaciones para verificar que los ángulos están dentro de los limites del brazo y se procede a generar el array de movimientos que se necesitan hacer para conseguir llegar desde la posición actual a la posición destino.
+    \item \texttt{decodeXYZ}: En caso de que fueran posiciones cartesianas se transita a este estado. Se interpreta la trama de bits y se obtienen las coordenadas en centímetros.
+    \item \texttt{computeXYZMovements}: Para simplificar los cálculos matemáticos posteriores las posiciones cartesianas se convierten en ángulos. Se verifica si los ángulos están dentro de los limites del brazo y se procede a generar el array de movimientos que se necesitan hacer para conseguir llegar desde la posición actual a la posición destino.
+    \item \texttt{moveArm}: Se envian los movimientos a los motores.
+    
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2OrchestratorExecuteOrder.PNG}
+    \caption{Diagrama de estados del método \texttt{ExecuteORder()} del \textit{orchestrator}.}
+    \label{fig:fun_execute_order_orchestator}
+\end{figure}
+
+Este método es el encargado de, una vez recibida la trama de bits que representa una orden distinta de realizar un movimiento desde el S1, decodificar dicha orden y realizarla.
+
+\begin{itemize}
+    \item \texttt{checkKindOfMovement}: Se verifica si el movimiento ha sido transmitido como una posición cartesiana o como unos ángulos destino para los motores y se procede en consecuencia.
+    \item \texttt{decodeAngles}: En caso de que fueran ángulos, se transita a este estado. Se interpreta la trama de bits y se obtiene el valor numérico de los ángulos.
+    \item \texttt{computeAngleMovement}: Se realizan comprobaciones para verificar que los ángulos están dentro de los limites del brazo y se procede a generar el array de movimientos que se necesitan hacer para conseguir llegar desde la posición actual a la posición destino.
+    \item \texttt{decodeXYZ}: En caso de que fueran posiciones cartesianas se transita a este estado. Se interpreta la trama de bits y se obtienen las coordenadas en centímetros.
+    \item \texttt{computeXYZMovements}: Para simplificar los cálculos matemáticos posteriores las posiciones cartesianas se convierten en ángulos. Se verifica si los ángulos están dentro de los limites del brazo y se procede a generar el array de movimientos que se necesitan hacer para conseguir llegar desde la posición actual a la posición destino.
+    \item \texttt{moveArm}: Se envian los movimientos a los motores.
+    
 \end{itemize}
