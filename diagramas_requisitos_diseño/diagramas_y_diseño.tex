@@ -131,7 +131,7 @@ Este método es el encargado de autenticar a los dispositivos entre si y configu
     \item \texttt{receiveValue}: se realizan los procedimientos necesarios para recibir un valor desde \ac{S1} a través de la \ac{UART}.
     \item \texttt{operateValue}: se realiza una operación matemática con el valor recibido para generar de esta manera un identificador.
     \item \texttt{sendIdentifier}: se envía dicho identificador de vuelta a \ac{S1}.
-    \item \texttt{receiveResponse}: se recibe la respuesta de ac{S1} para saber si el \ac{hand--shake} ha sido realizado con exito.
+    \item \texttt{receiveResponse}: se recibe la respuesta de ac{S1} para saber si el \ac{hand--shake} ha sido realizado con éxito.
     \item \texttt{succesfulHandshake}: en caso de que en el estado
     \texttt{receiveResponse} se haya recibido una respuesta afirmativa se pasa a este estado que representa que el dispositivo que conforma S1 y S2 han conseguido autenticarse entre si.
     \item \texttt{unsuccesfulHandshake}: en caso de que en el estado\texttt{receiveResponse} se haya recibido una respuesta negativa se pasa a este estado que representa que el dispositivo que conforma S1 y S2 no han conseguido autenticarse
@@ -153,26 +153,84 @@ Este método es el encargado de, una vez recibida la trama de bits que represent
     \item \texttt{decodeAngles}: En caso de que fueran ángulos, se transita a este estado. Se interpreta la trama de bits y se obtiene el valor numérico de los ángulos.
     \item \texttt{computeAngleMovement}: Se realizan comprobaciones para verificar que los ángulos están dentro de los limites del brazo y se procede a generar el array de movimientos que se necesitan hacer para conseguir llegar desde la posición actual a la posición destino.
     \item \texttt{decodeXYZ}: En caso de que fueran posiciones cartesianas se transita a este estado. Se interpreta la trama de bits y se obtienen las coordenadas en centímetros.
-    \item \texttt{computeXYZMovements}: Para simplificar los cálculos matemáticos posteriores las posiciones cartesianas se convierten en ángulos. Se verifica si los ángulos están dentro de los limites del brazo y se procede a generar el array de movimientos que se necesitan hacer para conseguir llegar desde la posición actual a la posición destino.
-    \item \texttt{moveArm}: Se envian los movimientos a los motores.
+    \item \texttt{computeXYZMovements}: Para simplificar los cálculos matemáticos posteriores las posiciones cartesianas se convierten en ángulos. Se verifica si los ángulos están dentro de los limites del brazo y se procede a generar el \textit{array} de movimientos que se necesitan hacer para conseguir llegar desde la posición actual a la posición destino.
+    \item \texttt{moveArm}: Se envían los movimientos a los motores.
+    \item \texttt{errorState}: Estado de error al que se llega si en alguno de los estados ocurre algún problema inesperado. 
     
 \end{itemize}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{pictures/S2OrchestratorExecuteOrder.PNG}
-    \caption{Diagrama de estados del método \texttt{ExecuteORder()} del \textit{orchestrator}.}
+    \caption{Diagrama de estados del método \texttt{ExecuteOrder()} del \textit{orchestrator}.}
     \label{fig:fun_execute_order_orchestator}
 \end{figure}
 
 Este método es el encargado de, una vez recibida la trama de bits que representa una orden distinta de realizar un movimiento desde el S1, decodificar dicha orden y realizarla.
 
 \begin{itemize}
-    \item \texttt{checkKindOfMovement}: Se verifica si el movimiento ha sido transmitido como una posición cartesiana o como unos ángulos destino para los motores y se procede en consecuencia.
-    \item \texttt{decodeAngles}: En caso de que fueran ángulos, se transita a este estado. Se interpreta la trama de bits y se obtiene el valor numérico de los ángulos.
-    \item \texttt{computeAngleMovement}: Se realizan comprobaciones para verificar que los ángulos están dentro de los limites del brazo y se procede a generar el array de movimientos que se necesitan hacer para conseguir llegar desde la posición actual a la posición destino.
-    \item \texttt{decodeXYZ}: En caso de que fueran posiciones cartesianas se transita a este estado. Se interpreta la trama de bits y se obtienen las coordenadas en centímetros.
-    \item \texttt{computeXYZMovements}: Para simplificar los cálculos matemáticos posteriores las posiciones cartesianas se convierten en ángulos. Se verifica si los ángulos están dentro de los limites del brazo y se procede a generar el array de movimientos que se necesitan hacer para conseguir llegar desde la posición actual a la posición destino.
-    \item \texttt{moveArm}: Se envian los movimientos a los motores.
+    \item \texttt{decodeOrder}: Se interpreta la trama de bits para obtener la orden proveniente desde S1.
+    \item \texttt{doOrder}: Se ejecuta la orden obtenida en el estado anterior.
+    \item \texttt{Error}: Estado de error al que se llega si en alguno de los estados ocurre algún problema inesperado. 
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2OrchestratorMoveArm.PNG}
+    \caption{Diagrama de estados del método \texttt{moveArm()} del \textit{orchestrator}.}
+    \label{fig:fun_move_arm_orchestator}
+\end{figure}
+
+Este método es el encargado de mandar los movimientos a los motores una vez estos se hayan computado.
+
+\begin{itemize}
+    \item \texttt{sendMovementToMotors}: se mandan los movimientos necesarios a los motores.
     
 \end{itemize}
+
+En el caso del bloque “UART” tenemos los siguientes diagramas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2UartInit.PNG}
+    \caption{Diagrama de estados del método \texttt{uartInit()} del \textit{UART}.}
+    \label{fig:fun_uart_init_uart}
+\end{figure}
+
+Se ejecuta este método al inicio de la comunicación a través de la UART para configurar la transmisión de datos.
+
+\begin{itemize}
+    \item \texttt{setBaudrate}: Se establece el ratio de baudios para la transmisión asíncrona
+    \item \texttt{initUartInterupt}: Se configura el registro de interrupciones de tal manera que la UART sea capaz de generar una interrupción en el sistema con el objetivo de poder saber cuando se ha recibido una nueva trama de bits.
+    \item \texttt{initReceptionBuffer}: Se inicializa el \textit{buffer} de recepción.
+    
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2UartSetBaudrate.PNG}
+    \caption{Diagrama de estados del método \texttt{setBaudrate()} del \textit{UART}.}
+    \label{fig:fun_set_baudrate_uart}
+\end{figure}
+
+Se configuran los registros necesarios para obtener un ratio de baudios adecuados para la comunicación
+
+\begin{itemize}
+    \item \texttt{setBaudrate}: Se realiza la configuración 
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2UartSendMessage.PNG}
+    \caption{Diagrama de estados del método \texttt{sendMessage()} del \textit{UART}.}
+    \label{fig:fun_set_message_uart}
+\end{figure}
+
+Se configuran los registros necesarios para obtener un ratio de baudios adecuados para la comunicación
+
+\begin{itemize}
+    \item \texttt{setBaudrate}: Se realiza la configuración 
+\end{itemize}
+
+
+
