@@ -223,13 +223,27 @@ Se configuran los registros necesarios para obtener un ratio de baudios adecuado
     \centering
     \includegraphics[width=1\linewidth]{pictures/S2UartSendMessage.PNG}
     \caption{Diagrama de estados del método \texttt{sendMessage()} del \textit{UART}.}
-    \label{fig:fun_set_message_uart}
+    \label{fig:fun_send_message_uart}
 \end{figure}
 
-Se configuran los registros necesarios para obtener un ratio de baudios adecuados para la comunicación
+Se escribe un mensaje en el \textit{buffer} de envio y este es posteriormente enviado.
 
 \begin{itemize}
-    \item \texttt{setBaudrate}: Se realiza la configuración 
+    \item \texttt{writeMessageInBuffer}: Se escribe el mensaje en el \textit{buffer} de salida de la UART.
+    \item \texttt{sendBufferContent}: Se envía el contenido del buffer al \ac{S1}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2UartReceiveBitStream.PNG}
+    \caption{Diagrama de estados del método \texttt{receiveBitStream()} del \textit{UART}.}
+    \label{fig:fun_receive_bit_stream_uart}
+\end{figure}
+
+Se guarda un mensaje en el \textit{buffer} de recepción.
+
+\begin{itemize}
+    \item \texttt{saveToBuffer}: Se escribe el mensaje en el \textit{buffer} de entrada de la UART.
 \end{itemize}
 
 
