@@ -247,4 +247,106 @@ Se guarda un mensaje en el \textit{buffer} de recepción.
 \end{itemize}
 
 
+En el caso del bloque “MotorHandler” tenemos los siguientes diagramas.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2MotorHandlerInit.PNG}
+    \caption{Diagrama de estados del método \texttt{init()} del \textit{motorHandler}.}
+    \label{fig:fun_init_motor_handler}
+\end{figure}
+
+Se inicializan los \textit{flags} y se registran los pines a los que están conectados los motores
+
+\begin{itemize}
+    \item \texttt{setupMotorFlags}: Se establecen los flags de los motores.
+    \item \texttt{registerMotorPin}: Se registran los pines físicos a los que están conectados los motores con el objetivo de saber donde se deben enviar las señales PWM.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2MotorHandlerCheckMotorStatus.PNG}
+    \caption{Diagrama de estados del método \texttt{checkMotorStatus()} del \textit{motorHandler}.}
+    \label{fig:fun_check_motor_status_motor_handler}
+\end{figure}
+
+Este método sirve para asegurar que los motores están en buenas condiciones de funcionamiento
+
+\begin{itemize}
+    \item \texttt{checkIfFinalPosition}: Se envía a los motores a una posición en la que se sabe que debería estar en contacto con algún fin de carrera y posteriormente se verifica que dichos fines de carrera están activados. De esta manera se asegura que los motores pueden girar.
+
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2MotorHandlerSendMovementToMotors.PNG}
+    \caption{Diagrama de estados del método \texttt{sendMovementToMotors()} del \textit{motorHandler}.}
+    \label{fig:fun_send_movement_to_motors_motor_handler}
+\end{figure}
+
+Se genera una señal PWM y se envia al motor correspondiente
+
+\begin{itemize}
+    \item \texttt{generatePWM}: En base al \textit{array} de movimientos que se obtiene a través del \textit{orchestator} y del \textit{movementComputer} se generar las señales PWM necesarias para poder realizarlos.
+    
+    \item \texttt{sendMovementToMotor}: Se envia la seña PWM al motor.
+
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2MotorHandlerCancelMovement.PNG}
+    \caption{Diagrama de estados del método \texttt{cancelMovement()} del \textit{motorHandler}.}
+    \label{fig:fun_cancel_movement_motor_handler}
+\end{figure}
+
+Se cancela un movimiento que se este ejecutando actualmente
+
+\begin{itemize}
+    \item \texttt{stopMotor}: Se para el motor.
+    \item \texttt{saveActualTicks}: Se guardan los ticks actuales que el motor ha recorrido.
+
+\end{itemize}
+
+En el caso del bloque “MovementComputer” tenemos los siguientes diagramas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2MovementComputerInit.PNG}
+    \caption{Diagrama de estados del método \texttt{init()} del \textit{movementComputer}.}
+    \label{fig:fun_init_movement_computer}
+\end{figure}
+
+Se inicializan las matrices de la cinemática directa e inversa y se define la distancia del end-effector desde la base del brazo.
+
+\begin{itemize}
+    \item \texttt{setupMatrices}: Se inicializan las matrices de la cinemática directa e inversa.
+    \item \texttt{setupEndEffectorLength}: Se definen la distancia desde la base hasta el \ac{end--effector}.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2MovementComputerComputeXYZMovement.PNG}
+    \caption{Diagrama de estados del método \texttt{computeXYZMovement()} del \textit{movementComputer}.}
+    \label{fig:fun_compute_xyz_movement_movement_computer}
+\end{figure}
+
+\begin{itemize}
+    \item \texttt{convertXYZToAngles}: Se emplea la cinemática inversa para obtener la posición de los motores a partir de la posición del \ac{end--effector}
+    \item \texttt{checkAnglesInContraint}: Se verifica si los ángulos están dentro de las limitaciones de los motores.
+    \item \texttt{computeAngleMovement}: Se calcula el movimiento que se debe realizar para mover el \ac{end--effector} desde la posicion actual a la deseada.
+    \item \texttt{errorState}: Estado de error al que se llega si en alguno de los estados ocurre algún problema inesperado. 
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pictures/S2MovementComputerComputeAngleMovement.PNG}
+    \caption{Diagrama de estados del método \texttt{computeAngleMovement()} del \textit{movementComputer}.}
+    \label{fig:fun_compute_angle_mocement_movement_computer}
+\end{figure}
+
+\begin{itemize}
+    \item \texttt{checkAnglesInContraint}: Se verifica si los ángulos están dentro de las limitaciones de los motores.
+    \item \texttt{generateMovementArray}: Se generan los array de movimientos.
+    \item \texttt{errorState}: Estado de error al que se llega si en alguno de los estados ocurre algún problema inesperado. 
+\end{itemize}
