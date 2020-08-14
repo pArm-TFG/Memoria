@@ -53,6 +53,34 @@ El flujo de trabajo que se ha seguido desde el modelo 3D hasta la impresión de 
     \label{fig:flujo_3d}
 \end{figure}
 
+A continuación se procederá a explicar la necesidad de remodelar ciertas piezas y los inconvenientes y contratiempos que han surgido durante el modelado y la impresión de estas.
+
+En primer lugar se explicará la caja que alberga la placa de control y uno de los motores.
+
+La placa de control del brazo robótico no es la misma que en el caso del $\mu$Arm de UFACTORY. Además, los motores que se han empleado en este proyecto son servomotores con carcasa y sistema de sujeción distinto que los motores paso a paso del $\mu$Arm. Debido a estos dos factores se ha tenido que diseñar nuevas partes para la base del brazo robótico..
+
+ La necesidad de rediseñar esta parte es debida a que la base original era demasiado pequeña en superficie para permitir introducir la placa de control. Además, los servomotores no podrían haber cabido junto con la placa ya que la altura era insuficiente. Por otro lado los sistemas de sujeción presentes en la caja existente no podían ser empleados para la placa de control desarrollada en este proyecto.
+ 
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{pictures/PlacaYBase.png}
+    \caption{Proyección de la placa de control (naranja) sobre la base original del $\mu$Arm (gris)}
+    \label{fig:placa_y_base_antiguas}
+\end{figure}
+
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{pictures/PlacaMotorYParedes1.png}
+    \caption{Placa y motor dentro de la caja original del $\mu$Arm}
+    \label{fig:placa_motor_y_paredes1}
+\end{figure}
+
+Como se observa en la figura \ref{fig:placa_motor_y_paredes1} el motor sobresale por encima de las paredes y no hay ninguna manera de sujetarlo a estas o a la base.
+
+Para solucionar los anteriores problemas se diseña una nueva base en la que se pueda encajar la placa, además de unas paredes lo suficientemente altas para poder introducir el motor junto con la placa.
+
+
 
 
 
