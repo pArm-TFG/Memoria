@@ -59,7 +59,7 @@ En primer lugar se explicará la caja que alberga la placa de control y uno de l
 
 La placa de control del brazo robótico no es la misma que en el caso del $\mu$Arm de UFACTORY. Además, los motores que se han empleado en este proyecto son servomotores con carcasa y sistema de sujeción distinto que los motores paso a paso del $\mu$Arm. Debido a estos dos factores se ha tenido que diseñar nuevas partes para la base del brazo robótico..
 
- La necesidad de rediseñar esta parte es debida a que la base original era demasiado pequeña en superficie para permitir introducir la placa de control. Además, los servomotores no podrían haber cabido junto con la placa ya que la altura era insuficiente. Por otro lado los sistemas de sujeción presentes en la caja existente no podían ser empleados para la placa de control desarrollada en este proyecto.
+ Mas concretamente, la necesidad de rediseñar esta parte es debida a que la base original era demasiado pequeña en superficie para permitir introducir la placa de control. Además, los servomotores no podrían haber cabido junto con la placa ya que la altura era insuficiente. Por otro lado los sistemas de sujeción presentes en la caja existente no podían ser empleados para la placa de control desarrollada en este proyecto.
  
  \begin{figure}[H]
     \centering
@@ -80,9 +80,24 @@ Como se observa en la figura \ref{fig:placa_motor_y_paredes1} el motor sobresale
 
 Para solucionar los anteriores problemas se diseña una nueva base en la que se pueda encajar la placa, además de unas paredes lo suficientemente altas para poder introducir el motor junto con la placa.
 
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{pictures/paredesybasenuevas.png}
+    \caption{Base y paredes tras realizar las modificaciones necesarias}
+    \label{fig:placa_y_paredes_nuevas}
+\end{figure}
+
+En la base se pueden observar unos carriles los cuales sirven para sujetar la placa.
+Después de que la placa sea insertada en estos carriles, se asegura su posición mediante los agujeros laterales que pueden observarse en la figura \ref{fig:placa_y_paredes_nuevas}.
+
+Cabe destacar que para poder introducir la placa en las ranuras de los carriles, se han diseñado las siguientes piezas.
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{pictures/railes.png}
+    \caption{Sistema de raíles de la placa}
+    \label{fig:railes_placa}
+\end{figure}
 
 
-
-
-
-
+En la figura \ref{fig:railes_placa} se pueden observar los raíles que serán añadidos a la placa de control. En el exterior de la imagen se aparecen los carriles presentes en la base de la caja, donde se puede ver que al estar la placa completamente introducida en los carriles, los agujeros del carril y del raíl se posición de tal manera que se permite introducir un pasador que asegura la posición de la placa.
