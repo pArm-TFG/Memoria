@@ -107,7 +107,7 @@ Estos planteamientos derivaron en distintos robots famosos que incluso siguen en
 1969, Victor Scheinman, de la Universidad de Standford, desarrolló un brazo robótico que funcionaba
 alimentado por la electricidad y que se podía mover en los seis ejes, el cual se llamó ``el brazo de
 Standford''. De forma paralela, Marvin Minsky, del MIT, desarrolló un brazo robótico para la investigación
-naval, para exploración submarina. En particular, el brazo tenía veinte grados de libertad ya que el brazo
+naval, para exploración submarina. En particular, el brazo tenía veinte grados de libertad ya que
 funcionaba mediante electricidad impulsando sistemas hidráulicos. Más tarde, Scheinman continuó
 desarrollando brazos robóticos, creando el ``\textit{Programmable Universal Machine for Assembly}'',
 más conocido como PUMA.
@@ -122,7 +122,7 @@ del cuerpo humano (ver figura \ref{fig:human_body}).
     \label{fig:human_body}
 \end{figure}
 
-De esta estructura anterior, se deducen las siguientes partes:
+De la estructura anterior, se deducen las siguientes partes:
 
 \begin{itemize}
     \item Articulación del hombro: dispone de tres grados de libertad que permiten
@@ -140,7 +140,7 @@ De esta estructura anterior, se deducen las siguientes partes:
     mejorar la relación de movimientos para permitir una mayor movilidad, pero las 
     singularidades siguen siendo un gran problema. Por ejemplo, el robot quirúrgico
     da Vinci, pese a lo avanzado que pueda parecer, tiene problemas de bloqueo de las muñecas
-    del mismo cuando se acerca a posiciones singulares.
+    cuando se acerca a posiciones singulares.
     \item La mano: supone un ``\textit{end--effector}'' diferenciado que define el propóstio
     y la capacidad del brazo robótico. La mano es una herramienta capaz de realizar múltiples
     acciones muy variadas entre sí. Actualmente, se sigue investigando de forma activa sobre
@@ -152,7 +152,7 @@ De esta estructura anterior, se deducen las siguientes partes:
 
 Durante los dos últimos decenios la robótica ha evolucionado de manera exponencial. Se ha
 trabajado de forma activa en mejorar ciertas condiciones industriales, espaciales y
-en el día a día de las personas. Por un lado, en el 2001 se puso en la ISS el brazo
+en el día a día de las personas. En el 2001 se puso en la ISS el brazo
 robótico ``Canadarm2'', conocido oficialmente como 
 ``\textit{Space Station Remote Manipulator System}'' (SSRMS) (figura \ref{fig:canadarm2}).
 
@@ -174,13 +174,24 @@ Además, en 2005, se desplegaron en Marte los rovers ``Spirit'' (figura \ref{fig
 \end{figure}
 
 El primero supuso un gran avance de la
-ingeniería, ya que crearon un robot completamente autónomo para enviarlo a un terreno
+ingeniería, ya que crearon un robot teleoperado para enviarlo a un terreno
 muy hostil. Con las seis ruedas que tenía permitía una movilidad bastante elevada en
-terrenos muy desiguales, usando las ruedas delanteras y traseras como ejes directrices 
-y las centrales como ejes motrices (detalle en la figura \ref{fig:spirit}). Además,
-la fisionomía de las mismas y su elevación permitía que el dispositivo se desplazara por
-distintos tipos de terreno de una manera óptima, pudiendo elevar y bajar ejes a placer
-para una mejor sujeción y tracción.
+terrenos muy desiguales, siendo todas ellas motrices e independientes entre sí y, 
+en particular, las cuatro de los extremos direccionales (detalle en la figura \ref{fig:spirit}). 
+Además, la fisionomía de las mismas y su elevación permitía que el dispositivo se desplazara por
+distintos tipos de terreno de una manera óptima, utilizando un sistema de amortiguación
+conocido como ``\textit{rocker--bogie}''. Dicho sistema se caracteriza por no utilizar
+una suspensión hidráulica sino un diferencial en el centro del vehículo, garantizando así
+que el cuerpo del mismo siempre se encuentra con una inclinación igual a la mitad que presentan
+ambos ``\textit{rockers}'' (ver figura \ref{fig:rb-system}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.6\linewidth]{pictures/rocker-bogie.png}
+    \caption{Modo de funcionamiento del sistema ``\textit{rocker--bogie}'', 
+    desarrollado por la NASA para sus rover \cite{Rockerbogie2020}.}
+    \label{fig:rb-system}
+\end{figure}
 
 \begin{figure}[H]
     \centering
@@ -222,6 +233,10 @@ Además, la industria de los coches autónomos también ha crecido de forma expo
 sobre todo con la llegada al mercado en 2003 de Tesla Motors y sus coches eléctricos
 que disponen del sistema ``Autopilot'' (figura \ref{fig:ap}), encontrándose actualmente en el nivel 2 de
 autonomía según la lista del SAE \cite{baldwinTeslaVideoShows2020a}\cite{TeslaFullSelfdrivinga}.
+Los avances en esta industria permiten el control mecanizado completo del vehículo, tomando
+decisiones en tiempo real sobre la suspensión, el giro de las ruedas, el control de tracción,
+etc. permitiendo además compartir información e ir mejorando el mundo de la robótica
+y de la industria del automóvil.
 
 \begin{figure}[H]
     \centering
@@ -263,7 +278,7 @@ y moverse con mucha agilidad, haciéndolo un robot muy polivalente según se qui
 Finalmente, el desarrollo de los brazos articulados con múltiples finalidades
 también ha evolucionado mucho. Desde robots industriales tales como los desarrollados
 por la empresa KUKA, como el ``KR-1000 Titan'' (figura \ref{fig:kuka}),
-o el brazo ``M-2000'', de FANUC hasta brazos más pequeños pero igualmente hábiles, como
+o el brazo ``M-2000'', de FANUC hasta brazos más pequeños con motivos educacionales, como
 el $\mu$Arm, de UFACTORY (figura \ref{fig:uarm}).
 
 \begin{figure}[H]
@@ -283,6 +298,6 @@ el $\mu$Arm, de UFACTORY (figura \ref{fig:uarm}).
 Estos robots tienen múltiples propósitos: el primero, levantar y trasladar piezas
 muy grandes y pesadas con muchísima precisión. El segundo, disponer de un robot
 para poder aprender y utilizarlo para tareas como, por ejemplo, impresión 3D. 
-Se desarrolló con la intención de ser accesible e intentar introducir en el mundo
+Este último se desarrolló con la intención de ser accesible e intentar introducir en el mundo
 de la robótica a aquellos que pudieran estar interesados, pero su alto coste impide
-el acceso a aquellos con capacidad adquisitiva más baja.
+el acceso a aquellos con una capacidad adquisitiva más baja.
