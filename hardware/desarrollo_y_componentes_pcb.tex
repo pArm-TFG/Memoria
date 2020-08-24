@@ -79,7 +79,7 @@ El funcionamiento del regulador LM317 es bastante común, se trata de un regulad
 
 La ecuación de funcionamiento del regulador que ofrece el fabricante es la siguiente:
 \begin{equation}
-    V_{OUT} = V_{REF} \cdot ( 1 + \frac{R2}{R1}) + I_{ADJ} \cdot R2
+    V_{OUT} = V_{REF} \cdot \left( 1 + \frac{R2}{R1}\right) + I_{ADJ} \cdot R2
 \end{equation}
 
 La ecuación anterior debe ser usada para realizar los cálculos pertinentes sobre el valor de las resistencias R2 y R1. Se pueden realizara además dos observaciones necesarias para la correcta aplicación de la ecuación anterior:
@@ -91,14 +91,14 @@ La ecuación anterior debe ser usada para realizar los cálculos pertinentes sob
 Se tiene por lo tanto que la ecuación funcional a utilizar en el cálculo de R1 y R2 es:
 
 \begin{equation}
-    V_{OUT} = 1.25 \cdot ( 1 + \frac{R2}{240}) 
+    V_{OUT} = 1.25 \cdot \left( 1 + \frac{R2}{240}\right) 
 \end{equation}
 
 Teniendo en cuenta los voltajes de alimentación requeridos para las dos etapas de alimentación de la PCB, se han realizado los siguientes cálculos para los valores de la resistencia R1 y R2:
 \begin{itemize}
     \item Primera etapa, alimentación de servomotores, 5.5V y 0.4A requeridos:
     \begin{equation}
-        5.5 = 1.25 \cdot ( 1 + \frac{R2}{R1}) 
+        5.5 = 1.25 \cdot \left( 1 + \frac{R2}{R1}\right) 
     \end{equation}
     Por disponibilidad de materiales, se ha decidido escoger los valores $150 \Omega$ y $500 \Omega$ para los valores de R1 y R2 respectivamente. Tomando en cuenta dichos valores y utilizando la ecuación anterior, se obtiene una reducción de voltaje de 9V a 5.41V, voltaje suficiente para alimentar los servomotores.
 \end{itemize}
@@ -321,7 +321,7 @@ En conclusión, una vista completa sobre el diagrama esquemático del proyecto e
 
     \begin{figure}[H]
     \centering 
-    \includegraphics[width=1.05\linewidth]{pictures/EsquematicoCompleto.PNG}
+    \includegraphics[width=\linewidth]{pictures/EsquematicoCompleto.PNG}
     \caption{Diagrama esquemático de los LEDs}
     \label{fig:kdiagram}
     \end{figure}
