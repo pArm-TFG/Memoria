@@ -59,7 +59,7 @@ En primer lugar se explicará la caja que alberga la placa de control y uno de l
 
 La placa de control del brazo robótico no es la misma que en el caso del $\mu$Arm de UFACTORY. Además, los motores que se han empleado en este proyecto son servomotores con carcasa y sistema de sujeción distinto que los motores paso a paso del $\mu$Arm. Debido a estos dos factores se ha tenido que diseñar nuevas partes para la base del brazo robótico..
 
- Mas concretamente, la necesidad de rediseñar esta parte es debida a que la base original era demasiado pequeña en superficie para permitir introducir la placa de control. Además, los servomotores no podrían haber cabido junto con la placa ya que la altura era insuficiente. Por otro lado los sistemas de sujeción presentes en la caja existente no podían ser empleados para la placa de control desarrollada en este proyecto.
+ Mas concretamente, la necesidad de rediseñar esta parte es debida a que la base original era demasiado pequeña en superficie para permitir introducir la placa de control. Además, el servomotores no podrían haber cabido junto con la placa ya que la altura era insuficiente. Por otro lado los sistemas de sujeción presentes en la caja existente no podían ser empleados para la placa de control desarrollada en este proyecto.
  
  \begin{figure}[H]
     \centering
@@ -87,7 +87,7 @@ Para solucionar los anteriores problemas se diseña una nueva base en la que se 
     \label{fig:placa_y_paredes_nuevas}
 \end{figure}
 
-En la base se pueden observar unos carriles los cuales sirven para sujetar la placa.
+En la base se pueden observar unos carriles cuyo cometido es sujetar la placa.
 Después de que la placa sea insertada en estos carriles, se asegura su posición mediante los agujeros laterales que pueden observarse en la figura \ref{fig:placa_y_paredes_nuevas}.
 
 Cabe destacar que para poder introducir la placa en las ranuras de los carriles, se han diseñado las siguientes piezas.
@@ -100,7 +100,7 @@ Cabe destacar que para poder introducir la placa en las ranuras de los carriles,
 \end{figure}
 
 
-En la figura \ref{fig:railes_placa} se pueden observar los raíles que serán añadidos a la placa de control. En el exterior de la imagen aparecen los carriles presentes en la base de la caja, donde se puede ver que al estar la placa completamente introducida en los carriles, los agujeros del carril y del raíl se posición de tal manera que se permite introducir un pasador que asegura la posición de la placa.
+En la figura \ref{fig:railes_placa} se pueden observar los raíles que serán añadidos a la placa de control. En el exterior de la imagen aparecen los carriles presentes en la base de la caja, donde se puede ver que, al estar la placa completamente introducida en los carriles, los agujeros del carril y del raíl se posición de tal manera que se permite introducir un pasador que asegura la posición de la placa.
 
 Por otro lado, para poder sujetar el motor que moverá el brazo alrededor del eje vertical se ha tenido que diseñar la siguiente pieza.
 
@@ -140,11 +140,11 @@ En la figura \ref{fig:tapas_caja_con_disco} podemos observar como la base girato
     \label{fig:tapas_caja_con_disco}
 \end{figure}
 
-De esta manera se consigue que el peso de la parte móvil del brazo descanse sobre la tapa y no sobre el eje de rotación. Por otro lado, el hecho de que la base giratoria protruya hacia el interior de la tapa permite que la pieza este mas cerca del eje permitiendo acortarlo.
+De esta manera se consigue que el peso de la parte móvil del brazo descanse sobre la tapa y no sobre el eje de rotación. Por otro lado, el hecho de que la base giratoria protruya hacia el interior de la tapa permite que la pieza este mas cerca del motor permitiendo acortar el eje.
 
-A en la figura \ref{fig:cilindro_con_pletina} se muestra la pieza que conecta el motor a la base giratoria a través de un eje. Esta pieza tiene en su base un desgaste tal que permite que el engranaje de l motor pueda ser introducido dentro, mientras que en la parte de arriba tiene unos agujeros que permiten la sujeción de un eje metálico el cual llega hasta la base giratoria y transmite el movimiento del motor a esta.
+A en la figura \ref{fig:cilindro_con_pletina} se muestra la pieza que conecta el motor a la base giratoria a través de un eje. Esta pieza tiene en su base un desgaste tal que permite que el engranaje del motor pueda ser introducido dentro, mientras que en la parte de arriba tiene unos agujeros que permiten la sujeción de un eje metálico el cual llega hasta la base giratoria y transmite el movimiento del motor a esta.
 
-La pieza plana que sale hacia un lateral sirve para que el cilindro pueda alcanzar un fin de carrera que indique cuando el movimiento del motor ha de parar..
+La pieza plana que sale hacia un lateral sirve para que el cilindro pueda alcanzar un fin de carrera que indique cuando el motor ha llegado a una posición extrema.
 
 \begin{figure}[H]
     \centering
@@ -160,4 +160,13 @@ La pieza plana que sale hacia un lateral sirve para que el cilindro pueda alcanz
     \label{fig:sistema_completo}
 \end{figure}
 
+En la figura \ref{fig:sistema_completo} se observa la construcción completa de la base. En esta imagen se dejan las paredes y la tapa superior con cierta transparencia para poder ver el interior de la caja. Entre el cilindro montado encima del motor y la base giratoria habrá un eje metálico que comunicara el movimiento.
 
+Por otro lado, para que sea posible ubicar los motores que se encargaran del movimiento vertical del brazo se han de crear nuevas piezas en las que puedan ser atornillados. Esta pieza puede observarse en la figura \ref{fig:pletina_sujecion_motor}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{pictures/pletina_motor.png}
+    \caption{Placa de sujeción de los motores laterales}
+    \label{fig:pletina_sujecion_motor}
+\end{figure}

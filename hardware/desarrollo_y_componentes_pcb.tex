@@ -578,7 +578,480 @@ Utilizando el visualizador 3D de KiCad se puede obtener un representación cerca
     \subfigure[Capa trasera \cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/PlacaFinal3D2.PNG}}
     \caption{Representación 3D del diseño físico} \label{fig:lego}
     \end{figure}
-\subsection{Verificaciones realizadas durante el diseño lógico y físico }
+\subsection{Verificaciones realizadas al diseño lógico y físico }
+
+El proceso de diseño de la PCB es considerado uno de los elementos críticos dentro del proyecto y por lo tanto, es necesario llevar a cabo una serie de verificaciones durante dicho proceso para minimizar el riesgo de fallos.
+
+Dado que durante el proceso de diseño de la PCB, se han obtenido los diagramas lógico y físico, y en consecuencia, ambos son susceptibles de verificar en detalle.
+
+En primer lugar se deben realizar las verificaciones del diseño lógico de la PCB, ya que es el primer diagrama que se realiza. Dado que el diagrama lógico aporta información de las conexiones lógicas entre los distintos componentes de la PCB, las verificaciones a realizar irán destinadas a comprobar la corrección de dichas conexiones y de los componentes empleados.
+
+A continuación se muestra una lista de las principales verificaciones realizadas en el diagrama lógico:
+\begin{itemize}
+
+    \item Verificar si se han incluido en la PCB todos los componentes deseados.
+    
+    \item Verificar si se ha incluido el circuito de alimentación de la PCB, y por lo tanto, comprobar si todos los componentes están alimentados correctamente.
+    
+    \item Verificar si se ha incluido el conexionado mínimo recomendado por el fabricante para asegurar un correcto funcionamiento del microcontrolador y sus periféricos.
+    
+    \item Verificar si el conexionado de los dispositivos periféricos, puertos de conexión y demás componentes es correcto y además se ha realizado a los pines adecuados del microcontrolador.
+    
+    \item Verificar si se ha asignado una huella física correcta a cada uno de los componentes lógicos, la cual se utilizará posteriormente en el diagrama físico.
+    
+\end{itemize}
+
+Tras realizar las revisiones anteriores en el diagrama lógico, se considera que el mismo es completamente correcto y no contienen ningún error, y por lo tanto, es susceptible de ser transformado a diagrama físico.
+
+En segundo lugar se deben realizar las revisiones del diagrama físico, ya que se trata del diagrama que se realiza en segundo lugar. Dado que este diagrama detalla los aspectos físicos y estructurales de la PCB, las verificaciones a realizar irán destinadas a comprobar los aspectos físicos de los componentes, conexiones mediante pistas, requerimientos estructurales, dimensiones, etc.
+
+A continuación se muestra una lista de las principales verificaciones realizadas en el diagrama físico:
+\begin{itemize}
+    \item Verificar que todos los componentes del diagrama lógico aparecen en el diagrama físico al importar la lista de redes.
+    
+    \item Verificar que todas las conexiones lógicas entre componentes del diagrama lógico aparecen representadas en el diagrama físico.
+    
+    \item Verificar que todas las conexiones que aparecen en el diseño físico, se corresponden con conexiones establecidas en el diagrama lógico.
+    
+    \item Verificar que todas las huellas físicas de los componentes lógicos son correctas y su distribución de pines es la deseada. Se debe contrastar esta información usando el datasheet de cada uno de los componentes.
+    
+    \item Verificar que todas las conexiones se han realizado, y por lo tanto, tienen una pista asignada.
+    
+    \item Verificar que todos los componentes están alimentados y que las pistas de alimentación tienen el tamaño adecuado.
+    
+    \item Verificar que todas las pistas de comunicación tienen el origen y destino adecuado, y que además, su ancho es el adecuado.
+    
+    \item Verificar que no existen pistas con un ancho menor de 0.3mm, ya que el proceso de fabricación podría fallar por debajo de este tamaño.
+    
+    \item Verificar que la separación mínima entre pistas es como mínimo de 0.3mm para pistas de alimentación y 0.25mm para pistas de comunicación digital.
+    
+    \item Verificar que no existen pistas que hagan contacto no deseado con componentes de soldadura superficial bajo su superficie.
+    
+    \item Verificar que se han incluido marcas de serigrafía que permitan identificar a la PCB y su interfaz de forma clara.
+    
+    \item Verificar que se ha incluido el mecanizado de sujeción adecuado.
+    
+    \item Verificar que no existan pistas que contacten con partes metálicas del mecanizado de sujeción.
+    
+    \item Verificar que todas las soldaduras de los componentes SMD y THT sean realizables físicamente.
+    
+    \item Verificar que el conector de programación dispone de espacio suficiente para realizar la conexión de la sonda.
+    
+    \item Verificar que las vías y pads tienen un diámetro mínimo de 1mm, con agujero de 0.5mm
+    
+\end{itemize}
+
+KiCad ofrece una herramienta llamada "Comprobar reglas de diseño", la cual puede ser utilizada para facilitar el proceso de verificación del diseño físico. Utilizando esta herramienta, se pueden verificar automáticamente factores como el ancho de pista mínimo permitido, separación mínima entre pistas, conexiones no realizadas, etc. A pesar de poder realizar estas verificaciones de forma automática, se han realizado todas las verificaciones de forma manual también para reducir el riesgo de fallos.
+
+    \begin{figure}[htbp]
+    \centering
+    \subfigure[Icono de verificación de reglas de diseño \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=82mm]{pictures/DRC2.PNG}}
+    \subfigure[Desplegable de la herramienta
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/DRC.PNG}}
+    \caption{Herramienta de verificación de reglas de diseño} \label{fig:lego}
+    \end{figure}
+
+Tras realizar todas las verificaciones anteriormente mencionadas en el diagrama físico, se han subsanado los errores encontrados previamente a realizar la fabricación de la PCB; se considera por lo tanto que el proceso de verificación del diseño ha sido exitoso.
 
 \subsection{Construcción}
+
+Una vez se ha finalizado el proceso de diseño de la PCB, se comienza el proceso de fabricación de la misma. Dicho proceso consta de diversas etapas, las cuales van desde la preparación de los materiales hasta la obtención del prototipo final; todas estas etapas se detallan a continuación una por una.
+
+En primer lugar, cabe destacar que el proceso de fabricación seleccionado para construir la PCB ha sido la fotolitografía. Este proceso consiste en transferir un patrón de un circuito desde una fotomáscara a una placa de prototipado positiva mediante una serie de procesos lumínicos y químicos. Posteriormente, una vez se tiene impreso el circuito en la placa de prototipado, se puede proceder al taladrado de orificios y soldado de los componentes del circuito.
+
+A continuación se presentan los conceptos básicos empleados durante el proceso de fotolitografía y cuyo entendimiento es fundamental para comprender el proceso de fabricación:
+
+\begin{itemize}
+    \item El proceso de fotolitografía parte necesariamente de una placa de prototipado de fibra de vidrio, la cual posee las siguientes capas de materiales:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.9\linewidth]{pictures/Proceso1.JPG}
+    \caption{Estructura de la placa de prototipado}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Tal y como se puede ver en la imagen anterior, la placa de prototipado de fibra de vidrio posee tres capas: fibra de vidrio como material base, encima de la cual hay una capa de cobre y protegiendo la anterior, una capa de resina fotosensible a la luz ultravioleta.
+    
+    El aspecto clave de esta estructura en capas recae en la capa de resina fotosensible, la cual, tiene como objetivo capturar el patrón del circuito de la fotomáscara o transparencia. El funcionamiento de esta resina depende de sí la placa de prototipado es positiva o negativa:
+    \begin{itemize}
+        \item En las placas de prototipado positivas, la resina fotosensible que es insolada con luz ultravioleta reaccionará correctamente con el revelador, y por lo tanto desaparecerá; mientras que la resina que no es insolada permanecerá tras el revelado.
+        
+        \item En las placas de prototipado negativas, la resina fotosensible que es insolada con luz ultravioleta se convierte en resistente al revelador y por tanto permanecerá tras el proceso de revelado; mientras que la resina que no es insolada con luz ultravioleta, reaccionará correctamente con el revelador, y por lo tanto desaparecerá.
+    \end{itemize}
+    
+    En este proyecto se han utilizado placas de prototipado positivas de fibra de vidrio.
+    
+    \item Mediante el proceso de insolado con luz ultravioleta, la fotomáscara plasma el patrón del circuito a imprimir en la resina fotosensible:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.65\linewidth]{pictures/Proceso2.JPG}
+    \caption{Tratado de las resinas mediante insolado}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Tal y como se puede ver en la imagen anterior, las superficies de la resina que han sido insoladas (amarillo claro), se convierten en reactivas al revelador, ya que en esa zona de la fotomáscara existe una transparencia. En las zonas en las cual la transparencia es opaca e impide el paso de la luz ultravioleta, la resina no se ve afectada y se mantiene no reactiva con el revelador.
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.8\linewidth]{pictures/Proceso3.JPG}
+    \caption{Resultado tras el insolado}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    \item Mediante el proceso de revelado, se elimina la resina que fue tratada en el proceso de insolación:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.7\linewidth]{pictures/Proceso4.JPG}
+    \caption{Proceso de revelado}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Tras someter la PCB al proceso de revelado, se obtiene el siguiente resultado:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.7\linewidth]{pictures/Proceso5.JPG}
+    \caption{Resultado tras revelado}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Tal y como se puede ver en la imagen anterior, el proceso de revelado elimina la resina que había sido insolada, ya que se trata de una placa positiva. En estas zonas, la capa de cobre queda expuesta y sin ninguna protección. Por el contrario, en las zonas que no fueron insoladas, el revelado no actúa y por lo tanto, la resina inicial permanece protegiendo la capa de cobre.
+    
+    \item Mediante el proceso de atacado, se eliminan las superficies de la capa de cobre sobrantes, es decir, aquellas que no están protegidas por resina:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.6\linewidth]{pictures/Proceso6.JPG}
+    \caption{Resultado tras atacado}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Tal y como se puede observar en la imagen anterior, la capa de cobre solo permanece en los lugares que estaban protegidos por la resina inicial; este patrón coincide con el circuito de la fotomáscara. Para retirar la resina sobrante, bastan con aclarar la PCB con alcohol, quedando las pistas del circuito perfectamente delimitadas e impresas en la placa de fibra de vidrio.
+    
+\end{itemize}
+
+Existen otros procesos de fabricación para PCBs que ofrecen un resultado muy parecido al deseado en este proyecto, por ejemplo fabricación mediante máquina CNC; sin embargo, por motivos de disponibilidad de materiales y maquinaria, se ha decidido utilizar la fotolitografía.
+
+A continuación se enumeran las diversas etapas del proceso de fabricación, ordenadas cronológicamente desde el comienzo del proceso hasta su finalización:
+
+\begin{itemize}
+    \item La primera etapa del proceso de fabricación consiste en la generación de las fotomáscaras a partir del diagrama físico de la PCB.
+    
+    El diagrama físico representa de forma precisa cual es la apariencia física de la PCB, las huellas de sus componentes, pistas de conexión, marcas de mecanizado, serigrafía, orificios y límites. Es precisamente toda esta información la que se quiere plasmar mediante fotolitografía en la placa de prototipado positiva que contendrá el circuito impreso.
+    
+    Utilizando la herramienta "imprimir placa" disponible en KiCad, se puede generar las máscaras asociadas al diagrama físico:
+    
+    \begin{figure}[htbp]
+    \centering
+    \subfigure[Icono de impresión de placas \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=82mm]{pictures/ImprimirPCB.PNG}}
+    \subfigure[Desplegable de la herramienta
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/ImprimirPCB2.PNG}}
+    \caption{Herramienta de impresión de placas} \label{fig:lego}
+    \end{figure}
+    
+    Las fotomáscaras obtenidas tras el uso de dicha herramienta son las siguientes:
+    
+     \begin{figure}[htbp]
+    \centering
+    \subfigure[Máscara frontal \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=82mm]{pictures/MascaraFrontal.PNG}}
+    \subfigure[Máscara trasera
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/MascaraTrasera.PNG}}
+    \caption{Fotomáscara final de la PCB} \label{fig:lego}
+    \end{figure}
+    
+   Con el fin de poder utilizar dichas máscaras en el proceso de fotolitografía, es necesario imprimirlas en papel de transparencia, puesto que deben dejar pasar la luz en los lugares que no contienen el patrón del circuito a fotolitografiar.
+   
+   Para imprimir dichas máscaras en papel de transparencia, primeramente se imprimen en papel convencional y posteriormente se fotocopian a un papel de transparencia, obteniendo el resultado siguiente:
+   
+    \begin{figure}[H]
+    \centering
+    \subfigure[Máscaras de papel y sus transparencias \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=90mm]{pictures/MascarasTransparenciaPapel.jpg}}
+    \subfigure[Recorte de las máscaras
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=75mm]{pictures/OperarioCortando.jpg}}
+    \caption{Proceso de impresión y recorte de las fotomáscaras} \label{fig:lego}
+    \end{figure}
+    
+    Dado que el objetivo principal de dichas fotomáscaras es el de transferir el patrón del circuito de la PCB a la placa de prototipado positiva, se deben ensamblar de tal forma que permitan introducir en su interior la misma, para que posteriormente durante el proceso de insolación, se consiga fotolitografiar el circuito en ambas caras de la PCB.
+    
+    A continuación se muestra el ensamblado final de la funda construida con las fotomáscaras:
+    
+    \begin{figure}[H]
+    \centering
+    \subfigure[Funda de transparencias \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=60mm]{pictures/MáscaraTransparencia.jpg}}
+    \subfigure[Demostración de su capacidad de contener a la placa
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=90mm]{pictures/Funda.jpg}}
+    \caption{Fotomáscara final} \label{fig:lego}
+    \end{figure}
+    
+    Cabe destacar que se han incluido dos transparencias superpuestas por cada cara de la fotomáscara para aumentar la opacidad que se genera al fotolitografiar la placa de prototipado positiva.
+    
+    \item En segundo lugar y una vez se ha completado el generado de la fotomáscara, se debe realizar el proceso de insolación de la placa de prototipado positiva. Durante este proceso, se realizar la transferencia del patrón del circuito desde la fotomáscara a la placa de prototipado mediante la exposición de la misma a luz ultravioleta.
+    
+    A continuación se muestra el proceso de insolación de la placa de prototipado positiva, el cual se ha realizado usando una maquina insoladora:
+    
+    \begin{figure}[H]
+    \centering
+    \subfigure[Placa de prototipado colocada dentro de la fotomáscara \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=75mm]{pictures/Isoladora.jpg}}
+    \subfigure[Ajuste de la máquina de insolación
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=75mm]{pictures/Isoladora2.jpg}}
+    \caption{Proceso de insolación de la PCB usando las fotomáscaras} \label{fig:lego}
+    \end{figure}
+    
+    Tras el proceso de insolación, la placa de prototipado positiva habrá sido expuesta a la luz ultravioleta durante un minuto y por lo tanto, el patrón del ciruito habrá sido transferido a la superficie de resina de la placa de prototipado:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.5\linewidth]{pictures/PCBisolada.jpg}
+    \caption{Placa de prototipado positiva insolada}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    \item En tercer lugar y habiendo completado el proceso de insolación de la placa de prototipado, se debe llevar a cabo el proceso de revelado de la PCB.
+    
+    El proceso de revelado es un proceso químico mediante el cual se consigue eliminar la resina protectora de la placa de prototipado que ha sido expuesta a la luz ultravioleta durante el proceso de insolación; esta resina que es eliminada coincide con la superficie de la PCB que no contiene pistas del circuito impreso, gracias a la fotomáscara.
+    
+    Este proceso puede llevarse a cabo con un revelador universal indicado para realizar este tipo de labores, a continuación se muestra el usado en este proyecto:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.6\linewidth]{pictures/Revelador.jpg}
+    \caption{Revelador universal usado}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    El proceso de revelado de la PCB se lleva a cabo disolviendo el revelador anteriormente mencionado en agua y posteriormente, sumergiendo la PCB en esta disolución:
+    
+    \begin{figure}[H]
+    \centering
+    \subfigure[Comienzo del proceso de revelado \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=75mm]{pictures/Revelado.jpg}}
+    \subfigure[Proceso de revelado en estado avanzado
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=75mm]{pictures/Revelado2.jpg}}
+    \subfigure[Aclarado de la PCB
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=75mm]{pictures/Revelado3.jpg}}
+    \caption{Proceso de revelado de la PCB}
+    \label{fig:lego}
+    \end{figure}
+    
+    Durante el proceso de revelado, se tienen que generar movimientos delicados de la disolución reveladora para que esta haga un efecto adecuado y consiga eliminar la resina sobrante. Cuando el proceso se ha finalizado, basta con aclarar la PCB con agua sin tocar el patrón del circuito que ha quedado revelado.
+    
+    \item En cuarto lugar y tras revelar el patrón del circuito de la PCB, se debe realizar el proceso de atacado.
+    
+   En la etapa anterior del proceso de fabricación, las zonas de la PCB que no fueron insoladas con luz ultravioleta quedan cubiertas de resina protectora; mientras que en las parte de la PCB que fueron expuestas a luz ultravioleta, la capa de cobre queda expuesta y sin cubrir por ningún tipo de resina, ya que el proceso de revelado ha eliminado dicha resina sobrante.
+   
+   La etapa de atacado del proceso de fabricación consiste en someter a la PCB a un proceso químico, mediante el cual se elimina el cobre de la placa de prototipado a través del atacado mediante una sal persulfato de amonio, el cual actúa de forma similar a un ácido. Las zonas de la PCB en las cuales el cobre esta expuesto, resultarán atacadas por el ácido y por lo tanto, el cobre desaparecerá. Por el contrario, las zonas de la PCB en las cuales el cobre esta protegido por una capa de resina, no serán atacadas tan agresivamente por el ácido y por lo tanto, el cobre permanecerá.
+   
+   Al igual que en la etapa anterior, el atacado de la PCB se realiza a través de una disolución, en este caso de agua y persulfato de amonio.
+   
+   A continuación se muestran algunas imágenes del proceso de atacado mediante ácido:
+   
+   \begin{figure}[H]
+    \centering
+    \subfigure[Recipiente contenedor de la disolución de atacado \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=75mm]{pictures/Atacado.jpg}}
+    \subfigure[PCB siendo sometida al proceso de atacado
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=75mm]{pictures/Atacado2.jpg}}
+    \caption{Proceso de atacado de la PCB}
+    \label{fig:lego}
+    \end{figure}
+    
+    Tras el proceso de atacado, el cual toma un periodo de entre una y dos horas, se debe aclarar y limpiar el circuito impreso con alcohol para eliminar los restos de resina sobrantes, así como las impurezas producidas por la disolución de atacado.
+    
+    Al finalizar esta etapa del proceso de fabricación, se obtiene una PCB en la cual aparece el patrón del circuito de las fotomáscaras impreso en cobre:
+    
+    \begin{figure}[H]
+    \centering
+    \subfigure[Parte frontal de la PCB \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=75mm]{pictures/Impreso.jpg}}
+    \subfigure[Parte trasera de la PCB
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=85mm]{pictures/Impreso2.jpg}}
+    \caption{Circuito impreso final tras el proceso de atacado}
+    \label{fig:lego}
+    \end{figure}
+    
+    \item En quinto lugar y tras realizar el proceso de fotolitografía, es recomendable realizar una revisión general de la PCB en busca de posibles imperfecciones que se hayan podido producir durante el proceso de impresión del circuito.
+    
+    Normalmente, durante el proceso de atacado, se pueden producir imperfecciones en el trazado de las pistas debido al que la disolución de atacado puede producir una corrosión irregular de la capa de cobre. Este tipo de imperfecciones suelen ser cortos entre pistas, fracturas de pista, etc.
+    
+    Para realizar el proceso de comprobación de imperfecciones, es necesario utilizar un polímetro que pueda funcionar en modo detección de cortos, para que de esta forma, se pueda determinar cuando la conductividad de las pistas es correcta. También es recomendable usar una lupa de aumento o similar para mejorar la visibilidad de las imperfecciones:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.55\linewidth]{pictures/Cortos2.jpg}
+    \caption{Revelador universal usado}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.5\linewidth]{pictures/Cortos3.jpg}
+    \caption{Algunos de los cortos detectados}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+   En caso de encontrar algún corto entre dos pistas que no deberían estar conectadas, basta con utilizar un útil con punta para rasgar la superficie del punto de unión entre ambas.
+   
+   En caso de encontrar alguna fractura en una de las pistas, basta con realizar una soldadura de empalme utilizando un hilo de grapinar o similar en el punto de fractura.
+   
+   Ambas soluciones propuestas anteriormente son soluciones artesanales y no puede aplicarse cuando las imperfecciones son demasiado grandes o complejas de resolver, siendo mejor en este caso repetir el proceso de fotolitografía.
+   
+   \item En sexto lugar se debe realizar taladrado de los orificios de la PCB y el guillotinado de los márgenes de la misma.
+   
+   El taladrado de todos los orificios de la PCB, es decir, pads de componentes, vías y mecanizado de sujeción; se debe realizar con un taladro que cuente con una broca del tamaño adecuado, además de un soporte que aporte la estabilidad suficiente:
+   
+    \begin{figure}[H]
+    \centering
+    \subfigure[ Taladro y soporte usado \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=80mm]{pictures/Taladrado.jpg}}
+    \subfigure[Taladrado de los orificios
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/Taladrado2.jpg}}
+    \caption{Taladrado de la PCB}
+    \label{fig:lego}
+    \end{figure}
+   
+   El guillotinado de la PCB se realiza con una herramienta de guillotinado que tenga precisión y permita realizar cortes limpios de la longitud necesaria. Estos cortes se realizan siguiendo los límites establecidos en el diagrama físico de la PCB.
+   
+   Tras el proceso de guillotinado y taladrado se obtiene el siguiente resultado:
+   
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.5\linewidth]{pictures/PCBTaladrada.PNG}
+    \caption{PCB con orificios taladrados y margenes guillotinados}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    \item En séptimo lugar se debe proceder a soldar el componente principal de la PCB, es decir, el microcontrolador:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.5\linewidth]{pictures/DSPIC.jpg}
+    \caption{Plano detallado del microcontrolador}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Tal y como se puede ver en la imagen, el dsPic utilizado tiene un encapsulado destinado a soldadura superficial (SMD). Normalmente, los componentes SMD deben ser colocados y soldados los primeros, ya que el proceso de colocación y soldado de los mismos es delicado y requiere máxima precisión.
+    
+    El soldado de este tipo de componentes se realiza mediante el aplicado de una pasta de soldadura, la cual se debe colocar en el punto de contacto de los pines del componente con las pistas de cobre:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.65\linewidth]{pictures/SMD2.jpg}
+    \caption{Aplicado de la pasta de soldadura}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    El aplicado de la pasta de soldadura debe llevarse a cabo con la protección adecuada, ya que la pasta de soldadura es altamente tóxica.
+    
+    Tras aplicar la pasta de soldadura, se debe colocar el microcontrolador de forma precisa y cautelosa, cerciorándose de que cada uno de los pines realiza contacto correctamente con las pistas de la PCB:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.55\linewidth]{pictures/ColocadoSMD.jpg}
+    \caption{Colocado del microcontrolador sobre la pasta de soldadura}
+    \label{fig:kdiagram}
+    \end{figure}
+
+    Tras colocar la pasta de soldadura, se debe introducir la PCB en un horno para que la pasta de soldadura se endurezca y selle por completo:
+    
+    \begin{figure}[H]
+    \centering
+    \subfigure[ Momento previo al horneado \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=60mm]{pictures/HORNO.jpg}}
+    \subfigure[Calentado del horno
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=60mm]{pictures/HORNO2.jpg}}
+    \subfigure[Horneado en curso
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=60mm]{pictures/HORNO4.jpg}}
+    \subfigure[Horno a máxima potencia
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=60mm]{pictures/HORNO3.jpg}}
+    \caption{Diferentes etapas del proceso de horneado}
+    \label{fig:lego}
+    \end{figure}
+    
+     Este proceso se debe realizar durante unos veinte minutos a una temperatura de entre 250º y 300º.
+     
+     Tras el proceso de horneado, se debe dejar enfriar la PCB. El resultado final tras el horneado es el siguiente:
+     
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.55\linewidth]{pictures/POTENSIA.jpg}
+    \caption{Imagen a contra luz de la PCB}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    El microcontrolador se encuentra totalmente fijado y soldado superficialmente con las pistas de conexión gracias a la pasta de soldadura. En este momento, es recomendable verificar si existen cortos entre los pines del microcontrolador, así como si la conductividad de los mismos es correcta a lo largo de las pistas:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.55\linewidth]{pictures/CORTOS.jpg}
+    \caption{Comprobación de cortos y conductividad de las pistas del microcontrolador}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    \item En octavo lugar, se debe realizar el soldado de las vías de conexión entre las pistas de la capa superior e inferior.
+    
+    Para realizar esta conexión, basta con introducir un hilo de grapinar por el orificio de la vía, realizar una pequeña soldadura con ambas pistas superior e inferior y por último, cortar el hilo excedente:
+    
+    \begin{figure}[H]
+    \centering
+    \subfigure[Vía con hilo de grapinar sin cortar \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=80mm]{pictures/Via.jpg}}
+    \subfigure[Aspecto final de la vía
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=72.5mm]{pictures/VIA2.jpg}}
+    \caption{Taladrado de la PCB}
+    \label{fig:lego}
+    \end{figure}
+    
+    
+    \item En noveno y último lugar, se deben soldar el resto de componentes de la PCB.
+    
+    Los componentes restantes tienen un encapsulado de agujero pasante (THT), a excepción del regulador A1117z, el cual es de tipo SMD, sin embargo es de gran tamaño y no es necesario utilizar pasta de soldadura.
+    
+    Debido a lo anterior, todos estos componentes se pueden soldar de forma convencional, utilizando un soldador y estaño:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.55\linewidth]{pictures/PreSoldado.jpg}
+    \caption{Comienzo del proceso de soldadura}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    \begin{figure}[H]
+    \centering
+    \subfigure[ \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=70mm]{pictures/Soldando.jpg}}
+    \subfigure[
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=72.5mm]{pictures/Soldando2.jpg}}
+    \caption{Integrantes del equipo soldando componentes}
+    \label{fig:lego}
+    \end{figure}
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.45\linewidth]{pictures/PreSoldado2.jpg}
+    \caption{Proceso de soldadura en curso}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Tras finalizar el proceso de soldadura de los componentes y de haber recortado el exceso de sus pines, se obtiene el resultado final:
+
+    
+    \begin{figure}[H]
+    \centering
+    \subfigure[ Cara de componentes\cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=70mm]{pictures/SoldaduraDelanteras.jpg}}
+    \subfigure[ Cara de soldadura
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=70mm]{pictures/SoldadurasTraseras.jpg}}
+    \caption{Integrantes del equipo soldando componentes}
+    \label{fig:lego}
+    \end{figure}
+    
+    Cabe destacar que tras el proceso de soldadura, se deben revisar las soldaduras en cuanto a los siguientes aspectos:
+    \begin{itemize}
+        \item Verificar si las soldaduras son limpias y brillantes.
+        \item Verificar si las soldaduras conducen correctamente
+        \item Eliminar excesos de estaño que puedan producir cortos.
+    \end{itemize}
+\end{itemize}
+
+En este punto se considera que el proceso de fabricación de la PCB ha terminado, a falta de realizar el proceso de verificación que queda por realizar y que se muestra en el siguiente apartado.
+
+
+\subsection{Contratiempos ocurridos y soluciones ingeniadas}
+
+
 
