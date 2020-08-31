@@ -1050,8 +1050,123 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
 
 En este punto se considera que el proceso de fabricación de la PCB ha terminado, a falta de realizar el proceso de verificación que queda por realizar y que se muestra en el siguiente apartado.
 
+\subsection{Verificaciones del prototipo construido}
 
 \subsection{Contratiempos ocurridos y soluciones ingeniadas}
 
+El proceso de fabricación de la PCB ha sido uno de las etapas mas críticas dentro del proyecto y por lo tanto se considera importante comentar algunos de los contratiempos que han ocurrido, puesto que estos han tenido un impacto considerable en el desarrollo del proyecto.
+
+En general, estos contratiempos han ralentizado el proceso de fabricación, sin embargo, mediante su detección y correcta solución, se ha obtenido una PCB mucho mas robusta y segura; ya que se han revelado aspecto negativos que de otra forma habrían pasado desapercibidos.
+
+A continuación se muestran los principales contratiempos ocurridos y las soluciones que se han llevado a cabo para enmendarlos:
+
+\begin{itemize}
+    \item El primer contratiempo sucedido durante el proceso de fabricación está relacionado con el proceso de atacado de la PCB.
+    
+    Tal y como se ha explicado en apartados anteriores, el proceso de atacado a la PCB, tiene como objetivo eliminar la capa de cobre  en los lugares en los cuales no debe haber circuito impreso. Este proceso se realiza mediante una disolución de persulfato de amonio, la cual reacciona con la capa de cobre de la PCB y la corroe.
+    
+    La efectividad de esta disolución de atacado sobre la PCB verse afectada en función de la temperatura a la que se realiza el proceso, saturación de la disolución y otros factores específicos.
+    
+    Debido a lo expuesto anteriormente, se realizaron dos intentos fallidos de atacado de la PCB, en los cuales la disolución no consiguió eliminar la capa de cobre de los lugares que no estaban protegidas por resina. El resultado obtenido fue el siguiente:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.55\linewidth]{pictures/FalloPCB.jpg}
+    \caption{PCB tras proceso de atacado fallido}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Tras cada uno de los intentos fallidos, se tuvo que repetir el proceso de insolación de las fotomáscaras sobre una nueva placa positiva de prototipado.
+    
+    Después de dos intentos fallidos, se decidió desechar la disolución de atacado, ya que esta llevaba bastante tiempo fabricada y podría estar en mal; posteriormente se creo una nueva disolución de atacado:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.65\linewidth]{pictures/BreakingBad.jpg}
+    \caption{Proceso de creación de la disolución de atacado}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Trás el atacado con la nueva disolución, el proceso tuvo éxito y el circuito se imprimió correctamente en la placa de prototipado.
+    
+    A continuación se muestran las PCB obtenidas durante esta etapa:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.65\linewidth]{pictures/CursedPodium.jpg}
+    \caption{Proceso de creación de la disolución de atacado}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Tal y como se puede observar, en el centro de la imagen se encuentra la PCB exitosa y en los laterales los intentos fallidos, en los cuales el cobre no se eliminó adecuadamente.
+    
+    \item Otro de los contratiempos sucedidos fue detectado tras el proceso de soldado de los componentes, inmediatamente después de realizar el primer encendido del microcontrolador.
+    
+    Este contratiempo afecta al periférico PWM por partida doble, ya que se detectó una fractura en una de las pistas de comunicación del puerto PWM y a su vez, se comprobó que el modulo PWM interno que usaba esta pista también estaba defectuoso y era inservible.
+    
+    En la siguiente imagen se puede apreciar la fractura en la pista de cobre:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.65\linewidth]{pictures/FracturaPista.jpg}
+    \caption{Fractura en pista de cobre}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    En primer lugar, se procedió a realizar un parcheo de la pista usando hilo de grapinar:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.65\linewidth]{pictures/Parche.jpg}
+    \caption{Parcheo de la pista usando hilo de grapinar}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+   Tras verificar que la conductividad del nuevo parche era correcta, se detectó que el modulo PWM seguía sin funcionar a pesar de que la fractura se había solucionado. Posteriormente a realizar algunas pruebas al respecto usando un osciloscopio, se concluyó que el módulo estaba defectuoso y no funcionaba.
+   
+   Para solucionar este problema, se optó por utilizar un hilo de grapinar para reconectar el puerto PWM inservible a otro de los pines del microcontrolador, el cual usaba un módulo PWM que funcionaba correctamente y que no estaba siendo usado. Se obtuvo el siguiente resultado:
+   
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.65\linewidth]{pictures/HiloGrapinar.jpg}
+    \caption{Reconexión del nuevo módulo PWM al puerto}
+    \label{fig:kdiagram}
+    \end{figure}
+       
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.65\linewidth]{pictures/SoldaduraPrecisión.jpg}
+    \caption{Soldadura del hilo de reconexión con el nuevo pin}
+    \label{fig:kdiagram}
+    \end{figure}
+    Tal y como se puede observar, el reducido tamaño de la soldadura requirió que este proceso fuese realizado con máxima precisión. Además, por precaución, se eliminó parte de la pista original para evitar errores en la señal.
+    
+    A pesar de que esta solución es de carácter artesanal y lo recomendable hubieses sido fabricar de nuevo la PCB, se tomó la decisión de realizar este arreglo para reducir el impacto del contratiempo en el proyecto, ya que además esta solución mostró muy buen resultado y era suficientemente segura.
+   
+   \item El último de los contratiempos fue encontrado durante el proceso de soldado de la PCB y afecta al circuito de alimentación de los motores.
+   
+   Tal y como se puede ver en otros apartados de este documento, los servomotores son alimentados mediante una clema, la cual obtiene su voltaje de los reguladores LM-317 que adaptan el voltaje de alimentación de entrada.
+   
+   Tras el soldado de la clema y los reguladores, se alimentó a la PCB para verificar que el voltaje de salida por las clemas fuese el requerido. Al realizar la medición del voltaje que había en los contactos de las clemas usando un voltímetro, se detectó que este voltaje era muy superior al que debería ser.
+   
+   El voltaje que deberían ofrecer las clemas es de 5.41V, sin embargo, al realizar la medición, se obtuvieron 7.1V; un valor intolerable ya que los servomotores no pueden soportar dicho voltaje. Tras revisar la zona del circuito de alimentación, es decir, clemas y reguladores de tensión; se detectó que los reguladores de tensión LM-317 no estaban funcionando correctamente.
+   
+   Posteriormente, se procedió a realizar una revisión en profundidad de la zona, pistas cercanas, las soldaduras de las clemas y reguladores; sin embargo no se encontró ningún fallo de fabricación o ensamblaje.
+   
+   Dado que el fallo no parecía deberse al proceso de fabricación, se procedió a revisar de nuevo los diseños lógico y físico de la PCB. Tras esta revisión, se concluyó que el conexionado del diagrama lógico era correcto, sin embargo, la huella física elegida para el regulador de tensión LM-317 en el diagrama físico, presentaba un orden diferente al utilizado en el prototipo en los pines de conexión. A continuación se muestra esta diferencia:
+   
+   %meter foto
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+\end{itemize}
 
 
