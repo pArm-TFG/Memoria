@@ -744,9 +744,9 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     
     Utilizando la herramienta "imprimir placa" disponible en KiCad, se puede generar las máscaras asociadas al diagrama físico:
     
-    \begin{figure}[htbp]
+    \begin{figure}[H]
     \centering
-    \subfigure[Icono de impresión de placas \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=82mm]{pictures/ImprimirPCB.PNG}}
+    \subfigure[Icono de impresión de placas \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=80mm]{pictures/ImprimirPCB.PNG}}
     \subfigure[Desplegable de la herramienta
     \cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/ImprimirPCB2.PNG}}
     \caption{Herramienta de impresión de placas} \label{fig:lego}
@@ -754,7 +754,7 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     
     Las fotomáscaras obtenidas tras el uso de dicha herramienta son las siguientes:
     
-     \begin{figure}[htbp]
+     \begin{figure}[H]
     \centering
     \subfigure[Máscara frontal \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=82mm]{pictures/MascaraFrontal.PNG}}
     \subfigure[Máscara trasera
@@ -774,6 +774,8 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \caption{Proceso de impresión y recorte de las fotomáscaras} \label{fig:lego}
     \end{figure}
     
+     Otro de los aspectos a destacar y que es vital en relación a la impresión de las transparencias, es que, dado que todas las impresoras producen cierta distorsión en los documentos que imprimen; se debe incluir una corrección de escala XY de 1.037 para calibrar correctamente la impresión. En caso contrario, se puede producir algún pequeño desajuste en el encaje de los componentes una vez esté fabricado el circuito.
+    
     Dado que el objetivo principal de dichas fotomáscaras es el de transferir el patrón del circuito de la PCB a la placa de prototipado positiva, se deben ensamblar de tal forma que permitan introducir en su interior la misma, para que posteriormente durante el proceso de insolación, se consiga fotolitografiar el circuito en ambas caras de la PCB.
     
     A continuación se muestra el ensamblado final de la funda construida con las fotomáscaras:
@@ -786,7 +788,8 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \caption{Fotomáscara final} \label{fig:lego}
     \end{figure}
     
-    Cabe destacar que se han incluido dos transparencias superpuestas por cada cara de la fotomáscara para aumentar la opacidad que se genera al fotolitografiar la placa de prototipado positiva.
+    Cabe destacar que se han incluido dos transparencias superpuestas por cada cara de la fotomáscara para aumentar la opacidad que se genera al fotolitografiar la placa de prototipado positiva. Estas transparencias deben estar superpuestas con una exactitud extrema para impedir desfases en la impresión del circuito.
+    
     
     \item En segundo lugar y una vez se ha completado el generado de la fotomáscara, se debe realizar el proceso de insolación de la placa de prototipado positiva. Durante este proceso, se realizar la transferencia del patrón del circuito desde la fotomáscara a la placa de prototipado mediante la exposición de la misma a luz ultravioleta.
     
@@ -1052,6 +1055,43 @@ En este punto se considera que el proceso de fabricación de la PCB ha terminado
 
 \subsection{Verificaciones del prototipo construido}
 
+Tras completar la fabricación de la PCB, es recomendable realizar algunas comprobaciones mínimas para asegurarse de que el prototipo construido es funcional:
+
+\begin{itemize}
+    \item Al completar la impresión del circuito y antes de soldar los componentes, se debe verificar la correcta conductividad de las pistas de cobre, así como la búsqueda de cortocircuitos o fracturas. Para esta labor se debe utilizar un voltímetro.
+    
+    \item  Posteriormente, pero antes de soldar los componentes, se debe verificar la correcta conducción de las distintas redes según lo descrito en el diagrama lógico. Para esta labor se debe utilizar un voltímetro.
+    
+    \item En el momento de soldar los componentes, se debe verificar su correcta inserción en los orificios de los pads; verificando también que su orientación y colocación de pines sea la correcta.
+    
+    \item Tras realizar todos las verificaciones anteriores y una vez se ha completado el proceso de soldadura de los componentes, se debe realizar el primer encendido del microcontrolador y el testeo de todos los componentes de la PCB.
+    
+        
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.55\linewidth]{pictures/PrimerEncendido.jpg}
+    \caption{Primer encendido de la PCB usando un código de prueba del PWM}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.55\linewidth]{pictures/PruebaUart}
+    \caption{Prueba del funcionamiento de la UART}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.55\linewidth]{pictures/PruebaServos.jpg}
+    \caption{Prueba del funcionamiento de los servomotores}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+\end{itemize}
+
+Todas las pruebas realizadas dieron buen resultado y gracias a ellas se descubrieron alguno de los contratiempos descritos en el apartado siguiente.
+
 \subsection{Contratiempos ocurridos y soluciones ingeniadas}
 
 El proceso de fabricación de la PCB ha sido uno de las etapas mas críticas dentro del proyecto y por lo tanto se considera importante comentar algunos de los contratiempos que han ocurrido, puesto que estos han tenido un impacto considerable en el desarrollo del proyecto.
@@ -1094,7 +1134,7 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/CursedPodium.jpg}
-    \caption{Proceso de creación de la disolución de atacado}
+    \caption{Intentos de fabricación de la PCB}
     \label{fig:kdiagram}
     \end{figure}
     
@@ -1153,20 +1193,95 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
    
    Posteriormente, se procedió a realizar una revisión en profundidad de la zona, pistas cercanas, las soldaduras de las clemas y reguladores; sin embargo no se encontró ningún fallo de fabricación o ensamblaje.
    
-   Dado que el fallo no parecía deberse al proceso de fabricación, se procedió a revisar de nuevo los diseños lógico y físico de la PCB. Tras esta revisión, se concluyó que el conexionado del diagrama lógico era correcto, sin embargo, la huella física elegida para el regulador de tensión LM-317 en el diagrama físico, presentaba un orden diferente al utilizado en el prototipo en los pines de conexión. A continuación se muestra esta diferencia:
+   Dado que el fallo no parecía deberse al proceso de fabricación, se procedió a revisar de nuevo los diseños lógico y físico de la PCB. Tras esta revisión, se concluyó que el conexionado del diagrama lógico era correcto, sin embargo, la huella física elegida para el regulador de tensión LM-317 en el diagrama físico, presentaba un ordenado de pines diferente al del utilizado en el prototipo. A continuación se muestran las imágenes en las que se ve claramente esta diferencia:
    
-   %meter foto
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.65\linewidth]{pictures/FailPinout2.JPG}
+    \caption{Esquemático lógico del LM317}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.55\linewidth]{pictures/FailPinout3.JPG}
+    \caption{Huella física del LM317}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.65\linewidth]{pictures/FailPinout.JPG}
+    \caption{Encapsulado físico del LM317}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Tal y como se puede observar en las imágenes anteriores:
+    
+    \begin{itemize}
+    
+        \item El esquemático lógico del LM317 consta de 3 pines, al igual que su encapsulado y huella física.
+        
+        \item El encapsulado del LM317 tiene como referencia TO-220, con lo cual se debe seleccionar dicha huella física.
+        
+        \item A pesar de que le referencia de la huella física es TO-220, se puede afirmar que la distribución de pines de la misma, no es igual al del encapsulado físico del componente.
+        
+        \item Los pads 2 y 3 de la huella física, correspondientes a los pines ADJUST y OUTPUT del encapsulado del LM317, están intercambiados y en consecuencia, la colocación de los pines es errónea.
+        
+    \end{itemize}
+    
+    Debido a lo descrito anteriormente, se puede afirmar que el diagrama físico de la PCB contenía un error en el conexionado de los reguladores LM317 que alimentan los servomotores, por ello, el voltaje de salida de las clemas era de 7.1V y no de 5.41V, tal y como se había diseñado.
+    
+    Como primer paso para solucionar dicho problema, se procedió a editar la huella física del componente y se intercambiaron los pines:
+    
+    \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.45\linewidth]{pictures/FixedLM.JPG}
+    \caption{Huella física del LM317 con pines reordenados}
+    \label{fig:kdiagram}
+    \end{figure}
+    
+    Puesto que se habían intercambiado dos pines de la huella física, las pistas de conexión de los mismos debían ser reconectadas para arreglar el problema:
+    
+    \begin{figure}[H]
+    \centering
+    \subfigure[ Pines erróneos\cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=70.5mm]{pictures/PREFIX.png}}
+    \subfigure[Pines arreglados
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=69mm]{pictures/POSFIX.png}}
+    \caption{Modificación del circuito de alimentación de los servomotores marcada en azul }
+    \label{fig:lego}
+    \end{figure}
+    
+    Esta modificación del diagrama físico de la PCB hecha a posteriori ya se contempla en el apartado 5.4.5 de la memoria, dado que en dicho apartado se muestra la versión final del diagrama físico.
+    
+    Como segundo paso para solucionar el problema y puesto que la PCB ya había sido fabricada siguiendo el diagrama físico que contenía el fallo, se debía de ingeniar alguna solución para el prototipo construido. 
+    
+    A pesar de que se planteó la posibilidad de fabricar de nuevo la PCB, se consideró que este proceso causaría demasiado retraso en el desarrollo del proyecto y por lo tanto se optó por ingeniar otra solución directamente sobre el prototipo que estaba fabricado y ensamblado.
+    
+    Puesto que el fallo consistía en dos pines que deberían estar intercambiados, bastaría con intercambiar las pistas de comunicación que conectaban con ellos. Se decidió de esta forma, fracturar las pistas existentes para después colocar dos puentes; intercambiando de esta forma el conexionado de los pines con sus pistas.
+    
+    A continuación se muestra dicho puente de forma detallada:
+    
+    \begin{figure}[H]
+    \centering
+    \subfigure[ Vista detallada del puente\cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=70mm]{pictures/EmpalmeDetallado.jpg}}
+    \subfigure[Vista de los cuatro puentes realizados
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=92.5mm]{pictures/EmpalmesTraseros.jpg}}
+    \caption{Puentes entre pistas de los reguladores de tensión LM317}
+    \label{fig:lego}
+    \end{figure}
+    
+    Para la realización se emplearon cables de tamaño reducido que actuaban como puente entre las pistas. Debido al reducido tamaño de puente  y dado que el soldado de los mismos se realizó a mano, se considera que el resultado podría ser mejorable; sin embargo, esta solución dió buenos resultados y corrigió correctamente el voltaje de salida de los reguladores de tensión LM317.
+    
 \end{itemize}
+
+A pesar de todos los errores cometidos durante el proceso de fabricación y diseño de la PCB, los integrantes del equipo han sido capaces de: ingeniar soluciones óptimas que generasen el mínimo impacto negativo en el proyecto, implementarlas en el prototipo fabricado y verificar su corrección.
+
+ \begin{figure}[H]
+    \centering 
+    \includegraphics[width=0.5\linewidth]{pictures/Quote.jpg}
+    \caption{Caña al mono ingenieros}
+    \label{fig:kdiagram}
+ \end{figure}
 
 
