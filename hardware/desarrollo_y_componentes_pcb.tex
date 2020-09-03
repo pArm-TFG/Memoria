@@ -2,105 +2,104 @@
 
 El desarrollo de una PCB se considera una de las partes esenciales de este proyecto y por lo tanto su importancia es máxima.
 
-El objetivo principal que persigue el diseñar y construir una PCB en este proyecto es el de dotar al sistema de un centro de cómputo principal, el cual es utilizado para procesar las ordenes de S1, realizar los cálculos pertinentes y ejecutar las acciones necesarias sobre la estructura del brazo robótico.
-
-Se considera  por lo tanto que la PCB es el centro de computo principal del sistema y por lo tanto se encarga de alojar el microcontrolador DSPIC, así como todos los periféricos necesarios para establecer la comunicación con S1, realizar el control de los actuadores y monitorizar el estado del manipulador.
-
-En los siguientes apartados se detalla el proceso de diseño y construcción llevado a cabo para completar la PCB.
+El objetivo principal que persigue el diseñar y construir una PCB en este proyecto es el de dotar al sistema de un centro de cómputo principal, el cual es utilizado para procesar las \textbf{ordenes} de S1, realizar los cálculos pertinentes y ejecutar las acciones necesarias sobre la estructura del brazo robótico. La PCB por lo tanto, se encarga de alojar el microcontrolador dsPIC, así como todos los periféricos necesarios para establecer la comunicación con S1, realizar el control de los actuadores y monitorizar el estado del manipulador.
 
 \subsection{Componentes principales}
 
-El diseño de la PCB esta completamente estructurado según varios componentes principales, por lo tanto, en este apartado se describe cuales son, las decisiones que han llevado a incluirlos y sus funcionalidades principales dentro del proyecto.
-
-En general se podría decir que los componentes de la PCB se clasifican en tres categorías principales:
+En general, se podría decir que los componentes de la PCB se clasifican en tres categorías principales:
 \begin{itemize}
     \item Componentes de alimentación eléctrica.
     \item Microcontrolador y componentes auxiliares para su correcto funcionamiento.
     \item Periféricos destinados a control de actuadores y canales de comunicación.
 \end{itemize}
 
-En primer lugar, los componentes de alimentación eléctrica son aquellos que forman el circuito de alimentación del microcontrolador así como de los actuadores. El circuito eléctrico de alimentación de la PCB se ha diseñado para poder alimentar de forma simultánea al microcontrolador y a cada uno de los cuatro servomotores y por lo tanto, está formado por dos etapas:
+En primer lugar, los componentes de alimentación eléctrica son aquellos que forman el circuito de alimentación del microcontrolador así como de los actuadores. El circuito eléctrico de alimentación de la PCB se ha diseñado para poder alimentar de forma simultánea al microcontrolador y a cada uno de los cuatro servomotores y, por lo tanto, está formado por dos etapas:
 \begin{itemize}
-    \item La PCB recibe una tensión de entrada de 9V y una corriente de entre 1.8A - 2A mediante una clema. Posteriormente esta tensión de alimentación será reducida y adaptada para alimentar a cada una de las etapas de la PCB, es decir, al microcontrolador y servomotores.
-    \item En la primera etapa se reduce el voltaje de alimentación principal a 6V y 0.4A aproximadamente para cada uno de los servomotores, utilizando para ello un regulador LM317 para cada servomotor. Esta alimentación se realiza mediante clemas, a las cuales se deben conectar la alimentación de los motores.
-    \item En la segunda etapa se reduce el voltaje de alimentación principal a 3.3V y 0.15A aproximadamente con objetivo de alimentar el microcontrolador, utilizando para  ello un regulador LM317. Esta alimentación se realiza mediante pistas únicamente.
+    \item La PCB recibe una tensión de entrada de $9V$ y una corriente de entre $1.8A - 2A$ mediante una clema. Posteriormente, esta tensión de alimentación será reducida y adaptada para alimentar a cada una de las etapas de la PCB, es decir, al microcontrolador y servomotores.
+    \item En la primera etapa se reduce el voltaje de alimentación principal a $6V$ y $0.4A$ aproximadamente para cada uno de los servomotores, utilizando para ello un regulador LM317 para cada servomotor. Esta alimentación se realiza mediante clemas, a las cuales se deben conectar la alimentación de los motores.
+    
+    \item En la segunda etapa se reduce el voltaje de alimentación principal a $3.3V$ y $0.15A$ aproximadamente con el objetivo de alimentar el microcontrolador, utilizando para ello reguladores LM317 y A1117H. Esta alimentación se realiza mediante pistas únicamente.
 \end{itemize}
 
 En segundo lugar, el microcontrolador y sus componentes auxiliares representan el núcleo de la PCB:
 \begin{itemize}
-    \item El DSPIC se encuentra localizado en el centro de la PCB y de él surgen todas las conexiones necesarias hacia los periféricos.
-    \item Los componentes auxiliares del microcontrolador son componentes eléctricos que aseguran el correcto funcionamiento del DSPIC, así como su seguridad. En el caso específico de este microcontrolador, es necesario incluir varios condensadores en sus pines de alimentación.
+    \item El dsPIC se encuentra localizado en el centro de la PCB y de él surgen todas las conexiones necesarias hacia los periféricos.
+    \item Los componentes auxiliares del microcontrolador son componentes eléctricos que aseguran el correcto funcionamiento del dsPIC, así como su seguridad. En el caso específico de este microcontrolador, es necesario incluir varios condensadores en sus pines de alimentación.
 \end{itemize}
 
-En último lugar se detallan los principales periféricos que serán empleados:
+En último lugar, se han utilizado los siguientes periféricos:
+
 \begin{itemize}
-    \item Cristal de cuarzo: mediante este periférico se genera una señal de reloj precisa y de buena calidad, su frecuencia es de 7Mhz y sera recibida por el microcontrolador para ser usada como señal de reloj principal del sistema.
-    \item Puerto de programación: mediante este periférico se puede conectar la sonda de programación del microcontrolador y por lo tanto es un elemento esencial.
-    \item Puerto TRIS: mediante este periférico se pueden recibir señales digitales y analógicas las cuales son procesadas por el microcontrolador. En este proyecto se utiliza este periférico para monitorizar los finales de carrera de la estructura del brazo robótico.
-    \item Puerto PWM: mediante este periférico se pueden generar señales PWM, las cuales son completamente necesarias para controlar los servomotores.
-    \item UART: mediante este periférico se establece un canal de comunicación hardware con S1, el cual se usa para recibir ordenes, movimientos y realimentar su resultado de vuelta a S1.
-    \item LEDS de estado: mediante este periférico se muestra el estado del sistema usando tres diodos LED.
+    \item Cristal de cuarzo: mediante este componente, se genera una señal de reloj precisa y de buena calidad. Su frecuencia es de $7MHz$ y \textbf{sera} recibida por el microcontrolador para ser usada como la señal de reloj principal del sistema.
+    
+    \item Puerto de programación: mediante este periférico se puede conectar la sonda de programación del microcontrolador y por lo tanto es un elemento con especial importancia y relevancia dentro del sistema.
+    
+    \item Puerto TRIS: mediante este periférico se pueden recibir señales digitales y analógicas, las cuales son procesadas por el microcontrolador. En este proyecto, estos puertos se utilizan para monitorizar los finales de carrera de la estructura del brazo robótico.
+    \item Puerto PWM: mediante este periférico se pueden generar señales PWM, es decir, señales digitales cuadradas y con un ancho de pulso variable, las cuales son completamente necesarias para controlar los servomotores.
+    
+    \item UART: mediante este periférico se establece un canal de comunicación \textit{hardware} con S1, el cual se usa para recibir órdenes, movimientos y realimentar su resultado de vuelta a S1.
+    
+    \item LEDs de estado: mediante este periférico se muestra el estado del sistema usando tres diodos LED.
 \end{itemize}
 
 Mediante esta descripción general de la PCB y sus componentes se pretende brindar una idea global de la misma, así como de cual es su papel dentro del proyecto. En los apartados siguientes se describe en términos técnicos los elementos de esta PCB, así como el proceso de diseño y fabricación llevado a cabo.
 
 \subsection{Diseño lógico y diagrama esquemático}
 
-El primer paso llevado a cabo durante el diseño de la PCB ha sido realizar un diseño lógico de alto nivel, en el cual se muestran las conexiones lógicas que existen entre los componentes; se trata por lo tanto del diseño con mayor nivel de abstracción y que tiene como objetivo establecer un diseño de primer nivel, es decir, la primera toma de contacto con el plano de la PCB.
+El primer paso llevado a cabo durante el diseño de la PCB ha sido realizar un diseño lógico de alto nivel, en el cual se muestran las conexiones lógicas que existen entre los componentes; se trata, por lo tanto, del diseño con mayor nivel de abstracción y que tiene como objetivo establecer un diseño de primer nivel, es decir, la primera toma de contacto con el plano de la PCB.
 
-El diseño lógico se lleva a cabo mediante un diagrama esquemático que contiene dos tipos de elementos: huella lógica de cada uno de los componentes y conexiones entre ellos. Este diagrama se ha llevado a cabo utilizando la herramienta Schematic Layout Editor incluida en KiCad.
+El diseño lógico se lleva a cabo mediante un diagrama esquemático que contiene dos tipos de elementos: huella lógica de cada uno de los componentes y las conexiones entre ellos. Este diagrama se ha llevado a cabo utilizando la herramienta \textit{Schematic Layout Editor} incluida en KiCad.
 
-El diagrama esquemático esta dividido en dos partes principales, las cuales facilitan la compresión del mismo:
+El diagrama esquemático está dividido en dos partes principales, las cuales facilitan la compresión del mismo:
 \begin{itemize}
     \item Diagrama esquemático del circuito de alimentación.
     \item Diagrama esquemático del microcontrolador y sus periféricos.
 \end{itemize}
 
-En primer lugar se procede a describir detalladamente el diagrama esquemático del circuito de alimentación, el cual contiene las dos etapas de alimentación, siendo los principales componentes usados los reguladores de voltaje LM317,L7805CV y AZ1117H.
+En primer lugar, se procede a describir detalladamente el diagrama esquemático del circuito de alimentación, el cual contiene las dos etapas de alimentación, siendo los principales componentes usados los reguladores de voltaje LM317, L7805CV y AZ1117H.
 
-La clema principal de alimentación recibe 9V y 1.8A aproximadamente. Esta alimentación debe ser provista externamente mediante una fuente de alimentación regulable o similares. 
+La clema principal de alimentación recibe $9V$ y $1.8A$ aproximadamente. Esta alimentación debe ser provista externamente mediante una fuente de alimentación regulable o similares. 
 
-Conectados directamente a la clema principal se encuentran conectados los reguladores de tensión correspondientes a las dos etapas de alimentación:
+Conectados directamente a la clema principal, se encuentran los reguladores de tensión correspondientes a las dos etapas de alimentación:
 \begin{itemize}
-    \item La primera etapa de alimentación está formada por cuatro reguladores LM317, los cuales alimentan cada uno de los servomotores. En esta etapa de alimentación se reduce el voltaje de 9V a 5.5V.
+    \item La primera está formada por cuatro reguladores LM317, los cuales alimentan cada uno de los servomotores. En dicha etapa se reduce el voltaje de $9V$ a $5.5V$.
     
-    \item La segunda etapa de alimentación está formada por un regulador de tensión L7805CV y un AZ1117H. En esta etapa de alimentación se reduce el voltaje de 9V a 5V usando el primer regulador, y de 5V a 3.3V usando el segundo.
+    \item La segunda está formada por un regulador de tensión L7805CV y un AZ1117H. En dicha etapa de alimentación se reduce el voltaje de $9V$ a $5V$ usando el primer regulador, y de $5V$ a $3.3V$ usando el segundo.
 \end{itemize}
 
-El funcionamiento del regulador LM317 es bastante común, se trata de un regulador de voltaje ajustable que recibe una tensión continua de entrada de entre 3V - 40V, y provee una tensión continua salida de entre 1.25V - 37V; la relación entre la tensión de entrada y salida depende de dos resistencias auxiliares. El conexionado sugerido por el fabricante es el siguiente y se ha obtenido del datasheet del regulador:
+En particular, el LM317 es un regulador convencional que recibe una tensión que recibe una tensión continua de entrada de entre $3V$ - $40V$, y provee una tensión continua salida de entre $1.25V$ - $37V$. Además, la relación entre la tensión de entrada y salida depende del dimensionado de dos resistencias auxiliares. El conexionado sugerido por el fabricante es el siguiente y se ha obtenido del \textit{datasheet} del regulador:
 
 \begin{figure}[H]
     \centering 
-    \includegraphics[width=.6\linewidth]{pictures/Lm317 conexionado.PNG}
-    \caption{Diagrama de conexionado.}
-    \label{fig:kdiagram}
+    \includegraphics[width=.6\linewidth]{pictures/LM317 conexionado.PNG}
+    \caption{Diagrama de conexionado \textbf{INSERTE CITA AL DATASHEET}}
+    \label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-
-La ecuación de funcionamiento del regulador que ofrece el fabricante es la siguiente:
+La ecuación de funcionamiento que ofrece el fabricante para el regulador LM317 es la siguiente:
 \begin{equation}
-    V_{OUT} = V_{REF} \cdot \left( 1 + \frac{R2}{R1}\right) + I_{ADJ} \cdot R2
+    V_{OUT} = V_{REF} \cdot \left( 1 + \frac{R_2}{R_1}\right) + I_{ADJ} \cdot R_2
 \end{equation}
 
-La ecuación anterior debe ser usada para realizar los cálculos pertinentes sobre el valor de las resistencias R2 y R1. Se pueden realizara además dos observaciones necesarias para la correcta aplicación de la ecuación anterior:
+La ecuación anterior debe ser usada para realizar los cálculos pertinentes sobre el valor de las resistencias $R_2$ y $R_1$. Se tienen en cuenta, además, dos observaciones necesarias para la correcta aplicación de la ecuación anterior:
 \begin{itemize}
-    \item Se tiene que por definición, el fabricante establece el valor $V_{REF}$ en 1.25V
-    \item Por motivos de construcción del regulador, la corriente $I_{ADJ}$ tiene un valor máximo de $100 \mu A$ y por lo tanto el término de la ecuación que la involucra puede ser despreciado.
+    \item Por definición, el fabricante establece el valor $V_{REF}$ en $1.25V$.
+    \item Por motivos de construcción del regulador, la corriente $I_{ADJ}$ tiene un valor máximo de $100 \mu A$ y, por lo tanto, el término de la ecuación que la involucra puede ser despreciado.
 \end{itemize}
 
-Se tiene por lo tanto que la ecuación funcional a utilizar en el cálculo de R1 y R2 es:
+Se obtiene entonces que la ecuación funcional a utilizar en el cálculo de $R_1$ y $R_2$ es:
 
 \begin{equation}
-    V_{OUT} = 1.25 \cdot \left( 1 + \frac{R2}{240}\right) 
+    V_{OUT} = 1.25 \cdot \left( 1 + \frac{R_2}{240}\right) 
 \end{equation}
 
-Teniendo en cuenta los voltajes de alimentación requeridos para las dos etapas de alimentación de la PCB, se han realizado los siguientes cálculos para los valores de la resistencia R1 y R2:
+Teniendo en cuenta los voltajes de alimentación requeridos para las dos etapas de alimentación de la PCB, se han realizado los siguientes cálculos para los valores de la resistencia $R_1$ y $R_2$:
 \begin{itemize}
-    \item Primera etapa, alimentación de servomotores, 5.5V y 0.4A requeridos:
+    \item Primera etapa, alimentación de servomotores, $5.5V$ y $0.4A$ requeridos:
     \begin{equation}
-        5.5 = 1.25 \cdot \left( 1 + \frac{R2}{R1}\right) 
+        5.5 = 1.25 \cdot \left( 1 + \frac{R_2}{R_1}\right) 
     \end{equation}
-    Por disponibilidad de materiales, se ha decidido escoger los valores $150 \Omega$ y $500 \Omega$ para los valores de R1 y R2 respectivamente. Tomando en cuenta dichos valores y utilizando la ecuación anterior, se obtiene una reducción de voltaje de 9V a 5.41V, voltaje suficiente para alimentar los servomotores.
+    Por disponibilidad de materiales, se ha decidido escoger los valores $150\Omega$ y $500\Omega$ para las resistencias $R_1$ y $R_2$ respectivamente. Tomando en cuenta dichos valores y utilizando la ecuación anterior, se obtiene una reducción de voltaje de $9V$ a $5.41V$, voltaje suficiente para alimentar los servomotores.
 \end{itemize}
 
 Aplicando el conexionado recomendado por el fabricante y los cálculos para el valor de las resistencias se obtiene finalmente el diagrama esquemático del circuito de alimentación de los servomotores:
@@ -109,47 +108,47 @@ Aplicando el conexionado recomendado por el fabricante y los cálculos para el v
     \centering 
     \includegraphics[width=.85\linewidth]{pictures/EsquematicoAlimentaciónServos.PNG}
     \caption{Diagrama esquemático del circuito de alimentación de los servomotores}
-    \label{fig:kdiagram}
+    \label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
 El funcionamiento de los reguladores L7805CV y AZ1117H es simple:
 \begin{itemize}
-    \item El regulador L7805CV recibe un voltaje de entre 7V - 35V y provee un voltaje de salida fijo de 5V. Su conexionado se realiza utilizando dos condensadores auxiliares, tal y como se describe en el datasheet del componente:
+    \item El regulador L7805CV recibe un voltaje de entre $7V$ - $35V$ y provee un voltaje de salida fijo de $5V$. Su conexionado se realiza utilizando dos condensadores auxiliares, tal y como se describe en el \textit{datasheet} del componente:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.75\linewidth]{pictures/L7805Datasheet.PNG}
-    \caption{Diagrama de conexionado del regulador L7805}
-    \label{fig:kdiagram}
+    \caption{Diagrama de conexionado del regulador L7805 \textbf{INSERTE CITA DATASHEET}.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    \item El regulador AZ1117H recibe un voltaje de hasta 15V y provee un voltaje de salida fijo de 3.3V. Su conexionado se realiza de la misma forma que para el regulador anterior, tal y como se describe en el datasheet del componente:
+    \item El regulador AZ1117H recibe un voltaje de hasta $15V$ y provee un voltaje de salida fijo de $3.3V$. Su conexionado se realiza de la misma forma que para el regulador anterior, tal y como se describe en el \textit{datasheet} del componente:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.75\linewidth]{pictures/AZ1117Hdatasheet.PNG}
-    \caption{Diagrama de conexionado del regulador AZ1117H}
-    \label{fig:kdiagram}
+    \caption{Diagrama de conexionado del regulador AZ1117H \textbf{INSERTE CITA DATASHEET}.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    En el diagrama anterior se utiliza el modelo que ofrece regulación de voltaje a 5V, sin embargo el modelo usado en el proyecto es el que ofrece regulación de voltaje a 3.3V, siendo su conexionado exactamente igual.
+    En el diagrama anterior se utiliza el modelo que ofrece regulación de voltaje a $5V$. Sin embargo, el modelo usado en el proyecto es el que ofrece regulación de voltaje a $3.3V$, siendo su conexionado exactamente igual.
     
 \end{itemize}
 
-Teniendo en cuenta la información expuesta anteriormente, se ha decidido conectar en serie ambos reguladores, consiguiendo de esta forma una regulación de 9V a 5V y posteriormente una regulación de 5V a 3.3V. El diagrama esquemático final es el siguiente:
+Teniendo en cuenta la información expuesta anteriormente, se ha decidido conectar en serie ambos reguladores, consiguiendo de esta forma una regulación de $9V$ a $5V$ y posteriormente una regulación de $5V$ a $3.3V$. El diagrama esquemático final es el siguiente:
 
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.95\linewidth]{pictures/EsquematicoAlimentaciónPic.PNG}
-    \caption{Diagrama esquemático de la etapa de alimentación del microcontrolador}
-    \label{fig:kdiagram}
+    \caption{Diagrama esquemático de la etapa de alimentación del microcontrolador.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
 
 Es importante destacar tres aspectos:
 \begin{itemize}
     \item La primera etapa de alimentación incluye clemas para su conexionado con los servomotores.
     \item La segunda etapa de alimentación incluye un puerto de cuatro pines, los cuales se usan para alimentar los micro-interruptores y el microcontrolador.
-    \item El conexionado de todos los reguladores se ha realizado en paralelo, dedicando un regulador para cada servomotor, así como para el microcontrolador. El objetivo de esta configuración es garantizar una vía de alimentación independiente para cada componente, reduciendo las interferencias de alimentación entre los reguladores y, diferenciando la etapa de alimentación de los servomotores y microcontrolador.
+    \item El conexionado de todos los reguladores se ha realizado en paralelo, dedicando un regulador para cada servomotor así como para el microcontrolador. El objetivo de esta configuración es garantizar una vía de alimentación independiente para cada componente, reduciendo las interferencias de alimentación entre los reguladores y diferenciando la etapa de alimentación de los servomotores y microcontrolador.
 \end{itemize}
 
 En segundo lugar se procede a describir detalladamente el diagrama esquemático del microcontrolador y sus periféricos. A continuación se muestra el diagrama esquemático final y posteriormente se detallará cada uno de los periféricos:
@@ -157,69 +156,65 @@ En segundo lugar se procede a describir detalladamente el diagrama esquemático 
 \begin{figure}[H]
     \centering 
     \includegraphics[width=.95\linewidth]{pictures/EsquematicoMicrocontrolador.PNG}
-    \caption{Diagrama esquemático del microcontrolador y sus periféricos}
-    \label{fig:kdiagram}
+    \caption{Diagrama esquemático del microcontrolador y sus periféricos.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Primeramente es importante describir los condensadores auxiliares necesarios para el correcto funcionamiento del microcontrolador, los cuales se encuentran conectados en los pines de alimentación del mismo. Su conexionado es sugerido por el fabricante en el datasheet según el siguiente esquema, se trata de la configuración mínima recomendada:
+Primeramente, es importante describir los condensadores auxiliares necesarios para el correcto funcionamiento del microcontrolador, los cuales se encuentran conectados en los pines de alimentación del mismo. Su conexionado es sugerido por el fabricante en el \textit{datasheet} según el siguiente esquema, tratándose así de la configuración mínima recomendada:
 
 \begin{figure}[H]
     \centering 
     \includegraphics[width=.7\linewidth]{pictures/Minimun.PNG}
-    \caption{Conexionado mínimo del microcontrolador}
-    \label{fig:kdiagram}
+    \caption{Conexionado mínimo del microcontrolador.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Todos los condensadores han sido conectados a los pines descritos por el fabricante y escogidos teniendo en cuenta las características técnicas de los mismos, también descritas en el datasheet.
+Todos los condensadores han sido conectados a los pines descritos por el fabricante y escogidos teniendo en cuenta las características técnicas de los mismos, también descritas en el \textit{datasheet}.
 
-A continuación se describe el conexionado del resto de puertos y periféricos:
+A continuación, se describe el conexionado del resto de puertos y periféricos:
 
 \begin{itemize}
-    \item Cristal de cuarzo: se trata del periférico que genera la señal de reloj principal del sistema, en este caso, su frecuencia es de 7.3728 Mhz y entra dentro del rango de válido mencionado en el datasheet.
+    \item Cristal de cuarzo: en términos técnicos, se trata de un cristal de $7.32MHz$, perfectamente válido para el microcontrolador usado en el proyecto:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.7\linewidth]{pictures/Cristal.PNG}
-    \caption{Diagrama esquemático del conexionado del generador de señales}
-    \label{fig:kdiagram}
+    \caption{Diagrama esquemático del conexionado del generador de señales.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    Su conexionado se realiza con los pines 32 y 31 del microcontrolador, siguiendo la estructura de la imagen anterior, empleando también una resistencia de $1 M \Omega$ y dos condensadores de 22 pF.
+    Su conexionado se realiza con los pines 32 y 31 del microcontrolador, siguiendo la estructura de la imagen anterior, empleando también una resistencia de $1 M \Omega$ y dos condensadores de $22 pF$.
     
-    \item Puerto de programación mediante sonda: se trata del puerto que permite conectar la sonda que introduce el código a ejecutar en el microcontrolador.
-    
-    El conector que recibe la sonda debe tener una estructura específica y se describe en el datasheet de la misma:
+    \item Puerto de programación mediante sonda: El conector que recibe la sonda debe tener una estructura específica y se describe en el \textit{datasheet} de la misma:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.5\linewidth]{pictures/Sonda.PNG}
-    \caption{Pinout del conector de la sonda de programación}
-    \label{fig:kdiagram}
+    \caption{\textit{Pinout} del conector de la sonda de programación \textbf{INSERTE CITA AQUÍ}.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-     Cabe destacar que el pin 18 o MCLR debe tener un conexionado específico en el que se emplea una resistencia pull-up; esta estructura de conexión se muestra en el datasheet del microcontrolador:
+     Cabe destacar que el pin 18 o MCLR debe tener un conexionado específico en el que se emplea una resistencia \textit{pull-up}; esta estructura de conexión se muestra en el \textit{datasheet} del microcontrolador:
      
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/MCLR.PNG}
-    \caption{Conexión del pin MCLR}
-    \label{fig:kdiagram}
+    \caption{Conexión del pin MCLR \textbf{INSERTE CITA AQUÍ}.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    En este proyecto se ha decidido no incluir el jumper sugerido para conexión del pin MCLR y por lo tanto R1 no se incluye en el diagrama esquemático.
+    En este proyecto se ha decidido no incluir el \texit{jumper} sugerido para conexión del pin MCLR y por lo tanto $R_1$ no se añade en el diagrama esquemático.
     
     Teniendo en cuenta lo anteriormente mencionado, el conexionado final del puerto de programación mediante sonda es el siguiente:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.5\linewidth]{pictures/sonda.PNG}
-    \caption{Diagrama esquemático del puerto de programación}
-    \label{fig:kdiagram}
+    \caption{Diagrama esquemático del puerto de programación.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    \item Puerto TRIS: se trata del puerto al que se conectan los micro-interruptores que se utilizan en los finales de carrera de la estructura del brazo robótico.
-    
-    Para detectar si el brazo robótico se encuentra en uno de sus finales de carrera o zonas límite de movimiento, se utilizan unos micro-interruptores que al ser presionados por el manipulador, realizan cortocircuito. Mediante este cortocircuito y dado que estos micro-interruptores se encuentran conectados a los pines 19, 20, 21 y 22 del microntrolador, se puede realizar la lectura de dichos pines y detectar el estado de micro-interruptor. De esta manera se consigue saber cuando el manipulador ha alcanzado o no un final de carrera.
+    \item Puerto TRIS:  Para detectar si el brazo robótico se encuentra en uno de sus finales de carrera o zonas límite de movimiento se utilizan unos micro-interruptores que, al ser presionados por el manipulador, realizan un cortocircuito. Mediante este cortocircuito y dado que estos micro-interruptores se encuentran conectados a los pines 19, 20, 21 y 22 del microcontrolador, se puede realizar la lectura de dichos pines y detectar el estado de micro-interruptor. De esta manera, se consigue saber cuándo el manipulador ha alcanzado o no un final de carrera.
     
     A continuación se muestra un esquema de lo mencionado anteriormente:
     
@@ -227,32 +222,30 @@ A continuación se describe el conexionado del resto de puertos y periféricos:
     \centering 
     \includegraphics[width=.64
     \linewidth]{pictures/MicroSwitchesSchematic.PNG}
-    \caption{Circuito lógico para los finales de carrera}
-    \label{fig:kdiagram}
+    \caption{Circuito lógico para los finales de carrera.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Mediante el conexionado anterior, si el micro-interruptor está abierto, se recibe un nivel bajo por el pin del microcontrolador; mientras que si el micro-interruptor está cerrado se recibe un nivel alto por el pin del microcontrolador. 
     
-    Cabe destacar que tanto la resistencia pull-down como la conexión a tierra se incluyen en la PCB, sin embargo los micro-interruptores y su conexión a VDD se encuentran localizados en la estructura del brazo robótico. 
+    Cabe destacar que tanto la resistencia \textit{pull-down} como la conexión a tierra se incluyen en la PCB. Sin embargo, los micro-interruptores y su conexión a $VDD$ se encuentran localizados en la estructura del brazo robótico. 
     
     El diagrama esquemático que implementa esta funcionalidad es el siguiente:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.4\linewidth]{pictures/TRIS.PNG}
-    \caption{Diagrama esquemático del puerto TRIS}
-    \label{fig:kdiagram}
+    \caption{Diagrama esquemático del puerto TRIS.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    \item Puerto PWM: se trata del puerto que permite utilizar el generador de señales PWM del microcontrolador. 
-    
-    Dado que en este proyecto se realiza control de servomotores, es completamente necesario el uso de señales PWM para controlar la posición angular de los mismos y por lo tanto se considera a este periférico como uno de los mas relevantes.
+    \item Puerto PWM: Dado que en este proyecto se realiza control de servomotores, es completamente necesario el uso de señales PWM para controlar la posición angular de los mismos y se considera a este periférico como uno de los más relevantes.
     
     Los generadores de señal PWM de este microcontrolador poseen las siguientes características técnicas relevantes:
     \begin{itemize}
         \item El microcontrolador ofrece 6 generadores de señal PWM de alta precisión y velocidad.
-        \item Cada uno de los generadores posee un registro de 16 bits para la selección de la duración del ciclo de trabajo; este registro esta divido en parte alta y parte baja.
-        \item Es posible utilizar de forma independiente la parte alta y parte baja de cada uno de los generadores, consiguiendo de esta forma dos subgeneradores que producen señales PWM independientes, sin embargo, su precisión se reduce a 8 bits.
+        \item Cada uno de los generadores posee un registro de 16 bits para la selección de la duración del ciclo de trabajo; este registro está divido en parte alta y parte baja.
+        \item Es posible utilizar de forma independiente la parte alta y parte baja de cada uno de los generadores, consiguiendo de esta forma dos subgeneradores que producen señales PWM independientes. Sin embargo, su precisión se reduce a 8 bits.
     \end{itemize}
     
     El esquema mostrado por el fabricante para los generadores PWM es el siguiente:
@@ -260,32 +253,30 @@ A continuación se describe el conexionado del resto de puertos y periféricos:
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/PWMdatasheet.PNG}
-    \caption{Esquema del generador PWM}
-    \label{fig:kdiagram}
+    \caption{Esquema del generador PWM \textbf{INSERTE CITA AQUÍ}.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    Dado que para este proyecto únicamente se necesitan cuatro generadores PWM, se ha decidido utilizar cuatro módulos con precisión de 16 bits. En el caso de utilizar la precisión completa de cada generador, la señal de salida se proporciona por el pin correspondiente a la parte baja del registro. Mediante la información obtenida del pinout del microcontrolador, se tiene que los generadores de PWM 1, 4, 2 y 3 tienen asignados los pines 15, 13, 11 y 9 respectivamente.
+    Puesto que para este proyecto únicamente se necesitan cuatro generadores PWM, se ha decidido utilizar cuatro módulos con precisión de 16 bits. En el caso de utilizar la precisión completa de cada generador, la señal de salida se proporciona por el pin correspondiente a la parte baja del registro. Mediante la información obtenida del \textit{pinout} del microcontrolador, se tiene que los generadores de PWM 1, 4, 2 y 3 tienen asignados los pines 15, 13, 11 y 9, respectivamente.
     
     El conexionado final del puerto PWM en el diagrama esquemático es el siguiente:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.45\linewidth]{pictures/PWM.PNG}
-    \caption{Diagrama esquemático del puerto PWM}
-    \label{fig:kdiagram}
+    \caption{Diagrama esquemático del puerto PWM.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
 
-    \item Puertos UART: se trata de los puertos que permiten la conexión del periférico UART del microcontrolador y mediante los cuales se establece el canal de comunicación con S1.
+    \item Puertos UART: Mediante el periférico UART se pueden establecer un canal de comunicación \textit{hardware} asíncrono en el cual existen diversas configuraciones en cuanto a formato de transmisión de bits y velocidades de comunicación. Suele ser un método de comunicación muy usado en microcontroladores y dispositivos \textit{hardware} en general. El protocolo UART utiliza un puerto con tres conexiones: emisor ($TX$), receptor ($RX$) y $GND$.
     
-    Mediante el periférico UART se pueden establecer un canal de comunicación hardware asíncrono en el cual existen diversas configuraciones en cuanto a formato de transmisión de bits y velocidades de comunicación. Suele ser un método de comunicación muy usado en microcontroladores y dispositivos hardware en general. El protocolo UART utiliza un puerto con tres conexiones: emisor (TX), receptor(RX) y GND.
-    
-    El esquema simplificado de este periférico en el datasheet es el siguiente:
+    El esquema simplificado de este periférico en el \textit{datasheet} es el siguiente:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/UARTdatasheet.PNG}
-    \caption{Esquema del periférico UART}
-    \label{fig:kdiagram}
+    \caption{Esquema del periférico UART \textbf{INSERTE CITA AQUÍ}.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Se ha tomado la decisión de incluir dos puertos UART independientes en la PCB que se ha desarrollado, con el objetivo principalmente de dedicar uno de los canales a envío y recepción de instrucciones; mientras que el otro se usa para realizar labores de depuración y pruebas.
@@ -295,25 +286,25 @@ A continuación se describe el conexionado del resto de puertos y periféricos:
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/UART.PNG}
-    \caption{Diagrama esquemático de los puertos UART}
-    \label{fig:kdiagram}
+    \caption{Diagrama esquemático de los puertos UART.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     
     \item LEDs de estado: se trata de tres diodos LED que se utilizan para indicar el estado del brazo robótico y demás aspectos del sistema. 
     
-    Su conexionado se realizado utilizando los pines reconfigurables 41,42 y 43, los cuales pueden ser usados para habilitar una salida digital. Se considera que un nivel alto enciende el LED mientras que un nivel bajo lo mantiene apagado.
+    Su conexionado es realizado utilizando los pines reconfigurables 41, 42 y 43, los cuales pueden ser usados para habilitar una salida digital. Se considera que un nivel alto enciende el LED mientras que un nivel bajo lo mantiene apagado.
     
     A continuación se muestra el diagrama esquemático del circuito:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.75\linewidth]{pictures/LEDS.PNG}
-    \caption{Diagrama esquemático de los LEDs}
-    \label{fig:kdiagram}
+    \caption{Diagrama esquemático de los LEDs.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
 
-    Teniendo en cuenta que la corriente máxima suministrada  por el microcontrolador es de 18mA para salida digital y el que voltaje elegido ha sido 3.3V, el pin suministraría como mucho una potencia de 0.0594W. Se ha decidido que una potencia adecuada a suministrar sería un 80\% de la máxima, es decir 0.0475W. Para cumplir esta restricción, se ha calculado el valor ideal de la resistencia del esquema anterior y su valor recomendado es de entre $180 \Omega$ y $200 \Omega$.
+    Teniendo en cuenta que la corriente máxima suministrada por el microcontrolador es de $18mA$ para salida digital y el que voltaje elegido ha sido $3.3V$, el pin suministraría como mucho una potencia de $0.0594W$. Se ha decidido que una potencia adecuada a suministrar sería un 80\% de la máxima, es decir $0.0475W$. Para cumplir esta restricción, se ha calculado el valor ideal de la resistencia del esquema anterior y su valor recomendado es de entre $180 \Omega$ y $200 \Omega$.
     
 \end{itemize}
 
@@ -322,19 +313,19 @@ En conclusión, una vista completa sobre el diagrama esquemático del proyecto e
     \begin{figure}[H]
     \centering 
     \includegraphics[width=\linewidth]{pictures/EsquematicoCompleto.PNG}
-    \caption{Diagrama esquemático de los LEDs}
-    \label{fig:kdiagram}
+    \caption{Diagrama esquemático completo.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
 
 \subsection{Conversión del diagrama esquemático a diagrama físico}
 
 Tal y como se ha descrito en el apartado anterior, el diseño lógico de la PCB se implementa mediante el diagrama esquemático, y su objetivo es el de describir las huellas y conexiones lógicas de los componentes; sin embargo, este diseño es de alto nivel y no es implementable directamente en términos físicos. 
 
-El siguiente paso tras completar el diagrama esquemático es transformar este diseño lógico en un diseño físico mas cercano a la implementación real. 
+El siguiente paso tras completar el diagrama esquemático es transformar este diseño lógico en un diseño físico más cercano a la implementación real. 
 
-El diseño físico de una PCB debe ser obtenido directamente de la información establecida en el diseño lógico y por lo tanto, se tiene que transformar el diagrama esquemático en un diagrama físico, en el cual se deben contemplar los aspectos físicos de los componentes y sus conexiones, además de sus aspectos lógicos.
+El diseño físico de una PCB debe ser obtenido directamente de la información establecida en el diseño lógico y, por lo tanto, se tiene que transformar el diagrama esquemático en un diagrama físico, en el cual se deben contemplar los aspectos físicos de los componentes y sus conexiones, además de sus aspectos lógicos.
 
-El objetivo principal del diseño y diagrama físico es el de plasmar la realidad física de los componentes y sus conexiones a partir de un diagrama esquemático, en el cual no se contemplan los aspectos físicos para simplificar el diseño inicial. En general, el diseño y diagrama físico es más complejo y difícil de comprender, por ello, normalmente, la primera etapa del diseño comienza con el diseño lógico y diagrama esquemático.
+El objetivo principal del diseño y diagrama físico es el de plasmar la realidad física de los componentes y sus conexiones a partir de un diagrama esquemático, en el cual no se contemplan los aspectos físicos para simplificar el diseño inicial. En general, el diseño y diagrama físico es más complejo y difícil de comprender. Por ello, normalmente la primera etapa del diseño comienza con el diseño lógico y diagrama esquemático.
 
 En general, el proceso que se debe llevar a cabo para obtener el diagrama físico a partir de un diagrama esquemático consta de varios pasos:
 \begin{itemize}
@@ -343,20 +334,20 @@ En general, el proceso que se debe llevar a cabo para obtener el diagrama físic
     \item Importar ambos elementos anteriores a la herramienta de creación del diagrama físico y comenzar el diseño.
 \end{itemize}
 
-Tal y como se ha mencionado anteriormente, en primer lugar se debe asignar una huella física a cada uno de los componentes lógicos del diagrama esquemático. Este proceso se realiza en la herramienta Schematic Layout Editor incluida en KiCad, utilizando la opción de "asignar huellas a símbolos del sistema" disponible en la barra de herramientas situada en la parte superior de la ventana:
+Tal y como se ha mencionado anteriormente, en primer lugar se debe asignar una huella física a cada uno de los componentes lógicos del diagrama esquemático. Este proceso se realiza en la herramienta \textit{Schematic Layout Editor} incluida en KiCad, utilizando la opción de ``asignar huellas a símbolos del sistema'' disponible en la barra de herramientas situada en la parte superior de la ventana:
 
 \begin{figure}[H]
 \centering 
-\includegraphics[width=1.05\linewidth]{pictures/HerramientaHuellas.PNG}
-\caption{Herramienta de asignación de huellas}
-\label{fig:kdiagram}
+\includegraphics[width=\linewidth]{pictures/HerramientaHuellas.PNG}
+\caption{Herramienta de asignación de huellas.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
 Accediendo al menú de dicha herramienta, se encuentra una lista de los componentes del diagrama esquemático a los cuales se les debe asignar una huella física. Las huellas físicas que se deben asignar a cada componente lógico pueden ser seleccionadas de las extensa librerías que ofrece KiCad, o bien, ser diseñada y personalizada por el usuario.
 
 \begin{figure}[H]
 \centering 
-\includegraphics[width=1.05\linewidth]{pictures/AsignarHuellaTriple.PNG}
+\includegraphics[width=\linewidth]{pictures/AsignarHuellaTriple.PNG}
 \caption{Ventana de asignación de huellas físicas}
 \label{fig:kdiagram}
 \end{figure}
@@ -368,29 +359,29 @@ En la imagen anterior se muestra la ventana de asignación de huellas, la cual e
     \item La sección derecha muestra las huellas físicas que cumplen los filtros establecidos dependiendo del componente lógico. Estos filtros suelen ser: nombre, número de pines y librería. 
 \end{itemize}
 
-Como ejemplo, en la imagen anterior se ha buscado en la librería "capacitor THT", ya que se quieren utilizar condensadores de agujero pasante en el diseño físico y por lo tanto, en la sección derecha de la ventana se muestran las huellas susceptibles de ser usadas, filtradas por número de pines y librería.
+Como ejemplo, en la imagen anterior se ha buscado en la librería \textit{``capacitor THT''}, ya que se quieren utilizar condensadores de agujero pasante en el diseño físico y por lo tanto, en la sección derecha de la ventana se muestran las huellas susceptibles de ser usadas, filtradas por número de pines y librería.
 
 Una vez se ha elegido la huella que se quiere utilizar en el diseño físico, esta se asigna al componente esquemático y puede ser visualizada:
 
 
 \begin{figure}[H]
 \centering 
-\includegraphics[width=1.05\linewidth]{pictures/huellaCondensador.PNG}
-\caption{Huella física  de un condensador usado en la PCB}
-\label{fig:kdiagram}
+\includegraphics[width=\linewidth]{pictures/huellaCondensador.PNG}
+\caption{Huella física  de un condensador usado en la PCB.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Existen numerosos aspectos que afectan a la decisión de que huella física asignarle a cada componente lógico y principalmente depende del tipo de implementación que se vaya a realizar en la PCB. Normalmente estas decisiones se deben tomar a través de la información técnica suministrada por el fabricante en los diversos datasheets.
+Existen numerosos aspectos que afectan a la decisión de qué huella física asignarle a cada componente lógico y principalmente depende del tipo de implementación que se vaya a realizar en la PCB. Normalmente, estas decisiones se deben tomar a través de la información técnica suministrada por el fabricante en los diversos \texit{datasheets}.
 
-Un ejemplo a destacar de lo recién mencionado, es la huella que se ha asignado al microcontrolador DSPIC utilizado, el cual dispone de diversos encapsulados. Todos estos encapsulados se muestran de forma detallada en el datasheet. 
+Un ejemplo a destacar de lo recién mencionado es la huella que se ha asignado al microcontrolador dsPIC utilizado, el cual dispone de diversos encapsulados. Dichos encapsulados se muestran de forma detallada en el \texit{datasheet}.
 
-En este proyecto, se ha decidido utilizar el encapsulado de 44 pines de soldadura superficial y de tipo "Thin Quad Flat Package" (TQFP), cuya descripción en el datasheet es la siguiente:
+En este proyecto, se ha decidido utilizar el encapsulado de 44 pines de soldadura superficial y de tipo ``\textit{Thin Quad Flat Package}'' (TQFP), cuya descripción en el \textit{datasheet} es la siguiente:
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/TQFP.PNG}
-\caption{Encapsulado elegido para el microcontrolador}
-\label{fig:kdiagram}
+\caption{Encapsulado elegido para el microcontrolador.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
 La huella asignada al componente lógico es la siguiente y se encuentra en la librería QFP incluida por defecto en KiCad:
@@ -398,90 +389,90 @@ La huella asignada al componente lógico es la siguiente y se encuentra en la li
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/HuellaPic.PNG}
-\caption{Huella física asignada al microcontrolador}
-\label{fig:kdiagram}
+\caption{Huella física asignada al microcontrolador.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Cabe destacar que muchas de las huellas pueden ser usadas para distintos componentes de distintos fabricantes, ya que los encapsulados suelen ser similares, sin embargo, para evitar errores, siempre se deben realizar comprobaciones con respecto a las dimensiones, número de pines, etc.
+Cabe destacar que muchas de las huellas pueden ser usadas para distintos componentes de distintos fabricantes, ya que los encapsulados suelen ser similares. Sin embargo, para evitar errores, siempre se deben realizar comprobaciones con respecto a las dimensiones, número de pines, etc.
 
-Una vez se ha realizado el primer paso, se debe pasar al segundo y este caso se trata de generar un listado de redes de los componentes lógicos usados, sus huellas físicas asignadas y las conexiones existentes entre todos ellos. Este listado de redes se genera usando la herramienta "Generar listado de redes" disponible en la barra de herramientas de la parte superior de la ventana:
+Una vez se ha realizado el primer paso, se debe generar un listado de redes de los componentes lógicos usados, sus huellas físicas asignadas y las conexiones existentes entre todos ellos. Este listado de redes se genera usando la herramienta ``Generar listado de redes'' disponible en la barra de herramientas de la parte superior de la ventana:
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/GenerarRed.PNG}
-\caption{Herramienta de generado de listado de redes}
-\label{fig:kdiagram}
+\caption{Herramienta de generado de listado de redes.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Utilizando la herramienta señalizada anteriormente se puede generar un archivo con extensión ".net" que almacena el listado de componentes y conexiones del diagrama esquemático. Su contenido es de la siguiente forma:
+Utilizando la herramienta señalizada anteriormente se puede generar un archivo con extensión ``.net'' que almacena el listado de componentes y conexiones del diagrama esquemático. Su contenido es de la siguiente forma:
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/net.PNG}
-\caption{Archivo de listado de redes}
-\label{fig:kdiagram}
+\caption{Archivo de listado de redes.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Como último paso necesario para poder transformar el diagrama esquemático a diagrama físico, se debe importar el listado de redes generado en el paso anterior a la herramienta de diseño físico. En este caso, la herramienta elegida ha sido "PCBnew" y se encuentra incluida dentro de KiCad. Esta herramienta se puede ejecutar usando la barra de herramientas de la parte superior:
+Como último paso necesario para poder transformar el diagrama esquemático a diagrama físico se debe importar el listado de redes generado en el paso anterior a la herramienta de diseño físico. En este caso, la herramienta elegida ha sido ``PCBnew'' y se encuentra incluida dentro de KiCad. Esta herramienta se puede ejecutar usando la barra de herramientas de la parte superior:
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/PCBNEW.PNG}
-\caption{Acceso directo a la herramienta PCBnew}
-\label{fig:kdiagram}
+\caption{Acceso directo a la herramienta ``PCBnew''.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Una vez se ha accedido a "PCBnew", se debe importar el listado de redes generado anteriormente, usando el icono designado para ello en la barra de herramientas superior:
+Una vez se ha accedido a ``PCBnew'', se debe importar el listado de redes generado anteriormente, usando el icono designado para ello en la barra de herramientas superior:
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/redesPCB.PNG}
-\caption{Herramienta de importado de listado de redes}
-\label{fig:kdiagram}
+\caption{Herramienta de importado de listado de redes.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Para importar el listado de redes generado anteriormente, basta con buscar la ubicación del archivo, seleccionarlo y hacer click en actualizar PCB. Al hacer esto, todos los componentes del diagrama esquemático son importados a PCBnew, y su apariencia es la huella física asignada anteriormente:
+Para importar el listado de redes generado anteriormente, basta con buscar la ubicación del archivo, seleccionarlo y hacer clic en ``actualizar PCB''. Al hacer esto, todos los componentes del diagrama esquemático son importados a ``PCBnew'', y su apariencia es la huella física asignada anteriormente:
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/bunch.PNG}
-\caption{Situación inicial del diseño nada mas importar los componentes físicos}
-\label{fig:kdiagram}
+\caption{Situación inicial del diseño nada mas importar los componentes físicos.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Inicialmente se muestra la huella física de los componentes y sus conexiones lógicas, sin embargo se encuentran desordenados. Es recomendable ordenarlos para verificar si todos ellos han sido importados correctamente.
+Inicialmente, se muestra la huella física de los componentes y sus conexiones lógica pero se encuentran desordenados. Es recomendable reorganizarlos para verificar si todos ellos han sido importados correctamente.
 
-El primer paso para comenzar el diseño físico de la PCB, es distribuir los componentes por el plano, tratando de visualizar cual va a ser la ubicación futura de los componentes en la placa de circuito impreso, y cual van a ser las dimensiones de la misma.
+El primer paso para comenzar el diseño físico de la PCB es distribuir los componentes por el plano, tratando de visualizar cuál va a ser la ubicación futura de los componentes en la placa de circuito impreso y cuál van a ser las dimensiones de la misma.
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/DistribucionInicial.PNG}
-\caption{Distribución inicial de los componentes}
-\label{fig:kdiagram}
+\caption{Distribución inicial de los componentes.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Es conveniente incluir un contorno a la placa, el cual puede ser incluido en el diagrama usando la herramienta de dibujado de lineas y la herramienta de medición de distancias.
+Es conveniente definir un contorno a la placa, el cual puede ser incluido en el diagrama usando la herramienta de dibujado de lineas y la herramienta de medición de distancias.
 
-Por último, es importante remarcar que la distribución de los componentes queda a elección del diseñador de la PCB, sin embargo, se debe de tratar de tener en cuenta factores como: el tamaño deseado para la PCB, la localización de los componentes con respecto a sus conexiones cercanas, el proceso de fabricación a usar, etc.
+Por último, es importante remarcar que la distribución de los componentes queda a elección del diseñador de la PCB. Sin embargo, se debe de tratar de tener en cuenta factores como el tamaño deseado para la PCB, la localización de los componentes con respecto a sus conexiones cercanas, el proceso de fabricación a usar, etc.
 
 \subsection{Conexionado de los componentes mediante pistas}
 Una vez se ha creado el contorno de la PCB y se han distribuido los componentes de la forma deseada, se deben realizar las conexiones físicas entre los componentes.
 
 Dado que se trata de una placa de circuito impreso, las conexiones lógicas entre los componentes se corresponden con pistas de cobre en el diagrama físico.
 
-El proceso de conexionado mediante pistas se denomina enrutado y puede ser realizado de manera automática o manual. La complejidad del proceso de enrutado puede ser mas o menos elevada en función del numero de componentes, capas que se utilicen para pistas, ubicación de los componentes, dimensiones de la PCB, etc. Se considera que el proceso de enrutado ha sido completado con éxito cuando todas las conexiones lógicas han sido realizadas y no existen conflictos o choques entre las pistas, así como soldaduras no realizables físicamente.
+El proceso de conexionado mediante pistas se denomina ``enrutado'' y puede ser realizado de manera automática o manual. La complejidad del proceso de enrutado puede ser más o menos elevada en función del numero de componentes, capas que se utilicen para pistas, ubicación de los componentes, dimensiones de la PCB, etc. Se considera que el proceso de enrutado ha sido completado con éxito cuando todas las conexiones lógicas han sido realizadas y no existen conflictos o choques entre las pistas, así como soldaduras no realizables físicamente.
 
-Durante el proceso de enrutado de las pistas de una PCB, es habitual combinar herramientas de enrutado automático con enrutado manual, dado que normalmente, las herramientas de enrutado automático suelen encontrar soluciones exitosas al proceso de enrutado, sin embargo no suelen ser totalmente óptimas y pueden requerir alguna modificación manual por parte del diseñador. 
+Durante el proceso de enrutado de las pistas de una PCB es habitual combinar herramientas de enrutado automático con enrutado manual, dado que, normalmente, las herramientas de enrutado automático suelen encontrar soluciones exitosas al proceso de enrutado, sin embargo no suelen ser óptimas y pueden requerir alguna modificación manual por parte del diseñador. 
 
-En este proyecto, se ha decidido realizar un proceso de enrutado íntegramente manual, debido a que, a pesar de haber intentado utilizar la herramienta "FreeRouting" de enrutado automático, se ha obtenido un resultado poco óptimo y complejo.
+En este proyecto, se ha decidido realizar un proceso de enrutado íntegramente manual, debido a que, a pesar de haber intentado utilizar la herramienta ``FreeRouting'' de enrutado automático, no se ha obtenido un resultado óptimo y era bastante complejo.
 
-El proceso de enrutado se ha realizado utilizando ambas capas de la PCB, esto quiere decir que se han trazado pistas en la capa de soldadura y en la capa de componentes. Esta decisión se ha tomado principalmente debido a que en esta PCB se usan componentes de tipo "THT" (\textit{Through-Hole Technology}) y "SMT" (\textit{Surface-Mount technology}), por lo tanto es completamente necesario incluir pistas en la capa de componentes y capa de soldadura.
+El proceso de enrutado se ha realizado utilizando ambas capas de la PCB, esto quiere decir que se han trazado pistas en la capa de soldadura y en la capa de componentes. Esta decisión se ha tomado principalmente debido a que en esta PCB se usan componentes de tipo ``THT'' (\textit{Through-Hole Technology}) y ``SMT'' (\textit{Surface-Mount technology}), por lo tanto es completamente necesario incluir pistas en la capa de componentes y capa de soldadura.
 
 En relación con lo anterior, las dos capas mencionadas anteriormente cumplen una función específica:
 \begin{itemize}
-    \item La capa superior o de componentes contiene las pistas de comunicación del microcontrolador, ya que este componente es de tipo "SMT".
-    \item La capa inferior o de soldadura contiene las pistas de alimentación de la PCB, en la cual se han realizado las soldaduras de los componentes "THT".
-    \item Para comunicar las pistas de ambas capas, se han realizado vías de conexión en los casos necesarios. Un ejemplo de su uso está en el conexionado de los pines del microcontrolador en la capa superior con las pistas de los conectores, los cuales se encuentran soldados en la capa inferior de soldadura.
+    \item La capa superior o de componentes contiene las pistas de comunicación del microcontrolador, ya que este componente es de tipo ``SMT''.
+    \item La capa inferior o de soldadura contiene las pistas de alimentación de la PCB, en la cual se han realizado las soldaduras de los componentes ``THT''.
+    \item Para comunicar las pistas de ambas capas se han realizado vías de conexión en los casos necesarios. Un ejemplo de su uso está en el conexionado de los pines del microcontrolador en la capa superior con las pistas de los conectores, los cuales se encuentran soldados en la capa inferior de soldadura.
 \end{itemize}
 
 Otro de los aspectos claves a la hora de enrutar una PCB, es escoger un ancho de pista adecuado. Algunos de los factores que afectan a esta decisión son los siguientes:
@@ -489,27 +480,27 @@ Otro de los aspectos claves a la hora de enrutar una PCB, es escoger un ancho de
     \item Intensidad de corriente y voltaje que conducirá la pista. Distinción entre pistas de alimentación y de comunicación de señales digitales.
     \item Requerimientos de tamaño de la PCB, ya sea por número de pistas, espacio disponible, tamaño de los pines de conexión de componentes, etc.
     \item Limitaciones físicas y de precisión del proceso de fabricación de la PCB.
-    \item Otros factores como la resistividad del material de la pista, el aumento de temperatura máximo tolerado por la  misma o su longitud aproximada, son factores determinantes para el ancho de la pista.
+    \item Otros factores como la resistividad del material de la pista, el aumento de temperatura máximo tolerado por la misma o su longitud aproximada, son factores determinantes para el ancho de la pista.
 \end{itemize}
 
-KiCad incluye una herramienta denominada "PCB Calculator", la cual permite realizar cálculos sobre diversos aspectos relacionados con la PCB, entre ellos, el ancho de pista. Esta herramienta realiza el cálculo del ancho de pistas en función de los factores mencionados anteriormente y su interfaz es la siguiente:
+KiCad incluye una herramienta denominada ``PCB Calculator'' la cual permite realizar cálculos sobre diversos aspectos relacionados con la PCB, entre ellos, el ancho de pista. Esta herramienta realiza el cálculo del ancho de pistas en función de los factores mencionados anteriormente y su interfaz es la siguiente:
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/PCBCalculator.PNG}
-\caption{Ventana principal de PCB Calculator}
-\label{fig:kdiagram}
+\caption{Ventana principal de ``PCB Calculator''.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Mediante la herramienta anterior, se puede realizar el cálculo para los dos tipos de pistas usadas en esta PCB: pistas de alimentación y pistas de comunicación. Para el cálculo de ambos tipos, se asume un aumento de temperatura máximo de 10ºC, una longitud del conductor de 20cm y un valor de resistividad de $1.72 \cdot 10 ^{-8}$.
+Mediante la herramienta anterior se puede realizar el cálculo para los dos tipos de pistas usadas en esta PCB: pistas de alimentación y pistas de comunicación. Para el cálculo de ambos tipos, se asume un aumento de temperatura máximo de 10 ºC, una longitud del conductor de $20cm$ y un valor de resistividad de $1.72 \cdot 10^{-8}$.
 
-En primer lugar, se considera que las pistas de alimentación de la PCB conducen 2A de intensidad y un voltaje de 9V máximo. Teniendo en cuenta dichos datos, el ancho de pista obtenido es el siguiente:
+En primer lugar, se considera que las pistas de alimentación de la PCB conducen $2A$ de intensidad y un voltaje de $9V$ máximo. Teniendo en cuenta dichos datos, el ancho de pista obtenido es el siguiente:
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/AnchoPistaAlimentación.PNG}
-\caption{Cálculo del ancho de pistas de alimentación}
-\label{fig:kdiagram}
+\caption{Cálculo del ancho de pistas de alimentación.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
  
  Se obtiene una ancho de pista de 0.78mm para las pistas de alimentación, por comodidad de aproxima este valor de ancho a 0.8mm.
@@ -520,43 +511,42 @@ En primer lugar, se considera que las pistas de alimentación de la PCB conducen
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/AnchoPistaRestoMinimo.PNG}
 \caption{Cálculo del ancho de pistas de comunicación}
-\label{fig:kdiagram}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Se obtiene un ancho de pista de 0.044mm para las pistas de comunicación, sin embargo, se ha decidido no trazar pistas con un ancho menor a 0.4mm, debido principalmente a que se pueden producir errores en el proceso de fabricación.
+Se obtiene un ancho de pista de $0.044mm$ para las pistas de comunicación, sin embargo, se ha decidido no trazar pistas con un ancho menor a $0.4mm$, debido principalmente a que se pueden producir errores en el proceso de fabricación.
 
 En este momento, cabe destacar que el proceso de fabricación llevado a cabo para construir la placa, es de carácter artesanal, no industrial.
 
-Asumiendo un ancho mínimo de pista de 0.4mm, las pistas de comunicación están sobredimensionadas por motivos justificados y por lo tanto se obtiene el siguiente cálculo:
+Asumiendo un ancho mínimo de pista de $0.4mm$, las pistas de comunicación están sobredimensionadas por motivos justificados y por lo tanto se obtiene el siguiente cálculo:
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/AnchoPistaResto.PNG}
-\caption{Cálculo inverso del ancho de pistas de comunicación}
-\label{fig:kdiagram}
+\caption{Cálculo inverso del ancho de pistas de comunicación.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Las pistas de comunicación tienen finalmente un ancho de 0.4mm y debido a su sobredimensionado, soportan una corriente de 1.23A, la cual se sitúa muy por encima de la corriente que circulará por las mismas.
+Las pistas de comunicación tienen finalmente un ancho de $0.4mm$ y debido a su sobredimensionado, soportan una corriente de $1.23A$, la cual se sitúa muy por encima de la corriente que circulará por las mismas.
 
 A continuación se muestra la distribución final de los componentes físicos dentro del contorno de la PCB, aún sin haber trazado las pistas de conexión:
 
 \begin{figure}[H]
-\centering 
+\centering
 \includegraphics[width=0.9\linewidth]{pictures/DistribucionFinal.PNG}
-\caption{Distribución final de los componentes físicos}
-\label{fig:kdiagram}
+\caption{Distribución final de los componentes físicos.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
-
 
 Tal y como puede verse en la imagen anterior, las líneas blancas representan las conexiones físicas entre los componentes y por lo tanto, deben ser sustituidas por pistas de cobre. En este diagrama, se han generado conexiones inexistentes en el diagrama esquemático, ya que se contemplan conexiones físicas que a nivel lógico no son necesarias.
 
 Tras realizar el proceso de enrutado en ambas caras, el diagrama físico final obtenido es el siguiente:
 
 \begin{figure}[H]
-\centering 
+\centering
 \includegraphics[width=0.9\linewidth]{pictures/PCB_FINAL_FIXED.PNG}
-\caption{Diagrama físico final}
-\label{fig:kdiagram}
+\caption{Diagrama físico final.}
+\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
 Cabe destacar varios aspectos:
@@ -564,9 +554,8 @@ Cabe destacar varios aspectos:
     \item Las pistas de color rojo se corresponden con la cara frontal o de componentes.
     \item Las pistas de color verde se corresponden con la cara trasera o de soldadura.
     \item Se han incluido marcas de serigrafiado adecuadas para identificar correctamente la PCB y su interfaz.
-    \item Se han incluido orificios de mecanizado para la futura sujeción
-    de la PCB.
-    \item En la parte superior izquierda y derecha de la capa frontal se han añadido los logos de la ETSISI y el pARM.
+    \item Se han incluido orificios de mecanizado para la futura sujeción de la PCB.
+    \item En la parte superior izquierda y derecha de la capa frontal se han añadido los logos de la ETSISI y el \pArm{}.
     \item En la parte central de la capa frontal se ha incluido el nombre de la placa (P-ARM ALMOST) y el nombre del grupo de ingenieros (NPCMOS).
 \end{itemize}
 
@@ -574,11 +563,18 @@ Utilizando el visualizador 3D de KiCad se puede obtener un representación cerca
 
 \begin{figure}[htbp]
     \centering
-    \subfigure[Capa frontal \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=82mm]{pictures/PlacaFinal3D.PNG}}
-    \subfigure[Capa trasera \cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/PlacaFinal3D2.PNG}}
-    \caption{Representación 3D del diseño físico} \label{fig:lego}
-    \end{figure}
-\subsection{Verificaciones realizadas al diseño lógico y físico }
+    \subfigure[Capa frontal
+    %% Y ESTAS CITAS?!
+    \cite{7759009FCCCDatasheetHoja}.]{\includegraphics[width=.49\linewidth]{pictures/PlacaFinal3D.PNG}}
+    \hfill
+    %% Y ESTAS CITAS?!
+    \subfigure[Capa trasera
+    \cite{MotorCorrienteContinua2020}.]{\includegraphics[width=.49\linewidth]{pictures/PlacaFinal3D2.PNG}}
+    \caption{Representación 3D del diseño físico.} 
+    \label{fig:lego}
+\end{figure}
+    
+\subsection{[PENDIENTE -- J] Verificaciones realizadas al diseño lógico y físico}
 
 El proceso de diseño de la PCB es considerado uno de los elementos críticos dentro del proyecto y por lo tanto, es necesario llevar a cabo una serie de verificaciones durante dicho proceso para minimizar el riesgo de fallos.
 
