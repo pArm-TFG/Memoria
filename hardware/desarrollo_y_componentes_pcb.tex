@@ -74,15 +74,16 @@ En particular, el LM317 es un regulador convencional que recibe una tensión con
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/LM317 conexionado.PNG}
     \caption{Diagrama de conexionado \textbf{INSERTE CITA AL DATASHEET}}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:LM317_Conexionado}
 \end{figure}
 
 La ecuación de funcionamiento que ofrece el fabricante para el regulador LM317 es la siguiente:
 \begin{equation}
     V_{OUT} = V_{REF} \cdot \left( 1 + \frac{R_2}{R_1}\right) + I_{ADJ} \cdot R_2
+    \label{eq:Ecuacion_funcionamiento_LM317}
 \end{equation}
 
-La ecuación anterior debe ser usada para realizar los cálculos pertinentes sobre el valor de las resistencias $R_2$ y $R_1$. Se tienen en cuenta, además, dos observaciones necesarias para la correcta aplicación de la ecuación anterior:
+La ecuación anterior (ver ecuación \ref{eq:Ecuacion_funcionamiento_LM317}) debe ser usada para realizar los cálculos pertinentes sobre el valor de las resistencias $R_2$ y $R_1$. Se tienen en cuenta, además, dos observaciones necesarias para la correcta aplicación de la ecuación anterior:
 \begin{itemize}
     \item Por definición, el fabricante establece el valor $V_{REF}$ en $1.25V$.
     \item Por motivos de construcción del regulador, la corriente $I_{ADJ}$ tiene un valor máximo de $100 \mu A$ y, por lo tanto, el término de la ecuación que la involucra puede ser despreciado.
@@ -109,7 +110,7 @@ Aplicando el conexionado recomendado por el fabricante y los cálculos para el v
     \centering 
     \includegraphics[width=.85\linewidth]{pictures/EsquematicoAlimentaciónServos.PNG}
     \caption{Diagrama esquemático del circuito de alimentación de los servomotores}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Esquematico_Alimentacion_Servos}
 \end{figure}
 
 El funcionamiento de los reguladores L7805CV y AZ1117H es simple:
@@ -120,7 +121,7 @@ El funcionamiento de los reguladores L7805CV y AZ1117H es simple:
     \centering 
     \includegraphics[width=.75\linewidth]{pictures/L7805Datasheet.PNG}
     \caption{Diagrama de conexionado del regulador L7805 \textbf{INSERTE CITA DATASHEET}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:L7805_Conexionado}
     \end{figure}
     
     \item El regulador AZ1117H recibe un voltaje de hasta $15V$ y provee un voltaje de salida fijo de $3.3V$. Su conexionado se realiza de la misma forma que para el regulador anterior, tal y como se describe en el \textit{datasheet} del componente:
@@ -129,7 +130,7 @@ El funcionamiento de los reguladores L7805CV y AZ1117H es simple:
     \centering 
     \includegraphics[width=.75\linewidth]{pictures/AZ1117Hdatasheet.PNG}
     \caption{Diagrama de conexionado del regulador AZ1117H \textbf{INSERTE CITA DATASHEET}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:AZ1117H_Conexionado}
     \end{figure}
     
     En el diagrama anterior se utiliza el modelo que ofrece regulación de voltaje a $5V$. Sin embargo, el modelo usado en el proyecto es el que ofrece regulación de voltaje a $3.3V$, siendo su conexionado exactamente igual.
@@ -142,7 +143,7 @@ Teniendo en cuenta la información expuesta anteriormente, se ha decidido conect
     \centering 
     \includegraphics[width=.95\linewidth]{pictures/EsquematicoAlimentaciónPic.PNG}
     \caption{Diagrama esquemático de la etapa de alimentación del microcontrolador.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Esquematico_Alimentación}
     \end{figure}
 
 Es importante destacar tres aspectos:
@@ -158,7 +159,7 @@ En segundo lugar se procede a describir detalladamente el diagrama esquemático 
     \centering 
     \includegraphics[width=.95\linewidth]{pictures/EsquematicoMicrocontrolador.PNG}
     \caption{Diagrama esquemático del microcontrolador y sus periféricos.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Esquematico_Final}
 \end{figure}
 
 Primeramente, es importante describir los condensadores auxiliares necesarios para el correcto funcionamiento del microcontrolador, los cuales se encuentran conectados en los pines de alimentación del mismo. Su conexionado es sugerido por el fabricante en el \textit{datasheet} según el siguiente esquema, tratándose así de la configuración mínima recomendada:
@@ -167,7 +168,7 @@ Primeramente, es importante describir los condensadores auxiliares necesarios pa
     \centering 
     \includegraphics[width=.7\linewidth]{pictures/Minimun.PNG}
     \caption{Conexionado mínimo del microcontrolador.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Conexionado_Minimo}
 \end{figure}
 
 Todos los condensadores han sido conectados a los pines descritos por el fabricante y escogidos teniendo en cuenta las características técnicas de los mismos, también descritas en el \textit{datasheet}.
@@ -181,7 +182,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \centering 
     \includegraphics[width=.7\linewidth]{pictures/Cristal.PNG}
     \caption{Diagrama esquemático del conexionado del generador de señales.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Cristal}
     \end{figure}
     
     Su conexionado se realiza con los pines 32 y 31 del microcontrolador, siguiendo la estructura de la imagen anterior, empleando también una resistencia de $1 M \Omega$ y dos condensadores de $22 pF$.
@@ -192,7 +193,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \centering 
     \includegraphics[width=.5\linewidth]{pictures/Sonda.PNG}
     \caption{\textit{Pinout} del conector de la sonda de programación \textbf{INSERTE CITA AQUÍ}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Sonda_Conexionado}
     \end{figure}
     
      Cabe destacar que el pin 18 o MCLR debe tener un conexionado específico en el que se emplea una resistencia \textit{pull-up}; esta estructura de conexión se muestra en el \textit{datasheet} del microcontrolador:
@@ -201,7 +202,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/MCLR.PNG}
     \caption{Conexión del pin MCLR \textbf{INSERTE CITA AQUÍ}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:MCL_Conexionado}
     \end{figure}
     
     En este proyecto se ha decidido no incluir el \textit{jumper} sugerido para conexión del pin MCLR y por lo tanto $R_1$ no se añade en el diagrama esquemático.
@@ -212,7 +213,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \centering 
     \includegraphics[width=.5\linewidth]{pictures/sonda.PNG}
     \caption{Diagrama esquemático del puerto de programación.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Sonda_Esquematico}
     \end{figure}
     
     \item Puerto TRIS:  Para detectar si el brazo robótico se encuentra en uno de sus finales de carrera o zonas límite de movimiento se utilizan unos micro-interruptores que, al ser presionados por el manipulador, realizan un cortocircuito. Mediante este cortocircuito y dado que estos micro-interruptores se encuentran conectados a los pines 19, 20, 21 y 22 del microcontrolador, se puede realizar la lectura de dichos pines y detectar el estado de micro-interruptor. De esta manera, se consigue saber cuándo el manipulador ha alcanzado o no un final de carrera.
@@ -223,7 +224,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \centering 
     \includegraphics[width=.64\linewidth]{pictures/MicroSwitchesSchematic.PNG}
     \caption{Circuito lógico para los finales de carrera.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Microinterruptores_esquematico}
     \end{figure}
     
     Mediante el conexionado anterior, si el micro-interruptor está abierto, se recibe un nivel bajo por el pin del microcontrolador; mientras que si el micro-interruptor está cerrado se recibe un nivel alto por el pin del microcontrolador. 
@@ -236,7 +237,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \centering 
     \includegraphics[width=.4\linewidth]{pictures/TRIS.PNG}
     \caption{Diagrama esquemático del puerto TRIS.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Tris_esquematico}
     \end{figure}
     
     \item Puerto PWM: Dado que en este proyecto se realiza control de servomotores, es completamente necesario el uso de señales PWM para controlar la posición angular de los mismos y se considera a este periférico como uno de los más relevantes.
@@ -254,7 +255,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/PWMdatasheet.PNG}
     \caption{Esquema del generador PWM \textbf{INSERTE CITA AQUÍ}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:PWM_Datasheet}
     \end{figure}
     
     Puesto que para este proyecto únicamente se necesitan cuatro generadores PWM, se ha decidido utilizar cuatro módulos con precisión de 16 bits. En el caso de utilizar la precisión completa de cada generador, la señal de salida se proporciona por el pin correspondiente a la parte baja del registro. Mediante la información obtenida del \textit{pinout} del microcontrolador, se tiene que los generadores de PWM 1, 4, 2 y 3 tienen asignados los pines 15, 13, 11 y 9, respectivamente.
@@ -265,7 +266,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \centering 
     \includegraphics[width=.45\linewidth]{pictures/PWM.PNG}
     \caption{Diagrama esquemático del puerto PWM.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:PWM_Esquematico}
     \end{figure}
 
     \item Puertos UART: Mediante el periférico UART se pueden establecer un canal de comunicación \textit{hardware} asíncrono en el cual existen diversas configuraciones en cuanto a formato de transmisión de bits y velocidades de comunicación. Suele ser un método de comunicación muy usado en microcontroladores y dispositivos \textit{hardware} en general. El protocolo UART utiliza un puerto con tres conexiones: emisor ($TX$), receptor ($RX$) y $GND$.
@@ -276,7 +277,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/UARTdatasheet.PNG}
     \caption{Esquema del periférico UART \textbf{INSERTE CITA AQUÍ}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Uart_Datasheet}
     \end{figure}
     
     Se ha tomado la decisión de incluir dos puertos UART independientes en la \ac{PCB} que se ha desarrollado, con el objetivo principalmente de dedicar uno de los canales a envío y recepción de instrucciones; mientras que el otro se usa para realizar labores de depuración y pruebas.
@@ -287,7 +288,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/UART.PNG}
     \caption{Diagrama esquemático de los puertos UART.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Uart_Esquematico}
     \end{figure}
     
     
@@ -301,7 +302,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \centering 
     \includegraphics[width=.75\linewidth]{pictures/LEDS.PNG}
     \caption{Diagrama esquemático de los LEDs.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Led_Esquematico}
     \end{figure}
 
     Teniendo en cuenta que la corriente máxima suministrada por el microcontrolador es de $18mA$ para salida digital y el que voltaje elegido ha sido $3.3V$, el pin suministraría como mucho una potencia de $0.0594W$. Se ha decidido que una potencia adecuada a suministrar sería un 80\% de la máxima, es decir $0.0475W$. Para cumplir esta restricción, se ha calculado el valor ideal de la resistencia del esquema anterior y su valor recomendado es de entre $180 \Omega$ y $200 \Omega$.
@@ -314,7 +315,7 @@ En conclusión, una vista completa sobre el diagrama esquemático del proyecto e
     \centering 
     \includegraphics[width=\linewidth]{pictures/EsquematicoCompleto.PNG}
     \caption{Diagrama esquemático completo.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Diagrama_Esquematico_Final}
     \end{figure}
 
 \subsection{Conversión del diagrama esquemático a diagrama físico}
