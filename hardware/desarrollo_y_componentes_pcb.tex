@@ -1081,16 +1081,14 @@ Todas las pruebas realizadas dieron buen resultado y gracias a ellas se descubri
 
 \subsection{Contratiempos ocurridos y soluciones ingeniadas}
 
-El proceso de fabricación de la \ac{PCB} ha sido uno de las etapas más críticas dentro del proyecto y por lo tanto se considera importante comentar algunos de los contratiempos que han ocurrido, puesto que estos han tenido un impacto considerable en el desarrollo del proyecto.
+El proceso de fabricación de la \ac{PCB} ha sido uno de las etapas más críticas dentro del proyecto y se considera importante comentar algunos de los contratiempos que han ocurrido, puesto que estos han tenido un impacto considerable en el desarrollo del proyecto.
 
-En general, estos contratiempos han ralentizado el proceso de fabricación, sin embargo, mediante su detección y correcta solución, se ha obtenido una \ac{PCB} mucho mas robusta y segura; ya que se han revelado aspecto negativos que de otra forma habrían pasado desapercibidos.
+En general, estos contratiempos han ralentizado el proceso de fabricación. Sin embargo, mediante su detección y correcta solución, se ha obtenido una \ac{PCB} mucho más robusta y segura, ya que se han revelado aspecto negativos que de otra forma habrían pasado desapercibidos.
 
 A continuación se muestran los principales contratiempos ocurridos y las soluciones que se han llevado a cabo para enmendarlos:
 
 \begin{itemize}
     \item El primer contratiempo sucedido durante el proceso de fabricación está relacionado con el proceso de atacado de la \ac{PCB}.
-    
-    Tal y como se ha explicado en apartados anteriores, el proceso de atacado a la \ac{PCB}, tiene como objetivo eliminar la capa de cobre  en los lugares en los cuales no debe haber circuito impreso. Este proceso se realiza mediante una disolución de persulfato de amonio, la cual reacciona con la capa de cobre de la \ac{PCB} y la corroe.
     
     La efectividad de esta disolución de atacado sobre la \ac{PCB} verse afectada en función de la temperatura a la que se realiza el proceso, saturación de la disolución y otros factores específicos.
     
@@ -1099,19 +1097,19 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/FalloPCB.jpg}
-    \caption{\ac{PCB} tras proceso de atacado fallido}
-    \label{fig:kdiagram}
+    \caption{\ac{PCB} tras proceso de atacado fallido.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Tras cada uno de los intentos fallidos, se tuvo que repetir el proceso de insolación de las fotomáscaras sobre una nueva placa positiva de prototipado.
     
-    Después de dos intentos fallidos, se decidió desechar la disolución de atacado, ya que esta llevaba bastante tiempo fabricada y podría estar en mal; posteriormente se creo una nueva disolución de atacado:
+    Después de dos intentos fallidos, se decidió desechar la disolución de atacado, ya que esta llevaba bastante tiempo fabricada y podría estar en mal estado; posteriormente, se creó una nueva disolución de atacado:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/BreakingBad.jpg}
-    \caption{Proceso de creación de la disolución de atacado}
-    \label{fig:kdiagram}
+    \caption{Proceso de creación de la disolución de atacado.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Tras el atacado con la nueva disolución, el proceso tuvo éxito y el circuito se imprimió correctamente en la placa de prototipado.
@@ -1121,154 +1119,156 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/CursedPodium.jpg}
-    \caption{Intentos de fabricación de la \ac{PCB}}
-    \label{fig:kdiagram}
+    \caption{Intentos de fabricación de la \ac{PCB}.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Tal y como se puede observar, en el centro de la imagen se encuentra la \ac{PCB} exitosa y en los laterales los intentos fallidos, en los cuales el cobre no se eliminó adecuadamente.
     
     \item Otro de los contratiempos sucedidos fue detectado tras el proceso de soldado de los componentes, inmediatamente después de realizar el primer encendido del microcontrolador.
     
-    Este contratiempo afecta al periférico PWM por partida doble, ya que se detectó una fractura en una de las pistas de comunicación del puerto PWM y a su vez, se comprobó que el modulo PWM interno que usaba esta pista también estaba defectuoso y era inservible.
+    Este contratiempo afecta al periférico PWM por partida doble, ya que se detectó una fractura en una de las pistas de comunicación del puerto PWM y, a su vez, se comprobó que el módulo PWM interno que usaba esta pista también estaba defectuoso y era inservible.
     
-    En la siguiente imagen se puede apreciar la fractura en la pista de cobre:
+    En la siguiente imagen \textbf{INSERTE REFERENCIA AQUÍ} se puede apreciar la fractura en la pista de cobre:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/FracturaPista.jpg}
-    \caption{Fractura en pista de cobre}
-    \label{fig:kdiagram}
+    \caption{Fractura en pista de cobre.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    En primer lugar, se procedió a realizar un parcheo de la pista usando hilo de grapinar:
+    En primer lugar, se procedió a realizar una nueva conexión de la pista usando hilo de grapinar:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/Parche.jpg}
-    \caption{Parcheo de la pista usando hilo de grapinar}
+    \caption{Parcheo de la pista usando hilo de grapinar.}
     \label{fig:kdiagram}
     \end{figure}
     
-   Tras verificar que la conductividad del nuevo parche era correcta, se detectó que el modulo PWM seguía sin funcionar a pesar de que la fractura se había solucionado. Posteriormente a realizar algunas pruebas al respecto usando un osciloscopio, se concluyó que el módulo estaba defectuoso y no funcionaba.
-   
-   Para solucionar este problema, se optó por utilizar un hilo de grapinar para reconectar el puerto PWM inservible a otro de los pines del microcontrolador, el cual usaba un módulo PWM que funcionaba correctamente y que no estaba siendo usado. Se obtuvo el siguiente resultado:
+   Tras verificar que la conductividad del nuevo hilo era correcta, se detectó que el módulo PWM seguía sin funcionar a pesar de que la fractura se había solucionado. Posteriormente, tras realizar algunas pruebas al respecto usando un osciloscopio, se concluyó que el módulo estaba defectuoso y no funcionaba.
+   Esto además fue comprobado y corroborado por el tutor, por lo que se optó por utilizar un hilo de grapinar para reconectar el puerto PWM inservible a otro de los pines del microcontrolador, el cual usaba un módulo PWM que funcionaba correctamente y que no estaba siendo usado. Se obtuvo el siguiente resultado:
    
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/HiloGrapinar.jpg}
-    \caption{Reconexión del nuevo módulo PWM al puerto}
-    \label{fig:kdiagram}
+    \caption{Reconexión del nuevo módulo PWM al puerto.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
        
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/SoldaduraPrecisión.jpg}
-    \caption{Soldadura del hilo de reconexión con el nuevo pin}
-    \label{fig:kdiagram}
+    \caption{Soldadura del hilo de reconexión con el nuevo pin.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
-    Tal y como se puede observar, el reducido tamaño de la soldadura requirió que este proceso fuese realizado con máxima precisión. Además, por precaución, se eliminó parte de la pista original para evitar errores en la señal.
+    Tal y como se puede observar en las figuras anteriores \textbf{INSERTE REFERENCIA AQUÍ}, el reducido tamaño de la soldadura requirió que este proceso fuese realizado con máxima precisión. Además, por precaución, se eliminó parte de la pista original para evitar errores en la señal.
     
-    A pesar de que esta solución es de carácter artesanal y lo recomendable hubieses sido fabricar de nuevo la \ac{PCB}, se tomó la decisión de realizar este arreglo para reducir el impacto del contratiempo en el proyecto, ya que además esta solución mostró muy buen resultado y era suficientemente segura.
+    A pesar de que esta solución es de carácter artesanal y lo recomendable hubiese sido fabricar de nuevo la \ac{PCB}, se tomó la decisión de realizar este arreglo para reducir el impacto del contratiempo en el proyecto, ya que además se comprobó un buen resultado y fue suficientemente segura.
    
    \item El último de los contratiempos fue encontrado durante el proceso de soldado de la \ac{PCB} y afecta al circuito de alimentación de los motores.
    
-   Tal y como se puede ver en otros apartados de este documento, los servomotores son alimentados mediante una clema, la cual obtiene su voltaje de los reguladores LM-317 que adaptan el voltaje de alimentación de entrada.
+   Tal y como se puede ver en otros apartados de este documento, los servomotores son alimentados mediante una clema, la cual obtiene su voltaje de los reguladores LM317 que adaptan el voltaje de alimentación de entrada.
    
-   Tras el soldado de la clema y los reguladores, se alimentó a la \ac{PCB} para verificar que el voltaje de salida por las clemas fuese el requerido. Al realizar la medición del voltaje que había en los contactos de las clemas usando un voltímetro, se detectó que este voltaje era muy superior al que debería ser.
+   Tras el soldado de la clema y los reguladores, se alimentó a la \ac{PCB} para verificar que el voltaje de salida por las clemas fuese el requerido. Al realizar la medición del voltaje que había en los contactos de las clemas usando un voltímetro se detectó que este era muy superior al que debería ser.
    
-   El voltaje que deberían ofrecer las clemas es de 5.41V, sin embargo, al realizar la medición, se obtuvieron 7.1V; un valor intolerable ya que los servomotores no pueden soportar dicho voltaje. Tras revisar la zona del circuito de alimentación, es decir, clemas y reguladores de tensión; se detectó que los reguladores de tensión LM-317 no estaban funcionando correctamente.
+   El voltaje que deberían ofrecer las clemas es de $5.41V$ y, sin embargo al realizar la medición, se obtuvieron $7.1V$, un valor intolerable ya que los servomotores no pueden soportarlo. Tras revisar la zona del circuito de alimentación, es decir, clemas y reguladores de tensión, se detectó que los reguladores de tensión LM317 no estaban funcionando correctamente.
    
-   Posteriormente, se procedió a realizar una revisión en profundidad de la zona, pistas cercanas, las soldaduras de las clemas y reguladores; sin embargo no se encontró ningún fallo de fabricación o ensamblaje.
+   Posteriormente, se procedió a realizar una revisión en profundidad de la zona, pistas cercanas, las soldaduras de las clemas y reguladores; sin embargo, no se encontró ningún fallo de fabricación o ensamblaje.
    
-   Dado que el fallo no parecía deberse al proceso de fabricación, se procedió a revisar de nuevo los diseños lógico y físico de la \ac{PCB}. Tras esta revisión, se concluyó que el conexionado del diagrama lógico era correcto, sin embargo, la huella física elegida para el regulador de tensión LM-317 en el diagrama físico, presentaba un ordenado de pines diferente al del utilizado en el prototipo. A continuación se muestran las imágenes en las que se ve claramente esta diferencia:
+   Dado que el fallo no parecía deberse al proceso de fabricación, se procedió a revisar de nuevo los diseños lógico y físico de la \ac{PCB}. Tras esta revisión, se concluyó que el conexionado del diagrama lógico era correcto pero la huella física elegida para el regulador de tensión LM317 en el diagrama físico presentaba un orden en los pines diferente al del utilizado en el prototipo. Se muestran las imágenes en las que se ve claramente esta diferencia:
    
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/FailPinout2.JPG}
-    \caption{Esquemático lógico del LM317}
-    \label{fig:kdiagram}
+    \caption{Esquemático lógico del LM317.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/FailPinout3.JPG}
-    \caption{Huella física del LM317}
-    \label{fig:kdiagram}
+    \caption{Huella física del LM317.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/FailPinout.JPG}
-    \caption{Encapsulado físico del LM317}
-    \label{fig:kdiagram}
+    \caption{Encapsulado físico del LM317.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    Tal y como se puede observar en las imágenes anteriores:
+    Tal y como se puede observar en las imágenes anteriores \textbf{INSERTE REFERENCIA AQUÍ}:
     
     \begin{itemize}
     
-        \item El esquemático lógico del LM317 consta de 3 pines, al igual que su encapsulado y huella física.
+        \item El esquemático lógico del LM317 consta de 3 pines, al igual que su encapsulado y huella física (ver figura \textbf{INSERTE REFERENCIA AQUÍ}).
         
-        \item El encapsulado del LM317 tiene como referencia TO-220, con lo cual se debe seleccionar dicha huella física.
+        \item El encapsulado del LM317 tiene como referencia TO-220, con lo cual se debe seleccionar dicha huella física (ver figura \textbf{INSERTE REFERENCIA AQUÍ}).
         
-        \item A pesar de que le referencia de la huella física es TO-220, se puede afirmar que la distribución de pines de la misma, no es igual al del encapsulado físico del componente.
+        \item A pesar de que le referencia de la huella física es TO-220, se puede afirmar que la distribución de pines de la misma no es igual al del encapsulado físico del componente.
         
-        \item Los pads 2 y 3 de la huella física, correspondientes a los pines ADJUST y OUTPUT del encapsulado del LM317, están intercambiados y en consecuencia, la colocación de los pines es errónea.
+        \item Los \textit{pads} 2 y 3 de la huella física, correspondientes a los pines \texttt{ADJUST} y \texttt{OUTPUT} del encapsulado del LM317, están intercambiados y en consecuencia, la colocación de los pines es errónea (ver figura \textbf{INSERTE REFERENCIA AQUÍ}).
         
     \end{itemize}
     
-    Debido a lo descrito anteriormente, se puede afirmar que el diagrama físico de la \ac{PCB} contenía un error en el conexionado de los reguladores LM317 que alimentan los servomotores, por ello, el voltaje de salida de las clemas era de 7.1V y no de 5.41V, tal y como se había diseñado.
+    Debido a lo descrito anteriormente, se comprueba que el diagrama físico de la \ac{PCB} contenía un error en el conexionado de los reguladores LM317 que alimentan los servomotores y, por ello, el voltaje de salida de las clemas era de $7.1V$ y no de $5.41V$, tal y como se había diseñado.
     
     Como primer paso para solucionar dicho problema, se procedió a editar la huella física del componente y se intercambiaron los pines:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.45\linewidth]{pictures/FixedLM.JPG}
-    \caption{Huella física del LM317 con pines reordenados}
-    \label{fig:kdiagram}
+    \caption{Huella física del LM317 con pines reordenados.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Puesto que se habían intercambiado dos pines de la huella física, las pistas de conexión de los mismos debían ser reconectadas para arreglar el problema:
     
+    %% ESTAS CITAS SOBRAN %%%%%%%%%
     \begin{figure}[H]
     \centering
-    \subfigure[ Pines erróneos\cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=70.5mm]{pictures/PREFIX.png}}
-    \subfigure[Pines arreglados
-    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=69mm]{pictures/POSFIX.png}}
-    \caption{Modificación del circuito de alimentación de los servomotores marcada en azul }
-    \label{fig:lego}
+    \subfigure[Pines erróneos\cite{7759009FCCCDatasheetHoja}.]{\includegraphics[width=70.5mm]{pictures/PREFIX.png}}
+    \subfigure[Pines arreglados\cite{MotorCorrienteContinua2020}.]{\includegraphics[width=69mm]{pictures/POSFIX.png}}
+    \caption{Modificación del circuito de alimentación de los servomotores marcada en azul.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    Esta modificación del diagrama físico de la \ac{PCB} hecha a posteriori ya se contempla en el apartado 5.4.5 de la memoria, dado que en dicho apartado se muestra la versión final del diagrama físico.
+    Esta modificación del diagrama físico de la \ac{PCB} hecha a posteriori ya se contempla en el apartado \textbf{CREAR UN LABEL A ESE PUNTO Y REFERENCIARLO AQUÍ} (5.4.5) de la memoria, dado que en dicho apartado se muestra la versión final del diagrama físico.
     
-    Como segundo paso para solucionar el problema y puesto que la \ac{PCB} ya había sido fabricada siguiendo el diagrama físico que contenía el fallo, se debía de ingeniar alguna solución para el prototipo construido. 
-    
+    Como segundo paso para solucionar el problema y puesto que la \ac{PCB} ya había sido fabricada siguiendo el diagrama físico que contenía el fallo se debía de ingeniar alguna solución para el prototipo construido. 
     A pesar de que se planteó la posibilidad de fabricar de nuevo la \ac{PCB}, se consideró que este proceso causaría demasiado retraso en el desarrollo del proyecto y por lo tanto se optó por ingeniar otra solución directamente sobre el prototipo que estaba fabricado y ensamblado.
     
-    Puesto que el fallo consistía en dos pines que deberían estar intercambiados, bastaría con intercambiar las pistas de comunicación que conectaban con ellos. Se decidió de esta forma, fracturar las pistas existentes para después colocar dos puentes; intercambiando de esta forma el conexionado de los pines con sus pistas.
+    Puesto que el fallo consistía en dos pines que deberían estar intercambiados, bastaría con intercambiar las pistas de comunicación que conectaban con ellos. Se decidió, de esta forma, fracturar las pistas existentes para después colocar dos puentes, intercambiando de esta forma el conexionado de los pines con sus pistas (ver figura \textbf{INSERTE REFERENCIA}).
     
-    A continuación se muestra dicho puente de forma detallada:
-    
+    %% ESTAS CITAS SOBRAN %%%%%%%%%%%%%
     \begin{figure}[H]
     \centering
-    \subfigure[ Vista detallada del puente\cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=70mm]{pictures/EmpalmeDetallado.jpg}}
-    \subfigure[Vista de los cuatro puentes realizados
-    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=92.5mm]{pictures/EmpalmesTraseros.jpg}}
-    \caption{Puentes entre pistas de los reguladores de tensión LM317}
-    \label{fig:lego}
+    \subfigure[Vista detallada del puente\cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=70mm]{pictures/EmpalmeDetallado.jpg}}
+    \subfigure[Vista de los cuatro puentes realizados\cite{MotorCorrienteContinua2020}]{\includegraphics[width=92.5mm]{pictures/EmpalmesTraseros.jpg}}
+    \caption{Puentes entre pistas de los reguladores de tensión LM317.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    Para la realización se emplearon cables de tamaño reducido que actuaban como puente entre las pistas. Debido al reducido tamaño de puente  y dado que el soldado de los mismos se realizó a mano, se considera que el resultado podría ser mejorable; sin embargo, esta solución dió buenos resultados y corrigió correctamente el voltaje de salida de los reguladores de tensión LM317.
+    Para la realización se emplearon cables de tamaño reducido que actuaban como puente entre las pistas. Debido dicho tamaño y dado que el soldado de los mismos se realizó a mano, se considera que el resultado podría ser mejorable; sin embargo, esta solución dió buenos resultados y corrigió correctamente el voltaje de salida de los reguladores de tensión LM317.
     
 \end{itemize}
 
-A pesar de todos los errores cometidos durante el proceso de fabricación y diseño de la \ac{PCB}, los integrantes del equipo han sido capaces de: ingeniar soluciones óptimas que generasen el mínimo impacto negativo en el proyecto, implementarlas en el prototipo fabricado y verificar su corrección.
+A pesar de todos los errores cometidos durante el proceso de fabricación y diseño de la \ac{PCB}, los integrantes del equipo han sido capaces de: 
+
+\begin{itemize}
+    \item Ingeniar soluciones apropiadas que generasen el mínimo impacto en el desarrollo del proyecto.
+    \item Implementar dichas soluciones en el prototipo ya fabricado.
+    \item Verificar que la corrección es apropiada y que daba el resultado buscado y esperado en un principio.
+\end{itemize}
 
  \begin{figure}[H]
     \centering 
     \includegraphics[width=0.5\linewidth]{pictures/Quote.jpg}
-    \caption{Caña al mono ingenieros}
-    \label{fig:kdiagram}
+    \caption{Caña al mono ingenieros.}
+    \label{fig:CAMBIAR!!!!!!!!!!}
  \end{figure}
 
 
