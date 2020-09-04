@@ -1,29 +1,29 @@
 \subsection{Objetivos}
 
-El desarrollo de una PCB se considera una de las partes esenciales de este proyecto y por lo tanto su importancia es máxima.
+El desarrollo de una \ac{PCB} se considera una de las partes esenciales de este proyecto y por lo tanto su importancia es máxima.
 
-El objetivo principal que persigue el diseñar y construir una PCB en este proyecto es el de dotar al sistema de un centro de cómputo principal, el cual es utilizado para procesar las \textbf{ordenes} de S1, realizar los cálculos pertinentes y ejecutar las acciones necesarias sobre la estructura del brazo robótico. La PCB por lo tanto, se encarga de alojar el microcontrolador dsPIC, así como todos los periféricos necesarios para establecer la comunicación con S1, realizar el control de los actuadores y monitorizar el estado del manipulador.
+El objetivo principal que persigue el diseñar y construir una \ac{PCB} en este proyecto es el de dotar al sistema de un centro de cómputo principal, el cual es utilizado para procesar las \textbf{ordenes} de S1, realizar los cálculos pertinentes y ejecutar las acciones necesarias sobre la estructura del brazo robótico. La \ac{PCB} por lo tanto, se encarga de alojar el microcontrolador dsPIC, así como todos los periféricos necesarios para establecer la comunicación con S1, realizar el control de los actuadores y monitorizar el estado del manipulador.
 
 \subsection{Componentes principales}
 
-En general, se podría decir que los componentes de la PCB se clasifican en tres categorías principales:
+En general, se podría decir que los componentes de la \ac{PCB} se clasifican en tres categorías principales:
 \begin{itemize}
     \item Componentes de alimentación eléctrica.
     \item Microcontrolador y componentes auxiliares para su correcto funcionamiento.
     \item Periféricos destinados a control de actuadores y canales de comunicación.
 \end{itemize}
 
-En primer lugar, los componentes de alimentación eléctrica son aquellos que forman el circuito de alimentación del microcontrolador así como de los actuadores. El circuito eléctrico de alimentación de la PCB se ha diseñado para poder alimentar de forma simultánea al microcontrolador y a cada uno de los cuatro servomotores y, por lo tanto, está formado por dos etapas:
+En primer lugar, los componentes de alimentación eléctrica son aquellos que forman el circuito de alimentación del microcontrolador así como de los actuadores. El circuito eléctrico de alimentación de la \ac{PCB} se ha diseñado para poder alimentar de forma simultánea al microcontrolador y a cada uno de los cuatro servomotores y, por lo tanto, está formado por dos etapas:
 \begin{itemize}
-    \item La PCB recibe una tensión de entrada de $9V$ y una corriente de entre $1.8A - 2A$ mediante una clema. Posteriormente, esta tensión de alimentación será reducida y adaptada para alimentar a cada una de las etapas de la PCB, es decir, al microcontrolador y servomotores.
+    \item La \ac{PCB} recibe una tensión de entrada de $9V$ y una corriente de entre $1.8A - 2A$ mediante una clema. Posteriormente, esta tensión de alimentación será reducida y adaptada para alimentar a cada una de las etapas de la \ac{PCB}, es decir, al microcontrolador y servomotores.
     \item En la primera etapa se reduce el voltaje de alimentación principal a $6V$ y $0.4A$ aproximadamente para cada uno de los servomotores, utilizando para ello un regulador LM317 para cada servomotor. Esta alimentación se realiza mediante clemas, a las cuales se deben conectar la alimentación de los motores.
     
     \item En la segunda etapa se reduce el voltaje de alimentación principal a $3.3V$ y $0.15A$ aproximadamente con el objetivo de alimentar el microcontrolador, utilizando para ello reguladores LM317 y A1117H. Esta alimentación se realiza mediante pistas únicamente.
 \end{itemize}
 
-En segundo lugar, el microcontrolador y sus componentes auxiliares representan el núcleo de la PCB:
+En segundo lugar, el microcontrolador y sus componentes auxiliares representan el núcleo de la \ac{PCB}:
 \begin{itemize}
-    \item El dsPIC se encuentra localizado en el centro de la PCB y de él surgen todas las conexiones necesarias hacia los periféricos.
+    \item El dsPIC se encuentra localizado en el centro de la \ac{PCB} y de él surgen todas las conexiones necesarias hacia los periféricos.
     \item Los componentes auxiliares del microcontrolador son componentes eléctricos que aseguran el correcto funcionamiento del dsPIC, así como su seguridad. En el caso específico de este microcontrolador, es necesario incluir varios condensadores en sus pines de alimentación.
 \end{itemize}
 
@@ -42,11 +42,11 @@ En último lugar, se han utilizado los siguientes periféricos:
     \item LEDs de estado: mediante este periférico se muestra el estado del sistema usando tres diodos LED.
 \end{itemize}
 
-Mediante esta descripción general de la PCB y sus componentes se pretende brindar una idea global de la misma, así como de cual es su papel dentro del proyecto. En los apartados siguientes se describe en términos técnicos los elementos de esta PCB, así como el proceso de diseño y fabricación llevado a cabo.
+Mediante esta descripción general de la \ac{PCB} y sus componentes se pretende brindar una idea global de la misma, así como de cual es su papel dentro del proyecto. En los apartados siguientes se describe en términos técnicos los elementos de esta \ac{PCB}, así como el proceso de diseño y fabricación llevado a cabo.
 
 \subsection{Diseño lógico y diagrama esquemático}
 
-El primer paso llevado a cabo durante el diseño de la PCB ha sido realizar un diseño lógico de alto nivel, en el cual se muestran las conexiones lógicas que existen entre los componentes; se trata, por lo tanto, del diseño con mayor nivel de abstracción y que tiene como objetivo establecer un diseño de primer nivel, es decir, la primera toma de contacto con el plano de la PCB.
+El primer paso llevado a cabo durante el diseño de la \ac{PCB} ha sido realizar un diseño lógico de alto nivel, en el cual se muestran las conexiones lógicas que existen entre los componentes; se trata, por lo tanto, del diseño con mayor nivel de abstracción y que tiene como objetivo establecer un diseño de primer nivel, es decir, la primera toma de contacto con el plano de la \ac{PCB}.
 
 El diseño lógico se lleva a cabo mediante un diagrama esquemático que contiene dos tipos de elementos: huella lógica de cada uno de los componentes y las conexiones entre ellos. Este diagrama se ha llevado a cabo utilizando la herramienta \textit{Schematic Layout Editor} incluida en KiCad.
 
@@ -67,7 +67,9 @@ Conectados directamente a la clema principal, se encuentran los reguladores de t
     \item La segunda está formada por un regulador de tensión L7805CV y un AZ1117H. En dicha etapa de alimentación se reduce el voltaje de $9V$ a $5V$ usando el primer regulador, y de $5V$ a $3.3V$ usando el segundo.
 \end{itemize}
 
-En particular, el LM317 es un regulador convencional que recibe una tensión que recibe una tensión continua de entrada de entre $3V$ - $40V$, y provee una tensión continua salida de entre $1.25V$ - $37V$. Además, la relación entre la tensión de entrada y salida depende del dimensionado de dos resistencias auxiliares. El conexionado sugerido por el fabricante es el siguiente y se ha obtenido del \textit{datasheet} del regulador:
+% DAFAK IS THE REPETICION OF "QUE RECIBE UNA TENSION" IHUEPUTA MAL PARIDO
+
+En particular, el LM317 es un regulador convencional que recibe una tensión continua de entrada de entre $3V$ - $40V$ y provee una tensión continua salida de entre $1.25V$ - $37V$. Además, la relación entre la tensión de entrada y salida depende del dimensionado de dos resistencias auxiliares. El conexionado sugerido por el fabricante es el siguiente y se ha obtenido del \textit{datasheet} del regulador:
 
 \begin{figure}[H]
     \centering 
@@ -93,7 +95,7 @@ Se obtiene entonces que la ecuación funcional a utilizar en el cálculo de $R_1
     V_{OUT} = 1.25 \cdot \left( 1 + \frac{R_2}{240}\right) 
 \end{equation}
 
-Teniendo en cuenta los voltajes de alimentación requeridos para las dos etapas de alimentación de la PCB, se han realizado los siguientes cálculos para los valores de la resistencia $R_1$ y $R_2$:
+Teniendo en cuenta los voltajes de alimentación requeridos para las dos etapas de alimentación de la \ac{PCB}, se han realizado los siguientes cálculos para los valores de la resistencia $R_1$ y $R_2$:
 \begin{itemize}
     \item Primera etapa, alimentación de servomotores, $5.5V$ y $0.4A$ requeridos:
     \begin{equation}
@@ -203,7 +205,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    En este proyecto se ha decidido no incluir el \texit{jumper} sugerido para conexión del pin MCLR y por lo tanto $R_1$ no se añade en el diagrama esquemático.
+    En este proyecto se ha decidido no incluir el \textit{jumper} sugerido para conexión del pin MCLR y por lo tanto $R_1$ no se añade en el diagrama esquemático.
     
     Teniendo en cuenta lo anteriormente mencionado, el conexionado final del puerto de programación mediante sonda es el siguiente:
     
@@ -220,15 +222,14 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     
     \begin{figure}[H]
     \centering 
-    \includegraphics[width=.64
-    \linewidth]{pictures/MicroSwitchesSchematic.PNG}
+    \includegraphics[width=.64\linewidth]{pictures/MicroSwitchesSchematic.PNG}
     \caption{Circuito lógico para los finales de carrera.}
     \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Mediante el conexionado anterior, si el micro-interruptor está abierto, se recibe un nivel bajo por el pin del microcontrolador; mientras que si el micro-interruptor está cerrado se recibe un nivel alto por el pin del microcontrolador. 
     
-    Cabe destacar que tanto la resistencia \textit{pull-down} como la conexión a tierra se incluyen en la PCB. Sin embargo, los micro-interruptores y su conexión a $VDD$ se encuentran localizados en la estructura del brazo robótico. 
+    Cabe destacar que tanto la resistencia \textit{pull-down} como la conexión a tierra se incluyen en la \ac{PCB}. Sin embargo, los micro-interruptores y su conexión a VDD se encuentran localizados en la estructura del brazo robótico. 
     
     El diagrama esquemático que implementa esta funcionalidad es el siguiente:
     
@@ -279,7 +280,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    Se ha tomado la decisión de incluir dos puertos UART independientes en la PCB que se ha desarrollado, con el objetivo principalmente de dedicar uno de los canales a envío y recepción de instrucciones; mientras que el otro se usa para realizar labores de depuración y pruebas.
+    Se ha tomado la decisión de incluir dos puertos UART independientes en la \ac{PCB} que se ha desarrollado, con el objetivo principalmente de dedicar uno de los canales a envío y recepción de instrucciones; mientras que el otro se usa para realizar labores de depuración y pruebas.
     
     El conexionado de los puertos UART  se realiza mediante pines reconfigurables del microcontrolador, en este caso se han utilizado los pines 2 y 3 para el primer canal; además de los pines 3 y 4 para el segundo canal. El diagrama esquemático final es el siguiente:
     
@@ -319,11 +320,11 @@ En conclusión, una vista completa sobre el diagrama esquemático del proyecto e
 
 \subsection{Conversión del diagrama esquemático a diagrama físico}
 
-Tal y como se ha descrito en el apartado anterior, el diseño lógico de la PCB se implementa mediante el diagrama esquemático, y su objetivo es el de describir las huellas y conexiones lógicas de los componentes; sin embargo, este diseño es de alto nivel y no es implementable directamente en términos físicos. 
+Tal y como se ha descrito en el apartado anterior, el diseño lógico de la \ac{PCB} se implementa mediante el diagrama esquemático, y su objetivo es el de describir las huellas y conexiones lógicas de los componentes; sin embargo, este diseño es de alto nivel y no es implementable directamente en términos físicos. 
 
 El siguiente paso tras completar el diagrama esquemático es transformar este diseño lógico en un diseño físico más cercano a la implementación real. 
 
-El diseño físico de una PCB debe ser obtenido directamente de la información establecida en el diseño lógico y, por lo tanto, se tiene que transformar el diagrama esquemático en un diagrama físico, en el cual se deben contemplar los aspectos físicos de los componentes y sus conexiones, además de sus aspectos lógicos.
+El diseño físico de una \ac{PCB} debe ser obtenido directamente de la información establecida en el diseño lógico y, por lo tanto, se tiene que transformar el diagrama esquemático en un diagrama físico, en el cual se deben contemplar los aspectos físicos de los componentes y sus conexiones, además de sus aspectos lógicos.
 
 El objetivo principal del diseño y diagrama físico es el de plasmar la realidad física de los componentes y sus conexiones a partir de un diagrama esquemático, en el cual no se contemplan los aspectos físicos para simplificar el diseño inicial. En general, el diseño y diagrama físico es más complejo y difícil de comprender. Por ello, normalmente la primera etapa del diseño comienza con el diseño lógico y diagrama esquemático.
 
@@ -359,7 +360,7 @@ En la imagen anterior se muestra la ventana de asignación de huellas, la cual e
     \item La sección derecha muestra las huellas físicas que cumplen los filtros establecidos dependiendo del componente lógico. Estos filtros suelen ser: nombre, número de pines y librería. 
 \end{itemize}
 
-Como ejemplo, en la imagen anterior se ha buscado en la librería \textit{``capacitor THT''}, ya que se quieren utilizar condensadores de agujero pasante en el diseño físico y por lo tanto, en la sección derecha de la ventana se muestran las huellas susceptibles de ser usadas, filtradas por número de pines y librería.
+Como ejemplo, en la imagen anterior se ha buscado en la librería \textit{``capacitor \ac{THT}''}, ya que se quieren utilizar condensadores de agujero pasante en el diseño físico y por lo tanto, en la sección derecha de la ventana se muestran las huellas susceptibles de ser usadas, filtradas por número de pines y librería.
 
 Una vez se ha elegido la huella que se quiere utilizar en el diseño físico, esta se asigna al componente esquemático y puede ser visualizada:
 
@@ -367,13 +368,13 @@ Una vez se ha elegido la huella que se quiere utilizar en el diseño físico, es
 \begin{figure}[H]
 \centering 
 \includegraphics[width=\linewidth]{pictures/huellaCondensador.PNG}
-\caption{Huella física  de un condensador usado en la PCB.}
+\caption{Huella física  de un condensador usado en la \ac{PCB}.}
 \label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Existen numerosos aspectos que afectan a la decisión de qué huella física asignarle a cada componente lógico y principalmente depende del tipo de implementación que se vaya a realizar en la PCB. Normalmente, estas decisiones se deben tomar a través de la información técnica suministrada por el fabricante en los diversos \texit{datasheets}.
+Existen numerosos aspectos que afectan a la decisión de qué huella física asignarle a cada componente lógico y principalmente depende del tipo de implementación que se vaya a realizar en la \ac{PCB}. Normalmente, estas decisiones se deben tomar a través de la información técnica suministrada por el fabricante en los diversos \textit{datasheets}.
 
-Un ejemplo a destacar de lo recién mencionado es la huella que se ha asignado al microcontrolador dsPIC utilizado, el cual dispone de diversos encapsulados. Dichos encapsulados se muestran de forma detallada en el \texit{datasheet}.
+Un ejemplo a destacar de lo recién mencionado es la huella que se ha asignado al microcontrolador dsPIC utilizado, el cual dispone de diversos encapsulados. Dichos encapsulados se muestran de forma detallada en el \textit{datasheet}.
 
 En este proyecto, se ha decidido utilizar el encapsulado de 44 pines de soldadura superficial y de tipo ``\textit{Thin Quad Flat Package}'' (TQFP), cuya descripción en el \textit{datasheet} es la siguiente:
 
@@ -442,7 +443,7 @@ Para importar el listado de redes generado anteriormente, basta con buscar la ub
 
 Inicialmente, se muestra la huella física de los componentes y sus conexiones lógica pero se encuentran desordenados. Es recomendable reorganizarlos para verificar si todos ellos han sido importados correctamente.
 
-El primer paso para comenzar el diseño físico de la PCB es distribuir los componentes por el plano, tratando de visualizar cuál va a ser la ubicación futura de los componentes en la placa de circuito impreso y cuál van a ser las dimensiones de la misma.
+El primer paso para comenzar el diseño físico de la \ac{PCB} es distribuir los componentes por el plano, tratando de visualizar cuál va a ser la ubicación futura de los componentes en la placa de circuito impreso y cuál van a ser las dimensiones de la misma.
 
 \begin{figure}[H]
 \centering 
@@ -453,37 +454,37 @@ El primer paso para comenzar el diseño físico de la PCB es distribuir los comp
 
 Es conveniente definir un contorno a la placa, el cual puede ser incluido en el diagrama usando la herramienta de dibujado de lineas y la herramienta de medición de distancias.
 
-Por último, es importante remarcar que la distribución de los componentes queda a elección del diseñador de la PCB. Sin embargo, se debe de tratar de tener en cuenta factores como el tamaño deseado para la PCB, la localización de los componentes con respecto a sus conexiones cercanas, el proceso de fabricación a usar, etc.
+Por último, es importante remarcar que la distribución de los componentes queda a elección del diseñador de la \ac{PCB}. Sin embargo, se debe de tratar de tener en cuenta factores como el tamaño deseado para la \ac{PCB}, la localización de los componentes con respecto a sus conexiones cercanas, el proceso de fabricación a usar, etc.
 
 \subsection{Conexionado de los componentes mediante pistas}
-Una vez se ha creado el contorno de la PCB y se han distribuido los componentes de la forma deseada, se deben realizar las conexiones físicas entre los componentes.
+Una vez se ha creado el contorno de la \ac{PCB} y se han distribuido los componentes de la forma deseada, se deben realizar las conexiones físicas entre los componentes.
 
 Dado que se trata de una placa de circuito impreso, las conexiones lógicas entre los componentes se corresponden con pistas de cobre en el diagrama físico.
 
-El proceso de conexionado mediante pistas se denomina ``enrutado'' y puede ser realizado de manera automática o manual. La complejidad del proceso de enrutado puede ser más o menos elevada en función del numero de componentes, capas que se utilicen para pistas, ubicación de los componentes, dimensiones de la PCB, etc. Se considera que el proceso de enrutado ha sido completado con éxito cuando todas las conexiones lógicas han sido realizadas y no existen conflictos o choques entre las pistas, así como soldaduras no realizables físicamente.
+El proceso de conexionado mediante pistas se denomina ``enrutado'' y puede ser realizado de manera automática o manual. La complejidad del proceso de enrutado puede ser más o menos elevada en función del numero de componentes, capas que se utilicen para pistas, ubicación de los componentes, dimensiones de la \ac{PCB}, etc. Se considera que el proceso de enrutado ha sido completado con éxito cuando todas las conexiones lógicas han sido realizadas y no existen conflictos o choques entre las pistas, así como soldaduras no realizables físicamente.
 
-Durante el proceso de enrutado de las pistas de una PCB es habitual combinar herramientas de enrutado automático con enrutado manual, dado que, normalmente, las herramientas de enrutado automático suelen encontrar soluciones exitosas al proceso de enrutado, sin embargo no suelen ser óptimas y pueden requerir alguna modificación manual por parte del diseñador. 
+Durante el proceso de enrutado de las pistas de una \ac{PCB} es habitual combinar herramientas de enrutado automático con enrutado manual, dado que, normalmente, las herramientas de enrutado automático suelen encontrar soluciones exitosas al proceso de enrutado, sin embargo no suelen ser óptimas y pueden requerir alguna modificación manual por parte del diseñador. 
 
 En este proyecto, se ha decidido realizar un proceso de enrutado íntegramente manual, debido a que, a pesar de haber intentado utilizar la herramienta ``FreeRouting'' de enrutado automático, no se ha obtenido un resultado óptimo y era bastante complejo.
 
-El proceso de enrutado se ha realizado utilizando ambas capas de la PCB, esto quiere decir que se han trazado pistas en la capa de soldadura y en la capa de componentes. Esta decisión se ha tomado principalmente debido a que en esta PCB se usan componentes de tipo ``THT'' (\textit{Through-Hole Technology}) y ``SMT'' (\textit{Surface-Mount technology}), por lo tanto es completamente necesario incluir pistas en la capa de componentes y capa de soldadura.
+El proceso de enrutado se ha realizado utilizando ambas capas de la \ac{PCB}, esto quiere decir que se han trazado pistas en la capa de soldadura y en la capa de componentes. Esta decisión se ha tomado principalmente debido a que en esta \ac{PCB} se usan componentes de tipo ``\ac{THT}'' (\textit{Through-Hole Technology}) y ``SMT'' (\textit{Surface-Mount technology}), por lo tanto es completamente necesario incluir pistas en la capa de componentes y capa de soldadura.
 
 En relación con lo anterior, las dos capas mencionadas anteriormente cumplen una función específica:
 \begin{itemize}
     \item La capa superior o de componentes contiene las pistas de comunicación del microcontrolador, ya que este componente es de tipo ``SMT''.
-    \item La capa inferior o de soldadura contiene las pistas de alimentación de la PCB, en la cual se han realizado las soldaduras de los componentes ``THT''.
+    \item La capa inferior o de soldadura contiene las pistas de alimentación de la \ac{PCB}, en la cual se han realizado las soldaduras de los componentes ``\ac{THT}''.
     \item Para comunicar las pistas de ambas capas se han realizado vías de conexión en los casos necesarios. Un ejemplo de su uso está en el conexionado de los pines del microcontrolador en la capa superior con las pistas de los conectores, los cuales se encuentran soldados en la capa inferior de soldadura.
 \end{itemize}
 
-Otro de los aspectos claves a la hora de enrutar una PCB, es escoger un ancho de pista adecuado. Algunos de los factores que afectan a esta decisión son los siguientes:
+Otro de los aspectos claves a la hora de enrutar una \ac{PCB}, es escoger un ancho de pista adecuado. Algunos de los factores que afectan a esta decisión son los siguientes:
 \begin{itemize}
     \item Intensidad de corriente y voltaje que conducirá la pista. Distinción entre pistas de alimentación y de comunicación de señales digitales.
-    \item Requerimientos de tamaño de la PCB, ya sea por número de pistas, espacio disponible, tamaño de los pines de conexión de componentes, etc.
-    \item Limitaciones físicas y de precisión del proceso de fabricación de la PCB.
+    \item Requerimientos de tamaño de la \ac{PCB}, ya sea por número de pistas, espacio disponible, tamaño de los pines de conexión de componentes, etc.
+    \item Limitaciones físicas y de precisión del proceso de fabricación de la \ac{PCB}.
     \item Otros factores como la resistividad del material de la pista, el aumento de temperatura máximo tolerado por la misma o su longitud aproximada, son factores determinantes para el ancho de la pista.
 \end{itemize}
 
-KiCad incluye una herramienta denominada ``PCB Calculator'' la cual permite realizar cálculos sobre diversos aspectos relacionados con la PCB, entre ellos, el ancho de pista. Esta herramienta realiza el cálculo del ancho de pistas en función de los factores mencionados anteriormente y su interfaz es la siguiente:
+KiCad incluye una herramienta denominada ``\ac{PCB} Calculator'' la cual permite realizar cálculos sobre diversos aspectos relacionados con la \ac{PCB}, entre ellos, el ancho de pista. Esta herramienta realiza el cálculo del ancho de pistas en función de los factores mencionados anteriormente y su interfaz es la siguiente:
 
 \begin{figure}[H]
 \centering 
@@ -492,9 +493,9 @@ KiCad incluye una herramienta denominada ``PCB Calculator'' la cual permite real
 \label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
-Mediante la herramienta anterior se puede realizar el cálculo para los dos tipos de pistas usadas en esta PCB: pistas de alimentación y pistas de comunicación. Para el cálculo de ambos tipos, se asume un aumento de temperatura máximo de 10 ºC, una longitud del conductor de $20cm$ y un valor de resistividad de $1.72 \cdot 10^{-8}$.
+Mediante la herramienta anterior se puede realizar el cálculo para los dos tipos de pistas usadas en esta \ac{PCB}: pistas de alimentación y pistas de comunicación. Para el cálculo de ambos tipos, se asume un aumento de temperatura máximo de 10 ºC, una longitud del conductor de $20cm$ y un valor de resistividad de $1.72 \cdot 10^{-8}$.
 
-En primer lugar, se considera que las pistas de alimentación de la PCB conducen $2A$ de intensidad y un voltaje de $9V$ máximo. Teniendo en cuenta dichos datos, el ancho de pista obtenido es el siguiente:
+En primer lugar, se considera que las pistas de alimentación de la \ac{PCB} conducen $2A$ de intensidad y un voltaje de $9V$ máximo. Teniendo en cuenta dichos datos, el ancho de pista obtenido es el siguiente:
 
 \begin{figure}[H]
 \centering 
@@ -529,7 +530,7 @@ Asumiendo un ancho mínimo de pista de $0.4mm$, las pistas de comunicación est�
 
 Las pistas de comunicación tienen finalmente un ancho de $0.4mm$ y debido a su sobredimensionado, soportan una corriente de $1.23A$, la cual se sitúa muy por encima de la corriente que circulará por las mismas.
 
-A continuación se muestra la distribución final de los componentes físicos dentro del contorno de la PCB, aún sin haber trazado las pistas de conexión:
+A continuación se muestra la distribución final de los componentes físicos dentro del contorno de la \ac{PCB}, aún sin haber trazado las pistas de conexión:
 
 \begin{figure}[H]
 \centering
@@ -553,13 +554,13 @@ Cabe destacar varios aspectos:
 \begin{itemize}
     \item Las pistas de color rojo se corresponden con la cara frontal o de componentes.
     \item Las pistas de color verde se corresponden con la cara trasera o de soldadura.
-    \item Se han incluido marcas de serigrafiado adecuadas para identificar correctamente la PCB y su interfaz.
-    \item Se han incluido orificios de mecanizado para la futura sujeción de la PCB.
+    \item Se han incluido marcas de serigrafiado adecuadas para identificar correctamente la \ac{PCB} y su interfaz.
+    \item Se han incluido orificios de mecanizado para la futura sujeción de la \ac{PCB}.
     \item En la parte superior izquierda y derecha de la capa frontal se han añadido los logos de la ETSISI y el \pArm{}.
     \item En la parte central de la capa frontal se ha incluido el nombre de la placa (P-ARM ALMOST) y el nombre del grupo de ingenieros (NPCMOS).
 \end{itemize}
 
-Utilizando el visualizador 3D de KiCad se puede obtener un representación cercana a la realidad de como será la PCB al fabricarse:
+Utilizando el visualizador 3D de KiCad se puede obtener un representación cercana a la realidad de como será la \ac{PCB} al fabricarse:
 
 \begin{figure}[htbp]
     \centering
@@ -574,20 +575,18 @@ Utilizando el visualizador 3D de KiCad se puede obtener un representación cerca
     \label{fig:lego}
 \end{figure}
     
-\subsection{[PENDIENTE -- J] Verificaciones realizadas al diseño lógico y físico}
+\subsection{Verificaciones realizadas al diseño lógico y físico}
 
-El proceso de diseño de la PCB es considerado uno de los elementos críticos dentro del proyecto y por lo tanto, es necesario llevar a cabo una serie de verificaciones durante dicho proceso para minimizar el riesgo de fallos.
+Dado que el proceso de diseño de la \ac{PCB} es uno de los elementos críticos dentro del proyecto, es necesario llevar a cabo una serie de verificaciones durante dicho proceso para minimizar el riesgo de fallos.
 
-Dado que durante el proceso de diseño de la PCB, se han obtenido los diagramas lógico y físico, y en consecuencia, ambos son susceptibles de verificar en detalle.
+En primer lugar, se deben realizar las verificaciones del diseño lógico de la \ac{PCB}, ya que es el primer diagrama que se realiza. Como aporta información de las conexiones lógicas entre los distintos componentes de la \ac{PCB}, las verificaciones a realizar irán destinadas a comprobar la corrección de dichas conexiones y de los componentes empleados.
 
-En primer lugar se deben realizar las verificaciones del diseño lógico de la PCB, ya que es el primer diagrama que se realiza. Dado que el diagrama lógico aporta información de las conexiones lógicas entre los distintos componentes de la PCB, las verificaciones a realizar irán destinadas a comprobar la corrección de dichas conexiones y de los componentes empleados.
-
-A continuación se muestra una lista de las principales verificaciones realizadas en el diagrama lógico:
+A continuación, se muestra una lista de las principales verificaciones realizadas en el diagrama lógico:
 \begin{itemize}
 
-    \item Verificar si se han incluido en la PCB todos los componentes deseados.
+    \item Verificar si se han incluido en la \ac{PCB} todos los componentes deseados.
     
-    \item Verificar si se ha incluido el circuito de alimentación de la PCB, y por lo tanto, comprobar si todos los componentes están alimentados correctamente.
+    \item Verificar si se ha incluido el circuito de alimentación de la \ac{PCB}, y por lo tanto, comprobar si todos los componentes están alimentados correctamente.
     
     \item Verificar si se ha incluido el conexionado mínimo recomendado por el fabricante para asegurar un correcto funcionamiento del microcontrolador y sus periféricos.
     
@@ -597,63 +596,62 @@ A continuación se muestra una lista de las principales verificaciones realizada
     
 \end{itemize}
 
-Tras realizar las revisiones anteriores en el diagrama lógico, se considera que el mismo es completamente correcto y no contienen ningún error, y por lo tanto, es susceptible de ser transformado a diagrama físico.
+Tras realizar las revisiones anteriores se considera que el diagrama lógico está en un estado de madurez suficiente como para poder crear el diagrama físico a partir de él y, posteriormente, realizar también las revisiones del mismo.
 
-En segundo lugar se deben realizar las revisiones del diagrama físico, ya que se trata del diagrama que se realiza en segundo lugar. Dado que este diagrama detalla los aspectos físicos y estructurales de la PCB, las verificaciones a realizar irán destinadas a comprobar los aspectos físicos de los componentes, conexiones mediante pistas, requerimientos estructurales, dimensiones, etc.
-
-A continuación se muestra una lista de las principales verificaciones realizadas en el diagrama físico:
+Dichas verificaciones a realizar van destinadas a comprobar los aspectos físicos de los componentes, conexiones mediante pistas, requerimientos estructurales, dimensiones, etc., donde se comprueba:
 \begin{itemize}
     \item Verificar que todos los componentes del diagrama lógico aparecen en el diagrama físico al importar la lista de redes.
     
     \item Verificar que todas las conexiones lógicas entre componentes del diagrama lógico aparecen representadas en el diagrama físico.
     
-    \item Verificar que todas las conexiones que aparecen en el diseño físico, se corresponden con conexiones establecidas en el diagrama lógico.
+    \item Verificar que todas las conexiones que aparecen en el diseño físico se corresponden con conexiones establecidas en el diagrama lógico.
     
-    \item Verificar que todas las huellas físicas de los componentes lógicos son correctas y su distribución de pines es la deseada. Se debe contrastar esta información usando el datasheet de cada uno de los componentes.
+    \item Verificar que todas las huellas físicas de los componentes lógicos son correctas y su distribución de pines es la deseada. Se debe contrastar esta información usando el \textit{datasheet} de cada uno de los componentes.
     
     \item Verificar que todas las conexiones se han realizado, y por lo tanto, tienen una pista asignada.
     
     \item Verificar que todos los componentes están alimentados y que las pistas de alimentación tienen el tamaño adecuado.
     
-    \item Verificar que todas las pistas de comunicación tienen el origen y destino adecuado, y que además, su ancho es el adecuado.
+    \item Verificar que todas las pistas de comunicación tienen el origen y destino adecuado, y que su ancho es el adecuado.
     
-    \item Verificar que no existen pistas con un ancho menor de 0.3mm, ya que el proceso de fabricación podría fallar por debajo de este tamaño.
+    \item Verificar que no existen pistas con un ancho menor de $0.3mm$, ya que el proceso de fabricación podría fallar por debajo de este tamaño.
     
-    \item Verificar que la separación mínima entre pistas es como mínimo de 0.3mm para pistas de alimentación y 0.25mm para pistas de comunicación digital.
+    \item Verificar que la separación mínima entre pistas es como mínimo de $0.3mm$ para pistas de alimentación y $0.25mm$ para pistas de comunicación digital.
     
     \item Verificar que no existen pistas que hagan contacto no deseado con componentes de soldadura superficial bajo su superficie.
     
-    \item Verificar que se han incluido marcas de serigrafía que permitan identificar a la PCB y su interfaz de forma clara.
+    \item Verificar que se han incluido marcas de serigrafía que permitan identificar a la \ac{PCB} y su interfaz de forma clara.
     
     \item Verificar que se ha incluido el mecanizado de sujeción adecuado.
     
     \item Verificar que no existan pistas que contacten con partes metálicas del mecanizado de sujeción.
     
-    \item Verificar que todas las soldaduras de los componentes SMD y THT sean realizables físicamente.
+    \item Verificar que todas las soldaduras de los componentes \ac{SMD} y \ac{THT} sean realizables físicamente.
     
     \item Verificar que el conector de programación dispone de espacio suficiente para realizar la conexión de la sonda.
     
-    \item Verificar que las vías y pads tienen un diámetro mínimo de 1mm, con agujero de 0.5mm
+    \item Verificar que las vías y \textit{pads} tienen un diámetro mínimo de $1mm$ con agujero de $0.5mm$.
     
 \end{itemize}
 
-KiCad ofrece una herramienta llamada "Comprobar reglas de diseño", la cual puede ser utilizada para facilitar el proceso de verificación del diseño físico. Utilizando esta herramienta, se pueden verificar automáticamente factores como el ancho de pista mínimo permitido, separación mínima entre pistas, conexiones no realizadas, etc. A pesar de poder realizar estas verificaciones de forma automática, se han realizado todas las verificaciones de forma manual también para reducir el riesgo de fallos.
+KiCad ofrece una herramienta llamada ``Comprobar reglas de diseño'', la cual puede ser utilizada para facilitar el proceso de verificación del diseño físico. Utilizando esta herramienta se pueden verificar automáticamente factores como el ancho de pista mínimo permitido, separación mínima entre pistas, conexiones no realizadas, etc. A pesar de poder realizar estas verificaciones de forma automática, se han realizado todas las verificaciones de forma manual para también reducir el riesgo de fallos.
 
-    \begin{figure}[htbp]
-    \centering
-    \subfigure[Icono de verificación de reglas de diseño \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=82mm]{pictures/DRC2.PNG}}
-    \subfigure[Desplegable de la herramienta
-    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/DRC.PNG}}
-    \caption{Herramienta de verificación de reglas de diseño} \label{fig:lego}
-    \end{figure}
+%% Y ESTAS CITAS?! FUERA :V
+\begin{figure}[htbp]
+\centering
+\subfigure[Icono de verificación de reglas de diseño \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=82mm]{pictures/DRC2.PNG}}
+\subfigure[Desplegable de la herramienta
+\cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/DRC.PNG}}
+\caption{Herramienta de verificación de reglas de diseño} \label{fig:lego}
+\end{figure}
 
-Tras realizar todas las verificaciones anteriormente mencionadas en el diagrama físico, se han subsanado los errores encontrados previamente a realizar la fabricación de la PCB; se considera por lo tanto que el proceso de verificación del diseño ha sido exitoso.
+Tras realizar todas las verificaciones anteriormente mencionadas en el diagrama físico, se han subsanado los errores encontrados previamente a realizar la fabricación de la \ac{PCB}; se considera por lo tanto que el proceso de verificación del diseño ha sido exitoso.
 
 \subsection{Construcción}
 
-Una vez se ha finalizado el proceso de diseño de la PCB, se comienza el proceso de fabricación de la misma. Dicho proceso consta de diversas etapas, las cuales van desde la preparación de los materiales hasta la obtención del prototipo final; todas estas etapas se detallan a continuación una por una.
+Una vez se ha finalizado el proceso de diseño de la \ac{PCB}, se comienza el proceso de fabricación de la misma. Dicho proceso consta de diversas etapas, las cuales van desde la preparación de los materiales hasta la obtención del prototipo final; todas estas etapas se detallan a continuación una por una.
 
-En primer lugar, cabe destacar que el proceso de fabricación seleccionado para construir la PCB ha sido la fotolitografía. Este proceso consiste en transferir un patrón de un circuito desde una fotomáscara a una placa de prototipado positiva mediante una serie de procesos lumínicos y químicos. Posteriormente, una vez se tiene impreso el circuito en la placa de prototipado, se puede proceder al taladrado de orificios y soldado de los componentes del circuito.
+En primer lugar, cabe destacar que el proceso de fabricación seleccionado para construir la \ac{PCB} ha sido la fotolitografía. Este proceso consiste en transferir un patrón de un circuito desde una fotomáscara a una placa de prototipado positiva mediante una serie de procesos lumínicos y químicos. Posteriormente, una vez se tiene impreso el circuito en la placa de prototipado, se puede proceder al taladrado de orificios y soldado de los componentes del circuito.
 
 A continuación se presentan los conceptos básicos empleados durante el proceso de fotolitografía y cuyo entendimiento es fundamental para comprender el proceso de fabricación:
 
@@ -705,7 +703,7 @@ A continuación se presentan los conceptos básicos empleados durante el proceso
     \label{fig:kdiagram}
     \end{figure}
     
-    Tras someter la PCB al proceso de revelado, se obtiene el siguiente resultado:
+    Tras someter la \ac{PCB} al proceso de revelado, se obtiene el siguiente resultado:
     
     \begin{figure}[H]
     \centering 
@@ -725,26 +723,26 @@ A continuación se presentan los conceptos básicos empleados durante el proceso
     \label{fig:kdiagram}
     \end{figure}
     
-    Tal y como se puede observar en la imagen anterior, la capa de cobre solo permanece en los lugares que estaban protegidos por la resina inicial; este patrón coincide con el circuito de la fotomáscara. Para retirar la resina sobrante, bastan con aclarar la PCB con alcohol, quedando las pistas del circuito perfectamente delimitadas e impresas en la placa de fibra de vidrio.
+    Tal y como se puede observar en la imagen anterior, la capa de cobre solo permanece en los lugares que estaban protegidos por la resina inicial; este patrón coincide con el circuito de la fotomáscara. Para retirar la resina sobrante, bastan con aclarar la \ac{PCB} con alcohol, quedando las pistas del circuito perfectamente delimitadas e impresas en la placa de fibra de vidrio.
     
 \end{itemize}
 
-Existen otros procesos de fabricación para PCBs que ofrecen un resultado muy parecido al deseado en este proyecto, por ejemplo fabricación mediante máquina CNC; sin embargo, por motivos de disponibilidad de materiales y maquinaria, se ha decidido utilizar la fotolitografía.
+Existen otros procesos de fabricación para \ac{PCB}s que ofrecen un resultado muy parecido al deseado en este proyecto, por ejemplo fabricación mediante máquina CNC; sin embargo, por motivos de disponibilidad de materiales y maquinaria, se ha decidido utilizar la fotolitografía.
 
 A continuación se enumeran las diversas etapas del proceso de fabricación, ordenadas cronológicamente desde el comienzo del proceso hasta su finalización:
 
 \begin{itemize}
-    \item La primera etapa del proceso de fabricación consiste en la generación de las fotomáscaras a partir del diagrama físico de la PCB.
+    \item La primera etapa del proceso de fabricación consiste en la generación de las fotomáscaras a partir del diagrama físico de la \ac{PCB}.
     
-    El diagrama físico representa de forma precisa cual es la apariencia física de la PCB, las huellas de sus componentes, pistas de conexión, marcas de mecanizado, serigrafía, orificios y límites. Es precisamente toda esta información la que se quiere plasmar mediante fotolitografía en la placa de prototipado positiva que contendrá el circuito impreso.
+    El diagrama físico representa de forma precisa cual es la apariencia física de la \ac{PCB}, las huellas de sus componentes, pistas de conexión, marcas de mecanizado, serigrafía, orificios y límites. Es precisamente toda esta información la que se quiere plasmar mediante fotolitografía en la placa de prototipado positiva que contendrá el circuito impreso.
     
     Utilizando la herramienta "imprimir placa" disponible en KiCad, se puede generar las máscaras asociadas al diagrama físico:
     
     \begin{figure}[H]
     \centering
-    \subfigure[Icono de impresión de placas \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=80mm]{pictures/ImprimirPCB.PNG}}
+    \subfigure[Icono de impresión de placas \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=80mm]{pictures/Imprimir\ac{PCB}.PNG}}
     \subfigure[Desplegable de la herramienta
-    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/ImprimirPCB2.PNG}}
+    \cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/Imprimir\ac{PCB}2.PNG}}
     \caption{Herramienta de impresión de placas} \label{fig:lego}
     \end{figure}
     
@@ -755,7 +753,7 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \subfigure[Máscara frontal \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=82mm]{pictures/MascaraFrontal.PNG}}
     \subfigure[Máscara trasera
     \cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/MascaraTrasera.PNG}}
-    \caption{Fotomáscara final de la PCB} \label{fig:lego}
+    \caption{Fotomáscara final de la \ac{PCB}} \label{fig:lego}
     \end{figure}
     
    Con el fin de poder utilizar dichas máscaras en el proceso de fotolitografía, es necesario imprimirlas en papel de transparencia, puesto que deben dejar pasar la luz en los lugares que no contienen el patrón del circuito a fotolitografiar.
@@ -772,7 +770,7 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     
      Otro de los aspectos a destacar y que es vital en relación a la impresión de las transparencias, es que, dado que todas las impresoras producen cierta distorsión en los documentos que imprimen; se debe incluir una corrección de escala XY de 1.037 para calibrar correctamente la impresión. En caso contrario, se puede producir algún pequeño desajuste en el encaje de los componentes una vez esté fabricado el circuito.
     
-    Dado que el objetivo principal de dichas fotomáscaras es el de transferir el patrón del circuito de la PCB a la placa de prototipado positiva, se deben ensamblar de tal forma que permitan introducir en su interior la misma, para que posteriormente durante el proceso de insolación, se consiga fotolitografiar el circuito en ambas caras de la PCB.
+    Dado que el objetivo principal de dichas fotomáscaras es el de transferir el patrón del circuito de la \ac{PCB} a la placa de prototipado positiva, se deben ensamblar de tal forma que permitan introducir en su interior la misma, para que posteriormente durante el proceso de insolación, se consiga fotolitografiar el circuito en ambas caras de la \ac{PCB}.
     
     A continuación se muestra el ensamblado final de la funda construida con las fotomáscaras:
     
@@ -796,7 +794,7 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \subfigure[Placa de prototipado colocada dentro de la fotomáscara \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=75mm]{pictures/Isoladora.jpg}}
     \subfigure[Ajuste de la máquina de insolación
     \cite{MotorCorrienteContinua2020}]{\includegraphics[width=75mm]{pictures/Isoladora2.jpg}}
-    \caption{Proceso de insolación de la PCB usando las fotomáscaras} \label{fig:lego}
+    \caption{Proceso de insolación de la \ac{PCB} usando las fotomáscaras} \label{fig:lego}
     \end{figure}
     
     Tras el proceso de insolación, la placa de prototipado positiva habrá sido expuesta a la luz ultravioleta durante un minuto y por lo tanto, el patrón del ciruito habrá sido transferido a la superficie de resina de la placa de prototipado:
@@ -808,9 +806,9 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \label{fig:kdiagram}
     \end{figure}
     
-    \item En tercer lugar y habiendo completado el proceso de insolación de la placa de prototipado, se debe llevar a cabo el proceso de revelado de la PCB.
+    \item En tercer lugar y habiendo completado el proceso de insolación de la placa de prototipado, se debe llevar a cabo el proceso de revelado de la \ac{PCB}.
     
-    El proceso de revelado es un proceso químico mediante el cual se consigue eliminar la resina protectora de la placa de prototipado que ha sido expuesta a la luz ultravioleta durante el proceso de insolación; esta resina que es eliminada coincide con la superficie de la PCB que no contiene pistas del circuito impreso, gracias a la fotomáscara.
+    El proceso de revelado es un proceso químico mediante el cual se consigue eliminar la resina protectora de la placa de prototipado que ha sido expuesta a la luz ultravioleta durante el proceso de insolación; esta resina que es eliminada coincide con la superficie de la \ac{PCB} que no contiene pistas del circuito impreso, gracias a la fotomáscara.
     
     Este proceso puede llevarse a cabo con un revelador universal indicado para realizar este tipo de labores, a continuación se muestra el usado en este proyecto:
     
@@ -821,54 +819,54 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \label{fig:kdiagram}
     \end{figure}
     
-    El proceso de revelado de la PCB se lleva a cabo disolviendo el revelador anteriormente mencionado en agua y posteriormente, sumergiendo la PCB en esta disolución:
+    El proceso de revelado de la \ac{PCB} se lleva a cabo disolviendo el revelador anteriormente mencionado en agua y posteriormente, sumergiendo la \ac{PCB} en esta disolución:
     
     \begin{figure}[H]
     \centering
     \subfigure[Comienzo del proceso de revelado \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=75mm]{pictures/Revelado.jpg}}
     \subfigure[Proceso de revelado en estado avanzado
     \cite{MotorCorrienteContinua2020}]{\includegraphics[width=75mm]{pictures/Revelado2.jpg}}
-    \subfigure[Aclarado de la PCB
+    \subfigure[Aclarado de la \ac{PCB}
     \cite{MotorCorrienteContinua2020}]{\includegraphics[width=75mm]{pictures/Revelado3.jpg}}
-    \caption{Proceso de revelado de la PCB}
+    \caption{Proceso de revelado de la \ac{PCB}}
     \label{fig:lego}
     \end{figure}
     
-    Durante el proceso de revelado, se tienen que generar movimientos delicados de la disolución reveladora para que esta haga un efecto adecuado y consiga eliminar la resina sobrante. Cuando el proceso se ha finalizado, basta con aclarar la PCB con agua sin tocar el patrón del circuito que ha quedado revelado.
+    Durante el proceso de revelado, se tienen que generar movimientos delicados de la disolución reveladora para que esta haga un efecto adecuado y consiga eliminar la resina sobrante. Cuando el proceso se ha finalizado, basta con aclarar la \ac{PCB} con agua sin tocar el patrón del circuito que ha quedado revelado.
     
-    \item En cuarto lugar y tras revelar el patrón del circuito de la PCB, se debe realizar el proceso de atacado.
+    \item En cuarto lugar y tras revelar el patrón del circuito de la \ac{PCB}, se debe realizar el proceso de atacado.
     
-   En la etapa anterior del proceso de fabricación, las zonas de la PCB que no fueron insoladas con luz ultravioleta quedan cubiertas de resina protectora; mientras que en las parte de la PCB que fueron expuestas a luz ultravioleta, la capa de cobre queda expuesta y sin cubrir por ningún tipo de resina, ya que el proceso de revelado ha eliminado dicha resina sobrante.
+   En la etapa anterior del proceso de fabricación, las zonas de la \ac{PCB} que no fueron insoladas con luz ultravioleta quedan cubiertas de resina protectora; mientras que en las parte de la \ac{PCB} que fueron expuestas a luz ultravioleta, la capa de cobre queda expuesta y sin cubrir por ningún tipo de resina, ya que el proceso de revelado ha eliminado dicha resina sobrante.
    
-   La etapa de atacado del proceso de fabricación consiste en someter a la PCB a un proceso químico, mediante el cual se elimina el cobre de la placa de prototipado a través del atacado mediante una sal persulfato de amonio, el cual actúa de forma similar a un ácido. Las zonas de la PCB en las cuales el cobre esta expuesto, resultarán atacadas por el ácido y por lo tanto, el cobre desaparecerá. Por el contrario, las zonas de la PCB en las cuales el cobre esta protegido por una capa de resina, no serán atacadas tan agresivamente por el ácido y por lo tanto, el cobre permanecerá.
+   La etapa de atacado del proceso de fabricación consiste en someter a la \ac{PCB} a un proceso químico, mediante el cual se elimina el cobre de la placa de prototipado a través del atacado mediante una sal persulfato de amonio, el cual actúa de forma similar a un ácido. Las zonas de la \ac{PCB} en las cuales el cobre esta expuesto, resultarán atacadas por el ácido y por lo tanto, el cobre desaparecerá. Por el contrario, las zonas de la \ac{PCB} en las cuales el cobre esta protegido por una capa de resina, no serán atacadas tan agresivamente por el ácido y por lo tanto, el cobre permanecerá.
    
-   Al igual que en la etapa anterior, el atacado de la PCB se realiza a través de una disolución, en este caso de agua y persulfato de amonio.
+   Al igual que en la etapa anterior, el atacado de la \ac{PCB} se realiza a través de una disolución, en este caso de agua y persulfato de amonio.
    
    A continuación se muestran algunas imágenes del proceso de atacado mediante ácido:
    
    \begin{figure}[H]
     \centering
     \subfigure[Recipiente contenedor de la disolución de atacado \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=75mm]{pictures/Atacado.jpg}}
-    \subfigure[PCB siendo sometida al proceso de atacado
+    \subfigure[\ac{PCB} siendo sometida al proceso de atacado
     \cite{MotorCorrienteContinua2020}]{\includegraphics[width=75mm]{pictures/Atacado2.jpg}}
-    \caption{Proceso de atacado de la PCB}
+    \caption{Proceso de atacado de la \ac{PCB}}
     \label{fig:lego}
     \end{figure}
     
     Tras el proceso de atacado, el cual toma un periodo de entre una y dos horas, se debe aclarar y limpiar el circuito impreso con alcohol para eliminar los restos de resina sobrantes, así como las impurezas producidas por la disolución de atacado.
     
-    Al finalizar esta etapa del proceso de fabricación, se obtiene una PCB en la cual aparece el patrón del circuito de las fotomáscaras impreso en cobre:
+    Al finalizar esta etapa del proceso de fabricación, se obtiene una \ac{PCB} en la cual aparece el patrón del circuito de las fotomáscaras impreso en cobre:
     
     \begin{figure}[H]
     \centering
-    \subfigure[Parte frontal de la PCB \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=75mm]{pictures/Impreso.jpg}}
-    \subfigure[Parte trasera de la PCB
+    \subfigure[Parte frontal de la \ac{PCB} \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=75mm]{pictures/Impreso.jpg}}
+    \subfigure[Parte trasera de la \ac{PCB}
     \cite{MotorCorrienteContinua2020}]{\includegraphics[width=85mm]{pictures/Impreso2.jpg}}
     \caption{Circuito impreso final tras el proceso de atacado}
     \label{fig:lego}
     \end{figure}
     
-    \item En quinto lugar y tras realizar el proceso de fotolitografía, es recomendable realizar una revisión general de la PCB en busca de posibles imperfecciones que se hayan podido producir durante el proceso de impresión del circuito.
+    \item En quinto lugar y tras realizar el proceso de fotolitografía, es recomendable realizar una revisión general de la \ac{PCB} en busca de posibles imperfecciones que se hayan podido producir durante el proceso de impresión del circuito.
     
     Normalmente, durante el proceso de atacado, se pueden producir imperfecciones en el trazado de las pistas debido al que la disolución de atacado puede producir una corrosión irregular de la capa de cobre. Este tipo de imperfecciones suelen ser cortos entre pistas, fracturas de pista, etc.
     
@@ -894,31 +892,31 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
    
    Ambas soluciones propuestas anteriormente son soluciones artesanales y no puede aplicarse cuando las imperfecciones son demasiado grandes o complejas de resolver, siendo mejor en este caso repetir el proceso de fotolitografía.
    
-   \item En sexto lugar se debe realizar taladrado de los orificios de la PCB y el guillotinado de los márgenes de la misma.
+   \item En sexto lugar se debe realizar taladrado de los orificios de la \ac{PCB} y el guillotinado de los márgenes de la misma.
    
-   El taladrado de todos los orificios de la PCB, es decir, pads de componentes, vías y mecanizado de sujeción; se debe realizar con un taladro que cuente con una broca del tamaño adecuado, además de un soporte que aporte la estabilidad suficiente:
+   El taladrado de todos los orificios de la \ac{PCB}, es decir, pads de componentes, vías y mecanizado de sujeción; se debe realizar con un taladro que cuente con una broca del tamaño adecuado, además de un soporte que aporte la estabilidad suficiente:
    
     \begin{figure}[H]
     \centering
     \subfigure[ Taladro y soporte usado \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=80mm]{pictures/Taladrado.jpg}}
     \subfigure[Taladrado de los orificios
     \cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/Taladrado2.jpg}}
-    \caption{Taladrado de la PCB}
+    \caption{Taladrado de la \ac{PCB}}
     \label{fig:lego}
     \end{figure}
    
-   El guillotinado de la PCB se realiza con una herramienta de guillotinado que tenga precisión y permita realizar cortes limpios de la longitud necesaria. Estos cortes se realizan siguiendo los límites establecidos en el diagrama físico de la PCB.
+   El guillotinado de la \ac{PCB} se realiza con una herramienta de guillotinado que tenga precisión y permita realizar cortes limpios de la longitud necesaria. Estos cortes se realizan siguiendo los límites establecidos en el diagrama físico de la \ac{PCB}.
    
    Tras el proceso de guillotinado y taladrado se obtiene el siguiente resultado:
    
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.5\linewidth]{pictures/PCBTaladrada.PNG}
-    \caption{PCB con orificios taladrados y margenes guillotinados}
+    \caption{\ac{PCB} con orificios taladrados y margenes guillotinados}
     \label{fig:kdiagram}
     \end{figure}
     
-    \item En séptimo lugar se debe proceder a soldar el componente principal de la PCB, es decir, el microcontrolador:
+    \item En séptimo lugar se debe proceder a soldar el componente principal de la \ac{PCB}, es decir, el microcontrolador:
     
     \begin{figure}[H]
     \centering 
@@ -927,7 +925,7 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \label{fig:kdiagram}
     \end{figure}
     
-    Tal y como se puede ver en la imagen, el dsPic utilizado tiene un encapsulado destinado a soldadura superficial (SMD). Normalmente, los componentes SMD deben ser colocados y soldados los primeros, ya que el proceso de colocación y soldado de los mismos es delicado y requiere máxima precisión.
+    Tal y como se puede ver en la imagen, el dsPic utilizado tiene un encapsulado destinado a soldadura superficial (\ac{SMD}). Normalmente, este tipo de componentes deben ser colocados y soldados los primeros, ya que el proceso de colocación y soldado de los mismos es delicado y requiere máxima precisión.
     
     El soldado de este tipo de componentes se realiza mediante el aplicado de una pasta de soldadura, la cual se debe colocar en el punto de contacto de los pines del componente con las pistas de cobre:
     
@@ -940,7 +938,7 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     
     El aplicado de la pasta de soldadura debe llevarse a cabo con la protección adecuada, ya que la pasta de soldadura es altamente tóxica.
     
-    Tras aplicar la pasta de soldadura, se debe colocar el microcontrolador de forma precisa y cautelosa, cerciorándose de que cada uno de los pines realiza contacto correctamente con las pistas de la PCB:
+    Tras aplicar la pasta de soldadura, se debe colocar el microcontrolador de forma precisa y cautelosa, cerciorándose de que cada uno de los pines realiza contacto correctamente con las pistas de la \ac{PCB}:
     
     \begin{figure}[H]
     \centering 
@@ -949,7 +947,7 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \label{fig:kdiagram}
     \end{figure}
 
-    Tras colocar la pasta de soldadura, se debe introducir la PCB en un horno para que la pasta de soldadura se endurezca y selle por completo:
+    Tras colocar la pasta de soldadura, se debe introducir la \ac{PCB} en un horno para que la pasta de soldadura se endurezca y selle por completo:
     
     \begin{figure}[H]
     \centering
@@ -966,12 +964,12 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     
      Este proceso se debe realizar durante unos veinte minutos a una temperatura de entre 250º y 300º.
      
-     Tras el proceso de horneado, se debe dejar enfriar la PCB. El resultado final tras el horneado es el siguiente:
+     Tras el proceso de horneado, se debe dejar enfriar la \ac{PCB}. El resultado final tras el horneado es el siguiente:
      
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/POTENSIA.jpg}
-    \caption{Imagen a contra luz de la PCB}
+    \caption{Imagen a contra luz de la \ac{PCB}}
     \label{fig:kdiagram}
     \end{figure}
     
@@ -993,14 +991,14 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \subfigure[Vía con hilo de grapinar sin cortar \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=80mm]{pictures/Via.jpg}}
     \subfigure[Aspecto final de la vía
     \cite{MotorCorrienteContinua2020}]{\includegraphics[width=72.5mm]{pictures/VIA2.jpg}}
-    \caption{Taladrado de la PCB}
+    \caption{Taladrado de la \ac{PCB}}
     \label{fig:lego}
     \end{figure}
     
     
-    \item En noveno y último lugar, se deben soldar el resto de componentes de la PCB.
+    \item En noveno y último lugar, se deben soldar el resto de componentes de la \ac{PCB}.
     
-    Los componentes restantes tienen un encapsulado de agujero pasante (THT), a excepción del regulador A1117z, el cual es de tipo SMD, sin embargo es de gran tamaño y no es necesario utilizar pasta de soldadura.
+    Los componentes restantes tienen un encapsulado de agujero pasante (\ac{THT}), a excepción del regulador A1117z, el cual es de tipo \ac{SMD}, sin embargo es de gran tamaño y no es necesario utilizar pasta de soldadura.
     
     Debido a lo anterior, todos estos componentes se pueden soldar de forma convencional, utilizando un soldador y estaño:
     
@@ -1047,11 +1045,11 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \end{itemize}
 \end{itemize}
 
-En este punto se considera que el proceso de fabricación de la PCB ha terminado, a falta de realizar el proceso de verificación que queda por realizar y que se muestra en el siguiente apartado.
+En este punto se considera que el proceso de fabricación de la \ac{PCB} ha terminado, a falta de realizar el proceso de verificación que queda por realizar y que se muestra en el siguiente apartado.
 
 \subsection{Verificaciones del prototipo construido}
 
-Tras completar la fabricación de la PCB, es recomendable realizar algunas comprobaciones mínimas para asegurarse de que el prototipo construido es funcional:
+Tras completar la fabricación de la \ac{PCB}, es recomendable realizar algunas comprobaciones mínimas para asegurarse de que el prototipo construido es funcional:
 
 \begin{itemize}
     \item Al completar la impresión del circuito y antes de soldar los componentes, se debe verificar la correcta conductividad de las pistas de cobre, así como la búsqueda de cortocircuitos o fracturas. Para esta labor se debe utilizar un voltímetro.
@@ -1060,13 +1058,13 @@ Tras completar la fabricación de la PCB, es recomendable realizar algunas compr
     
     \item En el momento de soldar los componentes, se debe verificar su correcta inserción en los orificios de los pads; verificando también que su orientación y colocación de pines sea la correcta.
     
-    \item Tras realizar todos las verificaciones anteriores y una vez se ha completado el proceso de soldadura de los componentes, se debe realizar el primer encendido del microcontrolador y el testeo de todos los componentes de la PCB.
+    \item Tras realizar todos las verificaciones anteriores y una vez se ha completado el proceso de soldadura de los componentes, se debe realizar el primer encendido del microcontrolador y el testeo de todos los componentes de la \ac{PCB}.
     
         
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/PrimerEncendido.jpg}
-    \caption{Primer encendido de la PCB usando un código de prueba del PWM}
+    \caption{Primer encendido de la \ac{PCB} usando un código de prueba del PWM}
     \label{fig:kdiagram}
     \end{figure}
     
@@ -1090,25 +1088,25 @@ Todas las pruebas realizadas dieron buen resultado y gracias a ellas se descubri
 
 \subsection{Contratiempos ocurridos y soluciones ingeniadas}
 
-El proceso de fabricación de la PCB ha sido uno de las etapas mas críticas dentro del proyecto y por lo tanto se considera importante comentar algunos de los contratiempos que han ocurrido, puesto que estos han tenido un impacto considerable en el desarrollo del proyecto.
+El proceso de fabricación de la \ac{PCB} ha sido uno de las etapas mas críticas dentro del proyecto y por lo tanto se considera importante comentar algunos de los contratiempos que han ocurrido, puesto que estos han tenido un impacto considerable en el desarrollo del proyecto.
 
-En general, estos contratiempos han ralentizado el proceso de fabricación, sin embargo, mediante su detección y correcta solución, se ha obtenido una PCB mucho mas robusta y segura; ya que se han revelado aspecto negativos que de otra forma habrían pasado desapercibidos.
+En general, estos contratiempos han ralentizado el proceso de fabricación, sin embargo, mediante su detección y correcta solución, se ha obtenido una \ac{PCB} mucho mas robusta y segura; ya que se han revelado aspecto negativos que de otra forma habrían pasado desapercibidos.
 
 A continuación se muestran los principales contratiempos ocurridos y las soluciones que se han llevado a cabo para enmendarlos:
 
 \begin{itemize}
-    \item El primer contratiempo sucedido durante el proceso de fabricación está relacionado con el proceso de atacado de la PCB.
+    \item El primer contratiempo sucedido durante el proceso de fabricación está relacionado con el proceso de atacado de la \ac{PCB}.
     
-    Tal y como se ha explicado en apartados anteriores, el proceso de atacado a la PCB, tiene como objetivo eliminar la capa de cobre  en los lugares en los cuales no debe haber circuito impreso. Este proceso se realiza mediante una disolución de persulfato de amonio, la cual reacciona con la capa de cobre de la PCB y la corroe.
+    Tal y como se ha explicado en apartados anteriores, el proceso de atacado a la \ac{PCB}, tiene como objetivo eliminar la capa de cobre  en los lugares en los cuales no debe haber circuito impreso. Este proceso se realiza mediante una disolución de persulfato de amonio, la cual reacciona con la capa de cobre de la \ac{PCB} y la corroe.
     
-    La efectividad de esta disolución de atacado sobre la PCB verse afectada en función de la temperatura a la que se realiza el proceso, saturación de la disolución y otros factores específicos.
+    La efectividad de esta disolución de atacado sobre la \ac{PCB} verse afectada en función de la temperatura a la que se realiza el proceso, saturación de la disolución y otros factores específicos.
     
-    Debido a lo expuesto anteriormente, se realizaron dos intentos fallidos de atacado de la PCB, en los cuales la disolución no consiguió eliminar la capa de cobre de los lugares que no estaban protegidas por resina. El resultado obtenido fue el siguiente:
+    Debido a lo expuesto anteriormente, se realizaron dos intentos fallidos de atacado de la \ac{PCB}, en los cuales la disolución no consiguió eliminar la capa de cobre de los lugares que no estaban protegidas por resina. El resultado obtenido fue el siguiente:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/FalloPCB.jpg}
-    \caption{PCB tras proceso de atacado fallido}
+    \caption{\ac{PCB} tras proceso de atacado fallido}
     \label{fig:kdiagram}
     \end{figure}
     
@@ -1123,18 +1121,18 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \label{fig:kdiagram}
     \end{figure}
     
-    Trás el atacado con la nueva disolución, el proceso tuvo éxito y el circuito se imprimió correctamente en la placa de prototipado.
+    Tras el atacado con la nueva disolución, el proceso tuvo éxito y el circuito se imprimió correctamente en la placa de prototipado.
     
-    A continuación se muestran las PCB obtenidas durante esta etapa:
+    A continuación se muestran las \ac{PCB} obtenidas durante esta etapa:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/CursedPodium.jpg}
-    \caption{Intentos de fabricación de la PCB}
+    \caption{Intentos de fabricación de la \ac{PCB}}
     \label{fig:kdiagram}
     \end{figure}
     
-    Tal y como se puede observar, en el centro de la imagen se encuentra la PCB exitosa y en los laterales los intentos fallidos, en los cuales el cobre no se eliminó adecuadamente.
+    Tal y como se puede observar, en el centro de la imagen se encuentra la \ac{PCB} exitosa y en los laterales los intentos fallidos, en los cuales el cobre no se eliminó adecuadamente.
     
     \item Otro de los contratiempos sucedidos fue detectado tras el proceso de soldado de los componentes, inmediatamente después de realizar el primer encendido del microcontrolador.
     
@@ -1177,19 +1175,19 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \end{figure}
     Tal y como se puede observar, el reducido tamaño de la soldadura requirió que este proceso fuese realizado con máxima precisión. Además, por precaución, se eliminó parte de la pista original para evitar errores en la señal.
     
-    A pesar de que esta solución es de carácter artesanal y lo recomendable hubieses sido fabricar de nuevo la PCB, se tomó la decisión de realizar este arreglo para reducir el impacto del contratiempo en el proyecto, ya que además esta solución mostró muy buen resultado y era suficientemente segura.
+    A pesar de que esta solución es de carácter artesanal y lo recomendable hubieses sido fabricar de nuevo la \ac{PCB}, se tomó la decisión de realizar este arreglo para reducir el impacto del contratiempo en el proyecto, ya que además esta solución mostró muy buen resultado y era suficientemente segura.
    
-   \item El último de los contratiempos fue encontrado durante el proceso de soldado de la PCB y afecta al circuito de alimentación de los motores.
+   \item El último de los contratiempos fue encontrado durante el proceso de soldado de la \ac{PCB} y afecta al circuito de alimentación de los motores.
    
    Tal y como se puede ver en otros apartados de este documento, los servomotores son alimentados mediante una clema, la cual obtiene su voltaje de los reguladores LM-317 que adaptan el voltaje de alimentación de entrada.
    
-   Tras el soldado de la clema y los reguladores, se alimentó a la PCB para verificar que el voltaje de salida por las clemas fuese el requerido. Al realizar la medición del voltaje que había en los contactos de las clemas usando un voltímetro, se detectó que este voltaje era muy superior al que debería ser.
+   Tras el soldado de la clema y los reguladores, se alimentó a la \ac{PCB} para verificar que el voltaje de salida por las clemas fuese el requerido. Al realizar la medición del voltaje que había en los contactos de las clemas usando un voltímetro, se detectó que este voltaje era muy superior al que debería ser.
    
    El voltaje que deberían ofrecer las clemas es de 5.41V, sin embargo, al realizar la medición, se obtuvieron 7.1V; un valor intolerable ya que los servomotores no pueden soportar dicho voltaje. Tras revisar la zona del circuito de alimentación, es decir, clemas y reguladores de tensión; se detectó que los reguladores de tensión LM-317 no estaban funcionando correctamente.
    
    Posteriormente, se procedió a realizar una revisión en profundidad de la zona, pistas cercanas, las soldaduras de las clemas y reguladores; sin embargo no se encontró ningún fallo de fabricación o ensamblaje.
    
-   Dado que el fallo no parecía deberse al proceso de fabricación, se procedió a revisar de nuevo los diseños lógico y físico de la PCB. Tras esta revisión, se concluyó que el conexionado del diagrama lógico era correcto, sin embargo, la huella física elegida para el regulador de tensión LM-317 en el diagrama físico, presentaba un ordenado de pines diferente al del utilizado en el prototipo. A continuación se muestran las imágenes en las que se ve claramente esta diferencia:
+   Dado que el fallo no parecía deberse al proceso de fabricación, se procedió a revisar de nuevo los diseños lógico y físico de la \ac{PCB}. Tras esta revisión, se concluyó que el conexionado del diagrama lógico era correcto, sin embargo, la huella física elegida para el regulador de tensión LM-317 en el diagrama físico, presentaba un ordenado de pines diferente al del utilizado en el prototipo. A continuación se muestran las imágenes en las que se ve claramente esta diferencia:
    
     \begin{figure}[H]
     \centering 
@@ -1226,7 +1224,7 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
         
     \end{itemize}
     
-    Debido a lo descrito anteriormente, se puede afirmar que el diagrama físico de la PCB contenía un error en el conexionado de los reguladores LM317 que alimentan los servomotores, por ello, el voltaje de salida de las clemas era de 7.1V y no de 5.41V, tal y como se había diseñado.
+    Debido a lo descrito anteriormente, se puede afirmar que el diagrama físico de la \ac{PCB} contenía un error en el conexionado de los reguladores LM317 que alimentan los servomotores, por ello, el voltaje de salida de las clemas era de 7.1V y no de 5.41V, tal y como se había diseñado.
     
     Como primer paso para solucionar dicho problema, se procedió a editar la huella física del componente y se intercambiaron los pines:
     
@@ -1248,11 +1246,11 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \label{fig:lego}
     \end{figure}
     
-    Esta modificación del diagrama físico de la PCB hecha a posteriori ya se contempla en el apartado 5.4.5 de la memoria, dado que en dicho apartado se muestra la versión final del diagrama físico.
+    Esta modificación del diagrama físico de la \ac{PCB} hecha a posteriori ya se contempla en el apartado 5.4.5 de la memoria, dado que en dicho apartado se muestra la versión final del diagrama físico.
     
-    Como segundo paso para solucionar el problema y puesto que la PCB ya había sido fabricada siguiendo el diagrama físico que contenía el fallo, se debía de ingeniar alguna solución para el prototipo construido. 
+    Como segundo paso para solucionar el problema y puesto que la \ac{PCB} ya había sido fabricada siguiendo el diagrama físico que contenía el fallo, se debía de ingeniar alguna solución para el prototipo construido. 
     
-    A pesar de que se planteó la posibilidad de fabricar de nuevo la PCB, se consideró que este proceso causaría demasiado retraso en el desarrollo del proyecto y por lo tanto se optó por ingeniar otra solución directamente sobre el prototipo que estaba fabricado y ensamblado.
+    A pesar de que se planteó la posibilidad de fabricar de nuevo la \ac{PCB}, se consideró que este proceso causaría demasiado retraso en el desarrollo del proyecto y por lo tanto se optó por ingeniar otra solución directamente sobre el prototipo que estaba fabricado y ensamblado.
     
     Puesto que el fallo consistía en dos pines que deberían estar intercambiados, bastaría con intercambiar las pistas de comunicación que conectaban con ellos. Se decidió de esta forma, fracturar las pistas existentes para después colocar dos puentes; intercambiando de esta forma el conexionado de los pines con sus pistas.
     
@@ -1271,7 +1269,7 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     
 \end{itemize}
 
-A pesar de todos los errores cometidos durante el proceso de fabricación y diseño de la PCB, los integrantes del equipo han sido capaces de: ingeniar soluciones óptimas que generasen el mínimo impacto negativo en el proyecto, implementarlas en el prototipo fabricado y verificar su corrección.
+A pesar de todos los errores cometidos durante el proceso de fabricación y diseño de la \ac{PCB}, los integrantes del equipo han sido capaces de: ingeniar soluciones óptimas que generasen el mínimo impacto negativo en el proyecto, implementarlas en el prototipo fabricado y verificar su corrección.
 
  \begin{figure}[H]
     \centering 
