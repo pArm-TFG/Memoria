@@ -2,7 +2,7 @@
 
 El desarrollo de una \ac{PCB} se considera una de las partes esenciales de este proyecto y por lo tanto su importancia es máxima.
 
-El objetivo principal que persigue el diseñar y construir una \ac{PCB} en este proyecto es el de dotar al sistema de un centro de cómputo principal, el cual es utilizado para procesar las \textbf{ordenes} de S1, realizar los cálculos pertinentes y ejecutar las acciones necesarias sobre la estructura del brazo robótico. La \ac{PCB} por lo tanto, se encarga de alojar el microcontrolador dsPIC, así como todos los periféricos necesarios para establecer la comunicación con S1, realizar el control de los actuadores y monitorizar el estado del manipulador.
+El objetivo principal que persigue el diseñar y construir una \ac{PCB} en este proyecto es el de dotar al sistema de un centro de cómputo principal, el cual es utilizado para procesar las órdenes de S1, realizar los cálculos pertinentes y ejecutar las acciones necesarias sobre la estructura del brazo robótico. La \ac{PCB} por lo tanto, se encarga de alojar el microcontrolador dsPIC, así como todos los periféricos necesarios para establecer la comunicación con S1, realizar el control de los actuadores y monitorizar el estado del manipulador.
 
 \subsection{Componentes principales}
 
@@ -68,12 +68,12 @@ Conectados directamente a la clema principal, se encuentran los reguladores de t
 \end{itemize}
 
 
-En particular, el LM317 es un regulador convencional que recibe una tensión continua de entrada de entre $3V$ - $40V$ y provee una tensión continua salida de entre $1.25V$ - $37V$. Además, la relación entre la tensión de entrada y salida depende del dimensionado de dos resistencias auxiliares. El conexionado sugerido por el fabricante es el siguiente y se ha obtenido del \textit{datasheet} del regulador:
+En particular, el LM317 es un regulador convencional que recibe una tensión continua de entrada de entre $3V$ - $40V$ y provee una tensión continua salida de entre $1.25V$ - $37V$. Además, la relación entre la tensión de entrada y salida depende del dimensionado de dos resistencias auxiliares. El conexionado sugerido por el fabricante es el siguiente (ver imagen \ref{fig:LM317_Conexionado}) y se ha obtenido del \textit{datasheet} del regulador:
 
 \begin{figure}[H]
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/LM317 conexionado.PNG}
-    \caption{Diagrama de conexionado \textbf{INSERTE CITA AL DATASHEET}}
+    \caption{Diagrama de conexionado \cite{noauthor_lm317_nodate}}
     \label{fig:LM317_Conexionado}
 \end{figure}
 
@@ -89,10 +89,11 @@ La ecuación anterior (ver ecuación \ref{eq:Ecuacion_funcionamiento_LM317}) deb
     \item Por motivos de construcción del regulador, la corriente $I_{ADJ}$ tiene un valor máximo de $100 \mu A$ y, por lo tanto, el término de la ecuación que la involucra puede ser despreciado.
 \end{itemize}
 
-Se obtiene entonces que la ecuación funcional a utilizar en el cálculo de $R_1$ y $R_2$ es:
+Se obtiene entonces que la ecuación funcional (ver ecuación \ref{eq:funcional}) a utilizar en el cálculo de $R_1$ y $R_2$ es:
 
 \begin{equation}
     V_{OUT} = 1.25 \cdot \left( 1 + \frac{R_2}{240}\right) 
+    \label{eq:funcional}
 \end{equation}
 
 Teniendo en cuenta los voltajes de alimentación requeridos para las dos etapas de alimentación de la \ac{PCB}, se han realizado los siguientes cálculos para los valores de la resistencia $R_1$ y $R_2$:
@@ -104,7 +105,7 @@ Teniendo en cuenta los voltajes de alimentación requeridos para las dos etapas 
     Por disponibilidad de materiales, se ha decidido escoger los valores $150\Omega$ y $500\Omega$ para las resistencias $R_1$ y $R_2$ respectivamente. Tomando en cuenta dichos valores y utilizando la ecuación anterior, se obtiene una reducción de voltaje de $9V$ a $5.41V$, voltaje suficiente para alimentar los servomotores.
 \end{itemize}
 
-Aplicando el conexionado recomendado por el fabricante y los cálculos para el valor de las resistencias se obtiene finalmente el diagrama esquemático del circuito de alimentación de los servomotores:
+Aplicando el conexionado recomendado por el fabricante y los cálculos para el valor de las resistencias se obtiene finalmente el diagrama esquemático del circuito de alimentación de los servomotores (ver imagen \ref{fig:Esquematico_Alimentacion_Servos}):
 
 \begin{figure}[H]
     \centering 
@@ -120,7 +121,7 @@ El funcionamiento de los reguladores L7805CV y AZ1117H es simple:
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.75\linewidth]{pictures/L7805Datasheet.PNG}
-    \caption{Diagrama de conexionado del regulador L7805 \textbf{INSERTE CITA DATASHEET}.}
+    \caption{Diagrama de conexionado del regulador L7805 \cite{noauthor_L7805CV_nodate}.}
     \label{fig:L7805_Conexionado}
     \end{figure}
     
@@ -129,15 +130,15 @@ El funcionamiento de los reguladores L7805CV y AZ1117H es simple:
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.75\linewidth]{pictures/AZ1117Hdatasheet.PNG}
-    \caption{Diagrama de conexionado del regulador AZ1117H \textbf{INSERTE CITA DATASHEET}.}
+    \caption{Diagrama de conexionado del regulador AZ1117H \cite{noauthor_AZ1117H_nodate}}
     \label{fig:AZ1117H_Conexionado}
     \end{figure}
     
-    En el diagrama anterior se utiliza el modelo que ofrece regulación de voltaje a $5V$. Sin embargo, el modelo usado en el proyecto es el que ofrece regulación de voltaje a $3.3V$, siendo su conexionado exactamente igual.
+    En el diagrama anterior (ver imagen \ref{fig:AZ1117H_Conexionado}) se utiliza el modelo que ofrece regulación de voltaje a $5V$. Sin embargo, el modelo usado en el proyecto es el que ofrece regulación de voltaje a $3.3V$, siendo su conexionado exactamente igual.
     
 \end{itemize}
 
-Teniendo en cuenta la información expuesta anteriormente, se ha decidido conectar en serie ambos reguladores, consiguiendo de esta forma una regulación de $9V$ a $5V$ y posteriormente una regulación de $5V$ a $3.3V$. El diagrama esquemático final es el siguiente:
+Teniendo en cuenta la información expuesta anteriormente, se ha decidido conectar en serie ambos reguladores, consiguiendo de esta forma una regulación de $9V$ a $5V$ y posteriormente una regulación de $5V$ a $3.3V$. El diagrama esquemático final es el siguiente (ver imagen \ref{fig:Esquematico_Alimentación}):
 
     \begin{figure}[H]
     \centering 
@@ -162,12 +163,12 @@ En segundo lugar se procede a describir detalladamente el diagrama esquemático 
     \label{fig:Esquematico_Final}
 \end{figure}
 
-Primeramente, es importante describir los condensadores auxiliares necesarios para el correcto funcionamiento del microcontrolador, los cuales se encuentran conectados en los pines de alimentación del mismo. Su conexionado es sugerido por el fabricante en el \textit{datasheet} según el siguiente esquema, tratándose así de la configuración mínima recomendada:
+Primeramente, es importante describir los condensadores auxiliares necesarios para el correcto funcionamiento del microcontrolador, los cuales se encuentran conectados en los pines de alimentación del mismo. Su conexionado es sugerido por el fabricante en el \textit{datasheet} según el siguiente esquema (ver imagen \ref{fig:Conexionado_Minimo}):
 
 \begin{figure}[H]
     \centering 
     \includegraphics[width=.7\linewidth]{pictures/Minimun.PNG}
-    \caption{Conexionado mínimo del microcontrolador.}
+    \caption{Conexionado mínimo del microcontrolador \cite{DsPIC33EP512GM60416BitMicrocontrollers}}
     \label{fig:Conexionado_Minimo}
 \end{figure}
 
@@ -185,29 +186,29 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \label{fig:Cristal}
     \end{figure}
     
-    Su conexionado se realiza con los pines 32 y 31 del microcontrolador, siguiendo la estructura de la imagen anterior, empleando también una resistencia de $1 M \Omega$ y dos condensadores de $22 pF$.
+    Su conexionado se realiza con los pines 32 y 31 del microcontrolador, siguiendo la estructura de la imagen anterior (ver imagen \ref{fig:Cristal}), empleando también una resistencia de $1 M \Omega$ y dos condensadores de $22 pF$.
     
-    \item Puerto de programación mediante sonda: El conector que recibe la sonda debe tener una estructura específica y se describe en el \textit{datasheet} de la misma:
+    \item Puerto de programación mediante sonda: El conector que recibe la sonda debe tener una estructura específica y se describe en el \textit{datasheet} de la misma (ver imagen \ref{fig:Sonda_Conexionado}):
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.5\linewidth]{pictures/Sonda.PNG}
-    \caption{\textit{Pinout} del conector de la sonda de programación \textbf{INSERTE CITA AQUÍ}.}
+    \caption{\textit{Pinout} del conector de la sonda de programación \cite{DsPIC33EP512GM60416BitMicrocontrollers}.}
     \label{fig:Sonda_Conexionado}
     \end{figure}
     
-     Cabe destacar que el pin 18 o MCLR debe tener un conexionado específico en el que se emplea una resistencia \textit{pull-up}; esta estructura de conexión se muestra en el \textit{datasheet} del microcontrolador:
+     Cabe destacar que el pin 18 o MCLR debe tener un conexionado específico en el que se emplea una resistencia \textit{pull-up}; esta estructura de conexión se muestra en el \textit{datasheet} del microcontrolador (ver imagen \ref{fig:MCL_Conexionado}):
      
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/MCLR.PNG}
-    \caption{Conexión del pin MCLR \textbf{INSERTE CITA AQUÍ}.}
+    \caption{Conexión del pin MCLR \cite{DsPIC33EP512GM60416BitMicrocontrollers}.}
     \label{fig:MCL_Conexionado}
     \end{figure}
     
     En este proyecto se ha decidido no incluir el \textit{jumper} sugerido para conexión del pin MCLR y por lo tanto $R_1$ no se añade en el diagrama esquemático.
     
-    Teniendo en cuenta lo anteriormente mencionado, el conexionado final del puerto de programación mediante sonda es el siguiente:
+    Teniendo en cuenta lo anteriormente mencionado, el conexionado final del puerto de programación mediante sonda es el siguiente (ver imagen \ref{fig:Sonda_Esquematico}):
     
     \begin{figure}[H]
     \centering 
@@ -227,11 +228,11 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \label{fig:Microinterruptores_esquematico}
     \end{figure}
     
-    Mediante el conexionado anterior, si el micro-interruptor está abierto, se recibe un nivel bajo por el pin del microcontrolador; mientras que si el micro-interruptor está cerrado se recibe un nivel alto por el pin del microcontrolador. 
+    Mediante el conexionado anterior (ver imagen \ref{fig:Microinterruptores_esquematico}), si el micro-interruptor está abierto, se recibe un nivel bajo por el pin del microcontrolador; mientras que si el micro-interruptor está cerrado se recibe un nivel alto por el pin del microcontrolador. 
     
     Cabe destacar que tanto la resistencia \textit{pull-down} como la conexión a tierra se incluyen en la \ac{PCB}. Sin embargo, los micro-interruptores y su conexión a VDD se encuentran localizados en la estructura del brazo robótico. 
     
-    El diagrama esquemático que implementa esta funcionalidad es el siguiente:
+    El diagrama esquemático que implementa esta funcionalidad es el siguiente (ver imagen \ref{fig:Tris_esquematico}):
     
     \begin{figure}[H]
     \centering 
@@ -249,18 +250,18 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
         \item Es posible utilizar de forma independiente la parte alta y parte baja de cada uno de los generadores, consiguiendo de esta forma dos subgeneradores que producen señales PWM independientes. Sin embargo, su precisión se reduce a 8 bits.
     \end{itemize}
     
-    El esquema mostrado por el fabricante para los generadores PWM es el siguiente:
+    El esquema mostrado por el fabricante para los generadores PWM es el siguiente (ver imagen \ref{fig:PWM_Datasheet}):
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/PWMdatasheet.PNG}
-    \caption{Esquema del generador PWM \textbf{INSERTE CITA AQUÍ}.}
+    \caption{Esquema del generador PWM \cite{DsPIC33EP512GM60416BitMicrocontrollers}}
     \label{fig:PWM_Datasheet}
     \end{figure}
     
     Puesto que para este proyecto únicamente se necesitan cuatro generadores PWM, se ha decidido utilizar cuatro módulos con precisión de 16 bits. En el caso de utilizar la precisión completa de cada generador, la señal de salida se proporciona por el pin correspondiente a la parte baja del registro. Mediante la información obtenida del \textit{pinout} del microcontrolador, se tiene que los generadores de PWM 1, 4, 2 y 3 tienen asignados los pines 15, 13, 11 y 9, respectivamente.
     
-    El conexionado final del puerto PWM en el diagrama esquemático es el siguiente:
+    El conexionado final del puerto PWM en el diagrama esquemático es el siguiente (ver imagen \ref{fig:PWM_Esquematico}):
     
     \begin{figure}[H]
     \centering 
@@ -276,13 +277,13 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \begin{figure}[H]
     \centering 
     \includegraphics[width=.6\linewidth]{pictures/UARTdatasheet.PNG}
-    \caption{Esquema del periférico UART \textbf{INSERTE CITA AQUÍ}.}
+    \caption{Esquema del periférico UART \cite{DsPIC33EP512GM60416BitMicrocontrollers}.}
     \label{fig:Uart_Datasheet}
     \end{figure}
     
     Se ha tomado la decisión de incluir dos puertos UART independientes en la \ac{PCB} que se ha desarrollado, con el objetivo principalmente de dedicar uno de los canales a envío y recepción de instrucciones; mientras que el otro se usa para realizar labores de depuración y pruebas.
     
-    El conexionado de los puertos UART  se realiza mediante pines reconfigurables del microcontrolador, en este caso se han utilizado los pines 2 y 3 para el primer canal; además de los pines 3 y 4 para el segundo canal. El diagrama esquemático final es el siguiente:
+    El conexionado de los puertos UART  se realiza mediante pines reconfigurables del microcontrolador, en este caso se han utilizado los pines 2 y 3 para el primer canal; además de los pines 3 y 4 para el segundo canal. El diagrama esquemático final es el siguiente (ver imagen \ref{fig:Uart_Esquematico}):
     
     \begin{figure}[H]
     \centering 
@@ -296,7 +297,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     
     Su conexionado es realizado utilizando los pines reconfigurables 41, 42 y 43, los cuales pueden ser usados para habilitar una salida digital. Se considera que un nivel alto enciende el LED mientras que un nivel bajo lo mantiene apagado.
     
-    A continuación se muestra el diagrama esquemático del circuito:
+    A continuación se muestra el diagrama esquemático del circuito (ver imagen \ref{fig:Led_Esquematico}):
     
     \begin{figure}[H]
     \centering 
@@ -309,7 +310,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     
 \end{itemize}
 
-En conclusión, una vista completa sobre el diagrama esquemático del proyecto es la siguiente:
+En conclusión, una vista completa sobre el diagrama esquemático del proyecto es la siguiente (ver imagen \ref{fig:Diagrama_Esquematico_Final}): 
 
     \begin{figure}[H]
     \centering 
@@ -341,57 +342,57 @@ Tal y como se ha mencionado anteriormente, en primer lugar se debe asignar una h
 \centering 
 \includegraphics[width=\linewidth]{pictures/HerramientaHuellas.PNG}
 \caption{Herramienta de asignación de huellas.}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\label{fig:Herramienta_Huellas}
 \end{figure}
 
-Accediendo al menú de dicha herramienta, se encuentra una lista de los componentes del diagrama esquemático a los cuales se les debe asignar una huella física. Las huellas físicas que se deben asignar a cada componente lógico pueden ser seleccionadas de las extensa librerías que ofrece KiCad, o bien, ser diseñada y personalizada por el usuario.
+Accediendo al menú de dicha herramienta (ver imagen \ref{fig:Herramienta_Huellas}), se encuentra una lista de los componentes del diagrama esquemático a los cuales se les debe asignar una huella física. Las huellas físicas que se deben asignar a cada componente lógico pueden ser seleccionadas de las extensa librerías que ofrece KiCad, o bien, ser diseñada y personalizada por el usuario.
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=\linewidth]{pictures/AsignarHuellaTriple.PNG}
 \caption{Ventana de asignación de huellas físicas}
-\label{fig:kdiagram}
+\label{fig:Asignar_Huella_Ventana}
 \end{figure}
 
-En la imagen anterior se muestra la ventana de asignación de huellas, la cual está dividida en tres secciones:
+En la imagen anterior ((ver imagen \ref{fig:Asignar_Huella_Ventana}) se muestra la ventana de asignación de huellas, la cual está dividida en tres secciones:
 \begin{itemize}
     \item La sección izquierda muestra las librerías de componentes de KiCad.
     \item La sección central muestra los componentes lógicos del diagrama esquemático, seguidos de la huella física que tienen asignados.
     \item La sección derecha muestra las huellas físicas que cumplen los filtros establecidos dependiendo del componente lógico. Estos filtros suelen ser: nombre, número de pines y librería. 
 \end{itemize}
 
-Como ejemplo, en la imagen anterior se ha buscado en la librería \textit{``capacitor \ac{THT}''}, ya que se quieren utilizar condensadores de agujero pasante en el diseño físico y por lo tanto, en la sección derecha de la ventana se muestran las huellas susceptibles de ser usadas, filtradas por número de pines y librería.
+Como ejemplo, en la imagen anterior (ver imagen \ref{fig:Asignar_Huella_Ventana}) se ha realizado una búsqueda dentro de la librería \textit{``capacitor \ac{THT}''}, ya que se quieren utilizar condensadores de agujero pasante en el diseño físico y por lo tanto, en la sección derecha de la ventana se muestran las huellas susceptibles de ser usadas, filtradas por número de pines y librería.
 
-Una vez se ha elegido la huella que se quiere utilizar en el diseño físico, esta se asigna al componente esquemático y puede ser visualizada:
+Una vez se ha elegido la huella que se quiere utilizar en el diseño físico, esta se asigna al componente esquemático y puede ser visualizada (ver imagen \ref{fig:Huella_Condensador}):
 
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=\linewidth]{pictures/huellaCondensador.PNG}
 \caption{Huella física  de un condensador usado en la \ac{PCB}.}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\label{fig:Huella_Condensador}
 \end{figure}
 
 Existen numerosos aspectos que afectan a la decisión de qué huella física asignarle a cada componente lógico y principalmente depende del tipo de implementación que se vaya a realizar en la \ac{PCB}. Normalmente, estas decisiones se deben tomar a través de la información técnica suministrada por el fabricante en los diversos \textit{datasheets}.
 
 Un ejemplo a destacar de lo recién mencionado es la huella que se ha asignado al microcontrolador dsPIC utilizado, el cual dispone de diversos encapsulados. Dichos encapsulados se muestran de forma detallada en el \textit{datasheet}.
 
-En este proyecto, se ha decidido utilizar el encapsulado de 44 pines de soldadura superficial y de tipo ``\textit{Thin Quad Flat Package}'' (TQFP), cuya descripción en el \textit{datasheet} es la siguiente:
+En este proyecto, se ha decidido utilizar el encapsulado de 44 pines de soldadura superficial y de tipo ``\textit{Thin Quad Flat Package}'' (TQFP), cuya descripción en el \textit{datasheet} es la siguiente (ver imagen \ref{fig:TQFP}):
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/TQFP.PNG}
-\caption{Encapsulado elegido para el microcontrolador.}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\caption{Encapsulado elegido para el microcontrolador \cite{DsPIC33EP512GM60416BitMicrocontrollers}}
+\label{fig:TQFP}
 \end{figure}
 
-La huella asignada al componente lógico es la siguiente y se encuentra en la librería QFP incluida por defecto en KiCad:
+La huella asignada al componente lógico es la siguiente (ver imagen \ref{fig:Huella_Pic}) y se encuentra en la librería QFP incluida por defecto en KiCad:
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/HuellaPic.PNG}
 \caption{Huella física asignada al microcontrolador.}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\label{fig:Huella_Pic}
 \end{figure}
 
 Cabe destacar que muchas de las huellas pueden ser usadas para distintos componentes de distintos fabricantes, ya que los encapsulados suelen ser similares. Sin embargo, para evitar errores, siempre se deben realizar comprobaciones con respecto a las dimensiones, número de pines, etc.
@@ -402,34 +403,34 @@ Una vez se ha realizado el primer paso, se debe generar un listado de redes de l
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/GenerarRed.PNG}
 \caption{Herramienta de generado de listado de redes.}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\label{fig:Herramienta_Generar_Red}
 \end{figure}
 
-Utilizando la herramienta señalizada anteriormente se puede generar un archivo con extensión ``.net'' que almacena el listado de componentes y conexiones del diagrama esquemático. Su contenido es de la siguiente forma:
+Utilizando la herramienta señalizada anteriormente (ver imagen \ref{fig:Herramienta_Generar_Red}) se puede generar un archivo con extensión ``.net'' que almacena el listado de componentes y conexiones del diagrama esquemático. Su contenido es de la siguiente forma (ver imagen \ref{fig:Archivo_Redes}):
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/net.PNG}
 \caption{Archivo de listado de redes.}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\label{fig:Archivo_Redes}
 \end{figure}
 
-Como último paso necesario para poder transformar el diagrama esquemático a diagrama físico se debe importar el listado de redes generado en el paso anterior a la herramienta de diseño físico. En este caso, la herramienta elegida ha sido ``PCBnew'' y se encuentra incluida dentro de KiCad. Esta herramienta se puede ejecutar usando la barra de herramientas de la parte superior:
+Como último paso necesario para poder transformar el diagrama esquemático a diagrama físico se debe importar el listado de redes generado en el paso anterior a la herramienta de diseño físico. En este caso, la herramienta elegida ha sido ``PCBnew'' y se encuentra incluida dentro de KiCad. Esta herramienta se puede ejecutar usando la barra de herramientas de la parte superior (ver imagen \ref{fig:PCBnew}):
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/PCBNEW.PNG}
 \caption{Acceso directo a la herramienta ``PCBnew''.}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\label{fig:PCBnew}
 \end{figure}
 
-Una vez se ha accedido a ``PCBnew'', se debe importar el listado de redes generado anteriormente, usando el icono designado para ello en la barra de herramientas superior:
+Una vez se ha accedido a ``PCBnew'', se debe importar el listado de redes generado anteriormente, usando el icono designado para ello en la barra de herramientas superior (ver imagen \ref{fig:Herramienta_Importado_Redes}):
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/redesPCB.PNG}
 \caption{Herramienta de importado de listado de redes.}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\label{fig:Herramienta_Importado_Redes}
 \end{figure}
 
 Para importar el listado de redes generado anteriormente, basta con buscar la ubicación del archivo, seleccionarlo y hacer clic en ``actualizar PCB''. Al hacer esto, todos los componentes del diagrama esquemático son importados a ``PCBnew'', y su apariencia es la huella física asignada anteriormente:
@@ -438,7 +439,6 @@ Para importar el listado de redes generado anteriormente, basta con buscar la ub
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/bunch.PNG}
 \caption{Situación inicial del diseño nada mas importar los componentes físicos.}
-\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
 Inicialmente, se muestra la huella física de los componentes y sus conexiones lógica pero se encuentran desordenados. Es recomendable reorganizarlos para verificar si todos ellos han sido importados correctamente.
@@ -449,7 +449,6 @@ El primer paso para comenzar el diseño físico de la \ac{PCB} es distribuir los
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/DistribucionInicial.PNG}
 \caption{Distribución inicial de los componentes.}
-\label{fig:CAMBIAR!!!!!!!!!!}
 \end{figure}
 
 Es conveniente definir un contorno a la placa, el cual puede ser incluido en el diagrama usando la herramienta de dibujado de lineas y la herramienta de medición de distancias.
@@ -457,6 +456,7 @@ Es conveniente definir un contorno a la placa, el cual puede ser incluido en el 
 Por último, es importante remarcar que la distribución de los componentes queda a elección del diseñador de la \ac{PCB}. Sin embargo, se debe de tratar de tener en cuenta factores como el tamaño deseado para la \ac{PCB}, la localización de los componentes con respecto a sus conexiones cercanas, el proceso de fabricación a usar, etc.
 
 \subsection{Conexionado de los componentes mediante pistas}
+\label{ap:5.4.5}
 Una vez se ha creado el contorno de la \ac{PCB} y se han distribuido los componentes de la forma deseada, se deben realizar las conexiones físicas entre los componentes.
 
 Dado que se trata de una placa de circuito impreso, las conexiones lógicas entre los componentes se corresponden con pistas de cobre en el diagrama físico.
@@ -484,48 +484,48 @@ Otro de los aspectos claves a la hora de enrutar una \ac{PCB}, es escoger un anc
     \item Otros factores como la resistividad del material de la pista, el aumento de temperatura máximo tolerado por la misma o su longitud aproximada, son factores determinantes para el ancho de la pista.
 \end{itemize}
 
-KiCad incluye una herramienta denominada ``\ac{PCB} Calculator'' la cual permite realizar cálculos sobre diversos aspectos relacionados con la \ac{PCB}, entre ellos, el ancho de pista. Esta herramienta realiza el cálculo del ancho de pistas en función de los factores mencionados anteriormente y su interfaz es la siguiente:
+KiCad incluye una herramienta denominada ``\ac{PCB} Calculator'' la cual permite realizar cálculos sobre diversos aspectos relacionados con la \ac{PCB}, entre ellos, el ancho de pista. Esta herramienta realiza el cálculo del ancho de pistas en función de los factores mencionados anteriormente y su interfaz es la siguiente (ver imagen \ref{fig:Pcb_Calculator}):
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/PCBCalculator.PNG}
 \caption{Ventana principal de ``PCB Calculator''.}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\label{fig:Pcb_Calculator}
 \end{figure}
 
-Mediante la herramienta anterior se puede realizar el cálculo para los dos tipos de pistas usadas en esta \ac{PCB}: pistas de alimentación y pistas de comunicación. Para el cálculo de ambos tipos, se asume un aumento de temperatura máximo de 10 ºC, una longitud del conductor de $20cm$ y un valor de resistividad de $1.72 \cdot 10^{-8}$.
+Mediante la herramienta anterior (ver imagen \ref{fig:Pcb_Calculator}) se puede realizar el cálculo para los dos tipos de pistas usadas en esta \ac{PCB}: pistas de alimentación y pistas de comunicación. Para el cálculo de ambos tipos, se asume un aumento de temperatura máximo de 10 ºC, una longitud del conductor de $20cm$ y un valor de resistividad de $1.72 \cdot 10^{-8}$.
 
-En primer lugar, se considera que las pistas de alimentación de la \ac{PCB} conducen $2A$ de intensidad y un voltaje de $9V$ máximo. Teniendo en cuenta dichos datos, el ancho de pista obtenido es el siguiente:
+En primer lugar, se considera que las pistas de alimentación de la \ac{PCB} conducen $2A$ de intensidad y un voltaje de $9V$ máximo. Teniendo en cuenta dichos datos, el ancho de pista obtenido es el siguiente (ver imagen \ref{fig:Ancho_Alimentacion}):
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/AnchoPistaAlimentación.PNG}
 \caption{Cálculo del ancho de pistas de alimentación.}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\label{fig:Ancho_Alimentacion}
 \end{figure}
  
  Se obtiene una ancho de pista de 0.78mm para las pistas de alimentación, por comodidad de aproxima este valor de ancho a 0.8mm.
  
- En segundo lugar, se considera que las pistas de comunicación del microcontrolador, conducen 0.25A y 3.3V máximo. Teniendo en cuenta dichos datos, el ancho de pista obtenido es el siguiente:
+ En segundo lugar, se considera que las pistas de comunicación del microcontrolador, conducen 0.25A y 3.3V máximo. Teniendo en cuenta dichos datos, el ancho de pista obtenido es el siguiente (ver imagen \ref{fig:Ancho_Comunicacion}):
  
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/AnchoPistaRestoMinimo.PNG}
 \caption{Cálculo del ancho de pistas de comunicación}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\label{fig:Ancho_Comunicacion}
 \end{figure}
 
 Se obtiene un ancho de pista de $0.044mm$ para las pistas de comunicación, sin embargo, se ha decidido no trazar pistas con un ancho menor a $0.4mm$, debido principalmente a que se pueden producir errores en el proceso de fabricación.
 
 En este momento, cabe destacar que el proceso de fabricación llevado a cabo para construir la placa, es de carácter artesanal, no industrial.
 
-Asumiendo un ancho mínimo de pista de $0.4mm$, las pistas de comunicación están sobredimensionadas por motivos justificados y por lo tanto se obtiene el siguiente cálculo:
+Asumiendo un ancho mínimo de pista de $0.4mm$, las pistas de comunicación están sobredimensionadas por motivos justificados y por lo tanto se obtiene el siguiente cálculo (ver imagen \ref{fig:Calculo_Inverso}) :
 
 \begin{figure}[H]
 \centering 
 \includegraphics[width=0.9\linewidth]{pictures/AnchoPistaResto.PNG}
 \caption{Cálculo inverso del ancho de pistas de comunicación.}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\label{fig:Calculo_Inverso}
 \end{figure}
 
 Las pistas de comunicación tienen finalmente un ancho de $0.4mm$ y debido a su sobredimensionado, soportan una corriente de $1.23A$, la cual se sitúa muy por encima de la corriente que circulará por las mismas.
@@ -536,18 +536,18 @@ A continuación se muestra la distribución final de los componentes físicos de
 \centering
 \includegraphics[width=0.9\linewidth]{pictures/DistribucionFinal.PNG}
 \caption{Distribución final de los componentes físicos.}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\label{fig:Distribución final}
 \end{figure}
 
-Tal y como puede verse en la imagen anterior, las líneas blancas representan las conexiones físicas entre los componentes y por lo tanto, deben ser sustituidas por pistas de cobre. En este diagrama, se han generado conexiones inexistentes en el diagrama esquemático, ya que se contemplan conexiones físicas que a nivel lógico no son necesarias.
+Tal y como puede verse en la imagen anterior (ver imagen \ref{fig:Distribución final}), las líneas blancas representan las conexiones físicas entre los componentes y por lo tanto, deben ser sustituidas por pistas de cobre. En este diagrama, se han generado conexiones inexistentes en el diagrama esquemático, ya que se contemplan conexiones físicas que a nivel lógico no son necesarias.
 
-Tras realizar el proceso de enrutado en ambas caras, el diagrama físico final obtenido es el siguiente:
+Tras realizar el proceso de enrutado en ambas caras, el diagrama físico final obtenido es el siguiente (ver imagen \ref{fig:Fisico_Final}):
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\linewidth]{pictures/PCB_FINAL_FIXED.PNG}
 \caption{Diagrama físico final.}
-\label{fig:CAMBIAR!!!!!!!!!!}
+\label{fig:Fisico_Final}
 \end{figure}
 
 Cabe destacar varios aspectos:
@@ -560,19 +560,15 @@ Cabe destacar varios aspectos:
     \item En la parte central de la capa frontal se ha incluido el nombre de la placa (P-ARM ALMOST) y el nombre del grupo de ingenieros (NPCMOS).
 \end{itemize}
 
-Utilizando el visualizador 3D de KiCad se puede obtener un representación cercana a la realidad de como será la \ac{PCB} al fabricarse:
+Utilizando el visualizador 3D de KiCad se puede obtener un representación cercana a la realidad de como será la \ac{PCB} al fabricarse (ver imagen \ref{fig:Simulacion_3D}) :
 
 \begin{figure}[htbp]
     \centering
-    \subfigure[Capa frontal
-    %% Y ESTAS CITAS?!
-    \cite{7759009FCCCDatasheetHoja}.]{\includegraphics[width=.49\linewidth]{pictures/PlacaFinal3D.PNG}}
+    \subfigure[Capa frontal]{\includegraphics[width=.49\linewidth]{pictures/PlacaFinal3D.PNG}}
     \hfill
-    %% Y ESTAS CITAS?!
-    \subfigure[Capa trasera
-    \cite{MotorCorrienteContinua2020}.]{\includegraphics[width=.49\linewidth]{pictures/PlacaFinal3D2.PNG}}
+    \subfigure[Capa trasera]{\includegraphics[width=.49\linewidth]{pictures/PlacaFinal3D2.PNG}}
     \caption{Representación 3D del diseño físico.} 
-    \label{fig:lego}
+    \label{fig:Simulacion_3D}
 \end{figure}
     
 \subsection{Verificaciones realizadas al diseño lógico y físico}
@@ -634,14 +630,14 @@ Dichas verificaciones a realizar van destinadas a comprobar los aspectos físico
     
 \end{itemize}
 
-KiCad ofrece una herramienta llamada ``Comprobar reglas de diseño'', la cual puede ser utilizada para facilitar el proceso de verificación del diseño físico. Utilizando esta herramienta se pueden verificar automáticamente factores como el ancho de pista mínimo permitido, separación mínima entre pistas, conexiones no realizadas, etc. A pesar de poder realizar estas verificaciones de forma automática, se han realizado todas las verificaciones de forma manual para también reducir el riesgo de fallos.
+KiCad ofrece una herramienta llamada ``Comprobar reglas de diseño'' (ver imagen \ref{fig:Reglas_Diseño}), la cual puede ser utilizada para facilitar el proceso de verificación del diseño físico. Utilizando esta herramienta se pueden verificar automáticamente factores como el ancho de pista mínimo permitido, separación mínima entre pistas, conexiones no realizadas, etc. A pesar de poder realizar estas verificaciones de forma automática, se han realizado todas las verificaciones de forma manual para también reducir el riesgo de fallos.
 
-%% Y ESTAS CITAS?! FUERA :V
 \begin{figure}[htbp]
 \centering
-\subfigure[Icono de verificación de reglas de diseño \cite{7759009FCCCDatasheetHoja}.]{\includegraphics[width=82mm]{pictures/DRC2.PNG}}
-\subfigure[Desplegable de la herramienta\cite{MotorCorrienteContinua2020}.]{\includegraphics[width=80mm]{pictures/DRC.PNG}}
-\caption{Herramienta de verificación de reglas de diseño} \label{fig:lego}
+\subfigure[Icono de verificación de reglas de diseño]{\includegraphics[width=82mm]{pictures/DRC2.PNG}}
+\subfigure[Desplegable de la herramienta]{\includegraphics[width=80mm]{pictures/DRC.PNG}}
+\caption{Herramienta de verificación de reglas de diseño}
+\label{fig:Reglas_Diseño}
 \end{figure}
 
 Tras realizar todas las verificaciones anteriormente mencionadas en el diagrama físico, se han subsanado los errores encontrados previamente a realizar la fabricación de la \ac{PCB}; se considera por lo tanto que el proceso de verificación del diseño ha sido exitoso.
@@ -660,11 +656,11 @@ A continuación, se presentan los conceptos básicos empleados durante el proces
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.9\linewidth]{pictures/Proceso1.JPG}
-    \caption{Estructura de la placa de prototipado \textbf{INSERTE CITA A FUENTE}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \caption{Estructura de la placa de prototipado \cite{noauthor_construccion_nodate}}
+    \label{fig:Fotolitografia}
     \end{figure}
     
-    Tal y como se puede ver en la imagen anterior, la placa de prototipado de fibra de vidrio posee tres capas: fibra de vidrio como material base encima de la cual hay una capa de cobre y, protegiendo la anterior, una capa de resina fotosensible a la luz ultravioleta.
+    Tal y como se puede ver en la imagen anterior (ver imagen \ref{fig:Fotolitografia}), la placa de prototipado de fibra de vidrio posee tres capas: fibra de vidrio como material base encima de la cual hay una capa de cobre y, protegiendo la anterior, una capa de resina fotosensible a la luz ultravioleta.
     
     El aspecto clave de esta estructura en capas recae en la capa de resina fotosensible, la cual tiene como objetivo capturar el patrón del circuito de la fotomáscara o transparencia. El funcionamiento de esta resina depende de si la placa de prototipado es positiva o negativa:
     \begin{itemize}
@@ -680,49 +676,48 @@ A continuación, se presentan los conceptos básicos empleados durante el proces
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/Proceso2.JPG}
-    \caption{Tratado de las resinas mediante insolado \textbf{INSERTE CITA A FUENTE}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \caption{Tratado de las resinas mediante insolado \cite{noauthor_construccion_nodate}}
+    \label{fig:Insolado}
     \end{figure}
     
-    Tal y como se puede ver en la imagen anterior \textbf{REFERENCIAR LA IMAGEN}, las superficies de la resina que han sido insoladas (amarillo claro), se convierten en reactivas al revelador, ya que en esa zona de la fotomáscara existe una transparencia. En las zonas en las cuales la transparencia es opaca e impide el paso de la luz ultravioleta la resina no se ve afectada y se mantiene no reactiva con el revelador.
+    Tal y como se puede ver en la imagen anterior (ver imagen \ref{fig:Insolado}), las superficies de la resina que han sido insoladas (amarillo claro), se convierten en reactivas al revelador, ya que en esa zona de la fotomáscara existe una transparencia. En las zonas en las cuales la transparencia es opaca e impide el paso de la luz ultravioleta la resina no se ve afectada y se mantiene no reactiva con el revelador.
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.8\linewidth]{pictures/Proceso3.JPG}
-    \caption{Resultado tras el insolado \textbf{INSERTE CITA A FUENTE}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \caption{Resultado tras el insolado \cite{noauthor_construccion_nodate}}
     \end{figure}
     
-    \item Mediante el proceso de revelado, se elimina la resina que fue tratada en el proceso de insolación:
+    \item Mediante el proceso de revelado, se elimina la resina que fue tratada en el proceso de insolación (ver imagen \ref{fig:Eliminado_Revelado}):
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.7\linewidth]{pictures/Proceso4.JPG}
-    \caption{Proceso de revelado \textbf{INSERTE CITA A FUENTE}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \caption{Proceso de revelado \cite{noauthor_construccion_nodate}}
+    \label{fig:Eliminado_Revelado}
     \end{figure}
     
-    Tras someter la \ac{PCB} al proceso de revelado, se obtiene el siguiente resultado:
+    Tras someter la \ac{PCB} al proceso de revelado, se obtiene el siguiente resultado (ver imagen \ref{fig:Resultado_Revelado}):
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.7\linewidth]{pictures/Proceso5.JPG}
-    \caption{Resultado tras revelado \textbf{INSERTE CITA A FUENTE}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \caption{Resultado tras revelado \cite{noauthor_construccion_nodate}}
+    \label{fig:Resultado_Revelado}
     \end{figure}
     
-    Tal y como se puede ver en la imagen anterior, el proceso de revelado elimina la resina que había sido insolada, ya que se trata de una placa positiva. En estas zonas, la capa de cobre queda expuesta y sin ninguna protección. Por el contrario, en las zonas que no fueron insoladas, el revelado no actúa y por lo tanto la resina inicial permanece protegiendo la capa de cobre.
+    Tal y como se puede ver en la imagen anterior (ver imagen \ref{fig:Resultado_Revelado}), el proceso de revelado elimina la resina que había sido insolada, ya que se trata de una placa positiva. En estas zonas, la capa de cobre queda expuesta y sin ninguna protección. Por el contrario, en las zonas que no fueron insoladas, el revelado no actúa y por lo tanto la resina inicial permanece protegiendo la capa de cobre.
     
     \item Mediante el proceso de atacado, se eliminan las superficies de la capa de cobre sobrantes, es decir, aquellas que no están protegidas por resina:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.6\linewidth]{pictures/Proceso6.JPG}
-    \caption{Resultado tras atacado \textbf{INSERTE CITA A FUENTE}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \caption{Resultado tras atacado \cite{noauthor_construccion_nodate}}
+    \label{fig:Resultado_Atacado}
     \end{figure}
     
-    Tal y como se puede observar en la imagen anterior \textbf{REFERENCIAR LA IMAGEN}, la capa de cobre solo permanece en los lugares que estaban protegidos por la resina inicial; este patrón coincide con el circuito de la fotomáscara. Para retirar la resina sobrante, bastan con aclarar la \ac{PCB} con alcohol, quedando las pistas del circuito perfectamente delimitadas e impresas en la placa de fibra de vidrio.
+    Tal y como se puede observar en la imagen anterior (ver imagen \ref{fig:Resultado_Atacado}), la capa de cobre solo permanece en los lugares que estaban protegidos por la resina inicial; este patrón coincide con el circuito de la fotomáscara. Para retirar la resina sobrante, bastan con aclarar la \ac{PCB} con alcohol, quedando las pistas del circuito perfectamente delimitadas e impresas en la placa de fibra de vidrio.
     
 \end{itemize}
 
@@ -739,32 +734,31 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     
     \begin{figure}[H]
     \centering
-    \subfigure[Icono de impresión de placas \cite{7759009FCCCDatasheetHoja}.]{\includegraphics[width=80mm]{pictures/ImprimirPCB.PNG}}
-    \subfigure[Desplegable de la herramienta \cite{MotorCorrienteContinua2020}.]{\includegraphics[width=80mm]{pictures/ImprimirPCB2.PNG}}
+    \subfigure[Icono de impresión de placas]{\includegraphics[width=80mm]{pictures/ImprimirPCB.PNG}}
+    \subfigure[Desplegable de la herramienta]{\includegraphics[width=80mm]{pictures/ImprimirPCB2.PNG}}
     \caption{Herramienta de impresión de placas.} 
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    Las fotomáscaras obtenidas tras el uso de dicha herramienta son las siguientes:
+    Las fotomáscaras obtenidas tras el uso de dicha herramienta son las siguientes (ver imágenes \ref{fig:Mascara_Final}):
     
     \begin{figure}[H]
     \centering
-    \subfigure[Máscara frontal \cite{7759009FCCCDatasheetHoja}.]{\includegraphics[width=82mm]{pictures/MascaraFrontal.PNG}}
-    \subfigure[Máscara trasera\cite{MotorCorrienteContinua2020}.]{\includegraphics[width=80mm]{pictures/MascaraTrasera.PNG}}
+    \subfigure[Máscara frontal]{\includegraphics[width=82mm]{pictures/MascaraFrontal.PNG}}
+    \subfigure[Máscara trasera]{\includegraphics[width=80mm]{pictures/MascaraTrasera.PNG}}
     \caption{Fotomáscara final de la \ac{PCB}.} 
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Mascara_Final}
     \end{figure}
     
    Con el fin de poder utilizar dichas máscaras en el proceso de fotolitografía, es necesario imprimirlas en papel de transparencia, puesto que deben dejar pasar la luz en los lugares que no contienen el patrón del circuito a fotolitografiar.
    
-   Para imprimir dichas máscaras en papel de transparencia, primeramente se imprimen en papel convencional y posteriormente se fotocopian a un papel de transparencia, obteniendo el resultado siguiente:
+   Para imprimir dichas máscaras en papel de transparencia, primeramente se imprimen en papel convencional y posteriormente se fotocopian a un papel de transparencia, obteniendo el resultado siguiente (ver imagen \ref{fig:Resultado_Recorte}):
    
     \begin{figure}[H]
     \centering
-    \subfigure[Máscaras de papel y sus transparencias \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=90mm]{pictures/MascarasTransparenciaPapel.jpg}}
-    \subfigure[Recorte de las máscaras\cite{MotorCorrienteContinua2020}]{\includegraphics[width=75mm]{pictures/OperarioCortando.jpg}}
+    \subfigure[Máscaras de papel y sus transparencias]{\includegraphics[width=90mm]{pictures/MascarasTransparenciaPapel.jpg}}
+    \subfigure[Recorte de las máscaras]{\includegraphics[width=75mm]{pictures/OperarioCortando.jpg}}
     \caption{Proceso de impresión y recorte de las fotomáscaras.} 
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Resultado_Recorte}
     \end{figure}
     
     Otro de los aspectos a destacar y que es vital en relación a la impresión de las transparencias es que, dado que todas las impresoras producen cierta distorsión en los documentos que imprimen, se debe incluir una corrección de escala $XY$, en particular para este proyecto de $1.037$ para calibrar correctamente la impresión. En caso contrario, se puede producir algún pequeño desajuste en el encaje de los componentes una vez esté fabricado el circuito.
@@ -775,10 +769,9 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     
     \begin{figure}[H]
     \centering
-    \subfigure[Funda de transparencias \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=60mm]{pictures/MáscaraTransparencia.jpg}}
-    \subfigure[Demostración de su capacidad de contener a la placa\cite{MotorCorrienteContinua2020}]{\includegraphics[width=90mm]{pictures/Funda.jpg}}
+    \subfigure[Funda de transparencias ]{\includegraphics[width=60mm]{pictures/MáscaraTransparencia.jpg}}
+    \subfigure[Demostración de su capacidad de contener a la placa]{\includegraphics[width=90mm]{pictures/Funda.jpg}}
     \caption{Fotomáscara final.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Cabe destacar que se han incluido dos transparencias superpuestas por cada cara de la fotomáscara para aumentar la opacidad que se genera al fotolitografiar la placa de prototipado positiva. Estas transparencias deben estar superpuestas con una exactitud muy elevada para impedir desfases en la impresión del circuito.
@@ -787,22 +780,20 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     
     A continuación se muestra el proceso de insolación de la placa de prototipado positiva, el cual se ha realizado usando una maquina insoladora:
     
-    %% ESTAS CITAS SOBRAN %%%%%%%%%%%%%
+
     \begin{figure}[H]
     \centering
-    \subfigure[Placa de prototipado colocada dentro de la fotomáscara \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=75mm]{pictures/Isoladora.jpg}}
-    \subfigure[Ajuste de la máquina de insolación\cite{MotorCorrienteContinua2020}]{\includegraphics[width=75mm]{pictures/Isoladora2.jpg}}
+    \subfigure[Placa de prototipado colocada dentro de la fotomáscara]{\includegraphics[width=75mm]{pictures/Isoladora.jpg}}
+    \subfigure[Ajuste de la máquina de insolación]{\includegraphics[width=75mm]{pictures/Isoladora2.jpg}}
     \caption{Proceso de insolación de la \ac{PCB} usando las fotomáscaras.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    Tras el proceso de insolación, la placa de prototipado positiva habrá sido expuesta a la luz ultravioleta durante un minuto y, por lo tanto, el patrón del ciruito habrá sido transferido a la superficie de resina de la placa de prototipado:
+    Tras el proceso de insolación, la placa de prototipado positiva habrá sido expuesta a la luz ultravioleta durante un minuto y, por lo tanto, el patrón del circuito habrá sido transferido a la superficie de resina de la placa de prototipado:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.5\linewidth]{pictures/PCBisolada.jpg}
     \caption{Placa de prototipado positiva insolada.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     \item Cuando se ha completado el proceso de insolación de la placa de prototipado, se debe llevar a cabo el proceso de revelado de la \ac{PCB}.
@@ -815,19 +806,16 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \centering 
     \includegraphics[width=0.6\linewidth]{pictures/Revelador.jpg}
     \caption{Revelador universal usado.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     El proceso de revelado de la \ac{PCB} se lleva a cabo disolviendo el revelador anteriormente mencionado en agua y, posteriormente, sumergiendo la \ac{PCB} en esta disolución:
     
-    %% ESTAS CITAS SOBRAN :V
     \begin{figure}[H]
     \centering
-    \subfigure[Comienzo del proceso de revelado \cite{7759009FCCCDatasheetHoja}.]{\includegraphics[width=75mm]{pictures/Revelado.jpg}}
-    \subfigure[Proceso de revelado en estado avanzado\cite{MotorCorrienteContinua2020}.]{\includegraphics[width=75mm]{pictures/Revelado2.jpg}}
-    \subfigure[Aclarado de la \ac{PCB}\cite{MotorCorrienteContinua2020}.]{\includegraphics[width=75mm]{pictures/Revelado3.jpg}}
+    \subfigure[Comienzo del proceso de revelado]{\includegraphics[width=75mm]{pictures/Revelado.jpg}}
+    \subfigure[Proceso de revelado en estado avanzado]{\includegraphics[width=75mm]{pictures/Revelado2.jpg}}
+    \subfigure[Aclarado de la \ac{PCB}]{\includegraphics[width=75mm]{pictures/Revelado3.jpg}}
     \caption{Proceso de revelado de la \ac{PCB}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Durante el proceso de revelado se tienen que generar movimientos delicados de la disolución reveladora para que esta haga un efecto adecuado y consiga eliminar la resina sobrante. Cuando el proceso ha finalizado, basta con aclarar la \ac{PCB} con agua sin tocar el patrón del circuito que ha quedado revelado.
@@ -840,28 +828,27 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
    
    Al igual que en la etapa anterior, el atacado de la \ac{PCB} se realiza a través de una disolución, en este caso de agua y persulfato de amonio.
    
-   A continuación, se muestran algunas imágenes del proceso de atacado mediante ácido:
+   A continuación, se muestran algunas imágenes (ver imágenes \ref{fig:Atacado_PCB}) del proceso de atacado mediante ácido:
    
-   %% ESTAS CITAS SOBRAN! %%%%%%%%%%%%%%
+
    \begin{figure}[H]
     \centering
-    \subfigure[Recipiente contenedor de la disolución de atacado \cite{7759009FCCCDatasheetHoja}.]{\includegraphics[width=75mm]{pictures/Atacado.jpg}}
-    \subfigure[\ac{PCB} siendo sometida al proceso de atacado\cite{MotorCorrienteContinua2020}.]{\includegraphics[width=75mm]{pictures/Atacado2.jpg}}
+    \subfigure[Recipiente contenedor de la disolución de atacado]{\includegraphics[width=75mm]{pictures/Atacado.jpg}}
+    \subfigure[\ac{PCB} siendo sometida al proceso de atacado]{\includegraphics[width=75mm]{pictures/Atacado2.jpg}}
     \caption{Proceso de atacado de la \ac{PCB}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Atacado_PCB}
     \end{figure}
     
     Tras el proceso de atacado, el cual lleva entre una y dos horas, se debe aclarar y limpiar el circuito impreso con alcohol para eliminar los restos de resina sobrantes, así como las impurezas producidas por la disolución de atacado.
     
     Al finalizar esta etapa del proceso de fabricación, se obtiene una \ac{PCB} en la cual aparece el patrón del circuito de las fotomáscaras impreso en cobre:
     
-    %% ESTAS CITAS SOBRAN %%%%%%%%%%%%%%%%%
+
     \begin{figure}[H]
     \centering
-    \subfigure[Parte frontal de la \ac{PCB} \cite{7759009FCCCDatasheetHoja}.]{\includegraphics[width=75mm]{pictures/Impreso.jpg}}
-    \subfigure[Parte trasera de la \ac{PCB}\cite{MotorCorrienteContinua2020}.]{\includegraphics[width=85mm]{pictures/Impreso2.jpg}}
+    \subfigure[Parte frontal de la \ac{PCB}]{\includegraphics[width=75mm]{pictures/Impreso.jpg}}
+    \subfigure[Parte trasera de la \ac{PCB}]{\includegraphics[width=85mm]{pictures/Impreso2.jpg}}
     \caption{Circuito impreso final tras el proceso de atacado.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     \item Es recomendable realizar una revisión general de la \ac{PCB} en busca de posibles imperfecciones que se hayan podido producir durante el proceso de impresión del circuito.
@@ -873,15 +860,13 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/Cortos2.jpg}
-    \caption{Revelador universal usado.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \caption{Integrante del equipo verificando cortos.}
     \end{figure}
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.5\linewidth]{pictures/Cortos3.jpg}
     \caption{Algunos de los cortos detectados.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
    En caso de encontrar algún corto entre dos pistas que no deberían estar conectadas, basta con utilizar un útil con punta para rasgar la superficie del punto de unión entre ambas.
@@ -894,13 +879,11 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
    
    El taladrado de todos los orificios de la \ac{PCB}, es decir, pads de componentes, vías y mecanizado de sujeción; se debe realizar con un taladro que cuente con una broca del tamaño adecuado, además de un soporte que aporte la estabilidad suficiente:
    
-   %% ESTAS REFERENCIAS SOBRAN
     \begin{figure}[H]
     \centering
-    \subfigure[ Taladro y soporte usado \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=80mm]{pictures/Taladrado.jpg}}
-    \subfigure[Taladrado de los orificios\cite{MotorCorrienteContinua2020}]{\includegraphics[width=80mm]{pictures/Taladrado2.jpg}}
+    \subfigure[ Taladro y soporte usado]{\includegraphics[width=80mm]{pictures/Taladrado.jpg}}
+    \subfigure[Taladrado de los]{\includegraphics[width=80mm]{pictures/Taladrado2.jpg}}
     \caption{Taladrado de la \ac{PCB}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
    
    El recorte de la \ac{PCB} se realiza con una herramienta de guillotinado que tenga precisión y permita realizarlos de forma limpia de la longitud necesaria. Estos cortes se realizan siguiendo los límites establecidos en el diagrama físico de la \ac{PCB}.
@@ -911,7 +894,6 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \centering 
     \includegraphics[width=0.5\linewidth]{pictures/PCBTaladrada.PNG}
     \caption{\ac{PCB} con orificios taladrados y margenes guillotinados.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     \item Soldar el componente principal de la \ac{PCB}, es decir, el microcontrolador:
@@ -920,10 +902,10 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \centering 
     \includegraphics[width=0.5\linewidth]{pictures/DSPIC.jpg}
     \caption{Plano detallado del microcontrolador.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Micro_Detalle}
     \end{figure}
     
-    Tal y como se puede ver en la imagen \textbf{INSERTAR REFERENCIA A LA IMAGEN}, el dsPIC utilizado tiene un encapsulado destinado a soldadura superficial (\ac{SMD}). Normalmente, este tipo de componentes deben ser colocados y soldados los primeros, ya que el proceso de colocación y soldado de los mismos es delicado y requiere máxima precisión.
+    Tal y como se puede ver en la imagen (ver imagen \ref{fig:Micro_Detalle}), el dsPIC utilizado tiene un encapsulado destinado a soldadura superficial (\ac{SMD}). Normalmente, este tipo de componentes deben ser colocados y soldados los primeros, ya que el proceso de colocación y soldado de los mismos es delicado y requiere máxima precisión.
     
     El soldado de este tipo de componentes se realiza mediante el aplicado de una pasta de soldadura, la cual se debe colocar en el punto de contacto de los pines del componente con las pistas de cobre:
     
@@ -931,7 +913,6 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/SMD2.jpg}
     \caption{Aplicado de la pasta de soldadura.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     El aplicado de la pasta de soldadura debe llevarse a cabo con la protección adecuada, ya que la pasta de soldadura es altamente tóxica.
@@ -942,23 +923,20 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/ColocadoSMD.jpg}
     \caption{Colocado del microcontrolador sobre la pasta de soldadura.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
 
     Tras colocar la pasta de soldadura, se debe introducir la \ac{PCB} en un horno para que la pasta de soldadura se endurezca y selle por completo:
     
-    %% ESTAS CITAS SOBRAN %%%%%%%%%%%%%%%%%%
     \begin{figure}[H]
     \centering
-    \subfigure[Momento previo al horneado \cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=60mm]{pictures/HORNO.jpg}}
-    \subfigure[Calentado del horno\cite{MotorCorrienteContinua2020}]{\includegraphics[width=60mm]{pictures/HORNO2.jpg}}
-    \subfigure[Horneado en curso\cite{MotorCorrienteContinua2020}]{\includegraphics[width=60mm]{pictures/HORNO4.jpg}}
-    \subfigure[Horno a máxima potencia\cite{MotorCorrienteContinua2020}]{\includegraphics[width=60mm]{pictures/HORNO3.jpg}}
+    \subfigure[M]{\includegraphics[width=60mm]{pictures/HORNO.jpg}}
+    \subfigure[C]{\includegraphics[width=60mm]{pictures/HORNO2.jpg}}
+    \subfigure[]{\includegraphics[width=60mm]{pictures/HORNO4.jpg}}
+    \subfigure[]{\includegraphics[width=60mm]{pictures/HORNO3.jpg}}
     \caption{Diferentes etapas del proceso de horneado.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-     Este proceso se debe realizar durante unos veinte minutos a una temperatura de entre 250 \textdegree C y 300 \textdegree C.
+    Este proceso se debe realizar durante unos quince minutos a una temperatura de entre 250 \textdegree C y 260 \textdegree C.
      
      Tras el proceso de horneado, se debe dejar enfriar la \ac{PCB}. El resultado final tras el horneado es el siguiente:
      
@@ -966,7 +944,6 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/POTENSIA.jpg}
     \caption{Imagen a contra luz de la \ac{PCB}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     El microcontrolador se encuentra totalmente fijado y soldado superficialmente con las pistas de conexión gracias a la pasta de soldadura. En este momento, es recomendable verificar si existen cortos entre los pines del microcontrolador así como si la conductividad de los mismos es correcta a lo largo de las pistas:
@@ -975,20 +952,18 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/CORTOS.jpg}
     \caption{Comprobación de cortos y conductividad de las pistas del microcontrolador.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     \item Soldado de las vías de conexión entre las pistas de la capa superior e inferior.
     
     Para realizar esta conexión, basta con introducir un hilo de grapinar por el orificio de la vía, realizar una pequeña soldadura con ambas pistas superior e inferior y, por último, cortar el hilo excedente:
     
-    %% ESTAS CITAS SOBRAN %%%%%%%
+
     \begin{figure}[H]
     \centering
-    \subfigure[Vía con hilo de grapinar sin cortar \cite{7759009FCCCDatasheetHoja}.]{\includegraphics[width=80mm]{pictures/Via.jpg}}
-    \subfigure[Aspecto final de la vía\cite{MotorCorrienteContinua2020}.]{\includegraphics[width=72.5mm]{pictures/VIA2.jpg}}
+    \subfigure[Vía con hilo de grapinar sin cortar]{\includegraphics[width=80mm]{pictures/Via.jpg}}
+    \subfigure[Aspecto final de la vía.]{\includegraphics[width=72.5mm]{pictures/VIA2.jpg}}
     \caption{Taladrado de la \ac{PCB}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     \item En último lugar, se deben soldar el resto de componentes de la \ac{PCB}.
@@ -1001,35 +976,30 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/PreSoldado.jpg}
     \caption{Comienzo del proceso de soldadura.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    %% ESTAS CITAS SOBRAN %%%%%%%%%%%%
     \begin{figure}[H]
     \centering
-    \subfigure[\cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=70mm]{pictures/Soldando.jpg}}
-    \subfigure[\cite{MotorCorrienteContinua2020}]{\includegraphics[width=72.5mm]{pictures/Soldando2.jpg}}
+    \subfigure[]{\includegraphics[width=70mm]{pictures/Soldando.jpg}}
+    \subfigure[]{\includegraphics[width=72.5mm]{pictures/Soldando2.jpg}}
     \caption{Integrantes del equipo soldando componentes.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    %% ESTAS CITAS SOBRAN %%%%%%%%%%%
+
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.45\linewidth]{pictures/PreSoldado2.jpg}
     \caption{Proceso de soldadura en curso.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Tras finalizar el proceso de soldadura de los componentes y de haber recortado el exceso de sus pines, se obtiene el resultado final:
 
-    %% ESTAS CITAS SOBRAN %%%%%%%%%%%
+
     \begin{figure}[H]
     \centering
-    \subfigure[Cara de componentes\cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=70mm]{pictures/SoldaduraDelanteras.jpg}}
-    \subfigure[Cara de soldadura\cite{MotorCorrienteContinua2020}]{\includegraphics[width=70mm]{pictures/SoldadurasTraseras.jpg}}
+    \subfigure[Cara de componentes]{\includegraphics[width=70mm]{pictures/SoldaduraDelanteras.jpg}}
+    \subfigure[Cara de soldadura]{\includegraphics[width=70mm]{pictures/SoldadurasTraseras.jpg}}
     \caption{Integrantes del equipo soldando componentes.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Cabe destacar que, tras el proceso de soldadura, se deben revisar las soldaduras en cuanto a los siguientes aspectos:
@@ -1059,21 +1029,18 @@ Tras completar la fabricación de la \ac{PCB}, es recomendable realizar algunas 
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/PrimerEncendido.jpg}
     \caption{Primer encendido de la \ac{PCB} usando un código de prueba del PWM.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/PruebaUart}
     \caption{Prueba del funcionamiento de la UART.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/PruebaServos.jpg}
     \caption{Prueba del funcionamiento de los servomotores.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
 \end{itemize}
@@ -1099,7 +1066,6 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/FalloPCB.jpg}
     \caption{\ac{PCB} tras proceso de atacado fallido.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Tras cada uno de los intentos fallidos, se tuvo que repetir el proceso de insolación de las fotomáscaras sobre una nueva placa positiva de prototipado.
@@ -1110,7 +1076,6 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/BreakingBad.jpg}
     \caption{Proceso de creación de la disolución de atacado.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Tras el atacado con la nueva disolución, el proceso tuvo éxito y el circuito se imprimió correctamente en la placa de prototipado.
@@ -1121,7 +1086,6 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/CursedPodium.jpg}
     \caption{Intentos de fabricación de la \ac{PCB}.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Tal y como se puede observar, en el centro de la imagen se encuentra la \ac{PCB} exitosa y en los laterales los intentos fallidos, en los cuales el cobre no se eliminó adecuadamente.
@@ -1130,13 +1094,13 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     
     Este contratiempo afecta al periférico PWM por partida doble, ya que se detectó una fractura en una de las pistas de comunicación del puerto PWM y, a su vez, se comprobó que el módulo PWM interno que usaba esta pista también estaba defectuoso y era inservible.
     
-    En la siguiente imagen \textbf{INSERTE REFERENCIA AQUÍ} se puede apreciar la fractura en la pista de cobre:
+    En la siguiente imagen (ver imagen \ref{fig:Fractura}) se puede apreciar la fractura en la pista de cobre:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/FracturaPista.jpg}
     \caption{Fractura en pista de cobre.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Fractura}
     \end{figure}
     
     En primer lugar, se procedió a realizar una nueva conexión de la pista usando hilo de grapinar:
@@ -1145,7 +1109,6 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/Parche.jpg}
     \caption{Parcheo de la pista usando hilo de grapinar.}
-    \label{fig:kdiagram}
     \end{figure}
     
    Tras verificar que la conductividad del nuevo hilo era correcta, se detectó que el módulo PWM seguía sin funcionar a pesar de que la fractura se había solucionado. Posteriormente, tras realizar algunas pruebas al respecto usando un osciloscopio, se concluyó que el módulo estaba defectuoso y no funcionaba.
@@ -1155,16 +1118,16 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/HiloGrapinar.jpg}
     \caption{Reconexión del nuevo módulo PWM al puerto.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Reconex}
     \end{figure}
        
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/SoldaduraPrecisión.jpg}
     \caption{Soldadura del hilo de reconexión con el nuevo pin.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Reconex_Soldadura}
     \end{figure}
-    Tal y como se puede observar en las figuras anteriores \textbf{INSERTE REFERENCIA AQUÍ}, el reducido tamaño de la soldadura requirió que este proceso fuese realizado con máxima precisión. Además, por precaución, se eliminó parte de la pista original para evitar errores en la señal.
+    Tal y como se puede observar en las figuras anteriores (ver imágenes \ref{fig:Reconex} y \ref{fig:Reconex_Soldadura}), el reducido tamaño de la soldadura requirió que este proceso fuese realizado con máxima precisión. Además, por precaución, se eliminó parte de la pista original para evitar errores en la señal.
     
     A pesar de que esta solución es de carácter artesanal y lo recomendable hubiese sido fabricar de nuevo la \ac{PCB}, se tomó la decisión de realizar este arreglo para reducir el impacto del contratiempo en el proyecto, ya que además se comprobó un buen resultado y fue suficientemente segura.
    
@@ -1184,34 +1147,34 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/FailPinout2.JPG}
     \caption{Esquemático lógico del LM317.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Logico_LM317}
     \end{figure}
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.55\linewidth]{pictures/FailPinout3.JPG}
     \caption{Huella física del LM317.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Huella_LM317}
     \end{figure}
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.65\linewidth]{pictures/FailPinout.JPG}
     \caption{Encapsulado físico del LM317.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:Encapsulado_LM317}
     \end{figure}
     
-    Tal y como se puede observar en las imágenes anteriores \textbf{INSERTE REFERENCIA AQUÍ}:
+    Tal y como se puede observar en las imágenes anteriores (ver imágenes \ref{fig:Logico_LM317}, \ref{fig:Huella_LM317} y \ref{fig:Encapsulado_LM317}):
     
     \begin{itemize}
     
-        \item El esquemático lógico del LM317 consta de 3 pines, al igual que su encapsulado y huella física (ver figura \textbf{INSERTE REFERENCIA AQUÍ}).
+        \item El esquemático lógico del LM317 (ver imagen \ref{fig:Logico_LM317}) consta de 3 pines, al igual que su encapsulado y huella física.
         
-        \item El encapsulado del LM317 tiene como referencia TO-220, con lo cual se debe seleccionar dicha huella física (ver figura \textbf{INSERTE REFERENCIA AQUÍ}).
+        \item El encapsulado del LM317 (ver imagen \ref{fig:Encapsulado_LM317}) tiene como referencia TO-220, con lo cual se debe seleccionar dicha huella física (ver imagen \ref{fig:Huella_LM317}).
         
         \item A pesar de que le referencia de la huella física es TO-220, se puede afirmar que la distribución de pines de la misma no es igual al del encapsulado físico del componente.
         
-        \item Los \textit{pads} 2 y 3 de la huella física, correspondientes a los pines \texttt{ADJUST} y \texttt{OUTPUT} del encapsulado del LM317, están intercambiados y en consecuencia, la colocación de los pines es errónea (ver figura \textbf{INSERTE REFERENCIA AQUÍ}).
+        \item Los \textit{pads} 2 y 3 de la huella física, correspondientes a los pines \texttt{ADJUST} y \texttt{OUTPUT} del encapsulado del LM317, están intercambiados y en consecuencia, la colocación de los pines es errónea.
         
     \end{itemize}
     
@@ -1223,34 +1186,30 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \centering 
     \includegraphics[width=0.45\linewidth]{pictures/FixedLM.JPG}
     \caption{Huella física del LM317 con pines reordenados.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
     Puesto que se habían intercambiado dos pines de la huella física, las pistas de conexión de los mismos debían ser reconectadas para arreglar el problema:
     
-    %% ESTAS CITAS SOBRAN %%%%%%%%%
     \begin{figure}[H]
     \centering
-    \subfigure[Pines erróneos\cite{7759009FCCCDatasheetHoja}.]{\includegraphics[width=70.5mm]{pictures/PREFIX.png}}
-    \subfigure[Pines arreglados\cite{MotorCorrienteContinua2020}.]{\includegraphics[width=69mm]{pictures/POSFIX.png}}
+    \subfigure[Pines erróneos]{\includegraphics[width=70.5mm]{pictures/PREFIX.png}}
+    \subfigure[Pines arreglados]{\includegraphics[width=69mm]{pictures/POSFIX.png}}
     \caption{Modificación del circuito de alimentación de los servomotores marcada en azul.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
     \end{figure}
     
-    Esta modificación del diagrama físico de la \ac{PCB} hecha a posteriori ya se contempla en el apartado \textbf{CREAR UN LABEL A ESE PUNTO Y REFERENCIARLO AQUÍ} (5.4.5) de la memoria, dado que en dicho apartado se muestra la versión final del diagrama físico.
+    Esta modificación del diagrama físico de la \ac{PCB} hecha a posteriori ya se contempla en el apartado \ref{ap:5.4.5} de la memoria, dado que en dicho apartado se muestra la versión final del diagrama físico.
     
     Como segundo paso para solucionar el problema y puesto que la \ac{PCB} ya había sido fabricada siguiendo el diagrama físico que contenía el fallo se debía de ingeniar alguna solución para el prototipo construido. 
     A pesar de que se planteó la posibilidad de fabricar de nuevo la \ac{PCB}, se consideró que este proceso causaría demasiado retraso en el desarrollo del proyecto y por lo tanto se optó por ingeniar otra solución directamente sobre el prototipo que estaba fabricado y ensamblado.
     
-    Puesto que el fallo consistía en dos pines que deberían estar intercambiados, bastaría con intercambiar las pistas de comunicación que conectaban con ellos. Se decidió, de esta forma, fracturar las pistas existentes para después colocar dos puentes, intercambiando de esta forma el conexionado de los pines con sus pistas (ver figura \textbf{INSERTE REFERENCIA}).
+    Puesto que el fallo consistía en dos pines que deberían estar intercambiados, bastaría con intercambiar las pistas de comunicación que conectaban con ellos. Se decidió, de esta forma, fracturar las pistas existentes para después colocar dos puentes, intercambiando de esta forma el conexionado de los pines con sus pistas (ver imágenes \ref{fig:puentes}).
     
-    %% ESTAS CITAS SOBRAN %%%%%%%%%%%%%
     \begin{figure}[H]
     \centering
-    \subfigure[Vista detallada del puente\cite{7759009FCCCDatasheetHoja}]{\includegraphics[width=70mm]{pictures/EmpalmeDetallado.jpg}}
-    \subfigure[Vista de los cuatro puentes realizados\cite{MotorCorrienteContinua2020}]{\includegraphics[width=92.5mm]{pictures/EmpalmesTraseros.jpg}}
+    \subfigure[Vista detallada del puente]{\includegraphics[width=70mm]{pictures/EmpalmeDetallado.jpg}}
+    \subfigure[Vista de los cuatro puentes realizados]{\includegraphics[width=92.5mm]{pictures/EmpalmesTraseros.jpg}}
     \caption{Puentes entre pistas de los reguladores de tensión LM317.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \label{fig:puentes}
     \end{figure}
     
     Para la realización se emplearon cables de tamaño reducido que actuaban como puente entre las pistas. Debido dicho tamaño y dado que el soldado de los mismos se realizó a mano, se considera que el resultado podría ser mejorable; sin embargo, esta solución dió buenos resultados y corrigió correctamente el voltaje de salida de los reguladores de tensión LM317.
@@ -1268,8 +1227,7 @@ A pesar de todos los errores cometidos durante el proceso de fabricación y dise
  \begin{figure}[H]
     \centering 
     \includegraphics[width=0.5\linewidth]{pictures/Quote.jpg}
-    \caption{Caña al mono ingenieros.}
-    \label{fig:CAMBIAR!!!!!!!!!!}
+    \caption{Reflexión\cite{noauthor_10_2018}}
  \end{figure}
 
 
