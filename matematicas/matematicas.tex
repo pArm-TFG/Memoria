@@ -1,0 +1,142 @@
+El desarrollo de este proyecto tiene un gran peso matemático: el movimiento de los
+motores junto con la actuación conjunta de los mismos permite definir y alcanzar
+diversas posiciones a lo largo del rango de movilidad del brazo.
+
+La relación entre los ángulos y el punto final no es trivial y es necesario un estudio
+previo de distintos factores para poder hacerlo correctamente. Por una parte,
+es necesario definir de la manera más precisa posible la configuración geométrica del
+brazo. Dicha configuración relaciona los distintos segmentos que
+conforman el manipulador, en particular las posibles articulaciones que
+los componen y que se denotan por $Z_i$, donde $i$ es el número de la articulación.
+
+En particular, dichas relaciones son:
+
+\begin{itemize}
+    \item El ángulo presente entre dos articulaciones adyacentes
+          $\widehat{Z_aZ_b}~rad$, el cual se denota por $\alpha_b$.
+    \item La distancia presente entre dos articulaciones adyacentes
+          $\overline{Z_aZ_b}$, representada por $a_b$.
+    \item El sentido de la rotación de una articulación,
+          $\overrightarrow{X_aY_a}$, denotada por $\theta_a$.
+\end{itemize}
+
+Estas relaciones permiten establecer la configuración geométrica del robot,
+fundamental para poder definir los movimientos posibles del robot y generar tanto
+las matrices de la cinemática directa como obtener las ecuaciones de la cinemática
+inversa. Además, se puede obtener de la misma manera las matrices Jacobianas que
+permiten obtener datos útiles como el trabajo, la velocidad o la potencia.
+
+Para el $\mu$Arm, se obtuvieron las siguientes configuraciones geométricas:
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{.4\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/geometric_configuration_2.png}
+        \caption{Configuración geométrica del $\mu$Arm.}
+        \label{fig:uArm_gc}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{.48\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/axis.png}
+        \caption{Los distintos grados de libertad del $\mu$Arm, representados por $Z_i$.}
+        \label{fig:uArm_axis}
+    \end{minipage}
+\end{figure}
+
+Con estos valores, ya se pueden obtener las distancias entre articulaciones así
+como las desviaciones entre las mismas, si las hay. En el caso particular del $\mu$Arm,
+se obtiene unos datos como los siguientes (las medidas se han obtenido desde la guía del
+desarrollador de UFACTORY\cite{ufactoryUArmSwiftPro2017}):
+
+\begin{table}[ht]
+    \begin{minipage}{.49\linewidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=\linewidth]{pictures/sizes.png}
+            \caption{Longitudes del brazo robótico \cite{ufactoryUArmSwiftPro2017}.}
+            \label{fig:sizes}
+        \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{.49\linewidth}
+        \centering
+        \begin{tabular}{|| c | c c ||}
+            \hline
+            $i$ & $a_i~(mm.)$ & $d_i~(mm.)$ \\ [0.5ex]
+            \hline\hline
+            $1$ & $13.2$      & $106.1$     \\
+            \hline
+            $2$ & $142$       & $0$         \\
+            \hline
+            $3$ & $158.8$     & $0$         \\
+            \hline
+            $4$ & $44.5$      & $0$         \\ [1ex]
+            \hline
+        \end{tabular}
+        \caption{Longitudes y desviaciones del manipulador $\mu$Arm.}
+    \end{minipage}
+\end{table}
+
+Esta información permite construir una tabla de \textit{Denavit--Hartenberg} que
+recoge la información del robot. Dicha tabla se conoce también como ``parámetros de
+\textit{Denavit--Hartenberg}'', que conforman cuatro variables que recogen, en una
+convención particular, la referencia de una cadena cinemática (objetos rígidos unidos
+a articulaciones que responden a una función matemática) o de un brazo robótico \cite{DenavitHartenbergParameters2020}.
+
+La convención de parámetros de \textit{Denavit--Hartenberg} son los siguientes:
+\begin{itemize}
+    \item $d$ -- desviación a lo largo del eje $Z$ respecto a la normal común\footnote{la normal
+              común de dos articulaciones que no intersecan se define como la línea perpendicular a
+              ambos ejes, que se usa comúnmente para conocer la separación entre ambas dos \cite{CommonNormalRobotics2017}.}
+          con el ángulo anterior.
+    \item $\theta$ -- el ángulo de rotación desde $x_i$ hasta $y_i$. Sirve para definir
+          el sentido de la misma además de indicar el movimiento que realiza dicha articulación.
+    \item $a$ -- la distancia de la normal común $\left(\overline{Z_{i - 1}Z_i}\right)$.
+    \item $\alpha$ -- el ángulo sobre la normal común, en este caso, de $Z_{i - 1}$ hacia $Z_i$ $\left(\widehat{Z_aZ_b}\right)$.
+\end{itemize}
+
+Esta convención es especialmente interesante porque permite definir de forma precisa
+las relaciones entre las articulaciones, pudiendo conocer la rotación relativa entre
+dos de ellas y la traslación entre sus puntos. Además, aplicando las propiedades
+de las matrices, se puede obtener la relación absoluta entre las rotaciones y las
+traslaciones, lo que se traduce en conocer el punto exacto $\left\{x, y, z\right\}$ en el que se encuentra el
+\textit{end--effector} cuando se giran las articulaciones
+$\left\{\theta_0, \theta_1, \cdots, \theta_i\right\}~rad$ respectivamente.
+
+Esta relación se representa mediante una matriz, definida en la ecuación \ref{eq:dh-table}:
+
+\begin{equation}
+    {
+    \displaystyle \operatorname {}
+    ^{i-1}T_{i}=\left[{
+                \begin{array}{ccc|c}
+                    \cos{\theta_{i}} & -\sin{\theta_{i}}\cos{\alpha_{i}} & \sin{\theta_{i}}\sin{\alpha_{i}}  & d_{i}\cos{\theta_{i}} \\
+                    \sin{\theta_{i}} & \cos{\theta_{i}}\cos{\alpha_{i}}  & -\cos{\theta_{i}}\sin{\alpha_{i}} & d_{i}\sin{\theta_{i}} \\
+                    0                & \sin{\alpha_{i}}                  & \cos{\alpha_{i}}                  & d_{i}                 \\
+                    \hline
+                    0                & 0                                 & 0                                 & 1
+                \end{array}}\right] =
+    \left[{
+                \begin{array}{ccc|c}
+                      &   &   &   \\
+                      & R &   & T \\
+                      &   &   &   \\
+                    \hline
+                    0 & 0 & 0 & 1
+                \end{array}}
+        \right]
+    }
+\end{equation}
+\label{eq:dh-table}
+
+donde $R$ representa la \textit{rotación relativa} y $T$ la \textit{traslación relativa}.
+
+Otra ventaja de los parámetros de \textit{Denavit--Hartenberg} es la posibilidad de
+definir elementos cinemáticos, como la velocidad ($W_{i,j}(k)$) y la aceleración ($H_{i,j}(k)$)
+de distintos cuerpos; así como elementos dinámicos, tales como la inercia ($J$),
+el momento lineal y angular ($\Gamma$) o las fuerzas y torques aplicados 
+($\Phi$)\footnote{si bien estos datos resultan muy útiles para el proyecto no son necesariamente
+relevantes, ya que están supeditados a la velocidad y la masa, y el brazo robótico
+no presenta ni una masa suficientemente elevada ni alcanza velocidades altas.}.
