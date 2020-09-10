@@ -1,3 +1,6 @@
 [submodule "pArm-S2"]
 	path = pArm-S2
 	url = https://github.com/pArm-TFG/pArm-S2.git
+[submodule "RS"]
+	path = RS
+	url = https://github.com/pArm-TFG/RS.git
