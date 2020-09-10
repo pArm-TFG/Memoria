@@ -1,0 +1,10 @@
+Indiferentemente de la placa que finalmente se use, el sistema ha de tener tres motores: uno para la base, otro para el primer segmento del brazo robótico y el último para el segundo segmento. Además, para controlar el \textit{end--effector} hará falta una conexión con el extremo del brazo que permita, por ejemplo, añadir un pequeño motor que permita la rotación del mismo (ver el manual de desarrollador de UFACTORY para más información).
+
+Para ello, en la tabla \ref{tab:motor_list} se muestran distintas propuestas de motores que podrían ser viables para el proyecto. Intentando cubrir las necesidades, se tienen en cuenta para este proyecto:
+
+\begin{itemize}
+    \item Motor paso a paso: dispositivo electromecánico que convierte una serie de pulsos eléctricos en desplazamientos angulares. Esto permite realizar movimientos muy precisos, los cuales pueden variar de $1.8\degree$ hasta $90\degree$.
+    \item Servomotor: dispositivos de accionamiento para el control de la velocidad, par motor y posición. En su interior suelen tener un decodificador el cual convierte el giro mecánico en pulsos digitales. Además, suelen disponer de un \textit{driver} el cual permite comandar los distintos controles mencionados al principio.
+\end{itemize}
+
+\LTXtable{\linewidth}{RS/content/2/motors_table}

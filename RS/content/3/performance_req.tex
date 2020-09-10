@@ -1,0 +1,11 @@
+Pese a que no se ha restringido en particular, interesa que el sistema propuesto tanto en \ac{S1} como en \ac{S2} utilice los menos recursos posibles. Por una parte, en \ac{S1} la cantidad mínima de RAM que se recomienda es 512 MB, junto con un procesador que permita la ejecución de aplicaciones de forma concurrente.
+
+Además, los cálculos matemáticos, que en principio se harán sobre ese sistema, han de poder ejecutarse, a ser posible, de forma asíncrona y estar optimizados para permitir un cómputo mínimo de un millón de operaciones cada segundo.
+
+\ac{S2}, por su parte, presenta más limitaciones en lo que a memoria y capacidad de cómputo se refiere. En particular para este proyecto, interesa que \ac{S2} bloquee el menor tiempo posible a \ac{S1}, por lo que se intentará optimizar en tiempo de ejecución intentando además usar la menor cantidad de memoria posible. De esta forma:
+
+\begin{enumerate}
+    \item El uso de la memoria \ac{RAM} se buscará que sea el menor posible, sin sacrificar en rendimiento.
+    \item El uso de la memoria \textit{flash} no se buscará reducirlo necesariamente, ya que eso puede afectar directamente al rendimiento.
+    \item Se trabajará en que el tiempo que el microcontrolador esté haciendo ejecuciones sea el menor posible, permitiendo así un ahorro de energía junto con estar menos tiempo bloqueando al \ac{S1}.
+\end{enumerate}

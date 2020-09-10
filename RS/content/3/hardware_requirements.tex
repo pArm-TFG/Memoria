@@ -1,0 +1,72 @@
+\subsubsection{Recepción y envío de secuencias de bits entre \ac{S1} y \ac{S2}}
+\begin{itemize}
+    \item Prioridad: 1.
+    \item Descripción: debe existir un medio de comunicación basado en \ac{UART} entre \ac{S1} y \ac{S2} que permita el intercambio de secuencias de bits.
+    \item Entradas: secuencia de bits o instrucción a enviar.
+    \item Salidas: recepción correcta por parte del destinatario.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Generación de señales \ac{PWM}}
+\begin{itemize}
+    \item Prioridad: 0.
+    \item Descripción: el microcontrolador situado en \ac{S2} debe ser capaz de generar señales eléctricas analógicas \ac{PWM}, las cuales serán usadas para controlar los motores.
+    \item Entradas: instrucciones del sistema de control en \ac{S1}
+    \item Salidas: señal de control \ac{PWM} que se corresponde con la respuesta a dicha instrucción.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Generación de señales digitales}
+\begin{itemize}
+    \item Prioridad: 0.
+    \item Descripción: el microcontrolador situado en \ac{S2} debe ser capaz de generar señales digitales.
+    \item Entradas: instrucciones del sistema de control en \ac{S1}.
+    \item Salidas: señal de control digital.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Recepción y procesamiento de señales analógicas}
+\begin{itemize}
+    \item Prioridad: 1.
+    \item Descripción: El microcontrolador debe ser capaz de recibir mediante sus pines y procesar las señales analógicas provenientes de los motores, en caso de que estos informen sobre su posición angular. Estas señales deben ser recibidas y procesadas mediante el \ac{ADC} para poder ser tratadas a nivel de software.
+    \item Entradas: señal analógica
+    \item Salidas: señal procesada y convertida a datos tratables por el \ac{SW}.
+    \item Errores: no se espera ningún error.
+    \end{itemize}
+    
+\subsubsection{Recepción y procesamiento de señales digitales}
+\begin{itemize}
+    \item Prioridad: 1.
+    \item Descripción: El microcontrolador debe ser capaz de recibir mediante sus pines y procesar las señales digitales. Estas señales deben ser recibidas y tratadas nivel de \textit{software}.
+    \item Entradas: señal digital
+    \item Salidas: ninguna.
+    \item Errores: no se espera ningún error.    
+\end{itemize}
+
+\subsubsection{Modo \textit{Deep--Sleep}}
+\begin{itemize}
+    \item Prioridad: 2.
+    \item Descripción:el microcontrolador debe ser capaz de entrar en modo \textit{Deep--Sleep}
+    \item Entradas: ninguna.
+    \item Salidas: ninguna.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Encendido}
+\begin{itemize}
+    \item Prioridad: 0.
+    \item Descripción: se requiere un periodo de inicialización cuando se produce el encendido del sistema. Durante este periodo se realiza la inicialización de la señal de reloj, así como de los periféricos del microcontrolador. 
+    \item Entradas: ninguna.
+    \item Salidas: ninguna.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Apagado}
+\begin{itemize}
+    \item Prioridad: 0.
+    \item Descripción: \ac{S1} puede enviar la señal de apagado del sistema a \ac{S2}. Cuando esto suceda, el microcontrolador debe de apagarse por completo y debe interrumpir la recepción de instrucciones, así como la generación de señales de control hacia los motores.
+    \item Entradas: instrucción de apagado.
+    \item Salidas: apagado del sistema.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+

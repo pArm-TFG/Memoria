@@ -1,0 +1,31 @@
+\subsection{Interfaz con el usuario}
+\label{sec:ui_reqs}
+El \ac{S1} dispondrá de una interfaz de usuario que deberá seguir el modelo propuesto en la figura \ref{fig:ui_design}. Dicha interfaz habrá de contar con los siguientes elementos:
+\begin{itemize}
+    \item Distintos controladores gráficos que permitan establecer la posición final del \textit{end--effector} bien mediante coordenadas articulares o bien mediante coordenadas angulares.
+    \item Un actuador para poder escoger entre las alternativas mencionadas en el punto anterior.
+    \item Un actuador para confirmar que se quiere mandar el movimiento al brazo robótico.
+    \item Un actuador para detener un movimiento en ejecución del brazo.
+\end{itemize}
+
+Teniendo en cuenta el diseño propuesto en la figura \ref{fig:ui_design}, los componentes anteriores estarían
+representados por:
+
+\begin{itemize}
+    \item Tres \textit{slider}s los cuales establecerán los valores para los ángulos 
+    $\left\{\theta_1, \theta_2, \theta_3\right\}$, si se está trabajando en el modo de coordenadas
+    angulares; o los valores de los puntos $\left\{x, y, z\right\}$, si se está trabajando en el modo
+    de coordenadas cartesianas.
+    \item Un botón desplegable con múltiples opciones que permitiría escoger entre los dos modos
+    mencionados en el punto anterior.
+    \item Un botón que permita confirmar los cambios en las coordenadas/ángulos antes de enviar
+    definitivamente el movimiento al robot.
+    \item Una barra de progreso la cual permite conocer una estimación de cuánto lleva el robot hecho
+    del movimiento final previsto.
+    \item Dos pequeñas ventanas que informan sobre la posición del brazo final una vez se han
+    cambiado los valores de las coordenadas/ángulos. Dichas ventanas muestra una vista cenital del
+    brazo, que indica cómo se mueve en el eje $Y$, y una vista de perfil del mismo, que indica cómo
+    se mueve en el eje $XZ$.
+    \item Una pequeña ventana que muestra \textit{logs} relevantes respecto a la situación tanto
+    de \ac{S1} como de \ac{S2}.
+\end{itemize}

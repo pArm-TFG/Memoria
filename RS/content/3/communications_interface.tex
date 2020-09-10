@@ -1,0 +1,12 @@
+\subsection{Interfaz de comunicaciones}
+Las comunicaciones que se realicen entre \ac{S1} y \ac{S2} están planteadas para utilizar \ac{UART} como método de comunicación. Además, se mencionó como futura implementación poder hacer las comunicaciones entre ambos sistemas utilizando protocolos de red inalámbricos.
+
+No se restringe la velocidad de transmisión (\textit{baud--rate}), ya que se asume que \ac{S1} tendrá la posibilidad de adaptar su velocidad. Se escoge el \ac{USB} como método para intercambiar la información debido a:
+
+\begin{itemize}
+    \item Universalidad: los dispositivos cuentan con al menos una conexión \ac{USB}.
+    \item Energía: el \ac{USB} provee $5~V$ al circuito que se conecta en el otro extremo. Además, la versión 2.0 del estándar, que es lo generalizado en microcontroladores, puede proveer hasta $500~mA$ al componente conectado.
+    \item Simplicidad: no es necesario entender cómo se conectan los cables sino directamente conectar los extremos.
+\end{itemize}
+
+Para un correcto funcionamiento, la comunicación ha de ser bidireccional, en particular \textit{full duplex}. De esta forma, se podrán recibir y enviar datos simultáneamente, pudiendo así conocer el estado del brazo robótico y actuar en consecuencia en caso de que se encuentre algún tipo de error o problema. Al utilizar el \ac{USB} como método de comunicación este problema está subsanado, ya que va implícito en la definición del estándar.

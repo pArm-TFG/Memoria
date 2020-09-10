@@ -1,0 +1,259 @@
+\subsection*{\ac{S1}}
+\subsubsection{Mostrar pantalla de control}
+\begin{itemize}
+    \item ID: 1
+    \item Prioridad: 3.
+    \item Descripción: se muestra una pantalla donde serán situados los \textit{sliders}.
+    \item Entradas: ninguna.
+    \item Salidas: ninguna.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Mostrar pantalla informativa}
+\begin{itemize}
+    \item ID: 2
+    \item Prioridad: 2
+    \item Descripción: se mostrarán distintos datos informativos sobre el estado del sistema \ac{S2}, en caso de que este se haya conectado correctamente.
+    \item Entradas: los datos recibidos por el sistema \ac{S2}, si estuviera conectado.
+    \item Salidas: los datos recibidos debidamente interpretados por el sistema.
+    \item Errores: se mostrará un aviso en caso de que el sistema \ac{S2} no se detecte o presente algún problema.
+\end{itemize}
+
+\subsubsection{Mostrar botones de edición de pantalla}
+\begin{itemize}
+    \item ID: 3
+    \item Prioridad: 2
+    \item Descripción: se muestran \textit{widgets} de tipo botones clicables de minimizar, maximizar y cerrar pantalla.
+    \item Entradas: ninguna.
+    \item Salidas: ninguna.
+    \item Errores: en caso de que algún proceso pudiera quedar bloqueado, los \textit{widgets} permitirían el cierre inmediato de la aplicación.
+\end{itemize}
+
+\subsubsection{Interactuar con botones de edición de pantalla}
+\begin{itemize}
+    \item ID: 4
+    \item Prioridad: 3.
+    \item Descripción: se permite interactuar con los botones que aparecen en la \ac{GUI} para controlar la pantalla \ac{S2}.
+    \item Entradas: interacción del usuario con los botones de edición de pantalla.
+    \item Salidas: cambios lógicos tales que se realicen los cometidos de cada botón.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Mostrar \textit{sliders}}
+\begin{itemize}
+    \item ID: 5
+    \item Prioridad: 3.
+    \item Descripción: se muestra por pantalla una serie de \textit{widgets} de tipo \textit{sliders}.  
+    \item Entradas: coordenadas angulares $\left(\theta_1, \theta_2, \theta_3\right)$ y coordenadas cartesianas $\left(X,Y,Z\right)$.
+    \item Salidas: mostrar por pantalla de manera gráfica el valor de las variables.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Editar la posición de los \textit{sliders}}
+\begin{itemize}
+    \item ID: 6
+    \item Prioridad: 3.
+    \item Descripción: se permite al usuario interactuar de manera directa e independiente con cada uno de los motores del brazo robótico, así como con las componentes de la posición cartesiana del \textit{end--effector}. Este requisito permite al usuario tener una mayor precisión en cuanto a la posición que desea obtener para el brazo robótico.
+    \item Entradas: variación por parte del usuario de la posición de los \textit{sliders}.
+    \item Salidas: modificar el valor numérico de las variables.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Mostrar botón cambio de modo de funcionamiento del \ac{S1}}
+\begin{itemize}
+    \item ID: 7
+    \item Prioridad: 3.
+    \item Descripción: se muestra por pantalla un \textit{widget} de tipo botón clicable que permite cambiar el modo de funcionamiento. 
+    \item Entradas: al hacer clic se permite el cambio de modo.
+    \item Salidas: mostrar el nuevo modo de funcionamiento.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Interactuar con botón de cambio de modo de funcionamiento del \ac{S1}}
+\begin{itemize}
+    \item ID: 8
+    \item Descripción: se permite al usuario interactuar con el botón para cambiar el modo de funcionamiento.
+    \item Entradas: interacción del usuario con el botón.
+    \item Salidas: modificación del modo de funcionamiento.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Mostrar variables}
+\begin{itemize}
+    \item ID: 9
+    \item Prioridad: 2.
+    \item Descripción: se muestran por pantalla las variables que definen las posiciones cartesianas del \textit{end--effector} y las angulares de los motores.
+    \item Entradas: valores numéricos de las variables.
+    \item Salidas: mostrar por pantalla dichos valores.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Mostrar botón de control del \textit{end--effector}}
+\begin{itemize}
+    \item ID: 10
+    \item Prioridad: 2.
+    \item Descripción: se muestra por pantalla un \textit{widget} de tipo botón clicable que permite cambiar el estado del \textit{end--effector}.
+    \item Entradas: estado del \textit{end--effector}
+    \item Salidas: mostrar el estado de \textit{end--effector}.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Interactuar con botón de control del \textit{end--effector}}
+\begin{itemize}
+    \item ID: 11
+    \item Prioridad: 2.
+    \item Descripción: se permite al usuario interactuar con el el botón para cambiar el estado de la pinza
+    \item Entradas: interacción con el botón por parte del usuario.
+    \item Salidas: modificar el estado del \textit{end--effector}.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Editar variables}
+\begin{itemize}
+    \item ID: 12
+    \item Prioridad: 3.
+    \item Descripción: se permite al usuario editar las variables numéricas de manera directa interactuando con el campo y escribiendo los valores numéricos deseados.
+    \item Entradas: cambio por parte del usuario del valor numérico mostrado.
+    \item Salidas: modificar el valor numérico de la variable.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Comprobar variables}
+\begin{itemize}
+    \item ID: 13
+    \item Prioridad: 3.
+    \item Descripción: El sistema, al detectar cambios en alguna de las coordenadas, ya sean cartesianas o angulas se encarga de verificar que dichas coordenadas están en el rango de trabajo del robot. De no ser así se impide el movimiento del brazo para prevenir daños en su estructura o en los motores.
+    \item Entradas: valor de las coordenadas angulares y cartesianas deseadas.
+    \item Salidas: validación de dichas coordenadas.
+    \item Errores: si alguno de los valores introducidos no es válido, se notificará al usuario de dicho error y se evitará que el \ac{S2} realice dichos movimientos.
+\end{itemize}
+
+\subsubsection{Comunicación con el sistema \ac{S2}}
+\begin{itemize}
+    \item ID: 14
+    \item Prioridad: 1.
+    \item Descripción: utilizando un lenguaje binario, se comunicarán las secuencias de órdenes desde el sistema \ac{S1} al sistema \ac{S2}.
+    \item Entradas: secuencia de movimientos representada como movimientos en puntos cartesianos o como rotaciones de las articulaciones.
+    \item Salidas: secuencia binaria que especifica, en el sistema \ac{S2}, los movimientos que se han de realizar.
+    \item Errores: como se han comprobado los elementos con anterioridad, no se esperan errores.
+\end{itemize}
+
+\subsubsection{Cálculo de coordenadas articulares}
+\begin{itemize}
+    \item ID: 15
+    \item Prioridad: 1.
+    \item Descripción: dadas unas coordenadas en forma cartesiana, el sistema \ac{S1} debe poder calcular las coordenadas articulares de cada una de las articulaciones del robot.
+    \item Entradas: conjunto de tres puntos cartesianos $(X,Y,Z)$.
+    \item Salidas: conjunto de tres puntos articulares $(\theta_1, \theta_2, \theta_3)$.
+    \item Errores: dada la configuración geométrica del robot, no se esperan errores.
+\end{itemize}
+
+\subsubsection{Cálculo de coordenadas cartesianas}
+\begin{itemize}
+    \item ID: 16
+    \item Prioridad: 1.
+    \item Descripción: dadas unas coordenadas articulares, el sistema \ac{S1} debe poder obtener las coordenadas cartesianas en las que se encuentra en \textit{end--effector}.
+    \item Entradas: conjunto de tres puntos articulares $(\theta_1, \theta_2, \theta_3)$.
+    \item Salidas: conjunto de tres puntos cartesianos $(X,Y,Z)$.
+    \item Errores: no se esperan errores.
+\end{itemize}
+
+\subsubsection{Interpretación de los datos}
+\begin{itemize}
+    \item ID: 17
+    \item Prioridad: 1.
+    \item Descripción: el sistema \ac{S1} debe de poder entender e interpretar los datos recibidos desde \ac{S2}.
+    \item Entradas: cadena binaria con información provista por \ac{S2}.
+    \item Salidas: mostrar, utilizando la interfaz de usuario, la información pertinente.
+    \item Errores: no se esperan errores.
+\end{itemize}
+
+\subsubsection{Protocolo de intercambio de información}
+\begin{itemize}
+    \item ID: 18
+    \item Prioridad: 1.
+    \item Descripción: debe existir un protocolo de intercambio de información que defina la longitud, significado y estructura del las instrucciones o secuencias de bits que se transmiten mediante \textit{UART}.
+    \item Entradas: Ninguna.
+    \item Salidas: Ninguna.
+\end{itemize}    
+
+\subsubsection{Encendido del sistema}
+\begin{itemize}
+    \item ID: 19
+    \item Prioridad: 0.
+    \item Descripción: el \ac{S1}, al encenderse, debe comprobar si está conectado el \ac{S2} e inicializar aquellos recursos que serán necesarios.
+    \item Entradas: ninguna.
+    \item Salidas: ninguna.
+    \item Errores: se esperan errores si hubiera algún tipo de corrupción de datos en los ficheros del programa o en los contenedores de datos.
+\end{itemize}
+
+\subsubsection{Apagado del sistema}
+\begin{itemize}
+    \item ID: 20
+    \item Prioridad: 1.
+    \item Descripción: cuando el usuario cierra la interfaz, el sistema \ac{S1} debe desconectarse del todo y cesar cualquier comunicación que pudiera existir con \ac{S2}. Además, deberá eliminar cualquier tipo de dato residual resultante.
+    \item Entradas: el usuario cierra la aplicación.
+    \item Salidas: ninguna.
+    \item Errores: se esperan errores si no fuese posible cesar la comunicación debido a alguna política del sistema operativo. Se notificará al usuario al respecto.
+\end{itemize}
+
+\subsection*{\ac{S2}} 
+\subsubsection{Encendido del sistema}
+\begin{itemize}
+    \item ID: 21
+    \item Prioridad: 0.
+    \item Descripción: cuando se inicie el sistema \ac{HW}, debe iniciarse también el \ac{SW}.
+    \item Entradas: encendido del sistema \ac{HW}.
+    \item Salidas: activación del sistema \ac{SW}.
+    \item Errores: no se esperan errores.
+\end{itemize}
+
+\subsubsection{Apagado del sistema}
+\begin{itemize}
+    \item ID: 22
+    \item Prioridad: 0.
+    \item Descripción: cuando se reciba la orden de apagado desde el \ac{S1}, el sistema debe cortar toda comunicación con el mismo y apagarse lo antes posible.
+    \item Entradas: orden de apagado desde \ac{S1}.
+    \item Salidas: ninguna.
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Interpretación de los valores binarios}
+\begin{itemize}
+    \item ID: 23
+    \item Prioridad: 1.
+    \item Descripción: tras recibir el \ac{HW} una cantidad de bits que represente el tamaño designado para un determinado comando, los bits se interpretarán y se definirá de que comando se trata.
+    \item Entradas: bits de control
+    \item Salidas: comando para el sistema físico
+    \item Errores: no se espera ningún error.
+\end{itemize}
+
+\subsubsection{Comprobación de los dispositivos}
+\begin{itemize}
+    \item ID: 24
+    \item Prioridad: 0.
+    \item Descripción: el sistema deberá comprobar que detecta adecuadamente los dispositivos que están conectados al mismo.
+    \item Entradas: conexiones con cada uno de los dispositivos.
+    \item Salidas: ninguna.
+    \item Errores: si no se detecta algún dispositivo se notificará al sistema \ac{S1} sobre dicha falta. Además, se actuará sobre un indicador luminoso para mostrar dicha falla.
+\end{itemize}
+
+\subsubsection{Comunicación con \ac{S1}}
+\begin{itemize}
+    \item ID: 25
+    \item Prioridad: 1.
+    \item Descripción: utilizando los protocolos de comunicación, el sistema debe poder comunicarse con \ac{S1} correctamente.
+    \item Entradas: valores recibidos por \ac{S1}.
+    \item Salidas: valores enviados hacia \ac{S1}.
+    \item Errores: no se esperan errores en la comunicación. En caso de existir, se reenviarían las tramas hasta que se recibieran por el \ac{S1}.
+\end{itemize}
+
+\subsubsection{Comprobación de la conexión}
+\begin{itemize}
+    \item ID: 26
+    \item Prioridad: 1.
+    \item Descripción: como el \ac{S2} es dependiente del \ac{S1}, este necesitará comprobar que se encuentra activado para empezar a funcionar.
+    \item Entradas: valor acordado por el sistema \ac{S1}.
+    \item Salidas: valor acordado con el sistema \ac{S2}.
+    \item Errores: en caso de no encontrar al sistema \ac{S1}, el microcontrolador emitiría algún tipo de señal visual o acústica.
+\end{itemize}

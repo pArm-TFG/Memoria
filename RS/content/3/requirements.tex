@@ -1,0 +1,43 @@
+\subsection{Permitir generar movimientos}
+\subsubsection*{Mediante el ángulo de cada uno de los motores}
+El sistema \ac{S2} cuenta con tres motores los cuales se encargan del movimiento de cada una de las partes del
+brazo. Se permitirá establecer individualmente cada ángulo $\left\{\theta_0, \theta_2, \theta_3\right\}$ 
+y mover así el brazo a una posición final $\left\{x', y', z'\right\}$.
+
+Este movimiento, siguiendo la maqueta definida en la figura \ref{fig:ui_design}, se realizará interactuando
+con \textit{sliders}.
+
+\subsubsection*{Mediante las coordenadas cartesianas del punto final}
+Se permitirá también el movimiento a un punto $\left\{x, y, z\right\}$ directamente, para lo que se obtendrán
+los ángulos $\left\{\theta_0, \theta_2, \theta_3\right\}$ que permiten alcanzar dicha posición.
+
+Al igual que en el caso anterior, se podrá definir cada punto independientemente.
+
+Este movimiento, siguiendo la maqueta definida en la figura \ref{fig:ui_design}, se realizará interactuando
+con \textit{sliders}.
+
+\subsubsection*{Selección del modo de funcionamiento del brazo}
+Dado que, como se ha mencionado en los puntos anteriores, hay dos maneras de hacer que el brazo se pueda
+mover, habrá de existir algún tipo de actuador en la interfaz de usuario que permita escoger entre dichos modos.
+
+Esta acción, siguiendo la maqueta definida en la figura \ref{fig:ui_design}, se realizará interactuando con
+un botón.
+
+\subsubsection*{Ejecución en un momento determinado}
+La interacción con los elementos comentados anteriormente no será efectiva hasta que el usuario indique que
+quiere que se realicen, permitiendo así confirmar que los datos introducidos son los correctos.
+
+Esta acción, siguiendo la maqueta definida en la figura \ref{fig:ui_design}, se realizará interactuando con
+un botón.
+
+\subsubsection*{Demostración del punto final del brazo}
+La interacción con los actuadores definidos anteriormente se verá reflejada en unas pequeñas ventanas
+que muestran cómo debería encontrarse el brazo tras realizar los movimientos indicados.
+
+Esta demostración, siguiendo la maqueta definida en la figura \ref{fig:ui_design}, se mostrará mediante
+unos dibujos esquemáticos que representan el brazo visto de perfil y desde una vista cenital.
+
+\subsubsection*{Otros requisitos}
+Se han considerado operaciones más avanzadas para el control del brazo (como trazar trayectorias o
+un control mediante el ratón en un plano 2D) las cuales no se reflejan en este documento ya que se
+ha postergado su desarrollo e implementación a una futura versión del sistema.
