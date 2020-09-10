@@ -1,0 +1,22 @@
+Para el desarrollo de la placa que conforma el \ac{S2} se ha empleado un microcontrolador ``dsPIC33EP512GM604''.
+Los motivos por los cuales se ha usado este modelo son los siguientes: 
+
+\begin{itemize}
+ \item En primera instancia, la cantidad y la precisión de los canales \ac{PWM} que este ofrece, ya que son suficientes para poder controlar todos los motores y su precisión permite generar una señal adecuada para controlar a cada uno de ellos.
+
+ \item Por otro lado, debido a la naturaleza de los cálculos que se deben realizar para convertir posiciones cartesianas a ángulos y viceversa, el \ac{DSP} facilita la obtención de los valores de las diferentes operaciones matriciales que permiten esta conversión.
+
+ \item Otro aspecto importante es la posibilidad de almacenar hasta 512KB de memoria de programa.
+
+ \item Por último, se ha elegido un \ac{DSP} de Microchip debido a que todos los integrantes del grupo de desarrollo tiene experiencia previa con este fabricante. Además, dicho fabricante proporciona documentación extensa sobre sus productos.
+\end{itemize}
+
+Una parte crítica del proyecto es la precisión y el control de los motores. En este aspecto, los canales \ac{PWM} del \ac{DSP} permiten generar ciclos de trabajo a partir de un registro de 16 bits. Para una frecuencia de $50Hz$ (período de $20ms$), un giro de 360\degree{} supondría una duración del nivel alto del \ac{PWM} de $5ms$. Es decir, se podrá controlar la rotación entre 0\degree{} y 360\degree{} con $\sfrac{2^{16}}{4} = 16384\,bits$ de control. Esto supone que obtendremos una precisión máxima de $\sfrac{360}{16384} = 0'02197\degree{}$, lo cual es suficiente para el proyecto.
+
+Cabe destacar, que si bien los motor son capaces de girar 360\degree{} hexadecimales, debido a las limitaciones geométricas del brazo, los ángulos de giro se ven limitados en la aplicación concreta que se les dará.
+
+En cuanto a las operaciones matemáticas, el \ac{DSP} cuenta con un circuito \ac{PLL}, el cual permite incrementar la frecuencia del oscilador para conseguir de esta manera una mayor cantidad de instrucciones por segundo y, por tanto, un mayor volumen de operaciones.
+
+En el momento de comenzar el proyecto se podía suponer que el código no podría albergarse en la memoria que normalmente suministran microcontroladores de menores prestaciones.
+
+Este microcontrolador, gracias a que dispone de varios puertos \ac{UART} permite recibir las ordenes y los movimientos necesarios desde el \ac{S1}. Desde \ac{S2}, se realizará las operaciones matemáticas necesarias y después se encargará de generar las señales \ac{PWM} para mover los motores de tal manera que el brazo robótico quede en la posición deseada.

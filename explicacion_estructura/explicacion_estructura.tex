@@ -1,0 +1,25 @@
+El diseño y construcción de un brazo robótico es un proceso multidisciplinar en el que se deben emplear diversas áreas del conocimiento. Desde un primer momento, este proyecto se postuló como un proyecto completo de ingeniería, y es precisamente por eso que  está dividido en varios bloques, los cuales desempeñan una función clave en el desarrollo correcto del mismo.
+
+El proyecto está divido en tres grandes bloques: modelo matemático, elementos \textit{hardware} y elementos \textit{software}. Cada una de estas partes se encuentra a su vez subdivida en diferentes partes o hitos. Sin embargo, no es necesario describirlos con tanta precisión por el momento para poder comprender la estructura completa del proyecto.
+
+Cabe destacar que, desde un punto de vista de ingeniería, a cada uno de los grandes bloques anteriormente mencionados se le puede asociar a una función dentro del proyecto:
+
+\begin{itemize}
+    \item El modelo matemático es la parte más teórica del proyecto y su función es la de aportar una base formal y lógica que permita predecir y controlar el comportamiento del brazo robótico. Este bloque se encuentra ubicado en el apartado \ref{chap:maths} de la memoria.
+    
+    \item Los elementos \textit{hardware} del proyecto constituyen la realidad física del brazo robótico y están estrictamente relacionados con la construcción del mismo, así como con el control de los actuadores y demás componentes físicos presentes en el brazo robótico. Este bloque se encuentra ubicado en el apartado \ref{chap:hardware} de la memoria.
+    
+    \item Los elementos \textit{software} del proyecto constituyen el principal mecanismo para implementar el modelo matemático y la lógica de funcionamiento del sistema completo mediante la programación de los elementos \textit{hardware} y de los sistemas que necesitan comunicarse con los mismos. Este bloque se encuentra ubicado en el apartado \ref{chap:software} de la memoria.
+\end{itemize}
+
+En cada uno de los bloques de desarrollo anteriores, ya sean \textit{hardware} o \textit{software} y requieran construcción física o implementación mediante programación, se contempla la realización de pruebas de funcionamiento así como las revisiones pertinentes.
+
+Es importante remarcar que, debido a la complejidad del sistema, el mismo está divido en dos subsistemas que aglutinan funcionalidades vitales para el correcto funcionamiento del manipulador robótico:
+
+\begin{itemize}
+    \item \ac{S1}: está formado por la interfaz de usuario que se ejecuta sobre un computador de propósito general; esta interfaz es gráfica y le permite controlar los movimientos del brazo robótico, así como visualizar el estado de los parámetros del mismo. Este subsistema es esencialmente un elemento software y está descrito en el apartado 6.1 de la memoria.
+    
+    \item \ac{S2}: está formado por la estructura física del manipulador, los actuadores y la placa de circuito impreso de control. Este subsistema combina elementos \textit{hardware} y \textit{software}, así como conceptos del modelo matemático. Los elementos \textit{software} se describen en el apartado 6.2 de la memoria, mientras que los elementos \textit{hardware} se describen en el apartado 5 de la memoria.
+\end{itemize}
+
+A continuación, se describen de forma detallada todos los bloques descritos anteriormente y a su vez, se mencionan las principales subdivisiones de cada uno de ellos.\\

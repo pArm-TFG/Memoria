@@ -1,0 +1,303 @@
+\subsection{Desarrollo de la robótica a lo largo de la historia}
+
+El mundo de la robótica da acceso a resolver una gran variedad de problemas donde el ser humano estaba
+limitado físicamente: levantar cargas de gran peso, realizar tareas repetitivas durante tiempos
+prolongados, etc. Además, como bien se sabe, ha permitido el desarrollo de cadenas de producción en
+masa para poder desarrollar y crear los productos que usamos diariamente, desde el coche hasta el 
+teléfono móvil.
+
+Desde que se empezó a investigar en este campo, el desarrollo de los brazos robóticos ha sido 
+exponencial: se empezó trabajando con pequeños autómatas hasta el desarrollo de la revolución
+industrial \cite{moranEvolutionRoboticArms2007a}.
+
+Los primeros modelos, como se puede ver en la figura \ref{fig:evolution}, empezaron intentando hacer
+representaciones de las manos humanas. En particular, se crearon un flautista y un tamborilero los
+cuales eran capaces de tocar los respectivos instrumentos utilizando un complejo sistema de cables y 
+engranajes para poder mover los ``dedos'' de los músicos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.75\linewidth]{pictures/evolution_of_robotic_arms.png}
+    \caption{Flautista y tamborilero de Vaucanson \cite{vaucansonMecanismeFluteurAutomate1738a}.}
+    \label{fig:evolution}
+\end{figure}
+
+Siguiendo con esta idea, se fue mejorando y desarrollando el modelo de imitación de las articulaciones
+y los miembros de los humanos, llegando a construir estructuras más complejas y avanzadas, pensadas en 
+su momento para poder tocar el clavicordio mediante un muñeco, como se muestra en la figura 
+\ref{fig:lady_musician}:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.8\linewidth]{pictures/reproduction_of_lady_musician.png}
+    \caption{En 1774, ``lady musician'' por Jaquet-Droz \cite{chapuisalfredanddrozedmondAutomataHistoricalTechnological1958a}.}
+    \label{fig:lady_musician}
+\end{figure}
+
+Durante los años siguientes, el proceso se fue refinando hasta el punto de desarrollar un autómata
+el cual era capaz de jugar al ajedrez, llamado ``The Turk'' \cite{standage_tom_turk_2002}, construido
+en 1769. La estructura comprendía un conjunto de mecanismos los cuales eran controlados por un operador,
+encargado de realizar los movimientos del brazo izquierdo del autómata.
+
+En la figura \ref{fig:turk} se puede ver cómo está diseñado el sistema para mover un controlador 
+pantográfico sobre el tablero de juego, controlado por el operador externo antes mencionado:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.75\linewidth]{pictures/chess_evolution.png}
+    \caption{``The Turk'', creado por von Kempelen en 1769 \cite{standagetomTurkLifeTimes2002a}.}
+    \label{fig:turk}
+\end{figure}
+
+Desde entonces, la robótica ha evolucionado y crecido de manera exponencial. Por una parte, debidas
+las distintas guerras que han habido en los últimos 200 años, se ha dado un gran impulso a la 
+industria encargada de crear distintos dispositivos con fines de defensa y ataque. En particular,
+se potenciaron mucho los desarrollos de dispositivos por control remoto, destacando el diseño de
+NiKola Tesla en 1898 de un barco completamente automatizado, controlado por control remoto y sumergible,
+como se puede ver en la figura \ref{fig:nicola_tesla_boat}:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.75\linewidth]{pictures/nicola_tesla_boat.png}
+    \caption{Barco a control remoto de Nicola Tesla, en 1898 \cite{belarminojandmoranmeandfiroozifandcapellosandkolioseandperrottimTeslaRobotDawn2005a}}
+\end{figure}
+
+Por otro lado, dada la cantidad de bajas de las Primera y Segunda Guerras Mundiales, se empezaron a
+desarrollar robots que permitieran sustituir a los militares en el campo de batalla, destacando en este
+campo el robot ``Elektro'', creado por la compañía Westinghouse. Dicho robot supuso un gran éxito en la
+industria de los robots y armamentística, pudiendo moverse completamente, disparar armas, mover elementos
+faciales para ``expresar emociones'' e inclusive poder comunicarse.
+
+En la figura \ref{fig:elektro}, se puede ver a la izquierda la primera versión ``Alpha'' y, a la derecha,
+la versión mejorada ``Elektro'':
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.85\linewidth]{pictures/elektro.png}
+    \caption{``Alpha'', el primer robot diseñado con fines militares y su posterior evolución, ``Elektro''.}
+    \label{fig:elektro}
+\end{figure}
+
+Toda esta evolución ha desembocado en la robótica moderna, en donde tenemos robots sofisticados y con
+distintos actuadores, pudiendo interactuar con muchísimos elementos de nuestro entorno y trabajar en
+distintas fases de producción de cadenas de montaje en serie. Además, se trabaja continuamente para 
+que cada vez los robots puedan realizar más tareas de los humanos, mejorando cada vez más los
+``\textit{end--effectors}'' (controladores del final de los extremos del brazo). En la figura 
+\ref{fig:new_robots} se puede ver cómo robots medianamente antiguos (del 2005) ya podían realizar diversas
+actividades, como interactuar con las personas o tocar un instrumento.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.75\linewidth]{pictures/expo_japan.png}
+    \caption{Exposición mundial del 2005 en Japón \cite{belarminojandmoranmeandfiroozifandcapellosandkolioseandperrottimOrientalCultureRobotics2005a}.}
+    \label{fig:new_robots}
+\end{figure}
+
+\subsection{Los brazos robóticos}
+
+Con los avances actuales, el mundo de la robótica ha evolucionado a un nuevo nivel: con la inclusión
+de los transistores en lugar de las válvulas de vacío se han podido desarrollar circuitos integrados
+que manejan de manera mucho más sofisticada el control del brazo robótico.
+
+En 1962, la empresa ``Unimate'' introdujo su primer brazo robótico de carácter industrial. Aproximadamente,
+se vendieron 8500 unidades. Este hito es importante en tanto a que se valoraron por primera vez los
+grados de libertad que debían de tener los brazos robóticos. 
+
+Estos planteamientos derivaron en distintos robots famosos que incluso siguen en activo hoy día. En
+1969, Victor Scheinman, de la Universidad de Standford, desarrolló un brazo robótico que funcionaba
+alimentado por la electricidad y que se podía mover en los seis ejes, el cual se llamó ``el brazo de
+Standford''. De forma paralela, Marvin Minsky, del MIT, desarrolló un brazo robótico para la investigación
+naval, para exploración submarina. En particular, el brazo tenía veinte grados de libertad ya que
+funcionaba mediante electricidad impulsando sistemas hidráulicos. Más tarde, Scheinman continuó
+desarrollando brazos robóticos, creando el ``\textit{Programmable Universal Machine for Assembly}'',
+más conocido como PUMA.
+
+En la actualidad, los brazos robóticos se desarrollan y diseñan para seguir la estructura física
+del cuerpo humano (ver figura \ref{fig:human_body}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.65\linewidth]{pictures/human_body.png}
+    \caption{Grados de libertad de un brazo robótico y estructura del cuerpo humano \cite{moranEvolutionRoboticArms2007a}.}
+    \label{fig:human_body}
+\end{figure}
+
+De la estructura anterior, se deducen las siguientes partes:
+
+\begin{itemize}
+    \item Articulación del hombro: dispone de tres grados de libertad que permiten
+    subir y bajar, ir a la izquierda y derecha, y rotar sobre sí mismo.
+    \item Articulación del codo: el codo permite extender, contraer y reorientar tanto
+    la muñeca como la mano. Por lo general, se estima la extensión del codo en unos
+    150\textdegree.
+    \item La muñeca: compone el último elemento del brazo robótico antes de llegar
+    al ``\textit{end--effector}''. Es de los elementos más importantes debido a su
+    gran capacidad de movimiento en las tres dimensiones. Sin esta articulación,
+    el brazo robótico se asemejaría en funcionalidad a un robot pantográfico. Cada vez más,
+    las articulaciones de la muñeca se vuelven complejas y sofisticadas. La muñeca humana,
+    por ejemplo, puede moverse 45\textdegree{} desde el centro, pero se reduce mucho la
+    capacidad de rotación de la misma. En la actualidad se está investigando cómo poder
+    mejorar la relación de movimientos para permitir una mayor movilidad, pero las 
+    singularidades siguen siendo un gran problema. Por ejemplo, el robot quirúrgico
+    da Vinci, pese a lo avanzado que pueda parecer, tiene problemas de bloqueo de las muñecas
+    cuando se acerca a posiciones singulares.
+    \item La mano: supone un ``\textit{end--effector}'' diferenciado que define el propóstio
+    y la capacidad del brazo robótico. La mano es una herramienta capaz de realizar múltiples
+    acciones muy variadas entre sí. Actualmente, se sigue investigando de forma activa sobre
+    ello para intentar implementar controles sensoriales, de presión y de movimiento en los
+    ``\textit{end--effector}'' de los robots.
+\end{itemize}
+
+\subsection{La actualidad}
+
+Durante los dos últimos decenios la robótica ha evolucionado de manera exponencial. Se ha
+trabajado de forma activa en mejorar ciertas condiciones industriales, espaciales y
+en el día a día de las personas. En el 2001 se puso en la ISS el brazo
+robótico ``Canadarm2'', conocido oficialmente como 
+``\textit{Space Station Remote Manipulator System}'' (SSRMS) (figura \ref{fig:canadarm2}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.63\linewidth]{pictures/STS-114_Steve_Robinson_on_Canadarm2.jpg}
+    \caption{Vista exterior del Canadarm2 \cite{MobileServicingSystem2020a}.}
+    \label{fig:canadarm2}
+\end{figure}
+
+Además, en 2005, se desplegaron en Marte los rovers ``Spirit'' (figura \ref{fig:spirit}) y 
+``Opportunity'' (figura \ref{fig:opportunity}). 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.75\linewidth]{pictures/spirit_rover.jpg}
+    \caption{Rover ``Spirit'', desarrollado por la NASA y desplegado en 2004 \cite{SpiritRover2020a}.}
+    \label{fig:spirit}
+\end{figure}
+
+El primero supuso un gran avance de la
+ingeniería, ya que crearon un robot teleoperado para enviarlo a un terreno
+muy hostil. Con las seis ruedas que tenía permitía una movilidad bastante elevada en
+terrenos muy desiguales, siendo todas ellas motrices e independientes entre sí y, 
+en particular, las cuatro de los extremos direccionales (detalle en la figura \ref{fig:spirit}). 
+Además, la fisionomía de las mismas y su elevación permitía que el dispositivo se desplazara por
+distintos tipos de terreno de una manera óptima, utilizando un sistema de amortiguación
+conocido como ``\textit{rocker--bogie}''. Dicho sistema se caracteriza por no utilizar
+una suspensión hidráulica sino un diferencial en el centro del vehículo, garantizando así
+que el cuerpo del mismo siempre se encuentra con una inclinación igual a la mitad que presentan
+ambos ``\textit{rockers}'' (ver figura \ref{fig:rb-system}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.6\linewidth]{pictures/rocker-bogie.png}
+    \caption{Modo de funcionamiento del sistema ``\textit{rocker--bogie}'', 
+    desarrollado por la NASA para sus rover \cite{Rockerbogie2020}.}
+    \label{fig:rb-system}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.5\linewidth]{pictures/opportunity.jpg}
+    \caption{Rover ``Opportunity'', desarrollado por la NASA y desplegado en 2004 \cite{OpportunityRover2020a}.}
+    \label{fig:opportunity}
+\end{figure}
+
+Por otra parte, se puede apreciar cómo el ``Opportunity'' tenía una estructura bastante
+similar al ``Spirit'' pero añadía alguna que otra mejora. La diferencia principal entre ambos 
+era el lugar de aterrizaje (figura \ref{fig:landing_sites}), ya que ambos servían para 
+recorrer distintos puntos de la superficie marciana para recopilar datos y tomar muestras.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.75\linewidth]{pictures/rover-landing-sites.en.jpg}
+    \caption{Lugares de aterrizaje de los rovers de la misión espacial a Marte \cite{MarsRoversSpirita}.}
+    \label{fig:landing_sites}
+\end{figure}
+
+La misión del ``Spirit'' duró 2623 soles frente a los 90 inicialmente planeados \cite{SpiritRover2020a},
+y la misión del ``Opportunity'' duró 5352 soles frente a los también 90 inicialmente planteados \cite{OpportunityRover2020a}.
+Esto se traduce en 2695 días terrestres (6 años, 9 meses y 12 días) y 5498 días terrestres (15 años)
+respectivamente.
+
+Por otra parte, los robots de aplicación doméstica también han ido creciendo cada vez más,
+naciendo en 2002 el popular Roomba (figura \ref{fig:roomba}), de la empresa iRobot, o distintos brazos articulados
+para, por ejemplo, ayudar a personas que carezcan de dichos miembros o asistir a personas
+mayores en sus hogares.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.5\linewidth]{pictures/Roomba3g.jpg}
+    \caption{Robot Roomba en la estación de carga \cite{HistoryRobots2020a}.}
+    \label{fig:roomba}
+\end{figure}
+
+Además, la industria de los coches autónomos también ha crecido de forma exponencial,
+sobre todo con la llegada al mercado en 2003 de Tesla Motors y sus coches eléctricos
+que disponen del sistema ``Autopilot'' (figura \ref{fig:ap}), encontrándose actualmente en el nivel 2 de
+autonomía según la lista del SAE \cite{baldwinTeslaVideoShows2020a}\cite{TeslaFullSelfdrivinga}.
+Los avances en esta industria permiten el control mecanizado completo del vehículo, tomando
+decisiones en tiempo real sobre la suspensión, el giro de las ruedas, el control de tracción,
+etc. permitiendo además compartir información e ir mejorando el mundo de la robótica
+y de la industria del automóvil.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{pictures/tesla-automation.jpeg}
+    \caption{Lo que ve un Tesla cuando está en conducción autónoma nivel 2 \cite{baldwinTeslaVideoShows2020a}.}
+    \label{fig:ap}
+\end{figure}
+
+Por otro lado, se ha avanzado mucho a nivel de robots militares y humanoides. Un ejemplo
+de ello es la empresa \textit{Boston Dynamics}, la cual ha desarrollado múltiples robots
+con un grado de libertad bastante elevado. Dichos robots se caracterizan por una gran 
+estabilidad y la amplia variedad de movimientos que pueden realizar: andar, correr,
+saltar, subir escaleras, abrir puertas, etc. Actualmente, dos robots son los principales:
+``\textit{Big-Dog}'' (figura \ref{fig:big-dog}) y ``Atlas'' (figura \ref{fig:atlas}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.3\linewidth]{pictures/big-dog.png}
+    \caption{Robot ``\textit{Big-Dog}'' de Boston Dynamics \cite{BostonDynamics2020a}.}
+    \label{fig:big-dog}
+\end{figure}
+
+El primero tiene un amplio uso militar: debido a su forma, es muy útil para llevar cargas
+pesadas durante largas distancias. Además, la configuración cuadrúpeda y los avanzados 
+sistemas \textit{software} y \textit{hardware} del que dispone permite que el robot sea
+estable incluso en condiciones bastante complicadas, como puede ser un suelo helado.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.3\linewidth]{pictures/atlas.jpg}
+    \caption{Robot ``Atlas'' de Boston Dynamics \cite{BostonDynamics2020a}.}
+    \label{fig:atlas}
+\end{figure}
+
+``Atlas'', por otra parte, es un trabajo en progreso que permitirá, en un futuro, poder
+utilizarlo con fines militares y domésticos. Puede llevar objetos pesados con sus brazos
+y moverse con mucha agilidad, haciéndolo un robot muy polivalente según se quiera utilizar.
+
+Finalmente, el desarrollo de los brazos articulados con múltiples finalidades
+también ha evolucionado mucho. Desde robots industriales tales como los desarrollados
+por la empresa KUKA, como el ``KR-1000 Titan'' (figura \ref{fig:kuka}),
+o el brazo ``M-2000'', de FANUC hasta brazos más pequeños con motivos educacionales, como
+el $\mu$Arm, de UFACTORY (figura \ref{fig:uarm}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.75\linewidth]{pictures/kr1000.jpg}
+    \caption{Robot ``KR-1000 Titan'' de KUKA \cite{KR1000Titana}.}
+    \label{fig:kuka}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.5\linewidth]{pictures/uarm.png}
+    \caption{Robot $\mu$Arm de UFACTORY \cite{UFACTORYOfficialWebsitea}.}
+    \label{fig:uarm}
+\end{figure}
+
+Estos robots tienen múltiples propósitos: el primero, levantar y trasladar piezas
+muy grandes y pesadas con muchísima precisión. El segundo, disponer de un robot
+para poder aprender y utilizarlo para tareas como, por ejemplo, impresión 3D. 
+Este último se desarrolló con la intención de ser accesible e intentar introducir en el mundo
+de la robótica a aquellos que pudieran estar interesados, pero su alto coste impide
+el acceso a aquellos con una capacidad adquisitiva más baja.
