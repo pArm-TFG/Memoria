@@ -1,22 +1,24 @@
 En base a los anteriores requisitos el grupo de desarrollo ha generado los siguientes diagramas para el software de la placa de control.
 
+Cabe destacar que los estados de error funcionan en cascada, es decir, dado que cada uno de los diagramas de estados representa una función del código, estas podrá tener errores en su ejecución y estos errores se irán propagando en cascada hacia niveles mas altos de abstracción a lo largo de las diferentes funciones que han sido invocadas.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{pictures/S2BlockDiagram.PNG}
-    \caption{Diagrama de bloques del \ac{S2}}
+    \caption{Diagrama de bloques de \ac{S2}}
     \label{fig:diagrama_bloques_s2}
 \end{figure}
 
-En el diagrama \ref{fig:diagrama_bloques_s2} se pueden observar los bloques que componen el \ac{S2} además de dos tipos de datos los cuales han sido creados para facilitar el control de los motores del brazo.
+En el diagrama \ref{fig:diagrama_bloques_s2} se pueden observar los bloques que componen \ac{S2} además de dos tipos de datos los cuales han sido creados para facilitar el control de los motores del brazo.
 
 A continuación se explican cada uno de los bloques:
 
 \begin{itemize}
     \item \texttt{MotorHandler}: este bloque es capaz de controlar los motores de manera directa empleando el tipo de dato ``\texttt{Movement}'' enviando la señal necesaria para realizar el movimiento requerido. Además permite verificar el estado de los motores y cancelar los movimientos si esto fuese necesario.
     
-    \item \texttt{UART}: este bloque es el encargado de la comunicación asíncrona entre el \ac{S1} y el \ac{S2}. Controla el ratio de baudios de la comunicación y realiza la transmisión y la recepción de información hasta y desde el \ac{S1}. A través de este bloque se reciben las ordenes procedentes del \ac{S1} y se envían los errores y la posición del brazo al S1 desde el \ac{S2}.
+    \item \texttt{UART}: este bloque es el encargado de la comunicación asíncrona entre \ac{S1} y \ac{S2}. Controla la tasa de baudios de la comunicación y realiza la transmisión y la recepción de información hasta y desde \ac{S1}. A través de este bloque se reciben las ordenes procedentes de \ac{S1} y se envían los errores y la posición del brazo a S1 desde \ac{S2}.
     
-    \item \texttt{Orchestrator}: encargado de coordinar los demás bloques. En el se encuentra la lógica principal del \ac{S2}. Algunas de sus funciones mas importantes son interpretar el flujo de bits que llega desde el S1 para obtener una orden concreta; ordenar el movimiento del brazo empleando los demás bloques o hacer el ``hadshake'' inicial entre el \ac{S1} y el \ac{S2}. Posteriormente se entrará mas en detalle en el comportamiento de este bloque al analizar los diagramas de estados.
+    \item \texttt{Orchestrator}: encargado de coordinar los demás bloques. En el se encuentra la lógica principal de \ac{S2}. Algunas de sus funciones mas importantes son interpretar el flujo de bits que llega desde S1 para obtener una orden concreta; ordenar el movimiento del brazo empleando los demás bloques o hacer la sincronización inicial entre \ac{S1} y  \ac{S2}. Posteriormente se entrará mas en detalle en el comportamiento de este bloque al analizar los diagramas de estados.
     
     \item \texttt{MovementComputer}: se encarga de computar el movimiento que se tendrá que comunicar a los motores. Para ello deberá obtener las posiciones deseadas gracias al bloque UART y al ``\texttt{Orchestrator}''.
 \end{itemize}
@@ -24,9 +26,9 @@ A continuación se explican cada uno de los bloques:
 A continuación se explican las dos estructuras de datos que se aprecian en el diagrama \ref{fig:diagrama_bloques_s2}
 
 \begin{itemize}
-    \item Motor: Este tipo de dato es empleado por el ``MotorHandler'' para saber a que pin debe mandar la señal ``PWM'' que gobierna los motores y durante cuantos ticks deberá estar activa dicha señal
+    \item Motor: Este tipo de dato es empleado por ``MotorHandler'' para saber a que pin debe mandar la señal ``PWM'' que gobierna los motores y durante cuantos ticks deberá estar activa dicha señal
     
-    \item Movement: El ``MovementComputer'' genera un array de 3 posiciones de este tipo de dato, uno por cada motor de giro del brazo. El atributo ``moto'' guarda un integer que representa uno de los motores del brazo; ``direction'' sirve para conocer la dirección de giro de dicho motor; ``expectedDuration'' guarda la duración  
+    \item Movement:``MovementComputer'' genera un array de 3 posiciones de este tipo de dato, uno por cada motor de giro del brazo. El atributo ``motor'' guarda un integer que representa uno de los motores del brazo; ``direction'' sirve para conocer la dirección de giro de dicho motor; ``expectedDuration'' guarda la duración  
 \end{itemize}
 
 A continuación se explican los diagramas de estados de cada uno de los métodos que aparecen en el diagrama de bloques general.
@@ -146,7 +148,7 @@ Este método es el encargado de autenticar a los dispositivos entre si y configu
     \label{fig:fun_execute_movement_orchestrator}
 \end{figure}
 
-Este método es el encargado de, una vez recibida la trama de bits que representa movimiento desde el S1, decidir si el movimiento ha sido representado como ángulos o posiciones cartesianas y posteriormente ordenar las operaciones necesarias para que se generen las señales PWM que moveran los motores.
+Este método es el encargado de, una vez recibida la trama de bits que representa movimiento desde S1, decidir si el movimiento ha sido representado como ángulos o posiciones cartesianas y posteriormente ordenar las operaciones necesarias para que se generen las señales PWM que moveran los motores.
 
 \begin{itemize}
     \item \texttt{checkKindOfMovement}: Se verifica si el movimiento ha sido transmitido como una posición cartesiana o como unos ángulos destino para los motores y se procede en consecuencia.
@@ -166,7 +168,7 @@ Este método es el encargado de, una vez recibida la trama de bits que represent
     \label{fig:fun_execute_order_orchestator}
 \end{figure}
 
-Este método es el encargado de, una vez recibida la trama de bits que representa una orden distinta de realizar un movimiento desde el S1, decodificar dicha orden y realizarla.
+Este método es el encargado de, una vez recibida la trama de bits que representa una orden distinta de realizar un movimiento desde S1, decodificar dicha orden y realizarla.
 
 \begin{itemize}
     \item \texttt{decodeOrder}: Se interpreta la trama de bits para obtener la orden proveniente desde S1.

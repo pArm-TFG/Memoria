@@ -53,13 +53,92 @@ El flujo de trabajo que se ha seguido desde el modelo 3D hasta la impresión de 
     \label{fig:flujo_3d}
 \end{figure}
 
+Antes de proceder a explicar cada una de las nuevas piezas que se han diseñado, se tomará una de ellas como ejemplo para explicar el proceso de diseño detallado.
+
+Inicialmente se parte de una forma que represente la forma general de la pieza, como un rectángulo o un circulo, para posteriormente añadir detalles. En el caso de la pieza que se usa como ejemplo, tenemos un cuadrado de 120mm de ancho por 120mm de alto y 3 mm de groso.
+
+\begin{figure}[H]
+\centering
+\subfigure[Plano vacío]{\includegraphics[width=82mm]{pictures/PlanoVacio.png}}
+\subfigure[Forma general de la tapa]{\includegraphics[width=82mm]{pictures/SketchTapaInicial.png}}
+\caption{Construcción de la forma general}
+\label{fig:forma_general_tapa_superior}
+\end{figure}
+
+Tras crear la forma general, añadimos los agujeros en las esquinas para poder atornillar la tapa. Los agujeros tienen un radio de 1,9mm y se distancian de los laterales 3,9mm para hacerlos coincidir con los agujeros de las paredes.
+
+\begin{figure}[H]
+\centering
+\subfigure[Plano 2D de los agujeros]{\includegraphics[width=.9\linewidth]{pictures/SketchAgujerosEsquinas.png}}
+\subfigure[Detalle de una esquina]{\includegraphics[width=.9\linewidth]{pictures/DetalleAgujerosEsquinas.png}}
+\caption{Agujeros para tornillos }
+\label{fig:agujeros_tornillos_tapa_superior}
+\end{figure}
+
+Tras realizar los agujeros de los exteriores de la pieza, se hace un agujero central y se extruye una torre centrada sobre dicho agujero.
+
+\begin{figure}[H]
+\centering
+\subfigure[Sketch del agujero central]
+{\includegraphics[width=0.9\linewidth]{pictures/SketchAgujeroCentral.png}}
+\subfigure[Agujero central sin torre]
+{\includegraphics[width=0.9\linewidth]{pictures/AgujeroCentral.png}}
+\caption{Agujeros central}
+\label{fig:agujeros_central_tapa_superior}
+\end{figure}
+
+Tras definir el agujero, se extruye la torre.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{pictures/TorreCentral.png}
+    \caption{Tapa con torre central}
+    \label{fig:torre_central_tapa_superior}
+\end{figure}
+
+A continuación se procede a eliminar material de la torre con
+el objetivo de disminuir la superficie de contacto con el disco rotativo y por tanto, eliminar parte del rozamiento.
+
+\begin{figure}[H]
+\centering
+\subfigure[Sketch del desgaste]
+{\includegraphics[width=0.9\linewidth]{pictures/SketchAnillo.png}}
+\subfigure[Torre central tras el rebaje]
+{\includegraphics[width=0.9\linewidth]{pictures/Anillo.png}}
+\caption{Agujeros central}
+\label{fig:anillo_tapa_superior}
+\end{figure}
+
+Para disminuir aun mas el rozamiento debido a posibles bordes imperfectos que queden en el disco, se realiza un chaflán en el diámetro interior y exterior.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{pictures/Chaflanes.png}
+    \caption{Torre con chaflanes}
+    \label{fig:chaflanes_tapa_superior}
+\end{figure}
+
+Finalmente se añade una ranura para que sea posible llevar los cables de los motores exteriores a la placa de control que se haya en la caja.
+
+\begin{figure}[H]
+\centering
+\subfigure[Sketch de la ranura]
+{\includegraphics[width=0.9\linewidth]{pictures/SketchAgujeroCables.png}}
+\subfigure[Ranura para cables]
+{\includegraphics[width=0.9\linewidth]{pictures/AgujeroCables.png}}
+\caption{Tapa con ranura para cables}
+\label{fig:ranura_cables_tapa_superior}
+\end{figure}
+
+Con esto concluimos la explicación del proceso de creación de piezas y pasamos a explicar cada una de las piezas por separado.
+
 A continuación se procederá a explicar la necesidad de remodelar ciertas piezas y los inconvenientes y contratiempos que han surgido durante el modelado y la impresión de estas.
 
 En primer lugar se explicará la caja que alberga la placa de control y uno de los motores.
 
-La placa de control del brazo robótico no es la misma que en el caso del $\mu$Arm de UFACTORY. Además, los motores que se han empleado en este proyecto son servomotores con carcasa y sistema de sujeción distinto que los motores paso a paso del $\mu$Arm. Debido a estos dos factores se ha tenido que diseñar nuevas partes para la base del brazo robótico..
+La placa de control del brazo robótico no es la misma que en el caso del $\mu$Arm de UFACTORY. Además, los motores que se han empleado en este proyecto son servomotores con carcasa y sistema de sujeción distintos a los motores paso a paso del $\mu$Arm. Debido a estos dos factores se ha tenido que diseñar nuevas partes para la base del brazo robótico.
 
- Mas concretamente, la necesidad de rediseñar esta parte es debida a que la base original era demasiado pequeña en superficie para permitir introducir la placa de control. Además, el servomotores no podrían haber cabido junto con la placa ya que la altura era insuficiente. Por otro lado los sistemas de sujeción presentes en la caja existente no podían ser empleados para la placa de control desarrollada en este proyecto.
+ Mas concretamente, la necesidad de rediseñar esta parte es debida a que la base original era demasiado pequeña en superficie para permitir introducir la placa de control. Además, el servomotor no podría haber cabido junto con la placa ya que la altura era insuficiente. Por otro lado los sistemas de sujeción presentes en la caja existente no podían ser empleados para la placa de control desarrollada en este proyecto.
  
  \begin{figure}[H]
     \centering
@@ -87,10 +166,15 @@ Para solucionar los anteriores problemas se diseña una nueva base en la que se 
     \label{fig:placa_y_paredes_nuevas}
 \end{figure}
 
-En la base se pueden observar unos carriles cuyo cometido es sujetar la placa.
-Después de que la placa sea insertada en estos carriles, se asegura su posición mediante los agujeros laterales que pueden observarse en la figura \ref{fig:placa_y_paredes_nuevas}.
+Inicialmente las paredes de la caja se habían diseñado con un grosor de 2mm. Tras una serie de pruebas se concluyo que dicho grosor no era suficiente para proporcionar resistencia y estabilidad suficiente, por tanto, se opto por un grosor de 3mm en la versión final.
 
-Cabe destacar que para poder introducir la placa en las ranuras de los carriles, se han diseñado las siguientes piezas.
+En la base se observan los raíles que servirán para introducir y retirar la placa de la estructura. 
+
+Se ha optado por un sistema de raíles en vez de una sujeción convencional ya que de esta manera se consigue una mayor versatilidad a la hora de extraer e introducir la placa en labores de depuración y construcción. 
+
+Además, debido al escaso espacio dentro de la caja, se hace prácticamente imposible la introducción de las herramientas necesarias para atornillar la placa a la estructura. Gracias al sistema de raíles se evita desmontar ciertas piezas al intentar introducir o extraer la placa.
+
+Después de que la placa sea insertada en estos carriles, se asegura su posición mediante los agujeros laterales que pueden observarse en la figura \ref{fig:placa_y_paredes_nuevas}.
 
  \begin{figure}[H]
     \centering
@@ -99,8 +183,18 @@ Cabe destacar que para poder introducir la placa en las ranuras de los carriles,
     \label{fig:railes_placa}
 \end{figure}
 
+En la figura \ref{fig:railes_placa} se observan las piezas que se añadirán a la placa de control para poder deslizar esta sobre los carriles. En el exterior de la imagen aparecen los carriles presentes en la base de la caja, donde se puede ver que, al estar la placa completamente introducida en los carriles, los agujeros del carril y del raíl se posición de tal manera que se permite introducir un pasador que asegura la posición de la placa.
 
-En la figura \ref{fig:railes_placa} se pueden observar los raíles que serán añadidos a la placa de control. En el exterior de la imagen aparecen los carriles presentes en la base de la caja, donde se puede ver que, al estar la placa completamente introducida en los carriles, los agujeros del carril y del raíl se posición de tal manera que se permite introducir un pasador que asegura la posición de la placa.
+Debido a que tanto los raíles como los carriles se fabricaron con unas medidas teóricas, extraídas del diseño físico inicial de la placa, resulto que el ensamblaje físico no era posible.
+
+Para solucionar este problemas se desplazaron los agujeros por los que se unía el raíl a la placa. Esto se observa en la figura \ref{fig:railes_placa_final}
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{pictures/RailesBien.png}
+    \caption{Versión final de los carriles}
+    \label{fig:railes_placa_final}
+\end{figure}
 
 Por otro lado, para poder sujetar el motor que moverá el brazo alrededor del eje vertical se ha tenido que diseñar la siguiente pieza.
 
@@ -117,8 +211,10 @@ Esta pieza se atornilla a las paredes de la caja y empleando las solapas del mot
     \centering
     \includegraphics[width=.9\linewidth]{pictures/cajaConMotor.png}
     \caption{Pieza de sujeción del motor (verde) dentro de la caja}
-    \label{fig:pieza_sujecio_en_caja}
+    \label{fig:pieza_sujecio_en_caja_resaltada}
 \end{figure}
+
+La pieza que sujeta el motor se diseño con un grosor de las paredes de 2mm. Como se ha descrito anteriormente este grosor 
 
 Dado que el tamaño de la base y de las paredes ha cambiado, la tapa superior debe también ser modificada para adaptar su tamaño y su sistema de sujeción a los nuevos diseños
 
@@ -169,4 +265,13 @@ Por otro lado, para que sea posible ubicar los motores que se encargaran del mov
     \includegraphics[width=.9\linewidth]{pictures/pletina_motor.png}
     \caption{Placa de sujeción de los motores laterales}
     \label{fig:pletina_sujecion_motor}
+\end{figure}
+
+Tras añadir dichas piezas al diseño general y completar este con las piezas originales que no han sido modificados obtenemos el diseño definitivo del brazo robotico el cual se puede observar en la figura \ref{fig:brazo_completo_modificado}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{pictures/BrazoEntero.png}
+    \caption{Brazo robotico completo tras las modificaciones}
+    \label{fig:brazo_completo_modificado}
 \end{figure}
