@@ -1,4 +1,4 @@
-\subsection{Interfaz \textit{hardware}}
+\subsubsection{Interfaz \textit{hardware}}
 \ac{S2} esta formado por el brazo robótico \pArm{} y el microcontrolador que computa las instrucciones recibidas desde \ac{S1}. Mediante dicho microcontrolador, \ac{S2} interactúa directamente con el \ac{HW}. El microcontrolador realiza las labores de comunicación con \ac{S1}, así como las labores de recepción y procesamiento de las instrucciones que controlan el movimiento del \pArm{}.
 
 Tras la recepción y procesamiento de las diferentes secuencias de bits, las cuales son instrucciones, el microcontrolador genera señales de salida mediante sus pines, las cuales controlan el movimiento de cada uno de los motores, así como del \textit{end--effector}. Cabe destacar que, en el caso de utilizar motores que proporcionen información sobre su posición angular actual, el microcontrolador debe recibir dicha señal y procesarla, enviando dicha información a \ac{S1}.
