@@ -16,27 +16,29 @@ En general, se podría decir que los componentes de la \ac{PCB} se clasifican en
 
 En primer lugar, los componentes de alimentación eléctrica son aquellos que forman el circuito de alimentación del microcontrolador así como de los actuadores. El circuito eléctrico de alimentación de la \ac{PCB} se ha diseñado para poder alimentar de forma simultánea al microcontrolador y a cada uno de los cuatro servomotores y está formado por dos etapas:
 \begin{itemize}
-    \item La \ac{PCB} recibe una tensión de entrada de $9V$ y una corriente de entre $1.8A - 2A$ mediante una clema. Posteriormente, esta tensión de alimentación será reducida y adaptada para alimentar a cada una de las etapas de la \ac{PCB}, es decir, al microcontrolador y servomotores.
-    \item En la primera etapa se reduce el voltaje de alimentación principal a $6V$ y $0.4A$ aproximadamente para cada uno de los servomotores, utilizando para ello un regulador LM317 por cada uno. Esta alimentación se realiza mediante clemas, las cuales se usan para conectar la alimentación de los motores.
+    \item La \ac{PCB} se conecta mediante una clema a una fuente de alimentación de 9V que puede suministrar una corriente máxima de 2A. Posteriormente, esta tensión de alimentación será reducida y adaptada para alimentar a cada una de las etapas de la \ac{PCB}, es decir, al microcontrolador y servomotores.
     
-    \item En la segunda etapa se reduce el voltaje de alimentación principal a $3.3V$ y $0.15A$ aproximadamente con el objetivo de alimentar el microcontrolador, utilizando en conjunto los reguladores L7805CV y A1117H. Esta alimentación se realiza mediante pistas únicamente.
+    \item En la primera etapa se reduce el voltaje de alimentación principal a $6V$, permitiendo que cada uno de los servomotores demande una corriente máxima de $0.4A$ aproximadamente, utilizando para ello un regulador LM317 por cada uno. Esta alimentación se realiza mediante clemas, las cuales se usan para conectar la alimentación de los motores.
+    
+    \item En la segunda etapa se reduce el voltaje de alimentación principal a $3.3V$ y estimándose un consumo máximo de $0.15A$ aproximadamente con el objetivo de alimentar el microcontrolador, utilizando en conjunto los reguladores L7805CV y A1117H. Esta alimentación se realiza mediante pistas únicamente.
 \end{itemize}
 
 En segundo lugar, el microcontrolador y sus componentes auxiliares representan el núcleo de la \ac{PCB}:
 \begin{itemize}
     \item El dsPIC se encuentra localizado en el centro de la \ac{PCB} y de él surgen todas las conexiones necesarias hacia los periféricos.
-    \item Los componentes auxiliares del microcontrolador son componentes eléctricos que aseguran el correcto funcionamiento del dsPIC, así como su seguridad. En el caso específico de este microcontrolador, es necesario incluir varios condensadores en sus pines de alimentación.
+    \item Los componentes auxiliares del microcontrolador son componentes eléctricos que aseguran el correcto funcionamiento del dsPIC. En el caso específico de este microcontrolador, es necesario incluir varios condensadores en sus pines de alimentación.
 \end{itemize}
 
 En último lugar, se han utilizado los siguientes periféricos:
 
 \begin{itemize}
-    \item Cristal de cuarzo, el cual genera una señal de reloj precisa y de buena calidad. Su frecuencia es de $7MHz$ y será recibida por el microcontrolador para ser usada como la señal de reloj principal del sistema.
+    \item Cristal de cuarzo, el cual genera una señal de reloj precisa y de buena calidad. Su frecuencia es de $7.3728MHz$ y será recibida por el microcontrolador para ser usada como la señal de reloj principal del sistema.
     
     \item Puerto de programación, donde se puede conectar la sonda de programación del microcontrolador y por lo tanto es un elemento con especial importancia y relevancia dentro del sistema.
     
     \item Puerto TRIS para recibir señales digitales y analógicas, las cuales son procesadas por el microcontrolador. En este proyecto, estos puertos se utilizan para monitorizar los finales de carrera de la estructura del brazo robótico.
-    \item Puerto PWM: capaz de generar señales PWM, es decir, señales digitales cuadradas y con un ancho de pulso variable, las cuales son completamente necesarias para controlar los servomotores.
+    
+    \item Puerto PWM: capaz de generar señales PWM, es decir, señales digitales cuadradas y con un ancho de pulso variable, las cuales son necesarias para controlar los servomotores.
     
     \item UART, donde se establece un canal de comunicación \textit{hardware} con S1, el cual se usa para recibir órdenes, movimientos y realimentar su resultado de vuelta a S1.
     
@@ -59,7 +61,7 @@ El diagrama esquemático está dividido en dos partes principales, las cuales fa
 
 En primer lugar, se procede a describir detalladamente el diagrama esquemático del circuito de alimentación, el cual contiene las dos etapas de alimentación mencionadas anteriormente en el punto \ref{ssec:main_components}, siendo los principales componentes usados los reguladores de voltaje LM317, L7805CV y AZ1117H.
 
-La clema principal de alimentación recibe $9V$ y $1.8A$ aproximadamente. Esta alimentación debe ser provista externamente mediante una fuente de alimentación regulable o similares. 
+La clema principal de alimentación se conecta a una fuente de $9V$ que debe proporcionar una corriente máxima de $2A$ aproximadamente.
 
 Conectados directamente a la clema principal, se encuentran los reguladores de tensión correspondientes a las dos etapas de alimentación:
 \begin{itemize}
@@ -86,20 +88,20 @@ La ecuación de funcionamiento que ofrece el fabricante para el regulador LM317 
 
 La ecuación anterior (ver ecuación \ref{eq:Ecuacion_funcionamiento_LM317}) debe ser usada para realizar los cálculos pertinentes sobre el valor de las resistencias $R_2$ y $R_1$. Se tienen en cuenta, además, dos observaciones necesarias para la correcta aplicación de la ecuación anterior:
 \begin{itemize}
-    \item Por definición, el fabricante establece el valor $V_{REF} = 1.25V$.
-    \item Por motivos de construcción del regulador, la corriente $I_{ADJ}$ tiene un valor máximo de $100 \mu A$ y, por lo tanto, el término de la ecuación que la involucra puede ser despreciado.
+    \item Por construcción, el fabricante establece el valor $V_{REF} = 1.25V$.
+    \item Por motivos de construcción del regulador, la corriente $I_{ADJ}$ tiene un valor máximo de $100 \mu A$ y, por lo tanto, el término de la ecuación que la involucra puede ser despreciado en muchas ocasiones.
 \end{itemize}
 
 Se obtiene entonces que la ecuación funcional (ecuación \ref{eq:funcional}) a utilizar en el cálculo de $R_1$ y $R_2$ es:
 
 \begin{equation}
-    V_{OUT} = 1.25V \cdot \left( 1 + \frac{R_2}{240\Omega}\right) 
+    V_{OUT} = 1.25V \cdot \left( 1 + \frac{R_2}{R_1}\right) 
     \label{eq:funcional}
 \end{equation}
 
 Teniendo en cuenta los voltajes de alimentación requeridos para las dos etapas de alimentación de la \ac{PCB} ($\sim 5.5V$ para la primera, $\sim 3.3V$ para la segunda), se han realizado los siguientes cálculos para los valores de la resistencia $R_1$ y $R_2$:
 \begin{itemize}
-    \item Primera etapa, alimentación de servomotores a $5.5V$ y $0.4A$ requeridos:
+    \item Primera etapa, alimentación de servomotores a $5.5V$ requeridos:
     \begin{equation}
         5.5V = 1.25V \cdot \left( 1 + \frac{R_2}{R_1}\right) 
     \end{equation}
@@ -115,7 +117,7 @@ Aplicando el conexionado recomendado por el fabricante y los cálculos para el v
     \label{fig:Esquematico_Alimentacion_Servos}
 \end{figure}
 
-El funcionamiento de los reguladores L7805CV y AZ1117H es simple:
+El funcionamiento de los reguladores L7805CV y AZ1117H es sencillo de comprender:
 \begin{itemize}
     \item El regulador L7805CV recibe un voltaje de entre $7V$ -- $35V$ y provee un voltaje de salida fijo de $5V$. Su conexionado se realiza utilizando dos condensadores auxiliares, tal y como se describe en el \textit{datasheet} del componente:
     
@@ -178,7 +180,7 @@ Todos los condensadores han sido conectados a los pines descritos por el fabrica
 A continuación, se describe el conexionado del resto de puertos y periféricos:
 
 \begin{itemize}
-    \item Cristal de cuarzo, en términos técnicos, oscila a $7.32MHz$, frecuencia perfectamente válida para el microcontrolador usado en el proyecto:
+    \item Cristal de cuarzo, en términos técnicos, oscila a $7.3728MHz$, frecuencia perfectamente válida para el microcontrolador usado en el proyecto:
     
     \begin{figure}[H]
     \centering 
@@ -218,7 +220,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \label{fig:Sonda_Esquematico}
     \end{figure}
     
-    \item Puerto TRIS, usado para detectar si el brazo robótico se encuentra en uno de sus finales de carrera o zonas límite de movimiento se utilizan unos micro-interruptores que, al ser presionados por el manipulador, realizan un cortocircuito. Mediante dicha señal y dado que estos micro-interruptores se encuentran conectados a los pines 19, 20, 21 y 22 del microcontrolador, se puede realizar la lectura de los mismos y detectar el estado de micro-interruptor. De esta manera, se consigue saber cuándo el manipulador ha alcanzado o no un final de carrera.
+    \item Puerto TRIS, usado para detectar si el brazo robótico se encuentra en uno de sus finales de carrera o zonas límite de movimiento. Mediante dicha señal y dado que estos micro-interruptores se encuentran conectados a los pines 19, 20, 21 y 22 del microcontrolador, se puede realizar la lectura de los mismos y detectar el estado de micro-interruptor. De esta manera, se consigue saber cuándo el manipulador ha alcanzado o no un final de carrera.
     
     A continuación se muestra un esquema de lo mencionado anteriormente:
     
@@ -246,9 +248,8 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     
     Los generadores de señal PWM de este microcontrolador poseen las siguientes características técnicas relevantes:
     \begin{itemize}
-        \item El microcontrolador ofrece 6 generadores de señal PWM de alta precisión y velocidad.
-        \item Cada uno de los generadores posee un registro de 16 bits para la selección de la duración del ciclo de trabajo; este registro está divido en parte alta y parte baja.
-        \item Es posible utilizar de forma independiente la parte alta y parte baja de cada uno de los generadores, consiguiendo de esta forma dos subgeneradores que producen señales PWM independientes. Sin embargo, su precisión se reduce a 8 bits.
+        \item El microcontrolador ofrece 6 generadores de señal PWM, cada uno de los cuales puede generar dos señales PWM.
+        \item Cada uno de los generadores posee un registro de 16 bits para la selección de la duración del ciclo de trabajo.
     \end{itemize}
     
     El esquema mostrado por el fabricante para los generadores PWM es el siguiente (ver imagen \ref{fig:PWM_Datasheet}):
@@ -260,7 +261,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \label{fig:PWM_Datasheet}
     \end{figure}
     
-    Puesto que para este proyecto únicamente se necesitan cuatro generadores PWM, se ha decidido utilizar cuatro módulos con precisión de 16 bits. En el caso de utilizar la precisión completa de cada generador, la señal de salida se proporciona por el pin correspondiente a la parte baja del registro. Mediante la información obtenida del \textit{pinout} del microcontrolador, se tiene que los generadores de PWM 1, 4, 2 y 3 tienen asignados los pines 15, 13, 11 y 9, respectivamente.
+     Mediante la información obtenida del \textit{pinout} del microcontrolador, se tiene que los generadores de PWM 1, 4, 2 y 3 tienen asignados los pines 15, 13, 11 y 9, respectivamente.
     
     El conexionado final del puerto PWM en el diagrama esquemático es el siguiente (imagen \ref{fig:PWM_Esquematico}):
     
@@ -271,7 +272,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \label{fig:PWM_Esquematico}
     \end{figure}
 
-    \item Puertos UART, donde se establece un canal de comunicación \textit{hardware} asíncrono en el cual existen diversas configuraciones en cuanto a formato de transmisión de bits y velocidades de comunicación. Suele ser un método de comunicación muy usado en microcontroladores y dispositivos \textit{hardware} en general. El protocolo UART utiliza un puerto con tres conexiones: emisor ($T_X$), receptor ($R_X$) y tierra ($GND$).
+    \item Puertos UART, donde se establece un canal de comunicación \textit{hardware} asíncrono en el cual existen diversas configuraciones en cuanto a formato de transmisión de bits y velocidades de comunicación. Suele ser un método de comunicación muy usado en microcontroladores y dispositivos \textit{hardware} en general. Cada UART utiliza un puerto con tres conexiones: emisor ($T_X$), receptor ($R_X$) y tierra ($GND$).
     
     El esquema simplificado de este periférico en el \textit{datasheet} es el siguiente (imagen \ref{fig:Uart_Datasheet}:
     
@@ -282,7 +283,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \label{fig:Uart_Datasheet}
     \end{figure}
     
-    Se ha tomado la decisión de incluir dos puertos UART independientes en la \ac{PCB} que se ha desarrollado, con el objetivo principalmente de dedicar uno de los canales a envío y recepción de instrucciones; mientras que el otro se usa para realizar labores de depuración y pruebas.
+    Se ha tomado la decisión de incluir dos puertos UART independientes en la \ac{PCB} que se ha desarrollado, con el objetivo de dedicar uno de los canales a envío y recepción de instrucciones, mientras que el otro se usa para realizar labores de depuración y pruebas.
     
     El conexionado de los puertos UART  se realiza mediante pines reconfigurables del microcontrolador, en este caso se han utilizado los pines 2 y 3 para el primer canal, además de los pines 3 y 4 para el segundo canal. El diagrama esquemático final es el siguiente (imagen \ref{fig:Uart_Esquematico}):
     
@@ -296,7 +297,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     
     \item LEDs de estado que muestran el estado del brazo robótico y demás aspectos del sistema. 
     
-    Su conexionado es realizado utilizando los pines reconfigurables 41, 42 y 43, los cuales pueden ser usados para habilitar una salida digital. Se evalúa un nivel alto para encender el LED mientras que un nivel bajo para apgarlo.
+    Su conexionado es realizado utilizando los pines reconfigurables 41, 42 y 43, los cuales pueden ser usados para habilitar una salida digital. Se evalúa un nivel alto para encender el LED mientras que un nivel bajo para apagarlo.
     
     A continuación se muestra el diagrama esquemático del circuito (imagen \ref{fig:Led_Esquematico}):
     
@@ -307,7 +308,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \label{fig:Led_Esquematico}
     \end{figure}
 
-    Teniendo en cuenta que la corriente máxima suministrada por el microcontrolador es de $18mA$ para salida digital y el que voltaje elegido ha sido $3.3V$, el pin suministraría como mucho una potencia de $0.0594W$. Se ha decidido que una potencia adecuada a suministrar sería un 80\% de la máxima, es decir $0.0475W$. Para cumplir esta restricción, se ha calculado el valor ideal de la resistencia del esquema anterior y su valor recomendado es de entre $180 \Omega$ y $200 \Omega$.
+    Teniendo en cuenta que la corriente máxima suministrada por el microcontrolador es de $18mA$ para salida digital y el que voltaje de funcionamiento es de $3.3V$, el pin suministraría como mucho una potencia de $0.0594W$. Se ha decidido que una potencia adecuada a suministrar sería un 80\% de la máxima, es decir $0.0475W$. Para cumplir esta restricción, se ha calculado el valor ideal de la resistencia del esquema anterior y su valor recomendado es de entre $180 \Omega$ y $200 \Omega$.
     
 \end{itemize}
 
@@ -472,8 +473,10 @@ El proceso de enrutado se ha realizado utilizando ambas capas de la \ac{PCB}, es
 
 En relación con lo anterior, las dos capas mencionadas anteriormente cumplen una función específica:
 \begin{itemize}
-    \item La capa superior o de componentes contiene las pistas de comunicación del microcontrolador, ya que este componente es de tipo ``\ac{SMD}''.
-    \item La capa inferior o de soldadura contiene las pistas de alimentación de la \ac{PCB}, en la cual se han realizado las soldaduras de los componentes ``\ac{THT}''.
+    \item La capa superior o de componentes contiene mayoritariamente las pistas de comunicación y alimentación del microcontrolador, ya que este componente es de tipo ``\ac{SMD}''.
+    
+    \item La capa inferior o de soldadura contiene mayoritariamente el resto de pistas de alimentación de la \ac{PCB} y las soldaduras de la mayoría de componentes.
+    
     \item Para comunicar las pistas de ambas capas se han realizado vías de conexión en los casos necesarios. Un ejemplo de su uso está en el conexionado de los pines del microcontrolador en la capa superior con las pistas de los conectores, los cuales se encuentran soldados en la capa inferior de soldadura.
 \end{itemize}
 
@@ -605,7 +608,7 @@ Dichas verificaciones a realizar van destinadas a comprobar los aspectos físico
     
     \item Verificar que todas las huellas físicas de los componentes lógicos son correctas y su distribución de pines es la deseada. Se debe contrastar esta información usando el \textit{datasheet} de cada uno de los componentes.
     
-    \item Verificar que todas las conexiones se han realizado, y por lo tanto, tienen una pista asignada.
+    \item Verificar que todas las conexiones lógicas se han realizado, y por lo tanto, se corresponden con una conexión mediante pista en el diagrama físico.
     
     \item Verificar que todos los componentes están alimentados y que las pistas de alimentación tienen el tamaño adecuado.
     
@@ -615,7 +618,7 @@ Dichas verificaciones a realizar van destinadas a comprobar los aspectos físico
     
     \item Verificar que la separación mínima entre pistas es como mínimo de $0.3mm$ para pistas de alimentación y $0.25mm$ para pistas de comunicación digital.
     
-    \item Verificar que no existen pistas que hagan contacto no deseado con componentes de soldadura superficial bajo su superficie.
+    \item Verificar que los componentes de soldadura superficial no tienen contactos bajo su superficie que toquen pistas no deseadas.
     
     \item Verificar que se han incluido marcas de serigrafía que permitan identificar a la \ac{PCB} y su interfaz de forma clara.
     
@@ -645,7 +648,7 @@ Tras realizar todas las verificaciones anteriormente mencionadas en el diagrama 
 
 \subsection{Construcción}
 
-Una vez se ha finalizado el proceso de diseño de la \ac{PCB}, se comienza el proceso de fabricación de la misma. Dicho proceso consta de diversas etapas, las cuales van desde la preparación de los materiales hasta la obtención del prototipo final; todas estas etapas se detallan a continuación una por una.
+Una vez se ha finalizado el proceso de diseño de la \ac{PCB}, se comienza el proceso de fabricación de la misma. Dicho proceso consta de diversas etapas, las cuales van desde la preparación de los materiales hasta la obtención del prototipo final. Todas estas etapas se detallan a continuación una por una.
 
 En primer lugar, cabe destacar que el proceso de fabricación seleccionado para construir la \ac{PCB} ha sido la fotolitografía. Dicho proceso consiste en transferir un patrón de un circuito desde una fotomáscara a una placa de prototipado positiva mediante una serie de procesos lumínicos y químicos. Posteriormente, una vez se tiene impreso el circuito en la placa de prototipado, se procede al taladrado de orificios y soldado de los componentes del circuito.
 
@@ -722,7 +725,7 @@ A continuación, se presentan los conceptos básicos empleados durante el proces
     
 \end{itemize}
 
-Existen otros procesos de fabricación para \ac{PCB}s que ofrecen un resultado muy parecido al deseado en este proyecto, por ejemplo fabricación mediante máquina CNC; sin embargo, por motivos de disponibilidad de materiales y maquinaria, se ha decidido utilizar la fotolitografía.
+Existen otros procesos de fabricación para \ac{PCB}s que ofrecen un resultado muy parecido al deseado en este proyecto, por ejemplo fabricación mediante máquina CNC, sin embargo, por motivos de disponibilidad de materiales y maquinaria, se ha decidido utilizar la fotolitografía.
 
 A continuación se enumeran las diversas etapas del proceso de fabricación, ordenadas cronológicamente desde el comienzo del proceso hasta su finalización:
 
@@ -775,7 +778,7 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \caption{Fotomáscara final.}
     \end{figure}
     
-    Cabe destacar que se han incluido dos transparencias superpuestas por cada cara de la fotomáscara para aumentar la opacidad que se genera al fotolitografiar la placa de prototipado positiva. Estas transparencias deben estar superpuestas con una exactitud muy elevada para impedir desfases en la impresión del circuito.
+    Cabe destacar que se han incluido dos transparencias superpuestas por cada cara de la fotomáscara para aumentar la opacidad que se genera al transferir el patrón del circuito a la placa de prototipado positiva. Estas transparencias deben estar superpuestas con una exactitud muy elevada para impedir desfases en la impresión del circuito.
     
     \item Una vez se ha completado el generado de la fotomáscara, se debe realizar el proceso de insolación de la placa de prototipado positiva. Durante este proceso, se realiza la transferencia del patrón del circuito desde la fotomáscara a la placa de prototipado mediante la exposición de la misma a luz ultravioleta.
     
@@ -799,14 +802,14 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     
     \item Cuando se ha completado el proceso de insolación de la placa de prototipado se debe llevar a cabo el proceso de revelado de la \ac{PCB}.
     
-    El proceso de revelado es un proceso químico mediante el cual se consigue eliminar la resina protectora de la placa de prototipado que ha sido expuesta a la luz ultravioleta durante el proceso de insolación; esta resina que es eliminada coincide con la superficie de la \ac{PCB} que no contiene pistas del circuito impreso, gracias a la fotomáscara.
+    El proceso de revelado es un proceso químico mediante el cual se consigue eliminar la resina protectora de la placa de prototipado que ha sido expuesta a la luz ultravioleta durante el proceso de insolación. Esta resina que es eliminada coincide con la superficie de la \ac{PCB} que no contiene pistas del circuito impreso, gracias a la fotomáscara.
     
-    Este proceso puede llevarse a cabo con un revelador universal indicado para realizar este tipo de labores, a continuación se muestra el usado en este proyecto:
+    Este proceso puede llevarse a cabo con un revelador universal indicado para realizar este tipo de labores, a continuación se muestra el empleado en este proyecto:
     
     \begin{figure}[H]
     \centering 
     \includegraphics[width=0.6\linewidth]{pictures/Revelador.jpg}
-    \caption{Revelador universal usado.}
+    \caption{Revelador universal empleado.}
     \end{figure}
     
     El proceso de revelado de la \ac{PCB} se lleva a cabo disolviendo el revelador anteriormente mencionado en agua y, posteriormente, sumergiendo la \ac{PCB} en esta disolución:
@@ -823,11 +826,9 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     
     \item Tras revelar el patrón del circuito de la \ac{PCB}, se debe realizar el proceso de atacado.
     
-   En la etapa anterior del proceso de fabricación, las zonas de la \ac{PCB} que no fueron insoladas con luz ultravioleta quedan cubiertas de resina protectora; mientras que en las parte de la \ac{PCB} que fueron expuestas a luz ultravioleta, la capa de cobre queda expuesta y sin cubrir por ningún tipo de resina ya que el proceso de revelado ha eliminado dicha resina sobrante.
+   En la etapa anterior del proceso de fabricación, las zonas de la \ac{PCB} que no fueron insoladas con luz ultravioleta quedan cubiertas de resina protectora, mientras que en las parte de la \ac{PCB} que fueron expuestas a luz ultravioleta, la capa de cobre queda expuesta y sin cubrir por ningún tipo de resina ya que el proceso de revelado ha eliminado dicha resina sobrante.
    
-   La etapa de atacado del proceso de fabricación consiste en someter a la \ac{PCB} a un proceso químico, mediante el cual se elimina el cobre de la placa de prototipado a través del atacado mediante una sal persulfato de amonio, el cual actúa de forma similar a un ácido. Las zonas de la \ac{PCB} en las cuales el cobre está expuesto resultarán atacadas por el ácido y, por lo tanto, el cobre desaparecerá. Por el contrario, las zonas de la \ac{PCB} en las cuales el cobre está protegido por una capa de resina, no serán atacadas tan agresivamente por el ácido y el cobre permanecerá.
-   
-   Al igual que en la etapa anterior, el atacado de la \ac{PCB} se realiza a través de una disolución, en este caso de agua y persulfato de amonio.
+   La etapa de atacado del proceso de fabricación consiste en someter a la \ac{PCB} a un proceso químico, mediante el cual se elimina el cobre de la placa de prototipado a través del atacado mediante una disolución de persulfato de amonio. Las zonas de la \ac{PCB} en las cuales el cobre está expuesto resultarán atacadas por la disolución y, por lo tanto, el cobre desaparecerá. Por el contrario, las zonas de la \ac{PCB} en las cuales el cobre está protegido por una capa de resina, no serán atacadas y el cobre permanecerá.
    
    A continuación, se muestran algunas imágenes (imágenes \ref{fig:Atacado_PCB}) del proceso de atacado mediante ácido:
    
@@ -939,7 +940,7 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \caption{Diferentes etapas del proceso de horneado.}
     \end{figure}
     
-    Este proceso se debe realizar durante unos quince minutos a una temperatura de entre 250 \textdegree C y 260 \textdegree C.
+   Este proceso debe respetar un perfil de calentamiento en varias etapas que persiguen la actuación de las resinas de difusión y posteriormente la realización de las soldaduras propiamente dichas. Los límites de temperatura y los tiempos de cada etapa deben establecerse siguiendo las recomendaciones de los fabricantes de los componentes y de la pasta de soldadura.
      
      Tras el proceso de horneado, se debe dejar enfriar la \ac{PCB}. El resultado final tras el horneado es el siguiente:
      
@@ -959,7 +960,7 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     
     \item Soldado de las vías de conexión entre las pistas de la capa superior e inferior.
     
-    Para realizar esta conexión, basta con introducir un hilo de grapinar por el orificio de la vía, realizar una pequeña soldadura con ambas pistas superior e inferior y, por último, cortar el hilo excedente:
+    En ausencia de herramientas para remachar agujeros pasantes, basta con introducir un hilo de grapinar por el orificio de la vía, realizar una pequeña soldadura con ambas pistas superior e inferior y, por último, cortar el hilo excedente:
     
 
     \begin{figure}[H]
@@ -1007,7 +1008,7 @@ A continuación se enumeran las diversas etapas del proceso de fabricación, ord
     \caption{Integrantes del equipo soldando componentes.}
     \end{figure}
     
-    Cabe destacar que, tras el proceso de soldadura, se deben revisarlas en cuanto a los siguientes aspectos:
+    Cabe destacar que, tras el proceso de soldadura es recomendable hacer las siguientes comprobaciones:
     \begin{itemize}
         \item Verificar si las soldaduras son limpias y brillantes.
         \item Verificar si las soldaduras conducen correctamente
@@ -1019,7 +1020,7 @@ En este punto se considera que el proceso de fabricación de la \ac{PCB} ha term
 
 \subsection{Verificaciones del prototipo construido}
 
-Tras completar la fabricación de la \ac{PCB}, es recomendable realizar algunas comprobaciones mínimas para asegurarse de que el prototipo construido es funcional:
+Tras completar la fabricación de la \ac{PCB}, es recomendable realizar algunas comprobaciones mínimas para asegurarse de que el prototipo construido opera:
 
 \begin{itemize}
     \item Al completar la impresión del circuito y antes de soldar los componentes se debe verificar la correcta conductividad de las pistas de cobre, así como la búsqueda de cortocircuitos o fracturas. Para esta labor se debe utilizar un voltímetro.
@@ -1052,7 +1053,7 @@ Tras completar la fabricación de la \ac{PCB}, es recomendable realizar algunas 
 
 Todas las pruebas realizadas dieron buen resultado y gracias a ellas se descubrieron alguno de los contratiempos descritos en el apartado siguiente.
 
-\subsection{Contratiempos ocurridos y soluciones ingeniadas}
+\subsection{Contratiempos ocurridos y soluciones planteadas}
 
 El proceso de fabricación de la \ac{PCB} ha sido uno de las etapas más críticas dentro del proyecto y se considera importante comentar algunos de los contratiempos que han ocurrido, puesto que estos han tenido un impacto considerable en el desarrollo del proyecto.
 
@@ -1063,7 +1064,7 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
 \begin{itemize}
     \item El primer contratiempo sucedido durante el proceso de fabricación está relacionado con el proceso de atacado de la \ac{PCB}.
     
-    La efectividad de esta disolución de atacado sobre la \ac{PCB} verse afectada en función de la temperatura a la que se realiza el proceso, saturación de la disolución y otros factores específicos.
+    La efectividad de esta disolución de atacado sobre la \ac{PCB} puede verse afectada en función de la temperatura a la que se realiza el proceso, saturación de la disolución y otros factores específicos.
     
     Debido a lo expuesto anteriormente, se realizaron dos intentos fallidos de atacado de la \ac{PCB}, en los cuales la disolución no consiguió eliminar la capa de cobre de los lugares que no estaban protegidas por resina. El resultado obtenido fue el siguiente:
     
@@ -1075,7 +1076,7 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     
     Tras cada uno de los intentos fallidos, se tuvo que repetir el proceso de insolación de las fotomáscaras sobre una nueva placa positiva de prototipado.
     
-    Después de dos intentos fallidos, se decidió desechar la disolución de atacado, ya que esta llevaba bastante tiempo fabricada y podría estar en mal estado; posteriormente, se creó una nueva disolución de atacado:
+    Después de dos intentos fallidos, se decidió desechar la disolución de atacado, ya que esta llevaba bastante tiempo fabricada y podría estar en mal estado. Posteriormente, se creó una nueva disolución de atacado:
     
     \begin{figure}[H]
     \centering 
@@ -1144,7 +1145,7 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
    
    El voltaje que deberían ofrecer las clemas es de $5.41V$ y, sin embargo al realizar la medición, se obtuvieron $7.1V$, un valor intolerable ya que los servomotores no pueden soportarlo. Tras revisar la zona del circuito de alimentación, es decir, clemas y reguladores de tensión, se detectó que los reguladores de tensión LM317 no estaban funcionando correctamente.
    
-   Posteriormente, se procedió a realizar una revisión en profundidad de la zona, pistas cercanas, las soldaduras de las clemas y reguladores; sin embargo, no se encontró ningún fallo de fabricación o ensamblaje.
+   Posteriormente, se procedió a realizar una revisión en profundidad de la zona, pistas cercanas, las soldaduras de las clemas y reguladores, sin embargo, no se encontró ningún fallo de fabricación o ensamblaje.
    
    Dado que el fallo no parecía deberse al proceso de fabricación, se procedió a revisar de nuevo los diseños lógico y físico de la \ac{PCB}. Tras esta revisión, se concluyó que el conexionado del diagrama lógico era correcto pero la huella física elegida para el regulador de tensión LM317 en el diagrama físico presentaba un orden en los pines diferente al del utilizado en el prototipo. Se muestran las imágenes en las que se ve claramente esta diferencia:
    
@@ -1169,21 +1170,9 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \label{fig:Encapsulado_LM317}
     \end{figure}
     
-    Tal y como se puede observar en las imágenes anteriores (imágenes \ref{fig:Logico_LM317}, \ref{fig:Huella_LM317} y \ref{fig:Encapsulado_LM317}):
+    Tal y como se puede observar en las imágenes anteriores (imágenes \ref{fig:Logico_LM317}, \ref{fig:Huella_LM317} y \ref{fig:Encapsulado_LM317}), se comprueba que el diagrama físico de la \ac{PCB} contenía un error en el conexionado de los reguladores LM317 que alimentan los servomotores y, por ello, el voltaje de salida de las clemas era de $7.1V$ y no de $5.41V$, tal y como se había diseñado.
     
-    \begin{itemize}
-    
-        \item El esquemático lógico del LM317 (ver imagen \ref{fig:Logico_LM317}) consta de 3 pines, al igual que su encapsulado y huella física.
-        
-        \item El encapsulado del LM317 (ver imagen \ref{fig:Encapsulado_LM317}) tiene como referencia TO-220, con lo cual se debe seleccionar dicha huella física (ver imagen \ref{fig:Huella_LM317}).
-        
-        \item A pesar de que le referencia de la huella física es TO-220, se puede afirmar que la distribución de pines de la misma no es igual al del encapsulado físico del componente.
-        
-        \item Los \textit{pads} 2 y 3 de la huella física, correspondientes a los pines \texttt{ADJUST} y \texttt{OUTPUT} del encapsulado del LM317, están intercambiados y, en consecuencia, la colocación de los pines es errónea.
-        
-    \end{itemize}
-    
-    Debido a lo descrito anteriormente, se comprueba que el diagrama físico de la \ac{PCB} contenía un error en el conexionado de los reguladores LM317 que alimentan los servomotores y, por ello, el voltaje de salida de las clemas era de $7.1V$ y no de $5.41V$, tal y como se había diseñado.
+    El fallo cometido, fue seleccionar incorrectamente la variante de TO-220 necesaria para el regulador utilizado y no haber realizado correctamente el proceso de verificación en cuanto a orden en los pines en el diseño físico.
     
     Como primer paso para solucionar dicho problema, se procedió a editar la huella física del componente y se intercambiaron los pines:
     
@@ -1218,7 +1207,7 @@ A continuación se muestran los principales contratiempos ocurridos y las soluci
     \label{fig:puentes}
     \end{figure}
     
-    Para la realización se emplearon cables de tamaño reducido que actuaban como puente entre las pistas. Por su tamaño y dado que el soldado de los mismos se realizó a mano, se considera que el resultado podría ser mejorable; sin embargo, esta solución dió buenos resultados y corrigió correctamente el voltaje de salida de los reguladores de tensión LM317.
+    Para la realización se emplearon cables de tamaño reducido que actuaban como puente entre las pistas. Por su tamaño y dado que el soldado de los mismos se realizó a mano, se considera que el resultado podría ser mejorable, sin embargo, esta solución dió buenos resultados y corrigió correctamente el voltaje de salida de los reguladores de tensión LM317.
     
 \end{itemize}
 
