@@ -76,6 +76,7 @@ desarrollador de UFACTORY\cite{ufactoryUArmSwiftPro2017}):
             \hline
         \end{tabular}
         \caption{Longitudes y desviaciones del manipulador $\mu$Arm.}
+        \label{tab:uArm-ld-values}
     \end{minipage}
 \end{table}
 
@@ -134,9 +135,77 @@ Esta relación se representa mediante una matriz, definida en la ecuación \ref{
 donde $R$ representa la \textit{rotación relativa} y $T$ la \textit{traslación relativa}.
 
 Otra ventaja de los parámetros de \textit{Denavit--Hartenberg} es la posibilidad de
-definir elementos cinemáticos, como la velocidad ($W_{i,j}(k)$) y la aceleración ($H_{i,j}(k)$)
-de distintos cuerpos; así como elementos dinámicos, tales como la inercia ($J$),
-el momento lineal y angular ($\Gamma$) o las fuerzas y torques aplicados 
-($\Phi$)\footnote{si bien estos datos resultan muy útiles para el proyecto no son necesariamente
-relevantes, ya que están supeditados a la velocidad y la masa, y el brazo robótico
-no presenta ni una masa suficientemente elevada ni alcanza velocidades altas.}.
+definir elementos cinemáticos, como la velocidad $\left(W_{i,j}(k)\right)$ y la aceleración ($H_{i,j}(k)$)
+de distintos cuerpos así como elementos dinámicos, tales como la inercia $\left(J\right)$,
+el momento lineal y angular $\left(\Gamma\right)$ o las fuerzas y torques aplicados
+$\left(\Phi\right)$\footnote{si bien estos datos resultan muy útiles, para el proyecto no se consideran
+    necesariamente relevantes, ya que están supeditados a la velocidad y a la masa (cuánto mayores sean,
+    la aplicación de dichos elementos cinemáticos será mayor sobre los componentes del
+    manipulador), y el brazo robótico no presenta ni una masa suficientemente elevada ni alcanza velocidades altas
+    como para afectar en gran media al comportamiento del mismo, pero sí se contempla realizar un estudio para completar
+    este proyecto en una futura versión.}.
+
+Para un manipulador basado estructuralmente en el $\mu$Arm, se obtienen unos parámetros
+de \textit{Denavit--Hartenberg} como los mostrados en la tabla \ref{tab:dh-params-with-phi}:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ c | c c c c }
+        $i$ & $\theta_i$ & $d_i~(mm.)$ & $a_i~(mm.)$ & $\alpha_i$          \\ [0.5ex]
+        \hline
+        $1$ & $\theta_1$ & $a_1$       & $d_1$       & $\nicefrac{\pi}{2}$ \\
+        $2$ & $\theta_2$ & $0$         & $a_2$       & $\pi$               \\
+        $3$ & $\theta_3$ & $0$         & $a_3$       & $0$                 \\
+        $4$ & $\theta_4$ & $0$         & $a_4$       & $0$                 \\ [1ex]
+    \end{tabular}
+    \caption{Tabla inicial de \textit{Denavit–Hartenberg} para un manipulador basado en el $\mu$Arm parametrizada.}
+    \label{tab:dh-params-with-phi}
+\end{table}
+
+En un estudio realizado previamente \cite{javieralonsosilvaEstudioManipuladorUArm2019},
+se descubrió (en relación con las tablas \ref{tab:uArm-ld-values} y \ref{tab:dh-params}
+y con el primer punto de la convención de los parámetros de \textit{Denavit--Hartenberg})
+que la desviación $d_1$ de la primera articulación estaba invertida con la distancia de la normal común
+$a_1$ ya que, como se puede ver en dicho primer punto, la desviación es sobre el eje $Z$.
+Por ello, en la tabla \ref{tab:uArm-ld-values} los valores de $a_1$ y $d_1$ están
+intercambiados. Además, también se vio que este tipo de estructuras pantográficas
+tienen su \textit{end--effector} siempre paralelo al plano del suelo (equivalente
+a que el ángulo con el plano $X$ es $\phi_e = \pi$), por lo que el cuarto elemento de
+los parámetros de \textit{Denavit--Hartenberg} para un manipulador basado en el $\mu$Arm
+se puede quitar, quedando como se muestra en la tabla \ref{tab:dh-params}:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ c | c c c c }
+        $i$ & $\theta_i$ & $d_i~(mm.)$ & $a_i~(mm.)$ & $\alpha_i$          \\ [0.5ex]
+        \hline
+        $1$ & $\theta_1$ & $a_1$       & $d_1$       & $\nicefrac{\pi}{2}$ \\
+        $2$ & $\theta_2$ & $0$         & $a_2$       & $\pi$               \\
+        $3$ & $\theta_3$ & $0$         & $a_3$       & $0$                 \\ [1ex]
+    \end{tabular}
+    \caption{Tabla de \textit{Denavit–Hartenberg} para un manipulador basado en el $\mu$Arm parametrizada.}
+    \label{tab:dh-params}
+\end{table}
+
+Esta característica simplifica los cálculos del ángulo final ya que siempre es el mismo
+$\left(\pi~rad\right)$, quedando únicamente por calcular los valores de $\theta_2$ y 
+$\theta_3$.
+
+Una vez obtenidos los datos correspondientes al robot, podemos definir múltiples 
+relaciones entre los mismos:
+\begin{itemize}
+    \item La cinemática directa, la cual permite saber el punto $\left\{x, y, z\right\}$
+          según unos ángulos $\left\{\theta_0, \theta_1, \theta_2\right\}$ de entrada.
+    \item La cinemática inversa, que permite conocer qué ángulos 
+          $\left\{\theta_0, \theta_1, \theta_2\right\}$ posicionan el robot en un punto
+          $\left\{x, y, z\right\}$.
+    \item La matriz Jacobiana, donde se puede obtener un movimiento $\overrightarrow{x}$ según 
+          qué velocidad haya en las articulaciones $\overrightarrow{q}$.
+    \item La matriz Jacobiana inversa, la cual devuelve el valor de la velocidad en
+          las articulaciones $\overrightarrow{q}$ para generar un movimiento en el 
+          \textit{end--effector} $\overrightarrow{x}$.
+\end{itemize}
+
+Dado que las cuatro relaciones anteriores son verdaderamente útiles para conocer y definir
+el comportamiento del robot, se estudiarán y se valorará cuál es la mejor aproximación
+a realizar en los siguientes puntos.
