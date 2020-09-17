@@ -43,6 +43,7 @@
 \usepackage[nottoc]{tocbibind}
 \usepackage[official]{eurosym}
 \usepackage{gensymb}
+\usepackage{qrcode}
 \usepackage{%
 	array, %%An ex­tended im­ple­men­ta­tion of the ar­ray and tab­u­lar en­vi­ron­ments which ex­tends the op­tions for col­umn for­mats, and pro­vides "pro­grammable" for­mat spec­i­fi­ca­tions
 	booktabs, %%The pack­age en­hances the qual­ity of ta­bles in LATEX, pro­vid­ing ex­tra com­mands as well as be­hind-the-scenes op­ti­mi­sa­tion
@@ -76,10 +77,6 @@
   keepspaces=true,                 % Mantiene los espacios en el texto. Es útil para mantener la indentación del código(puede necesitar columns=flexible).
   columns=flexible,
   keywordstyle=\color{darkorange},       % estilo de las palabras clave
-  language=C,                 % El lenguaje del código
-  otherkeywords={__attribute__, __interrupt__, config, inline, asm, uint8_t, uint16_t,%
-  uint32_t, uint64_t, time_t, size_t, servo_t, motor_t, Nop,%
-  point_t, angle_t, double64_t, int_fast64_t, bool, true, false},           % Si se quieren añadir otras palabras clave al lenguaje
   numbers=left,                    % Posición de los números de línea (none, left, right).
   numbersep=5pt,                   % Distancia de los números de línea al código
   numberstyle=\small\color{gray}, % Estilo para los números de línea
@@ -93,6 +90,18 @@
   title=\lstname,                   % muestra el nombre de los ficheros incluidos al utilizar
   caption=\lstname,
   literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'{\i}}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?``}}1 {¡}{{!``}}1 {º}{\textdegree}1
+}
+
+\lstdefinestyle{C}{%
+  language=C,                 % El lenguaje del código
+  otherkeywords={__attribute__, __interrupt__, config, inline, asm, uint8_t, uint16_t,%
+  uint32_t, uint64_t, time_t, size_t, servo_t, motor_t, Nop,%
+  point_t, angle_t, double64_t, int_fast64_t, bool, true, false, stdbool, stdint,%
+  stdlib, stddef}           % Si se quieren añadir otras palabras clave al lenguaje
+}
+
+\lstdefinestyle{Python}{%
+  language=Python
 }
 
 \usepackage{xcolor}
