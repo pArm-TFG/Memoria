@@ -106,9 +106,10 @@ traslaciones, lo que se traduce en conocer el punto exacto $\left\{x, y, z\right
 \textit{end--effector} cuando se giran las articulaciones
 $\left\{\theta_0, \theta_1, \cdots, \theta_i\right\}~rad$ respectivamente.
 
-Esta relación se representa mediante una matriz, definida en la ecuación \ref{eq:dh-table}:
+Esta relación se representa mediante una matriz, definida en la ecuación \ref{eq:dh-matrix}:
 
 \begin{equation}
+    \label{eq:dh-matrix}
     {
     \displaystyle \operatorname {}
     ^{i-1}T_{i}=\left[{
@@ -122,7 +123,7 @@ Esta relación se representa mediante una matriz, definida en la ecuación \ref{
     \left[{
                 \begin{array}{ccc|c}
                       &   &   &   \\
-                      & R &   & T \\
+                      & R' &   & T' \\
                       &   &   &   \\
                     \hline
                     0 & 0 & 0 & 1
@@ -130,9 +131,8 @@ Esta relación se representa mediante una matriz, definida en la ecuación \ref{
         \right]
     }
 \end{equation}
-\label{eq:dh-table}
 
-donde $R$ representa la \textit{rotación relativa} y $T$ la \textit{traslación relativa}.
+donde $R'$ representa la \textit{rotación relativa} y $T'$ la \textit{traslación relativa}.
 
 Otra ventaja de los parámetros de \textit{Denavit--Hartenberg} es la posibilidad de
 definir elementos cinemáticos, como la velocidad $\left(W_{i,j}(k)\right)$ y la aceleración ($H_{i,j}(k)$)

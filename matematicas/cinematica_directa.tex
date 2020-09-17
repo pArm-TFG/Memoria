@@ -1,0 +1,90 @@
+La cinemática directa permite conocer la rotación relativa entre dos articulaciones
+junto con la traslación relativa entre las mismas, utilizando para ello la matriz
+definida en la ecuación \ref{eq:dh-matrix}.
+
+Como se puede ver en dicha matriz, se relaciona una articulación $i$ con el equivalente
+anterior, en este caso $i - 1$, obteniéndose así la rotación relativa $R'$ y la
+traslación relativa $T'$. Si bien esta aproximación es sencilla, solo permite relacionar
+dos articulaciones entre sí y que estén en principio unidas por la normal común.
+
+En este brazo se disponen de tres articulaciones, como se muestra en la tabla
+\ref{tab:dh-params}, por lo que interesa obtener la matriz $^{0}T_{3}$, la cual relaciona
+directamente todas las articulaciones del brazo y permite obtener la rotación absoluta
+$R$ y la traslación absoluta $T$.
+
+La obtención de esta matriz es trivial y responde a la ecuación \ref{eq:t03}:
+
+\begin{equation}
+    \label{eq:t03}
+    ^0T_3 = {^0T_1} \cdot {^1T_2} \cdot {^2T_3}
+\end{equation}
+
+Dada que la multiplicación de matrices ha de realizarse en cierto orden, los
+factores han de permanecer en la misma posición siempre. De esta manera, se obtienen
+las siguientes matrices intermedias (ecuaciones \ref{eq:t01}, \ref{eq:t12}, \ref{eq:t23})
+y la matriz final (ecuación \ref{eq:t03-final}):
+
+\begin{align}
+    ^0T_1 & =
+    \begin{bmatrix}
+        \cos{\theta_{1}} & 0 & \sin{\theta_{1}}   & d_{1} \cos{\theta_{1}} \\
+        \sin{\theta_{1}} & 0 & - \cos{\theta_{1}} & d_{1} \sin{\theta_{1}} \\
+        0                & 1 & 0                  & a_{1}                  \\
+        0                & 0 & 0                  & 1                      \\
+    \end{bmatrix}\label{eq:t01}       \\[1ex]
+    ^1T_2 & =
+    \begin{bmatrix}
+        \cos{\theta_{2}} & \sin{\theta_{2}}   & 0  & a_{2} \cos{\theta_{2}} \\
+        \sin{\theta_{2}} & - \cos{\theta_{2}} & 0  & a_{2} \sin{\theta_{2}} \\
+        0                & 0                  & -1 & 0                      \\
+        0                & 0                  & 0  & 1                      \\
+    \end{bmatrix}\label{eq:t12}       \\[1ex]
+    ^2T_3 & =
+    \begin{bmatrix}
+        \cos{\theta_{3}} & - \sin{\theta_{3}} & 0 & a_{3} \cos{\theta_{3}} \\
+        \sin{\theta_{3}} & \cos{\theta_{3}}   & 0 & a_{3} \sin{\theta_{3}} \\
+        0                & 0                  & 1 & 0                      \\
+        0                & 0                  & 0 & 1                      \\
+    \end{bmatrix}\label{eq:t23}       \\[2ex]
+    ^3T_0 & =
+    {\small\begin{bmatrix}
+        \cos{\theta_{1}} \cos{\theta_{2} - \theta_{3}} & \sin{\theta_{2} - \theta_{3}} \cos{\theta_{1}}                                                                    & - \sin{\theta_{1}} \\
+        \sin{\theta_{1}} \cos{\theta_{2} - \theta_{3}} & \sin{\theta_{1}} \sin{\theta_{2} - \theta_{3}}                                                                    & \cos{\theta_{1}}   \\
+        \sin{\theta_{2} - \theta_{3}}                  & - \cos{\theta_{2} - \theta_{3}}                                                                                   & 0                  \\
+        0                                              & 0                                                                                                                 & 0                  \\
+                                                       & \qquad T_{X} + \left(a_{2} \cos{\theta_{2}} + a_{3} \cos{\theta_{2} - \theta_{3}} + d_{1}\right) \cos{\theta_{1}}                      \\
+                                                       & \qquad \left(a_{2} \cos{\theta_{2}} + a_{3} \cos{\theta_{2} - \theta_{3}} + d_{1}\right) \sin{\theta_{1}}                              \\
+                                                       & \qquad T_{Z} + a_{1} + a_{2} \sin{\theta_{2}} + a_{3} \sin{\theta_{2} - \theta_{3}}                                                    \\
+                                                       & \qquad 1                                                                                                                               \\
+    \end{bmatrix}}\label{eq:t03-final} \\[1ex]
+\end{align}
+
+Como se puede apreciar en la matriz \ref{eq:t03-final}, hay un añadido a los valores
+de la traslación $T$: $T_X$ y $T_Z$. Estas dos variables representan una traslación en el
+eje $X$ y otra traslación en el eje $Z$. Dichas variables aparecen básicamente
+porque es posible que en el brazo existan traslaciones que no hayan sido contempladas
+y que, a la hora de calcular las matrices, no afectan pero es necesario que aparezcan
+en la ``matriz final'' para obtener la posición exacta del \textit{end--effector}.
+
+Con estos valores se pueden obtener directamente las ecuaciones que relacionan
+los ángulos de entrada $\left\{\theta_1, \theta_2, \theta_3\right\}$ con el punto
+final $\left\{x, y, z\right\}$ en el cual se situará el brazo robótico (ecuación
+\ref{eq:from_thetas_to_xyz}):
+
+\begin{equation}
+    \label{eq:from_thetas_to_xyz}
+    \left.\begin{aligned}
+        x &= T_{X} + \left(a_{2} \cos{\theta_{2}} + a_{3} \cos{\theta_{2} - \theta_{3}} + d_{1}\right) \cos{\theta_{1}} \\
+        y &= \left(a_{2} \cos{\theta_{2}} + a_{3} \cos{\theta_{2} - \theta_{3}} + d_{1}\right) \sin{\theta_{1}} \\
+        z &= T_{Z} + a_{1} + a_{2} \sin{\theta_{2}} + a_{3} \sin{\theta_{2} - \theta_{3}} \\
+    \end{aligned}
+    \right\}
+\end{equation}
+
+Si bien estas operaciones se pueden hacer manualmente, los cálculos simbólicos pueden
+resultar algo complejos y se han realizado utilizando una librería anteriormente
+desarrollada \cite{UPMRoboticsUarm2019b}
+(ver código fuente en el anexo \ref{anex:pArm-configurator}) y, además, se ha creado
+un \textit{Jupyter Notebook} interactivo para poder realizar la configuración a medida
+e ir viendo los pasos que se han ido realizando \cite{PArmTFGPArmconfigurator2020}.
+Dicho cuaderno es accesible desde la URL especificada en el anexo \ref{anex:jupyter_binder}.
