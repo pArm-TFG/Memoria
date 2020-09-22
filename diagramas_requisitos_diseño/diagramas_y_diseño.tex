@@ -133,7 +133,7 @@ Este método es el encargado de autenticar a los dispositivos entre si y configu
     \item \texttt{receiveValue}: se realizan los procedimientos necesarios para recibir un valor desde \ac{S1} a través de la \ac{UART}.
     \item \texttt{operateValue}: se realiza una operación matemática con el valor recibido para generar de esta manera un identificador.
     \item \texttt{sendIdentifier}: se envía dicho identificador de vuelta a \ac{S1}.
-    \item \texttt{receiveResponse}: se recibe la respuesta de \ac{S1} para saber si el \ac{hand--shake} ha sido realizado con éxito.
+    \item \texttt{receiveResponse}: se recibe la respuesta de \ac{S1} para saber si el \textit{hand--shake} ha sido realizado con éxito.
     \item \texttt{succesfulHandshake}: en caso de que en el estado
     \texttt{receiveResponse} se haya recibido una respuesta afirmativa se pasa a este estado que representa que el dispositivo que conforma S1 y S2 han conseguido autenticarse entre si.
     \item \texttt{unsuccesfulHandshake}: en caso de que en el estado \texttt{receiveResponse} se haya recibido una respuesta negativa se pasa a este estado que representa que el dispositivo que conforma S1 y S2 no han conseguido autenticarse
@@ -306,11 +306,11 @@ Se cancela un movimiento que se este ejecutando actualmente
 
 \begin{itemize}
     \item \texttt{stopMotor}: Se para el motor.
-    \item \texttt{saveActualTicks}: Se guardan los ticks actuales que el motor ha recorrido. Los ticks representan ciclos de instrucción durante los cuales el motor recibe una señal PWM especifica. Se entra en detalle sobre este aspecto en apartados posteriores del documento.
+    \item \texttt{saveActualTicks}: Se guardan los ticks actuales que el motor ha recorrido. Los \textit{ticks} representan ciclos de instrucción durante los cuales el motor recibe una señal PWM especifica. Se entra en detalle sobre este aspecto en apartados posteriores del documento.
 
 \end{itemize}
 
-En el caso del bloque “MovementComputer” tenemos los siguientes diagramas.
+En el caso del bloque “MovementComputer” tenemos los siguientes diagramas:
 
 \begin{figure}[H]
     \centering
