@@ -165,14 +165,202 @@ De esta forma, tenemos que:
     z & \in \left[0, A_{M_H}\right] \\
 \end{align*}
 
+Una vez definidas las características anteriores, se puede empezar a obtener los distintos
+ángulos. Por una parte, la obtención de $\theta_0$ se puede realizar directamente como
+se muestra en la ecuación \ref{eq:t0}:
 
-, dada la configuración geométrica del
-mismo, se parte de un triángulo que relaciona la parte superior del brazo (ver figura
-\ref{fig:ik_pArm_triangle}).
+\begin{equation}\label{eq:t0}
+    \theta_0 = \left\{\begin{aligned}
+        \pi - \arctan{\frac{x}{y}} &,~y > 0 \\
+        - \arctan{\frac{x}{y}} &,~y < 0 \\
+        \frac{\pi}{2} &,~y = 0
+    \end{aligned}
+    \right.
+\end{equation}
 
-\begin{figure}
+La obtención de los dos ángulos restantes $\left\{\theta_1, \theta_2\right\}$ es más
+compleja y hay que plantear previamente ciertas modificaciones en los puntos de entrada.
+
+La idea principal radica en plantear la estructura superior del brazo como un triángulo
+y, mediante operaciones y leyes trigonométricas, ir obteniendo distintos parámetros hasta
+finalmente conseguir los ángulos finales. A modo de guía, se muestra en la figura
+\ref{fig:ik_over_arm} una representación de cómo está el triángulo sobre el brazo
+robótico.
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=.7\linewidth]{pictures/ik_cosine_law_over_arm.png}
-    \caption{Aproximación para la cinemática inversa de la parte superior del brazo.}
-    \label{fig:ik_pArm_triangle}
+    \includegraphics[width=.5\linewidth]{pictures/ik_cosine_law_over_arm.png}
+    \caption{Parte superior del \pArm{} con el triángulo para obtener la cinemática inversa.}
+    \label{fig:ik_over_arm}
 \end{figure}
+
+La distribución en particular del triángulo permite aplicar el teorema del coseno (ecuación
+\ref{eq:cosine_law}) y obtener así los lados o bien los ángulos.
+
+\begin{equation}\label{eq:cosine_law}
+    c^2 = a^2 + b^2 - 2ab\cos{\gamma}
+\end{equation}
+
+En particular, para el brazo robótico se conocen siempre el tamaño de los lados
+(según la figura \ref{fig:ik_over_arm}) $a$ y $c$, pero el lado $b$ es variable. Según las
+medidas del brazo se tiene que:
+
+\begin{equation*}
+    \left\{
+        \begin{aligned}
+            a &= \numprint[mm]{142} \\
+            c &= \numprint[mm]{158.8}
+        \end{aligned}
+    \right.
+\end{equation*}
+
+Como dicho lado $b$ es desconocido en principio y, además los ángulos $\gamma, \beta, \alpha$
+también lo son, no se podría aplicar el teorema del coseno, ya que se necesita cumplir alguna de las
+siguientes condiciones:
+
+\begin{itemize}
+    \item Dos lados y el ángulo entre ellos.
+    \item Los tres lados.
+    \item Dos lados y el ángulo opuesto a ellos.
+\end{itemize}
+
+Dado que conocemos dos de los lados siempre y, según las características de un triángulo,
+los ángulos no varían si y solo si la proporción de los lados es la misma tras aplicar
+distintas operaciones que modifiquen su tamaño, se puede modificar el tamaño del triángulo
+mostrado en la figura \ref{fig:ik_over_arm} con la intención de buscar que el lado
+desconocido tenga longitud $1$, pudiendo aplicar así en particular una forma del
+teorema del coseno que permite obtener el ángulo $\gamma$ teniendo los tres lados $\left\{a,b,c\right\}$
+(ecuación \ref{eq:cosine_law_angle}):
+
+\begin{equation}\label{eq:cosine_law_angle}
+    \gamma = \arccos{\left(\frac{a^2 + b^2 - c^2}{2ab}\right)}
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.3\linewidth]{pictures/cosine_law.png}
+    \caption{Triángulo para la aplicación del teorema del coseno en la ecuación \ref{eq:cosine_law_angle}.}
+    \label{fig:cosine_law_triangle}
+\end{figure}
+
+Para empezar, se modifica el valor de entrada de $z$ obteniéndose así $z'$ en donde 
+primeramente hay que añadir el valor de $h_o$ (\textit{height offset}). Dicho \textit{offset}
+varía según el \textit{end--effector} que esté en uso, habiendo disponibles \cite{UArmDeveloperSwiftProForArduino}:
+
+\begin{itemize}
+    \item $\numprint[mm]{74.55}$ para el \textit{end--effector} normal.
+    \item $\numprint[mm]{51.04}$ para el cabezal láser.
+    \item $\numprint[mm]{74.43}$ para el cabezal 3D.
+    \item $\numprint[mm]{74.43}$ para el cabezal con bolígrafo.
+    \item $\numprint[mm]{16.01}$ si no hay ningún \textit{end--effector} conectado.
+\end{itemize}
+
+Para el \pArm{}, en esta primera versión del desarrollo, se establece $h_o = \numprint[mm]{16.01}$.
+
+\begin{equation}
+    z' = z + h_o
+\end{equation}
+
+Además, para tener un triángulo con los lados y ángulos necesarios, se ha de quitar la
+altura que añade la base a $Z$ y se divide el valor por la longitud del brazo inferior
+$\overline{A_L}$ (ecuación \ref{eq:z_mod}):
+
+\begin{equation}\label{eq:z_mod}
+    z' = \frac{z' - A_{B_h}}{\overline{A_L}},
+    \left\{\begin{aligned}
+        A_{B_h} &\equiv \text{``\textit{Arm Base Height}''} = \numprint[mm]{106.1} \\
+        \overline{A_L} &\equiv \text{``\textit{Arm Lower}''} = \numprint[mm]{142}
+    \end{aligned}\right.
+\end{equation}
+
+Para $x$ hay que ``desproyectar'' el valor sobre el eje y eliminar las desviaciones
+que se han añadido tanto por el \textit{end--effector} como por la base en sí (en la
+figura \ref{fig:sizes} se observa una desviación en la base la cual se contempla
+en la tabla \ref{tab:uArm-ld-values}). Estas modificaciones se muestran en la ecuación
+\ref{eq:x_mod}:
+
+\begin{equation}\label{eq:x_mod}
+    x' = \frac{\frac{x}{\sin{\theta_0}} - T_X - \overline{A_{B_D}}}{\overline{A_L}}
+\end{equation}
+
+Además, al igual que se hizo en la ecuación \ref{eq:z_mod} y para mantener la proporción
+entre los lados, se divide el valor por $\overline{A_L}$. Esto permite que uno de los
+lados sea $\frac{\overline{A_U}}{\overline{A_L}}$ y el otro esté definido por
+$\sqrt{x'^2 + z'^2}$, teniendo así el último lado unitario.
+De esta manera, se obtiene un triángulo que cumple las siguientes dimensiones 
+(figura \ref{fig:unitary_triangle}):
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.3\linewidth]{pictures/ik_unitary_triangle.png}
+    \caption{Triángulo con uno de los lados unitario para el \pArm{}.}
+    \label{fig:unitary_triangle}
+\end{figure}
+
+En particular, el triángulo anterior se puede colocar sobre el brazo aproximadamente
+como se muestra en la imagen \ref{fig:u_triangle_over_arm}:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.6\linewidth]{pictures/ik_triangle_over_arm.png}
+    \caption{El triángulo con un lado unitario colocado a modo de referencia sobre el \pArm{}.}
+    \label{fig:u_triangle_over_arm}
+\end{figure}
+
+Para el triángulo mostrado en la figura \ref{fig:unitary_triangle} se puede aplicar
+dos veces el teorema del coseno (ecuación \ref{eq:cosine_law_angle}) para obtener
+los valores de $\theta_1'$ (ver ecuación \ref{eq:t1}) y $\theta_2'$ (ver ecuación \ref{eq:t2}):
+
+\begin{align}
+    \theta_1' &= \arccos{\left(\frac{x'^2 + z'^2 + \left(\frac{\overline{A_U}}{\overline{A_L}}\right)^2 - 1}%
+    {2\sqrt{x'^2 + z'^2} \cdot \frac{\overline{A_U}}{\overline{A_L}}}\right)} \label{eq:t1} \\[2ex]
+    \theta_2' &= \arccos{\left(\frac{x'^2 + z'^2 + 1 - \left(\frac{\overline{A_U}}{\overline{A_L}}\right)^2}%
+    {2\sqrt{x'^2 + z'^2}}\right)} \label{eq:t2}
+\end{align}
+
+Como se puede apreciar en las ecuaciones anteriores, todavía no tenemos los valores finales
+de los ángulos sino una primera aproximación a ellos. Esto es debido a que el ángulo
+$\theta_1$ como el ángulo $\theta_2$ que aparecen en el triángulo de la figura \ref{fig:unitary_triangle}
+no están paralelos al plano del suelo, en este caso, el eje $X$ (tal y como se puede ver
+en la figura \ref{fig:u_triangle_over_arm}).
+
+Para poder obtener los ángulos reales hay que añadir el ángulo $\phi$ que conforma el triángulo
+\ref{fig:u_triangle_over_arm} con el plano del suelo, tal y como se puede ver en la figura
+\ref{fig:final_triangle}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\linewidth]{pictures/ik_final.png}
+    \caption{Triángulo final orientativo junto con el ángulo $\phi$ respecto al plano del suelo.}
+    \label{fig:final_triangle}
+\end{figure}
+
+La obtención del ángulo $\phi$ se muestra en la ecuación \ref{eq:phi}
+
+\begin{equation}\label{eq:phi}
+    \phi = \arctan{\frac{x'}{z'}}~rad
+\end{equation}
+
+y los ángulos finales $\theta_1$ y $\theta_2$ se obtienen mediante la ecuación
+\ref{eq:final_theta}\footnote{el ángulo $\phi$ se suma o se resta según la orientación
+del triángulo ya que la arcotangente varía en signo según la posición de los puntos
+$x'$ y $z'$.}:
+
+\begin{equation}\label{eq:final_theta}
+    \left\{
+        \begin{aligned}
+            \theta_1 &= \theta_1' - \phi \\
+            \theta_2 &= \theta_2' + \phi \\
+        \end{aligned}
+    \right.
+\end{equation}
+
+Finalmente, por seguridad, se comprueba que en efecto los distintos ángulos obtenidos
+están comprendidos dentro del rango de movimiento de cada una de las articulaciones
+\cite{UArmDeveloperSwiftProForArduino}:
+
+\begin{align*}
+    \theta_0 &\in \left[\frac{\pi}{18}, \frac{151}{180}\pi\right] \\
+    \theta_1 &\in \left[0, \frac{113}{150}\pi\right] \\
+    \theta_2 &\in \left[0, \frac{1199}{1800}\pi\right]
+\end{align*}
