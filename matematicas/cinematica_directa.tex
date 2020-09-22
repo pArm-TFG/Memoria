@@ -31,21 +31,21 @@ y la matriz final (ecuación \ref{eq:t03-final}):
         \sin{\theta_{1}} & 0 & - \cos{\theta_{1}} & d_{1} \sin{\theta_{1}} \\
         0                & 1 & 0                  & a_{1}                  \\
         0                & 0 & 0                  & 1                      \\
-    \end{bmatrix}\label{eq:t01}       \\[1ex]
+    \end{bmatrix}\label{eq:t01} \\[1ex]
     ^1T_2 & =
     \begin{bmatrix}
         \cos{\theta_{2}} & \sin{\theta_{2}}   & 0  & a_{2} \cos{\theta_{2}} \\
         \sin{\theta_{2}} & - \cos{\theta_{2}} & 0  & a_{2} \sin{\theta_{2}} \\
         0                & 0                  & -1 & 0                      \\
         0                & 0                  & 0  & 1                      \\
-    \end{bmatrix}\label{eq:t12}       \\[1ex]
+    \end{bmatrix}\label{eq:t12} \\[1ex]
     ^2T_3 & =
     \begin{bmatrix}
         \cos{\theta_{3}} & - \sin{\theta_{3}} & 0 & a_{3} \cos{\theta_{3}} \\
         \sin{\theta_{3}} & \cos{\theta_{3}}   & 0 & a_{3} \sin{\theta_{3}} \\
         0                & 0                  & 1 & 0                      \\
         0                & 0                  & 0 & 1                      \\
-    \end{bmatrix}\label{eq:t23}       \\[2ex]
+    \end{bmatrix}\label{eq:t23} \\[2ex]
     ^3T_0 & =
     {\small\begin{bmatrix}
         \cos{\theta_{1}} \cos{\theta_{2} - \theta_{3}} & \sin{\theta_{2} - \theta_{3}} \cos{\theta_{1}}                                                                    & - \sin{\theta_{1}} \\
@@ -74,9 +74,9 @@ final $\left\{x, y, z\right\}$ en el cual se situará el brazo robótico (ecuaci
 \begin{equation}
     \label{eq:from_thetas_to_xyz}
     \left.\begin{aligned}
-        x &= T_{X} + \left(a_{2} \cos{\theta_{2}} + a_{3} \cos{\theta_{2} - \theta_{3}} + d_{1}\right) \cos{\theta_{1}} \\
-        y &= \left(a_{2} \cos{\theta_{2}} + a_{3} \cos{\theta_{2} - \theta_{3}} + d_{1}\right) \sin{\theta_{1}} \\
-        z &= T_{Z} + a_{1} + a_{2} \sin{\theta_{2}} + a_{3} \sin{\theta_{2} - \theta_{3}} \\
+        x & = T_{X} + \left(a_{2} \cos{\theta_{2}} + a_{3} \cos{\theta_{2} - \theta_{3}} + d_{1}\right) \cos{\theta_{1}} \\
+        y & = \left(a_{2} \cos{\theta_{2}} + a_{3} \cos{\theta_{2} - \theta_{3}} + d_{1}\right) \sin{\theta_{1}}         \\
+        z & = T_{Z} + a_{1} + a_{2} \sin{\theta_{2}} + a_{3} \sin{\theta_{2} - \theta_{3}}                               \\
     \end{aligned}
     \right\}
 \end{equation}
