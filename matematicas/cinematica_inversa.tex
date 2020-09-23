@@ -1,10 +1,10 @@
 La cinemática inversa es lo ``más cercano'' a nuestro mundo y a nuestra forma de actuar.
 Nosotros, como seres tridimensionales, nos movemos mediante coordenadas cartesianas
 conformadas por puntos definidos en los ejes $XYZ$, pero no manejamos con la misma
-soltura ni facilidad las coordenadas angulares. Cuando realizamos un giro en alguna
+soltura ni facilidad las coordenadas angulares. Cuando realizamos un giro en alguno
 de los brazos no lo hacemos pensando ``\textit{voy a mover el codo
-    15\textdegree{} a la derecha y el hombro 23\textdegree{} a la izquierda y así coloco la
-    mano justo donde quiero}'' sino que directamente visualizamos el movimiento que queremos
+15\textdegree{} a la derecha y el hombro 23\textdegree{} a la izquierda y así coloco la
+mano justo donde quiero}'' sino que directamente visualizamos el movimiento que queremos
 hacer, a dónde queremos mover el brazo y sencillamente lo colocamos en esa posición,
 moviendo inconscientemente las distintas articulaciones los grados necesarios.
 
@@ -15,10 +15,11 @@ partes más importantes del modelo matemático de cualquier manipulador.
 
 El problema surge en tanto que la cinemática inversa, a diferencia de la cinemática
 directa, no dispone de ecuaciones que permitan obtenerla directamente. Si bien en el
-punto anterior se vió cómo, a partir de una tabla de \textit{Denavit--Hartenberg},
-se obtenían las matrices que permiten obtener tanto las traslaciones como las rotaciones
+punto anterior se vio cómo, a partir de una tabla de \textit{Denavit--Hartenberg},
+se calculaban las matrices que permiten obtener tanto las traslaciones como las rotaciones
 relativas y, al multiplicarlas, la traslación absoluta $T$ y la rotación absoluta $R$,
-en la cinemática inversa no hay ningún modelo que permita una aproximación de este estilo.
+en la cinemática inversa no hay ningún modelo matemático que permita una aproximación 
+directa genérica para cualquier manipulador.
 
 A raíz de lo anterior, se plantean así dos maneras para poder obtener la relación entre
 coordenadas cartesianas y coordenadas articulares:
@@ -44,7 +45,7 @@ coordenadas cartesianas y coordenadas articulares:
           ecuación genérica que permita el cálculo de la inversa, cualquier cálculo numérico ha
           de ser previamente descubierto y estudiado. La aproximación a la cinemática inversa
           mediante este método es costosa y pueden haber situaciones en las que no resulte
-          interesante debido a la inversión en tiempo y coste: estudiar las distintas posiciones
+          viable debido a la inversión en tiempo y coste: estudiar las distintas posiciones
           a las que puede llegar el manipulador, estudio de los puntos críticos del mismo
           así como plantear, si es necesario, soluciones para puntos con múltiples soluciones
           (aquellos a los que se puede llegar con combinaciones de los ángulos de entrada
@@ -59,7 +60,7 @@ diferencia entre uno y otro:
     \item Por una parte, el rendimiento: el modelo matemático suele ser en general
           bastante eficiente en lo que a tiempo de cálculo se refiere, pero siempre va
           supeditado al manipulador que representa. Esto es, manipuladores con más
-          grados de libertad implicaría un modelo matemático mucho más complejo que según
+          grados de libertad implican en general un modelo matemático mucho más complejo que según
           las operaciones que implique puede no ser viable para el sistema en que se va a ejecutar.
 
           Por su lado, un mapa por su estructura y organización siempre permite el acceso a las
@@ -70,11 +71,11 @@ diferencia entre uno y otro:
           una primitiva u otra estructura de datos. Principalmente se debe a su organización
           en memoria ya que, además de las claves y sus valores, se debe guardar un \textit{hash}
           o un \textit{set} (según esté implementada la librería) de todas y cada una de las
-          claves, para garantizar así que el tiempo de acceso sea $\bigO{1}$.
+          claves para garantizar así que el tiempo de acceso sea $\bigO{1}$.
           Además, el mapa tendría que ir guardado o directamente en el espacio de código
           (y copiado a la \ac{RAM} en tiempo de ejecución) o bien guardado en un fichero
-          binario que permitiese su posterior carga en el sistema, lo cual implica que sería
-          necesario contar con ese espacio en el sistema de ficheros donde se guarde.
+          binario para su posterior carga en el sistema durante la ejecución, lo cual implica
+          que sería necesario contar con ese espacio en el sistema de ficheros donde se guarde.
 
           En cambio, el modelo matemático carece de este problema ya que se utilizan
           principalmente primitivas y operaciones matemáticas que se realizan directamente
@@ -82,28 +83,29 @@ diferencia entre uno y otro:
           usar muchas primitivas, es difícil que alcancen en tamaño en memoria a un mapa.
 
     \item Además, hay que tener en cuenta el esfuerzo de la obtención. La aproximación
-          por fuerza bruta requiere de bastante tiempo para la obtención del mapa al completo,
-          y un cambio en la cantidad de decimales implicaría un recálculo casi completo del mapa
-          con un aumento de tiempo exponencial, pero se podría dejar automatizado y que se realice
+          por fuerza bruta requiere de bastante tiempo para la obtención del mapa al completo.
+          Además, un cambio en la cantidad de decimales implicaría un recálculo casi completo del mapa
+          con un aumento de tiempo exponencial, aunque se puede automatizar y que sea realizado
           automáticamente por otro equipo.
 
           Sin embargo, dado que el modelo matemático requiere de un descubrimiento y estudio
           de tanto las características geométricas del manipulador como de las interacciones
           entre los elementos del mismo, el tiempo es en principio desconocido. Según el nivel
-          de las personas trabajando en ello puede ser mayor o menor, pero luego la verificación
-          y comprobación del mismo puede implicar tener que replantearlo y modelarlo de nuevo.
+          de las personas trabajando en ello puede ser mayor o menor, pero luego la verificación,
+          comprobación y validación de los resultados obtenidos puede implicar tener que 
+          replantearlo y modelarlo de nuevo.
 \end{itemize}
 
-Para este proyecto se ha preferido hacer el modelo matemático, ya que se plantearon las
-características del modelo por fuerza bruta pero fue descartado ya que se estimaba un
+Para este proyecto se ha preferido hacer el modelo matemático ya que se plantearon las
+características del modelo por fuerza bruta pero fue descartado debido a una estimación de
 uso de memoria excesivo (no habría cabido en el dispositivo\footnote{teniendo en cuenta
     que habría sido necesario guardar tuplas de tres elementos por clave junto con tuplas de
     otros tres elementos para el valor, donde cada elemento sería de tipo \texttt{float}
     (lo que se traduce en \textit{4 bytes} por elemento), habría supuesto un uso de
     aproximadamente $\left(\numprint{5.382e9}\right)^2 \cdot \numprint[B]{4} = \numprint[B]{1.158e20} \approx \numprint[TB]{1.158e11} $,
     lo cual es inviable para el sistema.}). Además, dado que se cuenta con un procesador
-con gran capacidad de cómputo las operaciones matemáticas se realizan a una gran velocidad,
-en particular las multiplicaciones ya que se cuenta con un conjunto de instrucciones y
+con gran capacidad de cómputo, las operaciones matemáticas se realizan a una gran velocidad
+y en particular las multiplicaciones, ya que se cuenta con un conjunto de instrucciones y
 con una \ac{ALU} que permiten realizarlas a la misma velocidad que una suma con números de hasta
 16 bits \cite{microchipDsPIC33EPIC24EFRM2010}.
 
@@ -202,7 +204,7 @@ La distribución en particular del triángulo permite aplicar el teorema del cos
 \end{equation}
 
 En particular, para el brazo robótico se conocen siempre el tamaño de los lados
-(según la figura \ref{fig:ik_over_arm}) $a$ y $c$, pero el lado $b$ es variable. Según las
+(según la figura \ref{fig:ik_over_arm}) `$a$' y `$c$', pero el lado `$b$' es variable. Según las
 medidas del brazo se tiene que:
 
 \begin{equation*}
@@ -214,22 +216,22 @@ medidas del brazo se tiene que:
     \right.
 \end{equation*}
 
-Como dicho lado $b$ es desconocido en principio y, además los ángulos $\gamma, \beta, \alpha$
-también lo son, no se podría aplicar el teorema del coseno, ya que se necesita cumplir alguna de las
+Como dicho lado `$b$' es desconocido en principio y además los ángulos $\left\{\gamma, \beta, \alpha\right\}$
+también lo son, no se podría aplicar el teorema del coseno ya que se necesita cumplir alguna de las
 siguientes condiciones:
 
 \begin{itemize}
-    \item Dos lados y el ángulo entre ellos.
-    \item Los tres lados.
-    \item Dos lados y el ángulo opuesto a ellos.
+    \item Se conocen dos lados y el ángulo entre ellos.
+    \item Se conocen los tres lados.
+    \item Se conocen dos lados y el ángulo opuesto a ellos.
 \end{itemize}
 
 Dado que conocemos dos de los lados siempre y, según las características de un triángulo,
 los ángulos no varían si y solo si la proporción de los lados es la misma tras aplicar
-distintas operaciones que modifiquen su tamaño, se puede modificar el tamaño del triángulo
+distintas operaciones que modifiquen su tamaño, se puede redimensionar el triángulo
 mostrado en la figura \ref{fig:ik_over_arm} con la intención de buscar que el lado
-desconocido tenga longitud $1$, pudiendo aplicar así en particular una forma del
-teorema del coseno que permite obtener el ángulo $\gamma$ teniendo los tres lados $\left\{a,b,c\right\}$
+desconocido sea unitario, esto es, mida $\numprint[mm]{1}$, pudiendo aplicar así en particular una forma del
+teorema del coseno que permite obtener el ángulo `$\gamma$' teniendo los tres lados $\left\{a,b,c\right\}$
 (ecuación \ref{eq:cosine_law_angle}):
 
 \begin{equation}\label{eq:cosine_law_angle}
@@ -242,6 +244,17 @@ teorema del coseno que permite obtener el ángulo $\gamma$ teniendo los tres lad
     \caption{Triángulo para la aplicación del teorema del coseno en la ecuación \ref{eq:cosine_law_angle}.}
     \label{fig:cosine_law_triangle}
 \end{figure}
+
+El procedimiento que sigue a continuación consiste en intentar fijar el valor de la mayor
+cantidad de lados posibles. Sabiendo que los puntos que varían y que afectan a los ángulos
+$\theta_1, \theta_2$ son `$x$' y `$z$' se ha de buscar que entonces uno de los segmentos
+del triángulo sea de la forma $\sqrt{x^2 + z^2}$ (el módulo del vector $\left|{\overrightarrow{xz}}\right|$).
+Por otra parte, como se conocen las longitudes que conforman los segmentos del brazo, se
+ha de buscar que además uno de los lados tenga un tamaño $\nicefrac{\overline{A_U}}{\overline{A_L}}$.
+Finalmente, con esos dos largos ya predefinidos, las variables `$x$' y `$z$' han de ser
+modificadas con la intención de que la sección restante del triángulo sea unitaria y
+simplifique los cálculos, ya que esto permitiría fijar dos lados del triángulo y tener únicamente
+uno variable.
 
 Para empezar, se modifica el valor de entrada de $z$ obteniéndose así $z'$ en donde
 primeramente hay que añadir el valor de $h_o$ (\textit{height offset}). Dicho \textit{offset}
@@ -285,7 +298,7 @@ en la tabla \ref{tab:uArm-ld-values}). Estas modificaciones se muestran en la ec
 
 Además, al igual que se hizo en la ecuación \ref{eq:z_mod} y para mantener la proporción
 entre los lados, se divide el valor por $\overline{A_L}$. Esto permite que uno de los
-lados sea $\frac{\overline{A_U}}{\overline{A_L}}$ y el otro esté definido por
+lados sea $\nicefrac{\overline{A_U}}{\overline{A_L}}$ y el otro esté definido por
 $\sqrt{x'^2 + z'^2}$, teniendo así el último lado unitario.
 De esta manera, se obtiene un triángulo que cumple las siguientes dimensiones
 (figura \ref{fig:unitary_triangle}):
@@ -307,7 +320,7 @@ como se muestra en la imagen \ref{fig:u_triangle_over_arm}:
     \label{fig:u_triangle_over_arm}
 \end{figure}
 
-Para el triángulo mostrado en la figura \ref{fig:unitary_triangle} se puede aplicar
+Para el triángulo mostrado en la figura \ref{fig:unitary_triangle} se aplica
 dos veces el teorema del coseno (ecuación \ref{eq:cosine_law_angle}) para obtener
 los valores de $\theta_1'$ (ver ecuación \ref{eq:t1}) y $\theta_2'$ (ver ecuación \ref{eq:t2}):
 
@@ -324,13 +337,13 @@ $\theta_1$ como el ángulo $\theta_2$ que aparecen en el triángulo de la figura
 no están paralelos al plano del suelo, en este caso, el eje $X$ (tal y como se puede ver
 en la figura \ref{fig:u_triangle_over_arm}).
 
-Para poder obtener los ángulos reales hay que añadir el ángulo $\phi$ que conforma el triángulo
+Para poder obtener los ángulos reales hay que añadir el ángulo `$\phi$' que conforma el triángulo
 \ref{fig:u_triangle_over_arm} con el plano del suelo, tal y como se puede ver en la figura
-\ref{fig:final_triangle}.
+\ref{fig:final_triangle}:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=.7\linewidth]{pictures/ik_final.png}
+    \includegraphics[width=.5\linewidth]{pictures/ik_final.png}
     \caption{Triángulo final orientativo junto con el ángulo $\phi$ respecto al plano del suelo.}
     \label{fig:final_triangle}
 \end{figure}
@@ -342,7 +355,7 @@ La obtención del ángulo $\phi$ se muestra en la ecuación \ref{eq:phi}
 \end{equation}
 
 y los ángulos finales $\theta_1$ y $\theta_2$ se obtienen mediante la ecuación
-\ref{eq:final_theta}\footnote{el ángulo $\phi$ se suma o se resta según la orientación
+\ref{eq:final_theta} \footnote{el ángulo $\phi$ se suma o se resta según la orientación
     del triángulo ya que la arcotangente varía en signo según la posición de los puntos
     $x'$ y $z'$.}:
 
