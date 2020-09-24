@@ -1,0 +1,5 @@
+El proyecto tiene una clara división del software en función del lugar donde este será ejecutado. Por un lado, se ha desarrollado un \ac{SW} de alto nivel en Python, el cual, permite la interacción directa de un operador humano con el brazo robótico mediante una interfaz de usuario. Este \ac{SW} gobierna el \ac{S1}. 
+
+Por otro lado, y de manera concurrente, se ha desarrollado un \ac{SW} que será cargado en la placa de control,cuyo propósito es, generar las señales necesarias para mover los motores, e interpretar las ordenes de movimiento que lleguen del \ac{S1}. Este \ac{SW} gobierna el \ac{S2}.
+
+Para comunicar estos dos sistemas se ha desarrollado un pseudo lenguaje basado en GCode el cual servirá para agilizar las comunicaciones y simplificar el envió y recepción de datos como posiciones o mensajes de error.
