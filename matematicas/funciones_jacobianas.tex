@@ -79,3 +79,20 @@ donde se tiene que:
         \dot{q} & \equiv \text{velocidad angular de las articulaciones}
     \end{aligned}\right.
 \end{equation*}
+
+Igualando las ecuaciones anteriores, obtenemos:
+
+\begin{align*}
+    F^T_{q_{hand}} \cdot{} \dot{q} &= F^T_x \dot{x} \\
+    F^T_{q_{hand}} \cdot{} \dot{q} &= F^T_x \cdot{} J_{ee}\left(q\right) \cdot \dot{q} \\
+    F^T_{q_{hand}} &= J^T_{ee}\left(q\right) \cdot F_x
+\end{align*}
+
+donde $J_{ee}\left(q\right)$ es la matriz Jacobiana para el \textit{end--effector}
+del robot y $F_{q_{hand}}$ representa las fuerzas en el espacio de articulaciones
+que afecta al movimiento del brazo.
+
+De esta manera, se puede utilizar la matriz Jacobiana no solamente para relacionar
+la velocidad de un espacio de estados con otro sino que además se puede utilizar
+para calcular las fuerzas que se necesiten en el espacio de articulaciones para conseguir
+las fuerzas deseadas en el espacio del \textit{end--effector}.
