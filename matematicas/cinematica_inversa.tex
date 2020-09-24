@@ -1,15 +1,15 @@
-La cinemática inversa es lo ``más cercano'' a nuestro mundo y a nuestra forma de actuar.
-Nosotros, como seres tridimensionales, nos movemos mediante coordenadas cartesianas
-conformadas por puntos definidos en los ejes $XYZ$, pero no manejamos con la misma
-soltura ni facilidad las coordenadas angulares. Cuando realizamos un giro en alguno
-de los brazos no lo hacemos pensando ``\textit{voy a mover el codo
-15\textdegree{} a la derecha y el hombro 23\textdegree{} a la izquierda y así coloco la
-mano justo donde quiero}'' sino que directamente visualizamos el movimiento que queremos
-hacer, a dónde queremos mover el brazo y sencillamente lo colocamos en esa posición,
-moviendo inconscientemente las distintas articulaciones los grados necesarios.
+La cinemática inversa se presenta como lo ``más cercano'' a nuestro mundo y a nuestra
+forma de actuar. El ser humano, como ser tridimensional, se mueve mediante coordenadas
+cartesianas conformadas por puntos definidos en espacio definido por los planos de los
+ejes $XYZ$, pero no se desenvuelve con la misma soltura con las coordenadas angulares.
+Cuando se realiza un giro en alguno de los brazos no se hace pensando: ``\textit{voy a mover el codo
+    15\textdegree{} a la derecha y el hombro 23\textdegree{} a la izquierda y así coloco la
+    mano justo donde quiero}'' sino que directamente se visualiza el movimiento que se pretende
+hacer, a dónde se quiere mover el brazo y se articulan los músculos para
+colocarlo en esa posición.
 
-Por esto, cuando manipulamos un brazo robótico es más sencillo indicar a dónde queremos
-que vaya el \textit{end--effector} del brazo más que cúanto ha de rotar cada uno de los
+Por esto, cuando manipulamos un brazo robótico resulta más sencillo indicar a dónde
+se quiere que vaya el \textit{end--effector} del brazo más que cúanto ha de rotar cada uno de los
 motores. De esta forma, el estudio de la cinemática inversa se convierte en una de las
 partes más importantes del modelo matemático de cualquier manipulador.
 
@@ -18,7 +18,7 @@ directa, no dispone de ecuaciones que permitan obtenerla directamente. Si bien e
 punto anterior se vio cómo, a partir de una tabla de \textit{Denavit--Hartenberg},
 se calculaban las matrices que permiten obtener tanto las traslaciones como las rotaciones
 relativas y, al multiplicarlas, la traslación absoluta $T$ y la rotación absoluta $R$,
-en la cinemática inversa no hay ningún modelo matemático que permita una aproximación 
+en la cinemática inversa no hay ningún modelo matemático que permita una aproximación
 directa genérica para cualquier manipulador.
 
 A raíz de lo anterior, se plantean así dos maneras para poder obtener la relación entre
@@ -41,9 +41,9 @@ coordenadas cartesianas y coordenadas articulares:
           en $XYZ$. Si se quisieran usar dos decimales de precisión en ángulos (ya que hay motores capaces
           de ello), se tendrían pues $\numprint{5.832e12}$ combinaciones de ángulos y puntos.
 
-    \item Mediante el cálculo numérico y el descubrimiento matemático. Como no hay una
+    \item Mediante el cálculo numérico y el razonamiento matemático. Como no hay una
           ecuación genérica que permita el cálculo de la inversa, cualquier cálculo numérico ha
-          de ser previamente descubierto y estudiado. La aproximación a la cinemática inversa
+          de ser previamente razonado y estudiado. La aproximación a la cinemática inversa
           mediante este método es costosa y pueden haber situaciones en las que no resulte
           viable debido a la inversión en tiempo y coste: estudiar las distintas posiciones
           a las que puede llegar el manipulador, estudio de los puntos críticos del mismo
@@ -63,7 +63,7 @@ diferencia entre uno y otro:
           grados de libertad implican en general un modelo matemático mucho más complejo que según
           las operaciones que implique puede no ser viable para el sistema en que se va a ejecutar.
 
-          Por su lado, un mapa por su estructura y organización siempre permite el acceso a las
+          Por otro lado, un mapa por su estructura y organización siempre permite el acceso a las
           claves y sus valores bajo un $\bigO{1}$, haciéndolos la mejor opción en términos
           de eficiencia si se busca una ejecución rápida.
 
@@ -88,28 +88,30 @@ diferencia entre uno y otro:
           con un aumento de tiempo exponencial, aunque se puede automatizar y que sea realizado
           automáticamente por otro equipo.
 
-          Sin embargo, dado que el modelo matemático requiere de un descubrimiento y estudio
+          Sin embargo, dado que el modelo matemático requiere de un razonamiento y estudio
           de tanto las características geométricas del manipulador como de las interacciones
-          entre los elementos del mismo, el tiempo es en principio desconocido. Según el nivel
-          de las personas trabajando en ello puede ser mayor o menor, pero luego la verificación,
-          comprobación y validación de los resultados obtenidos puede implicar tener que 
-          replantearlo y modelarlo de nuevo.
+          entre los elementos del mismo, el tiempo es en principio desconocido. Depende
+          directamente de las aptitudes tanto matemáticas como técnicas del equipo trabajando
+          en ello y, además, la verificación, comprobación y validación de los resultados
+          obtenidos puede implicar tener que replantearlo y modelarlo de nuevo, necesitando
+          así de más tiempo hasta que se consigan resultados conformes a los requisitos
+          establecidos.
 \end{itemize}
 
 Para este proyecto se ha preferido hacer el modelo matemático ya que se plantearon las
 características del modelo por fuerza bruta pero fue descartado debido a una estimación de
-uso de memoria excesivo (no habría cabido en el dispositivo\footnote{teniendo en cuenta
+uso de memoria excesivo (no habría sido suficiente según la disponible en el dispositivo\footnote{teniendo en cuenta
     que habría sido necesario guardar tuplas de tres elementos por clave junto con tuplas de
     otros tres elementos para el valor, donde cada elemento sería de tipo \texttt{float}
-    (lo que se traduce en \textit{4 bytes} por elemento), habría supuesto un uso de
-    aproximadamente $\left(\numprint{5.382e9}\right)^2 \cdot \numprint[B]{4} = \numprint[B]{1.158e20} \approx \numprint[TB]{1.158e11} $,
-    lo cual es inviable para el sistema.}). Además, dado que se cuenta con un procesador
-con gran capacidad de cómputo, las operaciones matemáticas se realizan a una gran velocidad
-y en particular las multiplicaciones, ya que se cuenta con un conjunto de instrucciones y
-con una \ac{ALU} que permiten realizarlas a la misma velocidad que una suma con números de hasta
-16 bits \cite{microchipDsPIC33EPIC24EFRM2010}.
+    (lo que se traduce en $\numprint[B]{4}$ por elemento), habría supuesto un uso de
+    aproximadamente: $\left(\numprint{5.382e9}\right)^2 \cdot \numprint[B]{4} = \numprint[B]{1.158e20} \approx \numprint[TB]{1.158e11} $,
+    (suponiendo que las tuplas no usan espacio adicional) lo cual es inviable para el sistema.}).
+Además, dado que se cuenta con un procesador con gran capacidad de cómputo, las operaciones
+matemáticas se realizan a una gran velocidad y en particular las multiplicaciones, ya que
+se cuenta con un conjunto de instrucciones y con una \ac{ALU} que permiten su realización
+a la misma velocidad que una suma con números de hasta 16 bits \cite{microchipDsPIC33EPIC24EFRM2010}.
 
-Para plantear la cinemática inversa del \pArm{} hay que distinguir dos partes:
+Para plantear la cinemática inversa del \pArm{} se han de distinguir dos partes:
 \begin{itemize}
     \item La base $\left(\theta_0\right)$, que rota sobre el eje $Y$ y cuyo movimiento no está supeditado al
           del resto de motores.
@@ -181,7 +183,7 @@ se muestra en la ecuación \ref{eq:t0}:
 \end{equation}
 
 La obtención de los dos ángulos restantes $\left\{\theta_1, \theta_2\right\}$ es más
-compleja y hay que plantear previamente ciertas modificaciones en los puntos de entrada.
+compleja y se han de realizar previamente ciertas modificaciones en los puntos de entrada.
 
 La idea principal radica en plantear la estructura superior del brazo como un triángulo
 y, mediante operaciones y leyes trigonométricas, ir obteniendo distintos parámetros hasta
@@ -245,16 +247,23 @@ teorema del coseno que permite obtener el ángulo `$\gamma$' teniendo los tres l
     \label{fig:cosine_law_triangle}
 \end{figure}
 
-El procedimiento que sigue a continuación consiste en intentar fijar el valor de la mayor
-cantidad de lados posibles. Sabiendo que los puntos que varían y que afectan a los ángulos
+Sabiendo que los puntos que varían y que afectan a los ángulos
 $\theta_1, \theta_2$ son `$x$' y `$z$' se ha de buscar que entonces uno de los segmentos
 del triángulo sea de la forma $\sqrt{x^2 + z^2}$ (el módulo del vector $\left|{\overrightarrow{xz}}\right|$).
+Esto permitiría que el triángulo cambiase de forma según la extensión del brazo.
 Por otra parte, como se conocen las longitudes que conforman los segmentos del brazo, se
-ha de buscar que además uno de los lados tenga un tamaño $\nicefrac{\overline{A_U}}{\overline{A_L}}$.
+ha de buscar que además uno de los lados tenga un tamaño que se base en dichos segmentos,
+dejándolo también fijo. Dicho tamaño no ha de ser arbitrario sino que, para ser coherente
+con la estructura superior del brazo, debe implicar a los elementos que lo conforman
+$\left(a_2, a_3\right)$.
+En este caso, el otro lado fijado se busca que esté definido por la proporción:
+$\nicefrac{\overline{A_U}}{\overline{A_L}}$.
 Finalmente, con esos dos largos ya predefinidos, las variables `$x$' y `$z$' han de ser
-modificadas con la intención de que la sección restante del triángulo sea unitaria y
-simplifique los cálculos, ya que esto permitiría fijar dos lados del triángulo y tener únicamente
-uno variable.
+modificadas con las variaciones que se han aplicado. Como en principio
+uno de los lados se busca que sea unitario y el otro se ha definido por $\nicefrac{\overline{A_U}}{\overline{A_L}}$,
+se tendrán que multiplicar dichas variables por `$1$' y dividirlas por $\overline{A_L}$
+para conservar la proporción, además de realizar distintas operaciones para eliminar
+la altura de la base, las traslaciones en los ejes y la altura del \textit{end--effector}.
 
 Para empezar, se modifica el valor de entrada de $z$ obteniéndose así $z'$ en donde
 primeramente hay que añadir el valor de $h_o$ (\textit{height offset}). Dicho \textit{offset}
@@ -286,7 +295,9 @@ $\overline{A_L}$ (ecuación \ref{eq:z_mod}):
     \end{aligned}\right.
 \end{equation}
 
-Para $x$ hay que ``desproyectar'' el valor sobre el eje y eliminar las desviaciones
+Para $x$ se ha de ``desproyectar'' el valor sobre el eje (obteniendo de esta manera el
+valor real del vector $\overrightarrow{x}$ para poder usarlo en el cálculo de
+$\left|\overrightarrow{xz}\right|$) y eliminar las desviaciones
 que se han añadido tanto por el \textit{end--effector} como por la base en sí (en la
 figura \ref{fig:sizes} se observa una desviación en la base la cual se contempla
 en la tabla \ref{tab:uArm-ld-values}). Estas modificaciones se muestran en la ecuación
@@ -297,10 +308,21 @@ en la tabla \ref{tab:uArm-ld-values}). Estas modificaciones se muestran en la ec
 \end{equation}
 
 Además, al igual que se hizo en la ecuación \ref{eq:z_mod} y para mantener la proporción
-entre los lados, se divide el valor por $\overline{A_L}$. Esto permite que uno de los
-lados sea $\nicefrac{\overline{A_U}}{\overline{A_L}}$ y el otro esté definido por
-$\sqrt{x'^2 + z'^2}$, teniendo así el último lado unitario.
-De esta manera, se obtiene un triángulo que cumple las siguientes dimensiones
+entre los lados, se divide el valor por $\overline{A_L}$.
+
+Con las modificaciones anteriores se ha conseguido obtener lo que se propuso
+inicialmente:
+
+\begin{itemize}
+    \item Existe un lado variable definido por: $\sqrt{x'^2 + z'^2}$ que permite modificar
+          el triángulo para obtener los valores reales de los ángulos $\left\{\theta_1, \theta_2\right\}$.
+    \item Hay un lado fijo que está definido por la proporción de los dos segmentos
+          que conforman la parte superior del brazo y definido por: $\nicefrac{\overline{A_U}}{\overline{A_L}}$.
+    \item El lado desconocido tiene un tamaño fijo de $\numprint[mm]{1}$ permitiendo simplificar
+          los cálculos.
+\end{itemize}
+
+De esta manera, se obtiene un triángulo que cumple con las siguientes dimensiones
 (figura \ref{fig:unitary_triangle}):
 
 \begin{figure}[H]
@@ -310,8 +332,9 @@ De esta manera, se obtiene un triángulo que cumple las siguientes dimensiones
     \label{fig:unitary_triangle}
 \end{figure}
 
-En particular, el triángulo anterior se puede colocar sobre el brazo aproximadamente
-como se muestra en la imagen \ref{fig:u_triangle_over_arm}:
+En particular, el triángulo anterior se puede colocar a modo de
+referencia\footnote{las longitudes del triángulo no son equivalentes a las mostradas en el dibujo.}
+sobre el brazo tal como se muestra en la imagen \ref{fig:u_triangle_over_arm}:
 
 \begin{figure}[H]
     \centering
@@ -328,16 +351,16 @@ los valores de $\theta_1'$ (ver ecuación \ref{eq:t1}) y $\theta_2'$ (ver ecuaci
     \theta_1' & = \arccos{\left(\frac{x'^2 + z'^2 + \left(\frac{\overline{A_U}}{\overline{A_L}}\right)^2 - 1} %
     {2\sqrt{x'^2 + z'^2} \cdot \frac{\overline{A_U}}{\overline{A_L}}}\right)} \label{eq:t1}                   \\[2ex]
     \theta_2' & = \arccos{\left(\frac{x'^2 + z'^2 + 1 - \left(\frac{\overline{A_U}}{\overline{A_L}}\right)^2} %
-        {2\sqrt{x'^2 + z'^2}}\right)} \label{eq:t2}
+    {2\sqrt{x'^2 + z'^2}}\right)} \label{eq:t2}
 \end{align}
 
-Como se puede apreciar en las ecuaciones anteriores, todavía no tenemos los valores finales
-de los ángulos sino una primera aproximación a ellos. Esto es debido a que el ángulo
+Como se puede apreciar en las ecuaciones anteriores, todavía no se tienen los valores finales
+de los ángulos sino una primera aproximación a ellos. Esto es debido a que tanto el ángulo
 $\theta_1$ como el ángulo $\theta_2$ que aparecen en el triángulo de la figura \ref{fig:unitary_triangle}
-no están paralelos al plano del suelo, en este caso, el eje $X$ (tal y como se puede ver
+no se encuentran paralelos al plano del suelo, en este caso, el eje $X$ (tal y como se puede ver
 en la figura \ref{fig:u_triangle_over_arm}).
 
-Para poder obtener los ángulos reales hay que añadir el ángulo `$\phi$' que conforma el triángulo
+Para poder obtener los ángulos reales se ha de añadir el ángulo `$\phi$' que relaciona el triángulo
 \ref{fig:u_triangle_over_arm} con el plano del suelo, tal y como se puede ver en la figura
 \ref{fig:final_triangle}:
 
@@ -348,16 +371,16 @@ Para poder obtener los ángulos reales hay que añadir el ángulo `$\phi$' que c
     \label{fig:final_triangle}
 \end{figure}
 
-La obtención del ángulo $\phi$ se muestra en la ecuación \ref{eq:phi}
+La obtención de dicho ángulo se muestra en la ecuación \ref{eq:phi}
 
 \begin{equation}\label{eq:phi}
     \phi = \arctan{\frac{x'}{z'}}~rad
 \end{equation}
 
 y los ángulos finales $\theta_1$ y $\theta_2$ se obtienen mediante la ecuación
-\ref{eq:final_theta} \footnote{el ángulo $\phi$ se suma o se resta según la orientación
+\ref{eq:final_theta}\footnote{el ángulo $\phi$ se suma o se resta según la orientación
     del triángulo ya que la arcotangente varía en signo según la posición de los puntos
-    $x'$ y $z'$.}:
+    $x'$ y $z'$, tal como se muestra en la documentación al desarrollador\cite{UArmDeveloperSwiftProForArduino}.}:
 
 \begin{equation}\label{eq:final_theta}
     \left\{
@@ -368,7 +391,7 @@ y los ángulos finales $\theta_1$ y $\theta_2$ se obtienen mediante la ecuación
     \right.
 \end{equation}
 
-Finalmente, por seguridad, se comprueba que en efecto los distintos ángulos obtenidos
+Finalmente, por seguridad, se puede comprobar que en efecto los distintos ángulos obtenidos
 están comprendidos dentro del rango de movimiento de cada una de las articulaciones
 \cite{UArmDeveloperSwiftProForArduino}:
 

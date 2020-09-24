@@ -59,15 +59,16 @@ y la matriz final (ecuación \ref{eq:t03-final}):
     \end{bmatrix}}\label{eq:t03-final}
 \end{align}
 
-Como se puede apreciar en la matriz \ref{eq:t03-final}, hay un añadido a los valores
-de la traslación $T$: `$T_X$' y `$T_Z$'. Estas dos variables representan una traslación en el
-eje $X$ y otra traslación en el eje $Z$, las cuales aparecen básicamente
-porque es posible que en el brazo existan traslaciones que no hayan sido contempladas
-en los parámetros de \textit{Denavit--Hartenberg} y que, a la hora de calcular las matrices,
-no afectan pero es necesario que aparezcan en la ``matriz final'' para obtener la posición 
-exacta del \textit{end--effector}. En particular, la traslación $T_Z$ añade la longitud del 
-segmento $a_4$ que fue despreciado en los parámetros de \textit{Denavit--Hartenberg} como se 
-mostró en la tabla \ref{tab:dh-params}.
+Como se puede apreciar en la matriz \ref{eq:t03-final}, se muestra un añadido a los valores
+de la traslación $T$: $T_X$ y $T_Z$. Estas dos variables representan traslaciones tanto 
+en el eje $X$ y como en el eje $Z$, las cuales aparecen debido a que en el brazo 
+se contemplan variaciones en la longitud de ciertos segmentos que no se han tenido en 
+cuenta a la hora de definir los parámetros de \textit{Denavit--Hartenberg} y que, 
+en el momento de la obtención de las matrices, no afectan directamente a los cálculos 
+(se anulan con los senos y cosenos) pero han de aparecer en la ``matriz final'' ,
+permitiendo así la obtención precisa de la posición del \textit{end--effector}. En particular, 
+la traslación $T_Z$ añade la longitud del segmento $a_4$ que fue ignorado en los 
+parámetros de \textit{Denavit--Hartenberg}, como se mostró en la tabla \ref{tab:dh-params}.
 
 Con estos valores se pueden obtener directamente las ecuaciones que relacionan
 los ángulos de entrada $\left\{\theta_1, \theta_2, \theta_3\right\}$ con el punto
