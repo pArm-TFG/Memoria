@@ -1,1 +1,12 @@
-El protocolo de comunicación se ha creado para 
+El protocolo de autenticación se ha creado para que los dos sistemas puedan reconocerse entre si, permitiendo de esta manera asegurar que los datos que provengan del puerto elegido para la comunicación son efectivamente destinados al dispositivo y asegurando por tanto que los datos enviados a través de este mismo puerto llegarán al destino esperado.
+
+Para realizar la autenticación se sigue el siguiente protocolo.
+
+\begin{enumerate}
+  \item \ac{S2} genera dos números al iniciarse, n y e (La clave publica)
+  \item \ac{S1}, al elegir un puerto de comunicación en la interfaz, manda una petición de autenticación a \ac{S2} por ese puerto empleando el GCode ''I1''
+  \item Si \ac{S2} efectivamente esta conectado a ese puerto, recibe el mensaje y procede a mandar el numero n y e en dos mensajes distintos. El primer mensaje en formato ''I2 n'' y el segundo en formato ''I3 e''.
+  \item Posteriormente, \ac{S2} envía a \ac{S1} un mensaje cifrado con su clave privada (firma el mensaje).
+  \item Tras recibir este mensaje firmado, \ac{S1} utiliza ''n'' y ''e'' para ''desfirmar'' el mensaje.
+  \item \ac{S1} envía el mensaje en claro de vuelta a \ac{S2} 
+\end{enumerate}
