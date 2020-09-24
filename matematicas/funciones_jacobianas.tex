@@ -1,0 +1,81 @@
+Las matrices Jacobianas son una herramienta que permite definir la relación
+dinámica entre dos representaciones diferentes de un sistema. Para un manipulador
+de $n$ grados de libertad (con $n > 1$) se puede definir la posición del mismo de dos
+formas posibles:
+
+\begin{enumerate}
+    \item Mediante la posición y orientación del \textit{end--effector}, denominado por $x$.
+    \item Mediante el conjunto de los ángulos de las articulaciones, denominado por $q$.
+\end{enumerate}
+
+El modo de funcionamiento de las matrices Jacobianas se puede definir como el efecto
+que se produce en el \textit{end--effector} `$x$' tras un movimiento de las articulaciones
+`$q$', entendiendo así la Jacobiana como la matriz transformada de la velocidad.
+
+Formalmente, la matriz Jacobiana se define como un conjunto de ecuaciones diferenciales
+parciales (denotado en la ecuación \ref{eq:jacobian_def}):
+
+\begin{equation}\label{eq:jacobian_def}
+    J = \frac{\partial x}{\partial q}
+\end{equation}
+
+la cual puede ser expresada como:
+
+\begin{equation}\label{eq:jacobian_x}
+    \dot{x} = J \cdot \dot{q}
+\end{equation}
+
+donde $\dot{x}$ y $\dot{q}$ representan las derivadas de $x, q$ respecto al tiempo.
+
+En la ecuación \ref{eq:jacobian_x} se expresa que la velocidad del \textit{end--effector}
+es igual al producto de la Jacobiana $J$ multiplicada por la velocidad de las articulaciones.
+¿Para qué resulta útil tener estos datos? La expresión \ref{eq:jacobian_x} permite el
+trabajar con trayectorias en un espacio diferente al que se dispone normalmente\cite{travisdewolfRobotControlPart2013a}.
+Esto resulta útil ya que permite el control del \textit{end--effector} mediante la
+generación de señales de control (en términos de fuerza) a aplicar en $\left(x, y, z\right)$.
+Las matrices Jacobianas pues permiten un cálculo directo de las señales de control en un
+espacio controlado, como son los torques de los motores/articulaciones, dada otra señal
+que no controlamos, como la fuerza a aplicar en el \textit{end--effector}.
+
+Anteriormente se ha visto que la Jacobiana representa la relación entre velocidades
+parciales del \textit{end--effector} y las articulaciones, pero se ha hablado de trabajar
+con las fuerzas de cada uno de ellos. Para el \pArm{}, se pueden definir las siguientes
+premisas:
+
+\begin{align*}
+    x &= \left[x, y, z\right]^T \\
+    q &= \left[q_0, q_1, q_2\right]^T
+\end{align*}
+
+Como se conoce la velocidad, se puede definir el trabajo $\left(W\right)$ como la fuerza
+que hay que aplicar durante una distancia, definido por la ecuación \ref{eq:work}. Por
+otra parte, la potencia $\left(P\right)$ se define como la cantidad de trabajo efectuado
+por unidad de tiempo\cite{PotenciaFisica2020}, definido por la ecuación \ref{eq:power}.
+
+\begin{align}
+    W &= \int{F^T \cdot v~dt} \label{eq:work} \\[1ex]
+    P &= \frac{W}{\varDelta t} \label{eq:power}
+\end{align}
+
+Por el teorema de la conservación de la energía el trabajo se realiza a la misma
+velocidad indiferentemente de la caracterización del sistema, por lo que las ecuaciones
+anteriores se pueden escribir tanto en términos del \textit{end--effector}
+como en términos de las articulaciones (ecuación \ref{eq:p_eq}):
+
+\begin{equation}\label{eq:p_eq}
+    P = \left\{\begin{aligned}
+        F^T_x & \cdot \dot{x} \\
+        F^T_q & \cdot \dot{q} 
+    \end{aligned}\right.
+\end{equation}
+
+donde se tiene que:
+
+\begin{equation*}
+    \left\{\begin{aligned}
+        F_x & \equiv \text{fuerza aplicada al brazo} \\
+        F_q & \equiv \text{fuerza aplicada a las articulaciones} \\
+        \dot{x} & \equiv \text{velocidad del \textit{end--effector}} \\
+        \dot{q} & \equiv \text{velocidad angular de las articulaciones}
+    \end{aligned}\right.
+\end{equation*}
