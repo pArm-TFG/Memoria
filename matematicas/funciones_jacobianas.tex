@@ -44,7 +44,7 @@ premisas:
 
 \begin{align*}
     x &= \left[x, y, z\right]^T \\
-    q &= \left[q_0, q_1, q_2\right]^T
+    q &= \left[\theta_0, \theta_1, \theta_2\right]^T
 \end{align*}
 
 Como se conoce la velocidad, se puede definir el trabajo $\left(W\right)$ como la fuerza
@@ -96,3 +96,134 @@ De esta manera, se puede utilizar la matriz Jacobiana no solamente para relacion
 la velocidad de un espacio de estados con otro sino que además se puede utilizar
 para calcular las fuerzas que se necesiten en el espacio de articulaciones para conseguir
 las fuerzas deseadas en el espacio del \textit{end--effector}.
+
+\subsection*{Construyendo la matriz Jacobiana}
+Como se mostró anteriormente, la velocidad del \textit{end--effector} se puede
+expresar como el producto de la matriz Jacobiana por la velocidad de las articulaciones
+(ecuación \ref{eq:jacobian_x}). Para dicha ecuación se tienen los siguientes datos:
+
+\begin{equation*}
+    \dot{x} = J \cdot \dot{q}
+    \left\{\begin{aligned}
+        \dot{x} &= \left(X_e, Y_e, Z_e, \phi_e\right) \\
+        \dot{q} &= \left(\theta_0, \cdots, \theta_n,~d_1, \cdots, d_n\right) \\
+        J &= \text{matriz Jacobiana}
+    \end{aligned}\right.
+\end{equation*}
+
+La obtención de la matriz Jacobiana $J\left(\dot{q}\right)$ se ha de realizar obteniendo
+las submatrices Jacobianas que relacionan la velocidad lineal `$v$' y la velocidad angular
+`$\omega$'. La matriz Jacobiana que relaciona la velocidad lineal se define como
+(ecuación \ref{eq:j_v}):
+
+\begin{equation}\label{eq:j_v}
+    J_v\left(\dot{q}\right) = 
+    \begin{bmatrix}
+        \frac{\partial X_e}{\partial \theta_0} & \frac{\partial X_e}{\theta_1} & \cdots & \frac{\partial X_e}{\theta_n} & \frac{\partial X_e}{d_1} & \cdots & \frac{\partial X_e}{d_n} \\[3ex]
+        \frac{\partial Y_e}{\partial \theta_0} & \frac{\partial Y_e}{\theta_1} & \cdots & \frac{\partial Y_e}{\theta_n} & \frac{\partial Y_e}{d_1} & \cdots & \frac{\partial Y_e}{d_n} \\[3ex]
+        \frac{\partial Z_e}{\partial \theta_0} & \frac{\partial Z_e}{\theta_1} & \cdots & \frac{\partial Z_e}{\theta_n} & \frac{\partial Z_e}{d_1} & \cdots & \frac{\partial Z_e}{d_n} \\
+    \end{bmatrix}
+\end{equation}
+
+y la matriz que relaciona la velocidad angular se define como (ecuación \ref{eq:j_w}):
+
+\begin{equation}\label{eq:j_w}
+    J_{\omega}\left(\dot{q}\right) =
+    \begin{bmatrix}
+        \frac{\partial \phi_X}{\partial \theta_0} & \frac{\partial \phi_X}{\theta_1} & \cdots & \frac{\partial \phi_X}{\theta_n} & \frac{\partial \phi_X}{d_1} & \cdots & \frac{\partial \phi_X}{d_n} \\[3ex]
+        \frac{\partial \phi_Y}{\partial \theta_0} & \frac{\partial \phi_Y}{\theta_1} & \cdots & \frac{\partial \phi_Y}{\theta_n} & \frac{\partial \phi_Y}{d_1} & \cdots & \frac{\partial \phi_Y}{d_n} \\[3ex]
+        \frac{\partial \phi_Z}{\partial \theta_0} & \frac{\partial \phi_Z}{\theta_1} & \cdots & \frac{\partial \phi_Z}{\theta_n} & \frac{\partial \phi_Z}{d_1} & \cdots & \frac{\partial \phi_Z}{d_n} \\
+    \end{bmatrix}
+\end{equation}
+
+De esta manera, la matriz Jacobiana `$J$' se puede definir como 
+(ecuación \ref{eq:j})\footnote{el cálculo de las matrices Jacobianas puede resultar
+complejo de realizar sobre todo a nivel simbólico, por lo que se deja en el anexo
+\ref{anex:jupyter_binder} un enlace a un \textit{Jupyter Notebook} que agiliza y guía
+durante el proceso de obtención de estas matrices. El código fuente para su obtención
+no obstante se encuentra disponible en el anexo \ref{lst:manipulator_py}.}:
+
+\begin{gather}\label{eq:j}
+        J_{ee}\left(\dot{q}\right) = 
+        \begin{bmatrix}
+            J_v\left(\dot{q}\right) \\
+            J_{\omega}\left(\dot{q}\right)
+        \end{bmatrix} = \\[2ex]
+        {\footnotesize\begin{bmatrix}
+            - \left(a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}} + d_{1}\right) \sin{\theta_{0}} & \left(- a_{2} \sin{\theta_{1}} - a_{3} \sin{\theta_{1} - \theta_{2}}\right) \cos{\theta_{0}} & a_{3} \sin{\theta_{1} - \theta_{2}} \cos{\theta_{0}} \\
+            \left(a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}} + d_{1}\right) \cos{\theta_{0}}   & \left(- a_{2} \sin{\theta_{1}} - a_{3} \sin{\theta_{1} - \theta_{2}}\right) \sin{\theta_{0}} & a_{3} \sin{\theta_{0}} \sin{\theta_{1} - \theta_{2}} \\
+            0                                                                                                                                              & a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}}                                               & - a_{3} \cos{\theta_{1} - \theta_{2}}                              \\[1ex]
+            0                                                                                                                                              & 1                                                                                                                                      & -1                                                                               \\
+            0                                                                                                                                              & 0                                                                                                                                      & 0                                                                                \\
+            1                                                                                                                                              & 0                                                                                                                                      & 0                                                                                \\
+        \end{bmatrix}} \nonumber
+\end{gather}
+
+Una de las utilidades de la matriz Jacobiana es la obtención de los puntos críticos,
+es decir, aquellos en los que el determinante de dicha matriz se hace cero. Los puntos
+críticos resultan de especial interés ya que definen posiciones en el manipulador que o
+bien son inalcanzables o bien someten a la estructura física del mismo a una gran tensión,
+pudiendo resultar dañado en el proceso o de llegar a una ``posición de no retorno'', donde
+los motores que componen el brazo puede que no dispongan de suficiente fuerza para moverse a otra
+posición.
+
+Para la matriz Jacobiana anterior (ecuación \ref{eq:j}), se obtiene el siguiente 
+determinante (ecuación \ref{eq:j_det}):
+
+\begin{equation}\label{eq:j_det}
+    \left|J_{ee}\left(\dot{q}\right)\right| = - a_{2} a_{3} \left(a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}} + d_{1}\right) \sin{\theta_{2}}
+\end{equation}
+
+Analíticamente se puede observar que los puntos críticos del \pArm{} se dan para 
+los valores de $\theta_2 = 0$ y $\theta_2 = \pi$, punto en el que el brazo está o bien
+completamente recogido o bien completamente estirado. La cuestión radica en que, viendo
+la configuración geométrica del brazo robótico, el ángulo de $\pi~rad$ se
+vuelve inalcanzable ya que los valores máximos del ángulo $\theta_2$ son \cite{UArmDeveloperSwiftProForArduino}:
+
+\begin{equation*}
+    \theta_2 \in \left[0, \frac{1199}{1800}\pi\right]
+\end{equation*}
+
+Por el contrario, la posición de $0~rad$ se habrá de tener en cuenta para
+evitar que el brazo esté expuesto a un nivel elevado de tensión durante tiempo prolongado.
+Entre los dos segmentos superiores del brazo robótico se situará un fin de carrera a
+efectos de evitar dicha tensión además de regular y calibrar los motores.
+
+Al igual que en el caso de la cinemática directa, se puede obtener una matriz Jacobiana
+inversa que permite, dada una fuerza en un otro espacio $\dot{x}$ obtener qué par han
+de generar las articulaciones $\dot{q}$ para obtener dicha fuerza. La Jacobiana inversa
+depende directamente de que el determinante sea distinto de cero ya que, en otro caso,
+implicará que la matriz es una matriz singular y que por consiguiente no es invertible
+\cite{InvertibleMatrix2020}.
+
+Para el caso anterior existe una ``pseudo--inversa'' de Moore--Penrose \cite{PseudoinversaMoorePenrose2020}
+la cual permite la obtención de una matriz inversa aún cuando su determinante es cero.
+Dicha pseudo--inversa se denota $J^+$ y se define por (ecuación \ref{eq:j+}):
+
+\begin{equation}\label{eq:j+}
+    J^+ = J^T (J \cdot J^T)^{-1}
+\end{equation}
+
+Además, se cumple que si la inversa de la matriz Jacobiana existe entonces su pseudo-inversa
+también existirá, y será igual a la matriz inversa:
+
+\begin{equation*}
+    J^+ = J^{-1} \iff \exists J^{-1}
+\end{equation*}
+
+Como los puntos críticos son $\theta_2 = 0$ y $\theta_2 = \pi$ se puede obtener un valor
+de la inversa que será igual a la pseudo--inversa, donde ambas dependen del parámetro
+$\theta_2$ para existir. El valor que se obtiene de la inversa es el siguiente (ecuación
+\ref{eq:pinv})\footnote{el cálculo simbólico de tanto la inversa como de la pseudo--inversa
+puede resultar algo complejo por lo que se ha dejado en el anexo \ref{anex:jupyter_binder}
+un \textit{Jupyter Notebook} para realizar las operaciones de forma interactiva y guiada.
+No obstante, el código fuente se encuentra disponible en el anexo \ref{lst:manipulator_py}.}:
+
+\begin{gather}\label{eq:pinv}
+    J^{-1} = J^+ = \\
+    {\footnotesize\begin{bmatrix}
+        - \frac{\sin{\theta_{0}}}{a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}} + d_{1}}                                                 & \frac{\cos{\theta_{0}}}{a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}} + d_{1}}                                                   & 0                                                                                                                                             \\
+        - \frac{\cos{\theta_{0}} \cos{\theta_{1} - \theta_{2}}}{a_{2} \sin{\theta_{2}}}                                                                 & - \frac{\sin{\theta_{0}} \cos{\theta_{1} - \theta_{2}}}{a_{2} \sin{\theta_{2}}}                                                                 & - \frac{\sin{\theta_{1} - \theta_{2}}}{a_{2} \sin{\theta_{2}}}                                                    \\
+        - \frac{\left(a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}}\right) \cos{\theta_{0}}}{a_{2} a_{3} \sin{\theta_{2}}} & - \frac{\left(a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}}\right) \sin{\theta_{0}}}{a_{2} a_{3} \sin{\theta_{2}}} & - \frac{a_{2} \sin{\theta_{1}} + a_{3} \sin{\theta_{1} - \theta_{2}}}{a_{2} a_{3} \sin{\theta_{2}}} \\
+    \end{bmatrix}} \nonumber
+\end{gather}
