@@ -1,0 +1,48 @@
+Para poder comunicar los dispositivos entre si de manera eficiente, hemos planteado un pseudo-lenguaje basado en GCode para poder realizar el envió y la recepción de datos desde, y hacia la placa.
+
+El formato general del mensaje que se envía es el siguiente:
+
+\begin{center}
+\Big
+    G1 X10 Y10 Z10
+\end{center}
+
+Donde la G representa el tipo de trama y el numero a su derecha el identificador individual de una trama concreta de ese tipo.
+Después, separado por un espacio, tenemos los parámetros de la trama. El numero de parámetro dependerá del tipo concreto de orden.
+
+Para este proyecto se han reservado 4 tipos de trama, a saber, tipo I, J, G y M.
+
+Las tramas de tipo I sirven para gestionar la autenticación inicial de los dispositivos.
+
+Las tramas de tipo J comunican fallos o para confirmar un funcionamiento correcto del sistema.
+
+Las tramas de tipo G comunican valores de las posiciones tanto cartesianas como angulares.
+
+Las tramas de tipo M se emplean para pedir los valores de las posiciones cartesianas o angulares del brazo y para cancelar el movimiento de este.
+
+A continuación se pasará a analizar cada una de las tramas por separado.
+
+\subsubsection{G0}
+Este tipo de trama sirve para comunicar una posición ya que es de tipo G. Mas concretamente, como es G0 sirve para comunicar posiciones cartesianas.
+
+Los parámetros de esta trama son X, Y y Z los cuales van seguidos de un valor numérico que representa la posición en cada uno de los respectivos ejes.
+
+Por ejemplo, G0 X10 Y20 Z30 proveniente de \ac{S1} y con destino a \ac{S2} significa que el brazo se ha de mover a las posiciones cartesianas x=10mm, y=20mm y z=30mm con respecto a la posición inicial.
+
+Por otro lado, si la misma trama fuese proveniente de \ac{S2} con destino a \ac{S1}, esto significaría que se esta comunicando a \ac{S1} la posición cartesiana real del brazo.
+
+\subsection{G1}
+Este tipo de trama sirve para comunicar una posición ya que es de tipo G. Mas concretamente, como es G1, sirve para comunicar posiciones angulares.
+
+Los parámetros de esta trama son X, Y y Z los cuales van seguidos de un valor numérico que representa el ángulo en theta1, theta2 y theta3.
+
+Por ejemplo, G1 X10 Y20 Z30 proveniente de \ac{S1} y con destino a \ac{S2} significa que el brazo se ha de mover a las posiciones angulares theta=10º, theta2=20º y theta=30º.
+
+Obsérvame que, pese a que los parámetros siguen siendo X, Y, y Z, en S1 se interpretan como ángulos, a diferencia de G0, donde se interpretaban como coordenadas cartesianas.
+
+\subsection{G28}
+Este tipo de trama sirve para comunicar una posición ya que es de tipo G. Mas concretamente, como es G28, sirve para comunicar al brazo que debe volver a la posición de origen.
+
+Esta trama no tiene parámetros ya que la posición de origen es conocida por el \ac{S2} y no hace falta comunicarla.
+
+La trama G28 solo puede ser enviada desde \ac{S1} a \ac{S2}.
