@@ -1,0 +1,26 @@
+Una vez concluido el estudio sobre el fundamento matemático del proyecto, se decidió
+qué usar de lo visto anteriormente.
+
+Por una parte, se vio cómo el uso de la fuerza bruta generando un mapa de ángulos
+y puntos resultaba inviable teniendo en cuenta el espacio disponible en el microcontrolador
+así como el tiempo necesario para calcularlo.
+
+Con respecto a las funciones Jacobianas, si bien su estudio permite crear muchas
+relaciones entre velocidades y fuerzas, dado que la masa del robot es pequeña y la
+velocidad es constante, el uso de dichas funciones para el control del mismo no añade
+mucha más información de la que ya se dispone. Además, en favor de lo anterior, en el
+código fuente original del $\mu$Arm tampoco contempla las funciones Jacobianas a la hora
+de manejar ni los puntos ni la velocidad \cite{UArmDeveloperSwiftProForArduino}, por lo
+que se puede asumir que su uso no es necesario.
+
+Por esto mismo, el control del brazo se realizará utilizando la cinemática directa
+para obtener el punto $\left\{x, y, z\right\}$ del \textit{end--effector} cuando se
+aplican unos ángulos de entrada $\left\{\theta_0, \theta_1, \theta_2\right\}$; y la
+cinemática inversa para obtener la relación entre un punto de entrada $\left\{x, y, z\right\}$
+y los ángulos que lo generan $\left\{\theta_0, \theta_1, \theta_2\right\}$.
+
+Teniendo en cuenta las características mencionadas sobre el microcontrolador a utilizar,
+el tiempo de ambas operaciones es bastante pequeño (unos $\numprint[\mu s]{15}$ la
+cinemática directa y $\numprint[\mu s]{100}$ para la cinemática inversa, según una
+estimación con el simulador.), por lo que su uso no añade un desfase suficientemente
+grande como para considerarse notorio.
