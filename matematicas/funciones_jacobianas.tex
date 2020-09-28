@@ -31,7 +31,7 @@ En la ecuación \ref{eq:jacobian_x} se expresa que la velocidad del \textit{end-
 es igual al producto de la Jacobiana $J$ multiplicada por la velocidad de las articulaciones.
 ¿Para qué resulta útil tener estos datos? La expresión \ref{eq:jacobian_x} permite el
 trabajar con trayectorias en un espacio diferente al que se dispone normalmente\cite{travisdewolfRobotControlPart2013a}.
-Esto resulta útil ya que permite el control del \textit{end--effector} mediante la
+Esto permite el control del \textit{end--effector} mediante la
 generación de señales de control (en términos de fuerza) a aplicar en $\left(x, y, z\right)$.
 Las matrices Jacobianas pues permiten un cálculo directo de las señales de control en un
 espacio controlado, como son los torques de los motores/articulaciones, dada otra señal
@@ -119,9 +119,9 @@ las submatrices Jacobianas que relacionan la velocidad lineal `$v$' y la velocid
 \begin{equation}\label{eq:j_v}
     J_v\left(\dot{q}\right) = 
     \begin{bmatrix}
-        \frac{\partial X_e}{\partial \theta_0} & \frac{\partial X_e}{\theta_1} & \cdots & \frac{\partial X_e}{\theta_n} & \frac{\partial X_e}{d_1} & \cdots & \frac{\partial X_e}{d_n} \\[3ex]
-        \frac{\partial Y_e}{\partial \theta_0} & \frac{\partial Y_e}{\theta_1} & \cdots & \frac{\partial Y_e}{\theta_n} & \frac{\partial Y_e}{d_1} & \cdots & \frac{\partial Y_e}{d_n} \\[3ex]
-        \frac{\partial Z_e}{\partial \theta_0} & \frac{\partial Z_e}{\theta_1} & \cdots & \frac{\partial Z_e}{\theta_n} & \frac{\partial Z_e}{d_1} & \cdots & \frac{\partial Z_e}{d_n} \\
+        \frac{\partial X_e}{\partial \theta_0} & \frac{\partial X_e}{\partial \theta_1} & \cdots & \frac{\partial X_e}{\partial \theta_n} & \frac{\partial X_e}{\partial d_1} & \cdots & \frac{\partial X_e}{\partial d_n} \\[3ex]
+        \frac{\partial Y_e}{\partial \theta_0} & \frac{\partial Y_e}{\partial \theta_1} & \cdots & \frac{\partial Y_e}{\partial \theta_n} & \frac{\partial Y_e}{\partial d_1} & \cdots & \frac{\partial Y_e}{\partial d_n} \\[3ex]
+        \frac{\partial Z_e}{\partial \theta_0} & \frac{\partial Z_e}{\partial \theta_1} & \cdots & \frac{\partial Z_e}{\partial \theta_n} & \frac{\partial Z_e}{\partial d_1} & \cdots & \frac{\partial Z_e}{\partial d_n} \\
     \end{bmatrix}
 \end{equation}
 
@@ -130,9 +130,9 @@ y la matriz que relaciona la velocidad angular se define como (ecuación \ref{eq
 \begin{equation}\label{eq:j_w}
     J_{\omega}\left(\dot{q}\right) =
     \begin{bmatrix}
-        \frac{\partial \phi_X}{\partial \theta_0} & \frac{\partial \phi_X}{\theta_1} & \cdots & \frac{\partial \phi_X}{\theta_n} & \frac{\partial \phi_X}{d_1} & \cdots & \frac{\partial \phi_X}{d_n} \\[3ex]
-        \frac{\partial \phi_Y}{\partial \theta_0} & \frac{\partial \phi_Y}{\theta_1} & \cdots & \frac{\partial \phi_Y}{\theta_n} & \frac{\partial \phi_Y}{d_1} & \cdots & \frac{\partial \phi_Y}{d_n} \\[3ex]
-        \frac{\partial \phi_Z}{\partial \theta_0} & \frac{\partial \phi_Z}{\theta_1} & \cdots & \frac{\partial \phi_Z}{\theta_n} & \frac{\partial \phi_Z}{d_1} & \cdots & \frac{\partial \phi_Z}{d_n} \\
+        \frac{\partial \phi_X}{\partial \theta_0} & \frac{\partial \phi_X}{\partial \theta_1} & \cdots & \frac{\partial \phi_X}{\partial \theta_n} & \frac{\partial \phi_X}{\partial d_1} & \cdots & \frac{\partial \phi_X}{\partial d_n} \\[3ex]
+        \frac{\partial \phi_Y}{\partial \theta_0} & \frac{\partial \phi_Y}{\partial \theta_1} & \cdots & \frac{\partial \phi_Y}{\partial \theta_n} & \frac{\partial \phi_Y}{\partial d_1} & \cdots & \frac{\partial \phi_Y}{\partial d_n} \\[3ex]
+        \frac{\partial \phi_Z}{\partial \theta_0} & \frac{\partial \phi_Z}{\partial \theta_1} & \cdots & \frac{\partial \phi_Z}{\partial \theta_n} & \frac{\partial \phi_Z}{\partial d_1} & \cdots & \frac{\partial \phi_Z}{\partial d_n} \\
     \end{bmatrix}
 \end{equation}
 
@@ -146,7 +146,7 @@ no obstante se encuentra disponible en el anexo \ref{lst:manipulator_py}.}:
 \begin{gather}\label{eq:j}
         J_{ee}\left(\dot{q}\right) = 
         \begin{bmatrix}
-            J_v\left(\dot{q}\right) \\
+            J_v\left(\dot{q}\right) \\[1ex]
             J_{\omega}\left(\dot{q}\right)
         \end{bmatrix} = \\[2ex]
         {\footnotesize\begin{bmatrix}
@@ -190,7 +190,7 @@ Entre los dos segmentos superiores del brazo robótico se situará un fin de car
 efectos de evitar dicha tensión además de regular y calibrar los motores.
 
 Al igual que en el caso de la cinemática directa, se puede obtener una matriz Jacobiana
-inversa que permite, dada una fuerza en un otro espacio $\dot{x}$ obtener qué par han
+inversa que permite, dada una fuerza en un otro espacio $\dot{x}$, obtener qué par han
 de generar las articulaciones $\dot{q}$ para obtener dicha fuerza. La Jacobiana inversa
 depende directamente de que el determinante sea distinto de cero ya que, en otro caso,
 implicará que la matriz es una matriz singular y que por consiguiente no es invertible
@@ -204,7 +204,7 @@ Dicha pseudo--inversa se denota $J^+$ y se define por (ecuación \ref{eq:j+}):
     J^+ = J^T (J \cdot J^T)^{-1}
 \end{equation}
 
-Además, se cumple que si la inversa de la matriz Jacobiana existe entonces su pseudo-inversa
+Además, se cumple que si la inversa de la matriz Jacobiana existe entonces su pseudo--inversa
 también existirá, y será igual a la matriz inversa:
 
 \begin{equation*}
@@ -227,3 +227,9 @@ No obstante, el código fuente se encuentra disponible en el anexo \ref{lst:mani
         - \frac{\left(a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}}\right) \cos{\theta_{0}}}{a_{2} a_{3} \sin{\theta_{2}}} & - \frac{\left(a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}}\right) \sin{\theta_{0}}}{a_{2} a_{3} \sin{\theta_{2}}} & - \frac{a_{2} \sin{\theta_{1}} + a_{3} \sin{\theta_{1} - \theta_{2}}}{a_{2} a_{3} \sin{\theta_{2}}} \\
     \end{bmatrix}} \nonumber
 \end{gather}
+
+Para el caso en el que el determinante sea cero, la matriz inversa no existe y se
+ha de usar la pseudo--inversa. Para dicho caso, la matriz resultante es monstruosa
+e inabarcable. Se ha dejado a modo de curiosidad en el anexo \ref{anex:pinv} y se ha
+calculado utilizando un \textit{Jupyter Notebook} que se encuentra en el anexo
+\ref{anex:jupyter_binder}.
