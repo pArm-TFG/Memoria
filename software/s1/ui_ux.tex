@@ -1,0 +1,75 @@
+Para explicar el software que correrá en el \ac{S1} se va a hacer una división entre la parte que implementa la lógica de control y comunicaciones y la parte que implementa la interfaz gráfica.
+
+\subsection{Lógica}
+
+La lógica de control se ha dividido en varios paquetes para encapsular distintas funcionalidades del sistema por separado, estos paquetes son: ''comunications'', ''control'', ''gcode'', ''logger'', ''security'' y ''utils''.
+
+A continuación se procede a explicar la funcionalidad de cada uno de los paquetes a un nivel de abstracción alto. Posteriormente, se explicarán los archivos .py que cada uno de los paquetes contiene.
+
+Además de las explicaciones dadas en esta sección, existen comentarios en el código que explicarán mas en detalle cada una de las funciones.
+
+A continuación se procede a explicar cada uno de los paquetes.
+
+\subsubsection{Comunications}
+Este paquete se encarga de gestionar la comunicaciones desde y hacia \ac{S1}. Sirve principalmente para facilitar la operación y la lectura del buffer de recepción.
+También permite la escritura por un puerto UART.
+
+Contiene un solo archivo, ''connection.py'', en el cual están definidas todas las funciones relacionadas con la lectura y la escritura a través del puerto UART.
+
+Cabe destacar que para poder utilizar este puerto para la comunicación se ha hecho uso de la biblioteca ''serial'' de python.
+
+\subsubsection{Control}
+
+Este paquete contiene la lógica de control propiamente dicha. Sirve para implementar los métodos principales de movimiento, de comunicación y de  ''handshake''. Además ofrece una interfaz lógica para que la interfaz de usuario pueda, a través de los botones que aparecen en pantalla, comunicarse con la lógica de control.
+
+Contiene 3 archivos.py:
+
+\begin{itemize}
+    \item control.py: El cual implementa los métodos de movimiento y petición de posiciones. Es el archivo principal de control y sus funciones desencadenan llamadas a todos los demás paquetes para poder realizar funciones complejas.
+    \item control\_interface.py: Es una interfaz que implementa parte de los métodos de control.py. Este archivo es utilizado por la GUI para poder desencadenar acciones en \ac{S1} a partir de la interacción del operario con la interfaz gráfica.
+    \item control\_management.py: Ofrece funciones auxiliares que permiten a control.py monitorizar que las ordenes enviadas a \ac{S2} son realizadas con éxito o en caso contrario, controlar los errores que se pudieran producir.
+\end{itemize}
+
+Cabe destacar que en este paquete se han utilizado librerías  que implementan el uso de futuros en Python con el objetivo de poder monitorizar el movimiento de \ac{S2} sin necesidad de bloquear la interfaz de usuario.
+
+\subsubsection{Gcode}
+
+Aquí se encuentran la lógica de interpretación y generación de las tramas de GCODE que se transmiten entre \ac{S1} y \ac{S2}.
+
+Contiene 2 archivos .py:
+
+\begin{itemize}
+    \item generator.py: Este archivo contiene las funciones que, a partir de los valores que reciben como parámetros, generan las tramas en el formato adecuado para ser enviadas.
+    
+    \item interpreter.py: Este archivo sirve para analizar gramaticalmente los bytes que hay en el buffer de \ac{S1}.
+    Para poder realizar esta labor, transforma los bytes en cadena de caracteres y posteriormente analiza dichas cadenas y las interpreta.
+\end{itemize}
+
+Se ha usado la librería typing para permitir el uso de distintos tipos de datos que simplifiquen el tratamiento de los datos y la interpretación de las tramas.
+
+\subsubsection{Logger}
+
+Este paquete permite llevar un registro de los datos y las acciones importantes que ocurren en \ac{S1}. Genera un archivo en el que se guardan diferentes datos para poder hacer debugging y crashlogs.
+
+Contiene un único archivo, logger.py, el cual alberga las funciones necesarias para crear el archivo y operar con el, además de dar un formato estándar a las diferentes trazas.
+
+En este paquete destaca el uso de la librería ''logging'' para poder generar nombres únicos para los distintos archivos de registro y además para comprimir de manera automática los archivos de registro antiguos.
+
+\subsubsection{Security}
+
+A través de este paquete el \ac{S1} consigue autenticar al sistema \ac{S2} y viceversa.
+
+Contiene un solo archivo, rsa.py, el cual alberga las funciones necesarias para que, a partir de los números procedentes de \ac{S2}, se pueda ''desfirmar'' la trama recibida y poder reenviarla en claro posteriormente.
+
+Se ha usado la librería typing para poder usar tipos de datos que simplificaran el proceso.
+
+
+\subsubsection{Utils}
+
+En este paquete se encuentran todos los archivos auxiliares que no se puedan ubicar en ningún otro paquete.
+
+Solo contiene un archivo, error\_data.py, el cual simplemente implementa un tipo de dato creado especialmente para poder contener de una manera mas organizada los datos referentes a los errores provenientes de \ac{S2}.
+
+Se emplea la librería collections para permitir el uso de tipos de datos auxiliares.
+
+
