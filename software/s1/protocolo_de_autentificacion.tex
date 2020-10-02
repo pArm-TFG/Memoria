@@ -1,15 +1,17 @@
-El protocolo de autenticación se ha creado para que los dos sistemas puedan reconocerse entre si, permitiendo de esta manera asegurar que los datos que provengan del puerto elegido para la comunicación son efectivamente destinados al dispositivo y asegurando por tanto que los datos enviados a través de este mismo puerto llegarán al destino esperado.
+El protocolo de autentificación se ha creado para que los dos sistemas puedan reconocerse entre sí, permitiendo de esta manera asegurar que los datos que provengan del puerto elegido para la comunicación son efectivamente destinados al dispositivo y asegurando por tanto que los datos enviados a través de este mismo puerto llegarán al destino esperado.
 
-Para realizar la autenticación se sigue el siguiente protocolo.
+Para realizar la autentificación se sigue el siguiente protocolo.
 
 \begin{enumerate}
-  \item \ac{S2} genera dos números al iniciarse, n y e (La clave publica)
-  \item \ac{S1}, al ser elegido un puerto de comunicación en la interfaz, manda una petición de autenticación a \ac{S2} por ese puerto empleando el GCode ''I1''
-  \item Si \ac{S2} efectivamente esta conectado a ese puerto, recibe el mensaje y procede a mandar el numero n y e en dos mensajes distintos. El primer mensaje en formato ''I2 n'' y el segundo en formato ''I3 e''.
+%% S2 no genera únicamente 'n' y 'e', sino también todos los demás necesarios para cifrar en RSA
+%% TO-DO [J]
+  \item \ac{S2} genera dos números al iniciarse, $n$ (el módulo) y $e$ (la clave pública).
+  \item \ac{S1}, al ser elegido un puerto de comunicación en la interfaz, manda una petición de autenticación a \ac{S2} por ese puerto empleando el GCode ``I1''.
+  \item Si \ac{S2} efectivamente está conectado a ese puerto, recibe el mensaje y procede a mandar el número $n$ y $e$ en dos mensajes distintos. El primer mensaje en formato ``I2 $n$'' y el segundo en formato ``I3 $e$''.
   \item Posteriormente, \ac{S2} envía a \ac{S1} un mensaje cifrado con su clave privada (firma el mensaje).
-  \item Tras recibir este mensaje firmado, \ac{S1} utiliza ''n'' y ''e'' para ''desfirmar'' el mensaje.
-  \item \ac{S1} envía el mensaje en claro de vuelta a \ac{S2}
-  \item \ac{S2} verificará que el mensaje recibido desde \ac{S1} es el valor que el había firmado en el cuarto paso.
+  \item Tras recibir este mensaje firmado, \ac{S1} utiliza la clave pública $e$ para verificar el mensaje y autentificar a \ac{S2}.
+  \item \ac{S1} envía el mensaje cifrado con la clave pública $e$ de vuelta a \ac{S2}.
+  \item \ac{S2} obtendrá el mensaje en claro utilizando su clave privada $d$ y verificará que, en efecto, \ac{S1} es un ``dispositivo de confianza''.
 \end{enumerate}
 
-En cuanto los dispositivos se identifiquen, se permitirá el intercambio de datos a través del puerto seleccionado, hasta que haya una desconexión de alguno de los dispositivos. En ese caso, al volver a realizar la conexión los dispositivos tendrán que volver a autenticarse.
+En cuanto los dispositivos se identifiquen, se permitirá el intercambio de datos a través del puerto seleccionado hasta que haya una desconexión de alguno de los dispositivos. En ese caso, al volver a realizar la conexión, los dispositivos tendrán que volver a autenticarse.
