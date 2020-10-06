@@ -85,14 +85,13 @@ Contiene 2 ficheros:
     Para poder realizar esta labor, transforma los \textit{bytes} en cadena de caracteres y posteriormente analiza dichas cadenas y las interpreta.
 \end{itemize}
 
-Se ha usado la librería ''typing'' para simplificar el tratamiento de los datos y la interpretación de las tramas.
+Se ha usado la librería ``typing'' para simplificar el tratamiento de los datos y la interpretación de las tramas.
 
 \subsubsection{\texttt{logger}}
 
 Este paquete permite llevar un registro de los datos y las acciones importantes que ocurren en \ac{S1}. Genera un archivo en el que se guardan diferentes datos para poder hacer \textit{debugging} y revisar \textit{crashlogs}.
 
-%% INSERTAR REFERENCIA AL FICHERO \ref{lst:---}
-Contiene un único archivo, \texttt{logger.py}, el cual alberga las funciones necesarias para crear el archivo y operar con él, además de dar un formato estándar a las diferentes trazas.
+Contiene un único archivo, \texttt{logger.py}(anexo \ref{lst:logger_py}), el cual alberga las funciones necesarias para crear el archivo y operar con él, además de dar un formato estándar a las diferentes trazas.
 
 En este paquete destaca el uso de la librería ``\texttt{logging}'' para poder generar registros de manera unificada y poder definir distintos niveles dentro de los registros, de manera que se pueden definir
 niveles que serán ignorados.
@@ -101,19 +100,16 @@ niveles que serán ignorados.
 
 A través de este paquete, \ac{S1} consigue autenticar al sistema \ac{S2} y viceversa.
 
-%% INSERTAR REFERENCIA AL FICHERO \ref{lst:---}
-Contiene un solo archivo, \texttt{rsa.py}, el cual alberga las funciones necesarias para que, a partir de los números procedentes de \ac{S2}, se pueda autenticar al emisor desde la trama recibida y poder reenviarla encriptada posteriormente.
+Contiene un solo archivo, \texttt{rsa.py}(anexo \ref{lst:rsa_py}), el cual alberga las funciones necesarias para que, a partir de los números procedentes de \ac{S2}, se pueda autenticar al emisor desde la trama recibida y poder reenviarla encriptada posteriormente.
 
-%% typing ÚNICAMENTE SIRVE PARA AYUDAR AL PROGRAMADOR A DEFINIR QUÉ TIPOS DE DATOS
-%% ACEPTA UNA FUNCIÓN, PERO NO 'PERMITE EL USO'.
-% Se ha usado la librería typing para poder usar tipos de datos que simplificaran el proceso.
+Se ha usado la librería ``typing'' para simplificar el tratamiento de los datos y la interpretación de las tramas.
 
 \subsubsection{\texttt{utils}}
 
 En este paquete se encuentran todos los archivos auxiliares que no se puedan ubicar en ningún otro paquete.
 
 %% INSERTAR REFERENCIA AL FICHERO \ref{lst:---}
-Solo contiene un archivo, \texttt{error\_data.py}, el cual simplemente implementa un tipo de dato creado especialmente para poder contener de una manera más organizada los datos referentes a los errores provenientes de \ac{S2}.
+Solo contiene un archivo, \texttt{error\_data.py}(anexo \ref{lst: error_data.py}), el cual simplemente implementa un tipo de dato creado especialmente para poder contener de una manera más organizada los datos referentes a los errores provenientes de \ac{S2}.
 
 Se emplea la librería \texttt{collections} para permitir el uso de tipos de datos auxiliares.
 

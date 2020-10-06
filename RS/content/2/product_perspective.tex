@@ -18,7 +18,8 @@ Por otra parte, el \pArm{} es dependiente de otro sistema que lo controle, ya qu
 
 De ahora en adelante, se denominará ``\ac{S1}'' al equipo que controla al \pArm{}; y ``\ac{S2}'' al brazo robótico en sí.
 
-Para este proyecto, se ha de desarrollar el \ac{SW} que se ejecutará en \ac{S1}, además de tanto el \ac{SW} como el \ac{HW} que irán en \ac{S2}, adaptando la estructura mecánica para funcionar con una impresora.
+Para este proyecto, se ha de desarrollar el \ac{SW} que se ejecutará en \ac{S1} y el \ac{SW} y el \ac{HW} que irán en \ac{S2}.
+También habrá que adaptar la estructura mecánica para que esta pueda ser impresa en 3D.
 
 \subsection{Interfaz del sistema}
 En un principio, el sistema estará dividido en dos módulos:
@@ -56,7 +57,7 @@ Para el sistema \ac{S2} no se ha pensado en ningún microprocesador ni \ac{SoC} 
 
 Será necesario que el circuito escogido disponga de algún tipo de entrada de las propuestas para la comunicación con \ac{S1}. Debido a la característica descrita en la tabla \ref{tab:s1_requirements} sobre la interfaz de comunicación, no será estrictamente necesario que la velocidad sea adaptable (ya que se asume que se adaptará en \ac{S1}); sin embargo, sí será requisito fundamental que la conexión sea dúplex y que soporte gran cantidad de datos con las menores pérdidas posibles.
 
-Por otra parte, el microcontrolador deberá poder modular señales \ac{PWM} para controlar los distintos motores de los que dispondrá el brazo. Sin embargo, en caso de que finalmente el \textit{chip} escogido no disponga de dicha modularización, se podrán usar motores que cuenten con un \textit{driver} que permitan controlarlos usando señales digitales y/o analógicas.
+Por otra parte, el microcontrolador deberá poder modular señales \ac{PWM} para controlar los distintos motores de los que dispondrá el brazo. Sin embargo, en caso de que finalmente el \textit{chip} escogido no disponga de dicha modulación, se podrán usar motores que cuenten con un \textit{driver} que permitan controlarlos usando señales digitales y/o analógicas.
 
 Teniendo en cuenta lo anterior, se plantea el uso de los siguientes dispositivos (ver tabla \ref{tab:s2_chips}):
 
@@ -70,7 +71,7 @@ Teniendo en cuenta lo anterior, se plantea el uso de los siguientes dispositivos
         \hline
         ESP32 & \ac{SoC} con procesador de dos núcleos que permite comunicaciones WiFi y Bluetooth & No cuenta con \ac{GPIO} pero permite la comunicación mediante el protocolo I²C. & 188-5441 -- 25,29\EUR{} \\
         \hline
-        PIC16F18326-I/P & Microcontrolador de 8 bits de baja potencia de consumo y bajo precio con capacidad de modularizar hasta dos señales \ac{PWM} y con más memoria RAM que otros componentes de su familia. Finalmente, cuenta con bastantes salidas \ac{GPIO}, suficientes como para añadir más componentes al sistema. & No está integrada en una placa (\ac{SoC}) por lo que habría que hacer toda la lógica del diseño \ac{HW}. No dispone de conexiones de red (aunque no son necesarias) y la capacidad de cómputo, en comparación con las otras propuestas, es menor. & 124-1554 -- 1,375\EUR{} \\
+        PIC16F18326-I/P & Microcontrolador de 8 bits de baja potencia de consumo y bajo precio con capacidad de modular hasta dos señales \ac{PWM} y con más memoria RAM que otros componentes de su familia. Finalmente, cuenta con bastantes salidas \ac{GPIO}, suficientes como para añadir más componentes al sistema. & No está integrada en una placa (\ac{SoC}) por lo que habría que hacer toda la lógica del diseño \ac{HW}. No dispone de conexiones de red (aunque no son necesarias) y la capacidad de cómputo, en comparación con las otras propuestas, es menor. & 124-1554 -- 1,375\EUR{} \\
         \hline
         dsPIC33EP***GM604 & Microcontrolador de 16 bits con gran capacidad de cómputo matricial que, además, cuenta con un procesador digital de señales, permitiendo realizar operaciones matriciales más rápidamente. Además, cuenta con hasta 6 señales \ac{PWM} y múltiples GPIO. & Al igual que el componente anterior, no está integrado en una placa \ac{SoC} por lo que habría que diseñar toda la PCB que contenga el sistema. & 825-1023 -- 5,89\EUR{} \\
         \hline
@@ -79,6 +80,7 @@ Teniendo en cuenta lo anterior, se plantea el uso de los siguientes dispositivos
     \label{tab:s2_chips}
 \end{table}
 
+Finalmente, el equipo de desarrollo decide usar el dsPIC33EP512GM604-I ya que está disponible entre las distintas opciones que la universidad pone a su disposición y por tanto no hay que soportar el coste de este en el presupuesto del proyecto. Por otro lado, cumple con los requisitos técnicos que el equipo de desarrollo ha supuesto necesarios.
 
 \subsection{Interfaz de usuario}
 
@@ -98,17 +100,24 @@ La especificación de los elementos de la interfaz anterior (figura \ref{fig:ui_
 
 \subsection{Memoria}
 
-Dado que se pretende que todo el código de control y de cálculo matricial vaya dentro de \ac{S2}, se tienen las restricciones de memoria del mismo. En este caso, se estaría limitado a la capacidad de los
-distintos microcontroladores que se especificaron en la tabla \ref{tab:s2_chips}.
+Dado que el código de control y de cálculo matricial será cargado en su totalidad dentro de \ac{S2}, se han de tener en cuenta las restricciones de memoria del mismo.
 
-Como, por lo general, se suele trabajar con microcontroladores de Microchip en
-la Universidad, se van a asumir las restricciones de memoria del dsPIC33EP512GM604,
-las cuales consisten en:
+El microcontrolador elegido por el equipo de desarollo plantea las siguientes restricciones de memorias:
 
 \begin{itemize}
     \item 512 KB de memoria \textit{flash}, donde se alberga el programa principal.
     \item 16 KB de memoria \ac{RAM}, donde se alojarán los datos temporales durante la ejecución, en particular, las matrices de las ecuaciones cinemáticas.
-\end{itemize} 
+\end{itemize}
+
+Cabe destacar que una de las prioridades
+principales del equipo es ser efectivos en cuanto a la ocupación de memoria del código que
+desarrolla. Por ello, se buscará reducir el tamaño de este al mínimo manteniendo las funcionalidades necesarias para cumplir los objetivos establecidos.
+
+Para poder cumplir con esto, el equipo de desarrollo realizará labores de refactorización, las cuales buscan poder optimizar el código. Dicha optimización supone investigar e implementar los algoritmos más eficientes.
+
+Además, se eliminará todo el código duplicado y se buscará crear un código mas general disminuyendo de esta manera el numero de métodos y por tanto minimizando el tamaño del código.
+
+El equipo de desarrollo ha creído conveniente centrar sus esfuerzos en crear un código óptimo en memoria ya que este es un limitante clave en sistemas empotrados, los cuales suelen disponer de poca memoria.
 
 \subsection{Operaciones}
 

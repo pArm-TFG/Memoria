@@ -15,7 +15,7 @@
         \\ \cline{1-3}
         \multirow{4}{*}{\textbf{Secuencia Normal}} & \textbf{Paso} & \textbf{Acción}
         \\ \cline{2-3}                    &   1  & El usuario interactúa con el sistema para encenderlo.
-        \\ \cline{2-3}                    &   2  & El sistema comprueba que los componentes están correctamente conectados.
+        \\ \cline{2-3}                    &   2  & El sistema comprueba que los motores están correctamente conectados.
         \\ \cline{2-3}                    &   3  & Si las comprobaciones son satisfactorias, el sistema continúa con su normal ejecución.
         \\ \cline{1-3}
         \multirow{2}{*}{\textbf{Excepciones}}      & \textbf{Paso}                                                                                                                                        & \textbf{Acción}
@@ -61,7 +61,7 @@
         \\ \cline{1-3}
         \multirow{4}{*}{\textbf{Secuencia Normal}} & \textbf{Paso} & \textbf{Acción}
         \\ \cline{2-3}                    &   1  & El usuario interactúa con la aplicación para cerrarla
-        \\ \cline{2-3}                    &   2  & Se comprueba que la  aplicación se puede cerrar de manera segura.
+        \\ \cline{2-3}                    &   2  & Se comprueba que la  aplicación se puede cerrar de manera segura. Esto implica asegurar que no hay ninguna comunicación en proceso antes de cerrar la apliación
         \\ \cline{2-3}                    &   3  & Se realiza el cierre de la aplicación.
         \\ \cline{1-3}
         \multirow{2}{*}{\textbf{Excepciones}} & \textbf{Paso} & \textbf{Acción}
@@ -238,7 +238,7 @@
         \\ \cline{1-3}
         \multirow{4}{*}{\textbf{Secuencia Normal}} & \textbf{Paso} & \textbf{Acción}
         \\ \cline{2-3}                    &   1  & El usuario interactúa con S2 para ponerlo en modo debug.
-        \\ \cline{2-3}                    &   2  & El sistema comprueba que el cambio de modo se puede hacer de manera segura.
+        \\ \cline{2-3}                    &   2  & El sistema comprueba que el cambio de modo se puede hacer de manera segura. Es decir, no hay una comuniación en proceso antes de realizar el cambio de modo.
         \\ \cline{2-3}                    &   3  & El sistema cambia de modo.
         \\ \cline{1-3}
         \multirow{2}{*}{\textbf{Excepciones}} & \textbf{Paso} & \textbf{Acción}
