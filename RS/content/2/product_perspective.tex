@@ -100,24 +100,15 @@ La especificación de los elementos de la interfaz anterior (figura \ref{fig:ui_
 
 \subsection{Memoria}
 
-Dado que el código de control y de cálculo matricial será cargado en su totalidad dentro de \ac{S2}, se han de tener en cuenta las restricciones de memoria del microcontrolador utilizado.
-
-Debido al microcontrolador elegido por el equipo de desarrollo, se plantean las siguientes restricciones de memoria:
+Por experiencia en proyectos relacionados, se estima que la memoria disponible para 
+código y datos, en el microcontrolador seleccionado, ofrecen margen suficiente para este
+proyecto. Se detallan a continuación las características a nivel de memoria del
+microcontrolador:
 
 \begin{itemize}
     \item 512 KB de memoria \textit{flash}, donde se alberga el programa principal.
     \item 16 KB de memoria \ac{RAM}, donde se alojarán los datos temporales durante la ejecución, teniendo en especial consideración las matrices de las ecuaciones cinemáticas.
 \end{itemize}
-
-Cabe destacar que una de las prioridades
-principales del equipo es ser efectivos en cuanto a la ocupación de memoria del código que
-desarrolla. Por ello, se buscará reducir el tamaño de este al mínimo manteniendo las funcionalidades necesarias para cumplir los objetivos establecidos.
-
-Para poder lograrlo, el equipo de desarrollo realizará labores de refactorización, las cuales buscan poder optimizar el código. Dicha optimización supone investigar e implementar algoritmos más eficientes a los ya existentes.
-
-Además, se eliminará todo el código duplicado y se buscará crear un código más genérico, disminuyendo de esta manera el número de métodos y reduciendo el tamaño del código.
-
-El equipo de desarrollo ha creído conveniente centrar sus esfuerzos en crear un código óptimo en memoria ya que este es un limitante clave en sistemas empotrados dado que la cantidad de la que disponen es fija y difícilmente ampliable.
 
 \subsection{Operaciones}
 
