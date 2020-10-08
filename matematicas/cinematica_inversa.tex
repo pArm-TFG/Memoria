@@ -127,7 +127,7 @@ Por otra parte, dada la configuración geométrica del robot, sabemos las siguie
           es ``\textit{Arm Maximum Length}'' y viene definido por la ecuación \ref{eq:aml}:
 
           \begin{equation}\label{eq:aml}
-              A_{M_L} = \left(\overline{A_L} + \overline{A_U}\right) \cdot \cos{\theta^{LU}_{Max}} + A_{EF_L}\\
+              A_{M_L} = \left(\overline{A_L} + \overline{A_U}\right) \cdot \cos{\theta^{LU}_{Max}} + A_{EF_L}
           \end{equation}
 
           donde cada uno de los elementos anteriores representan:
@@ -237,7 +237,7 @@ teorema del coseno que permite obtener el ángulo `$\gamma$' teniendo los tres l
 (ecuación \ref{eq:cosine_law_angle}):
 
 \begin{equation}\label{eq:cosine_law_angle}
-    \gamma = \arccos{\left(\frac{a^2 + b^2 - c^2}{2ab}\right)}
+    \gamma = \arccos{\left(\frac{-a^2 - b^2 + c^2}{-2ab}\right)}
 \end{equation}
 
 \begin{figure}[H]
@@ -247,28 +247,54 @@ teorema del coseno que permite obtener el ángulo `$\gamma$' teniendo los tres l
     \label{fig:cosine_law_triangle}
 \end{figure}
 
-Sabiendo que los puntos que varían y que afectan a los ángulos
-$\theta_1, \theta_2$ son `$x$' y `$z$' se ha de buscar que entonces uno de los segmentos
-del triángulo sea de la forma $\sqrt{x^2 + z^2}$ (el módulo del vector $\left|{\overrightarrow{xz}}\right|$).
-Esto permitiría que el triángulo cambiase de forma según la extensión del brazo.
-Por otra parte, como se conocen las longitudes que conforman los segmentos del brazo, se
-ha de buscar que además uno de los lados tenga un tamaño que se base en dichos segmentos,
-dejándolo también fijo. Dicho tamaño no ha de ser arbitrario sino que, para ser coherente
-con la estructura superior del brazo, debe implicar a los elementos que lo conforman
-$\left(a_2, a_3\right)$.
-En este caso, el otro lado fijado se busca que esté definido por la proporción:
-$\nicefrac{\overline{A_U}}{\overline{A_L}}$.
-Finalmente, con esos dos largos ya predefinidos, las variables `$x$' y `$z$' han de ser
-modificadas con las variaciones que se han aplicado. Como en principio
-uno de los lados se busca que sea unitario y el otro se ha definido por $\nicefrac{\overline{A_U}}{\overline{A_L}}$,
-se tendrán que multiplicar dichas variables por `$1$' y dividirlas por $\overline{A_L}$
-para conservar la proporción, además de realizar distintas operaciones para eliminar
-la altura de la base, las traslaciones en los ejes y la altura del \textit{end--effector}.
+Del triángulo mostrado en la figura \ref{fig:ik_over_arm} se conocen siempre las longitudes
+`$a$' y `$c$'. La distancia `$b$' sin embargo también se puede obtener. Para la cinemática
+inversa se tiene el punto $\left(x, y, z\right)$ que referencia la posición final del
+\textit{end--effector}. En la figura \ref{fig:ik_over_arm}, el triángulo que se muestra
+está situado sobre el plano $XZ$, por lo que de los puntos anteriores se sabe que el 
+\textit{end--effector} se sitúa en: $P_{ee} = \left(x', z'\right)$, por lo que se puede
+definir un vector desde la base $\overrightarrow{x'z'}$ que represente el lado `$b$'.
+Como se puede apreciar, no se usan los puntos $\left(x, z\right)$ originales sino que
+previamente es necesario modificarlos:
+\begin{itemize}
+    \item Para la coordenada `$x$' se ha de reducir la longitud del \textit{end--effector}
+    $\left(\overline{A_{EF_L}}\right)$ junto con la desviación de la base $\left(\overline{A_{B_D}}\right)$
+    (ecuación \ref{eq:x_prime}):
+    \begin{equation}\label{eq:x_prime}
+        x' = x - \overline{A_{EF_L}} - \overline{A_{B_D}} = x - 44.5 - 13.2 = x - 57.7
+    \end{equation}
+    \item Además, para la coordenada anterior, se define una dependencia respecto a la
+    posición en `$y$', ya que dicha posición define (según la vista cenital) el largo del
+    brazo y la posición del mismo. Por ello, no se puede físicamente estirar el brazo sin
+    alterar la distancia en `$x$' (ver figura \ref{fig:y_movement}):
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=.5\linewidth]{pictures/y_coord_movevment.png}
+        \caption{Demostración de cómo un ajuste en la posición `$y$' provoca una alteración en `$x$'.}
+        \label{fig:y_movement}
+    \end{figure}
 
-Para empezar, se modifica el valor de entrada de $z$ obteniéndose así $z'$ en donde
-primeramente hay que añadir el valor de $h_o$ (\textit{height offset}). Dicho \textit{offset}
-varía según el \textit{end--effector} que esté en uso, habiendo disponibles \cite{UArmDeveloperSwiftProForArduino}:
+    De esta manera, la coordenada $x'$ se define como:
+    \begin{equation*}
+        x' = \frac{x'}{\sin{\theta_0}}
+    \end{equation*}
+    \item Para la coordenada `$z$' es necesario quitar la altura de la base $\left(A_{B_h}\right)$
+    además de añadir la altura del \textit{end--effector} $h_o$ para dejar un punto 
+    relativo al $\left(0\right)$. Así, el punto $z'$ se puede definir
+    como (ecuación \ref{eq:z_prime}):
+    \begin{equation}\label{eq:z_prime}
+        z' = z - A_{B_h} + h_o = z - 106.1 + 16.01 = z - 90.09
+    \end{equation}
+\end{itemize}
 
+Con estos datos ya obtenidos se puede definir el lado `$b$' como:
+\begin{equation*}
+    b = \left|\overrightarrow{x'z'}\right| = \sqrt{x'^2 + z'^2}
+\end{equation*}
+
+Cabe destacar que $h_o$ varía según el \textit{end--effector} que se encuentre acoplado
+al brazo robótico. Para el $\mu$Arm, según la documentación oficial, dichas alturas varían
+y son\cite{UArmDeveloperSwiftProForArduino}:
 \begin{itemize}
     \item $\numprint[mm]{74.55}$ para el \textit{end--effector} normal.
     \item $\numprint[mm]{51.04}$ para el cabezal láser.
@@ -279,84 +305,52 @@ varía según el \textit{end--effector} que esté en uso, habiendo disponibles \
 
 Para el \pArm{}, en esta primera versión del desarrollo, se establece $h_o = \numprint[mm]{16.01}$.
 
-\begin{equation}
-    z' = z + h_o
-\end{equation}
-
-Además, para tener un triángulo con los lados y ángulos necesarios, se ha de quitar la
-altura que añade la base a $Z$ y se divide el valor por la longitud del brazo inferior
-$\overline{A_L}$ (ecuación \ref{eq:z_mod}):
-
-\begin{equation}\label{eq:z_mod}
-    z' = \frac{z' - A_{B_h}}{\overline{A_L}},
-    \left\{\begin{aligned}
-        A_{B_h}        & \equiv \text{``\textit{Arm Base Height}''} = \numprint[mm]{106.1} \\
-        \overline{A_L} & \equiv \text{``\textit{Arm Lower}''} = \numprint[mm]{142}
-    \end{aligned}\right.
-\end{equation}
-
-Para $x$ se ha de ``desproyectar'' el valor sobre el eje (obteniendo de esta manera el
-valor real del vector $\overrightarrow{x}$ para poder usarlo en el cálculo de
-$\left|\overrightarrow{xz}\right|$) y eliminar las desviaciones
-que se han añadido tanto por el \textit{end--effector} como por la base en sí (en la
-figura \ref{fig:sizes} se observa una desviación en la base la cual se contempla
-en la tabla \ref{tab:uArm-ld-values}). Estas modificaciones se muestran en la ecuación
-\ref{eq:x_mod}:
-
-\begin{equation}\label{eq:x_mod}
-    x' = \frac{\frac{x}{\sin{\theta_0}} - T_X - \overline{A_{B_D}}}{\overline{A_L}}
-\end{equation}
-
-Además, al igual que se hizo en la ecuación \ref{eq:z_mod} y para mantener la proporción
-entre los lados, se divide el valor por $\overline{A_L}$.
-
-Con las modificaciones anteriores se ha conseguido obtener lo que se propuso
-inicialmente:
-
+Con las modificaciones en los lados ya listas, se puede definir un triángulo que cumple que:
 \begin{itemize}
-    \item Existe un lado variable definido por: $\sqrt{x'^2 + z'^2}$ que permite modificar
-          el triángulo para obtener los valores reales de los ángulos $\left\{\theta_1, \theta_2\right\}$.
-    \item Hay un lado fijo que está definido por la proporción de los dos segmentos
-          que conforman la parte superior del brazo y definido por: $\nicefrac{\overline{A_U}}{\overline{A_L}}$.
-    \item El lado desconocido tiene un tamaño fijo de $\numprint[mm]{1}$ permitiendo simplificar
-          los cálculos.
+    \item Tiene dos lados fijos, `$a$' y `$c$', donde:
+    \begin{equation*}
+        \left\{\begin{aligned}
+            a &= \overline{A_L} = \numprint[mm]{142.07} \\
+            c &= \overline{A_U} = \numprint[mm]{158.8}
+        \end{aligned}\right.
+    \end{equation*}
+    \item Tiene un lado variable `$b$' definido por el vector $\overrightarrow{x'z'}$
+    y cuya longitud es: $b = \left|\overrightarrow{x'z'}\right| = \sqrt{x'^2 + z'^2}$.
 \end{itemize}
-
-De esta manera, se obtiene un triángulo que cumple con las siguientes dimensiones
-(figura \ref{fig:unitary_triangle}):
+Así, el triángulo resultante se define según las siguientes dimensiones y ángulos (figura
+\ref{fig:ik_triangle}):
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=.3\linewidth]{pictures/ik_unitary_triangle.png}
-    \caption{Triángulo con uno de los lados unitario para el \pArm{}.}
-    \label{fig:unitary_triangle}
+    \includegraphics[width=.4\linewidth]{pictures/ik_unitary_triangle.png}
+    \caption{Triángulo resultante tras aplicar las modificaciones a los lados.}
+    \label{fig:ik_triangle}
 \end{figure}
 
 En particular, el triángulo anterior se puede colocar a modo de
-referencia\footnote{las longitudes del triángulo no son equivalentes a las mostradas en el dibujo.}
-sobre el brazo tal como se muestra en la imagen \ref{fig:u_triangle_over_arm}:
+referencia sobre el brazo tal como se muestra en la imagen \ref{fig:u_triangle_over_arm}:
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=.6\linewidth]{pictures/ik_triangle_over_arm.png}
-    \caption{El triángulo con un lado unitario colocado a modo de referencia sobre el \pArm{}.}
+    \caption{El triángulo colocado a modo de referencia sobre el \pArm{}.}
     \label{fig:u_triangle_over_arm}
 \end{figure}
 
-Para el triángulo mostrado en la figura \ref{fig:unitary_triangle} se aplica
+Para el triángulo mostrado en la figura \ref{fig:ik_triangle} se aplica
 dos veces el teorema del coseno (ecuación \ref{eq:cosine_law_angle}) para obtener
 los valores de $\theta_1'$ (ver ecuación \ref{eq:t1}) y $\theta_2'$ (ver ecuación \ref{eq:t2}):
 
 \begin{align}
-    \theta_1' & = \arccos{\left(\frac{x'^2 + z'^2 + \left(\frac{\overline{A_U}}{\overline{A_L}}\right)^2 - 1} %
-    {2\sqrt{x'^2 + z'^2} \cdot \frac{\overline{A_U}}{\overline{A_L}}}\right)} \label{eq:t1}                   \\[2ex]
-    \theta_2' & = \arccos{\left(\frac{x'^2 + z'^2 + 1 - \left(\frac{\overline{A_U}}{\overline{A_L}}\right)^2} %
-    {2\sqrt{x'^2 + z'^2}}\right)} \label{eq:t2}
+    \theta_1' & = \arccos{\left(\frac{-\overline{A_L}^2 - \left(x'^2 + z'^2\right) + \overline{A_U}^2} %
+    {-2 \cdot \overline{A_L} \cdot \sqrt{x'^2 + z'^2}}\right)} \label{eq:t1} \\[2ex]
+    \theta_2' & = \arccos{\left(\frac{-\overline{A_L}^2 - \overline{A_U}^2 + x'^2 + z'^2} %
+    {-2 \cdot \overline{A_L} \cdot \overline{A_U}}\right)} \label{eq:t2}
 \end{align}
 
 Como se puede apreciar en las ecuaciones anteriores, todavía no se tienen los valores finales
 de los ángulos sino una primera aproximación a ellos. Esto es debido a que tanto el ángulo
-$\theta_1$ como el ángulo $\theta_2$ que aparecen en el triángulo de la figura \ref{fig:unitary_triangle}
+$\theta_1$ como el ángulo $\theta_2$ que aparecen en el triángulo de la figura \ref{fig:ik_triangle}
 no se encuentran paralelos al plano del suelo, en este caso, el eje $X$ (tal y como se puede ver
 en la figura \ref{fig:u_triangle_over_arm}).
 
