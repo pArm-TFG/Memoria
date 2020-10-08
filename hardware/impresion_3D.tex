@@ -27,7 +27,7 @@ piezas protectoras se imprimirán en PLA ya que tras realizar pruebas, el equipo
 Aprovechando la licencia original GPL 3.0 del $\mu$Arm, se ha recuperado el modelo 3D proporcionado por UFACTORY como punto de partida. 
 Dicho modelo se ha tomado como punto de partida para el \pArm{}, teniendo que realizar diversas
 modificaciones de distintas piezas para adaptarlas a los materiales que se van a usar,
-los motores que se emplearán, el tamaño de la nueva placa, entre otros.
+los motores que se emplearán y el tamaño de la nueva placa, entre otros.
 
 \begin{figure}[H]
     \centering
@@ -58,7 +58,7 @@ El flujo de trabajo que se ha seguido desde el modelo 3D hasta la impresión de 
 
 Antes de proceder a explicar cada una de las nuevas piezas que se han diseñado, se tomará una de ellas como ejemplo para explicar el proceso de diseño detallado.
 
-Inicialmente se parte de una forma que represente la forma general de la pieza, como un rectángulo o un circulo, para posteriormente añadir detalles. En el caso de la pieza que se usa como ejemplo, tenemos un cuadrado de 120mm de ancho por 120mm de alto y 3 mm de groso.
+Inicialmente se parte de un bloque que represente la forma general de la pieza, para posteriormente añadir detalles. En el caso de la pieza que se usa como ejemplo, tenemos un cuadrado de 120mm de ancho por 120mm de alto y 3 mm de groso.
 
 \begin{figure}[H]
 \centering
@@ -133,15 +133,13 @@ Finalmente se añade una ranura para que sea posible llevar los cables de los mo
 \label{fig:ranura_cables_tapa_superior}
 \end{figure}
 
-Con esto concluimos la explicación del proceso de creación de piezas y pasamos a explicar cada una de las piezas por separado.
-
-A continuación se procederá a explicar la necesidad de remodelar ciertas piezas y los inconvenientes y contratiempos que han surgido durante el modelado y la impresión de estas.
+Con esto concluimos la explicación del proceso de creación de piezas y pasamos a explicar cada una de las piezas por separado detallando los motivos por los cuales es necesario remodelar ciertas piezas y los inconvenientes y contratiempos que han surgido durante el modelado y la impresión de estas.
 
 En primer lugar se explicará la caja que alberga la placa de control y uno de los motores.
 
 La placa de control del brazo robótico no es la misma que en el caso del $\mu$Arm de UFACTORY. Además, los motores que se han empleado en este proyecto son servomotores con carcasa y sistema de sujeción distintos a los motores paso a paso del $\mu$Arm. Debido a estos dos factores se ha tenido que diseñar nuevas partes para la base del brazo robótico.
 
- Mas concretamente, la necesidad de rediseñar esta parte es debida a que la base original era demasiado pequeña en superficie para permitir introducir la placa de control. Además, el servomotor no podría haber cabido junto con la placa ya que la altura era insuficiente. Por otro lado los sistemas de sujeción presentes en la caja existente no podían ser empleados para la placa de control desarrollada en este proyecto.
+Mas concretamente, la necesidad de rediseñar esta parte es debida a que la base original era demasiado pequeña en superficie para permitir introducir la placa de control. Además, el servomotor no podría haber cabido junto con la placa ya que la altura era insuficiente. Por otro lado los sistemas de sujeción presentes en la caja existente no podían ser empleados para la placa de control desarrollada en este proyecto.
  
  \begin{figure}[H]
     \centering
@@ -160,7 +158,7 @@ La placa de control del brazo robótico no es la misma que en el caso del $\mu$A
 
 Como se observa en la figura \ref{fig:placa_motor_y_paredes1} el motor sobresale por encima de las paredes y no hay ninguna manera de sujetarlo a estas o a la base.
 
-Para solucionar los anteriores problemas se diseña una nueva base en la que se pueda encajar la placa, además de unas paredes lo suficientemente altas para poder introducir el motor junto con la placa.
+Para solucionar los anteriores problemas se diseña una nueva base en la que se pueda encajar la placa, además de unas paredes lo suficientemente altas para poder introducir el motor junto con esta.
 
  \begin{figure}[H]
     \centering
@@ -173,7 +171,7 @@ Inicialmente las paredes de la caja se habían diseñado con un grosor de 2mm. T
 
 En la base se observan los raíles que servirán para introducir y retirar la placa de la estructura. 
 
-Se ha optado por un sistema de raíles en vez de una sujeción convencional ya que de esta manera se consigue una mayor versatilidad a la hora de extraer e introducir la placa en labores de depuración y construcción. 
+Se ha optado por un sistema de raíles en vez de una sujeción fia ya que de esta manera se consigue una mayor versatilidad a la hora de extraer e introducir la placa en labores de depuración y construcción. 
 
 Además, debido al escaso espacio dentro de la caja, se hace prácticamente imposible la introducción de las herramientas necesarias para atornillar la placa a la estructura. Gracias al sistema de raíles se evita desmontar ciertas piezas al intentar introducir o extraer la placa.
 
@@ -217,8 +215,6 @@ Esta pieza se atornilla a las paredes de la caja y empleando las solapas del mot
     \label{fig:pieza_sujecio_en_caja_resaltada}
 \end{figure}
 
-La pieza que sujeta el motor se diseño con un grosor de las paredes de 2mm. Como se ha descrito anteriormente este grosor 
-
 Dado que el tamaño de la base y de las paredes ha cambiado, la tapa superior debe también ser modificada para adaptar su tamaño y su sistema de sujeción a los nuevos diseños
 
  \begin{figure}[H]
@@ -243,7 +239,7 @@ De esta manera se consigue que el peso de la parte móvil del brazo descanse sob
 
 A en la figura \ref{fig:cilindro_con_pletina} se muestra la pieza que conecta el motor a la base giratoria a través de un eje. Esta pieza tiene en su base un desgaste tal que permite que el engranaje del motor pueda ser introducido dentro, mientras que en la parte de arriba tiene unos agujeros que permiten la sujeción de un eje metálico el cual llega hasta la base giratoria y transmite el movimiento del motor a esta.
 
-La pieza plana que sale hacia un lateral sirve para que el cilindro pueda alcanzar un fin de carrera que indique cuando el motor ha llegado a una posición extrema.
+La pieza plana que protruye hacia un lateral sirve para que el cilindro pueda alcanzar un fin de carrera que indique cuando el motor ha llegado a una posición extrema.
 
 \begin{figure}[H]
     \centering
@@ -260,6 +256,41 @@ La pieza plana que sale hacia un lateral sirve para que el cilindro pueda alcanz
 \end{figure}
 
 En la figura \ref{fig:sistema_completo} se observa la construcción completa de la base. En esta imagen se dejan las paredes y la tapa superior con cierta transparencia para poder ver el interior de la caja. Entre el cilindro montado encima del motor y la base giratoria habrá un eje metálico que comunicara el movimiento.
+
+En fase mas avanzadas del proyecto, el equipo de desarrollo observo tras realizar pruebas, que el eje metálico no podía ser asegurado en el centro del cilindro (Mas detalles en el apartado \ref{pruebas_post_impresión}). También concluyó que en determinadas configuraciones geométricas del brazo, este podía ejercer demasiada fuerza sobre el eje de giro horizontal.
+
+Por ello se tuvieron que realizar los siguientes cambios.
+
+En el disco rotativo se añadió un carril que encajara en la ranura de la tapa superior. El cometido de este carril es evitar movimientos en el plano horizontal, dar mejor soporte ante el peso y ayudar a guiar el movimiento.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{pictures/TapaConBaseRotatoria.png}
+    \caption{Base de giro con raíl}
+    \label{fig:base_de_giro_con_rail}
+\end{figure}
+
+Para evitar emplear un eje metálico, el equipo de desarrollo diseña una pieza que pueda ser acoplada a la base giratoria1.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{pictures/EjeMadeInElEquipoDeDesarrollo.png}
+    \caption{La pieza sustituta del eje metálico (naranja)}
+    \label{fig:pieza_sustituta_eje}
+\end{figure}
+
+Según se observa en la figura \ref{fig:pieza_sustituta_eje} la base giratoria y la parte que servirá para sustituir al eje metálico, serán unidas mediante dos tornillos.
+También se puede observar el eje de la base rotatoria en una perspectiva ascendente.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{pictures/CadenaCineticaDelEje.png}
+    \caption{Sistema completo del eje giratorio}
+    \label{fig:sistema_completo_eje}
+\end{figure}
+
+En la imagen \ref{fig:sistema_completo_eje} se puede observar la ultima pieza del sistema. Su cometido es servir como engranaje sobre el eje del motor y por tanto transmitir el movimiento a las piezas superiores.
+Será unida a la pieza superior mediante 4 tornillos.
 
 Por otro lado, para que sea posible ubicar los motores que se encargaran del movimiento vertical del brazo se han de crear nuevas piezas en las que puedan ser atornillados. Esta pieza puede observarse en la figura \ref{fig:pletina_sujecion_motor}
 
