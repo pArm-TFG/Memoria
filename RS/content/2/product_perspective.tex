@@ -73,7 +73,7 @@ Teniendo en cuenta lo anterior, se plantea el uso de los siguientes dispositivos
         \hline
         PIC16F18326-I/P & Microcontrolador de 8 bits de baja potencia de consumo y bajo precio con capacidad de modular hasta dos señales \ac{PWM} y con más memoria RAM que otros componentes de su familia. Finalmente, cuenta con bastantes salidas \ac{GPIO}, suficientes como para añadir más componentes al sistema. & No está integrada en una placa (\ac{SoC}) por lo que habría que hacer toda la lógica del diseño \ac{HW}. No dispone de conexiones de red (aunque no son necesarias) y la capacidad de cómputo, en comparación con las otras propuestas, es menor. & 124-1554 -- 1,375\EUR{} \\
         \hline
-        dsPIC33EP***GM604 & Microcontrolador de 16 bits con gran capacidad de cómputo matricial que, además, cuenta con un procesador digital de señales, permitiendo realizar operaciones matriciales más rápidamente. Además, cuenta con hasta 6 señales \ac{PWM} y múltiples GPIO. & Al igual que el componente anterior, no está integrado en una placa \ac{SoC} por lo que habría que diseñar toda la PCB que contenga el sistema. & 825-1023 -- 5,89\EUR{} \\
+        dsPIC33EP***GM604 & Microcontrolador de 16 bits que cuenta con un procesador digital de señales, permitiendo realizar operaciones matriciales rápidamente. Además, cuenta con hasta 6 señales \ac{PWM} y múltiples GPIO. & Al igual que el componente anterior, no está integrado en una placa \ac{SoC} por lo que habría que diseñar toda la PCB que contenga el sistema. & 825-1023 -- 5,89\EUR{} \\
         \hline
     \end{tabularx}
     \caption{Posibles \textit{chips} que se han planteado para el proyecto.}
@@ -85,7 +85,7 @@ Finalmente, el equipo de desarrollo decide usar el dsPIC33EP512GM604-I ya que es
 \subsection{Interfaz de usuario}
 
 El usuario final del producto solamente interactuara de manera directa con \ac{S1}.
-Para que esta interacción sea posible, se desarrollara un panel de control que permita al usuario definir movimientos que el robot deberá realizar. El panel de control se mostrará en una sola pantalla y permitirá al usuario, mediante una interfaz gráfica sencilla, mover de manera independiente cada uno de los motores del robot, o bien mediante el uso del ratón, describir trayectorias que el robot realizara en tiempo real replicando el movimiento del ratón.
+Para que esta interacción sea posible, se desarrollara un panel de control que permita al usuario definir movimientos que el robot deberá realizar. El panel de control se mostrará en una sola pantalla y permitirá al usuario, mediante una interfaz gráfica sencilla, mover de manera independiente cada uno de los motores del robot, o bien mediante el uso del ratón, describir trayectorias que el robot realizará en tiempo real replicando el movimiento del ratón.
 
 Además, también se podrá desplazar el robot indicando la posición $\left\{x, y, z\right\}$ referente al \textit{end--effector}. Se sugiere una interfaz que siga el siguiente diseño:
 
@@ -100,24 +100,24 @@ La especificación de los elementos de la interfaz anterior (figura \ref{fig:ui_
 
 \subsection{Memoria}
 
-Dado que el código de control y de cálculo matricial será cargado en su totalidad dentro de \ac{S2}, se han de tener en cuenta las restricciones de memoria del mismo.
+Dado que el código de control y de cálculo matricial será cargado en su totalidad dentro de \ac{S2}, se han de tener en cuenta las restricciones de memoria del microcontrolador utilizado.
 
-El microcontrolador elegido por el equipo de desarollo plantea las siguientes restricciones de memorias:
+Debido al microcontrolador elegido por el equipo de desarrollo, se plantean las siguientes restricciones de memoria:
 
 \begin{itemize}
     \item 512 KB de memoria \textit{flash}, donde se alberga el programa principal.
-    \item 16 KB de memoria \ac{RAM}, donde se alojarán los datos temporales durante la ejecución, en particular, las matrices de las ecuaciones cinemáticas.
+    \item 16 KB de memoria \ac{RAM}, donde se alojarán los datos temporales durante la ejecución, teniendo en especial consideración las matrices de las ecuaciones cinemáticas.
 \end{itemize}
 
 Cabe destacar que una de las prioridades
 principales del equipo es ser efectivos en cuanto a la ocupación de memoria del código que
 desarrolla. Por ello, se buscará reducir el tamaño de este al mínimo manteniendo las funcionalidades necesarias para cumplir los objetivos establecidos.
 
-Para poder cumplir con esto, el equipo de desarrollo realizará labores de refactorización, las cuales buscan poder optimizar el código. Dicha optimización supone investigar e implementar los algoritmos más eficientes.
+Para poder lograrlo, el equipo de desarrollo realizará labores de refactorización, las cuales buscan poder optimizar el código. Dicha optimización supone investigar e implementar algoritmos más eficientes a los ya existentes.
 
-Además, se eliminará todo el código duplicado y se buscará crear un código mas general disminuyendo de esta manera el numero de métodos y por tanto minimizando el tamaño del código.
+Además, se eliminará todo el código duplicado y se buscará crear un código más genérico, disminuyendo de esta manera el número de métodos y reduciendo el tamaño del código.
 
-El equipo de desarrollo ha creído conveniente centrar sus esfuerzos en crear un código óptimo en memoria ya que este es un limitante clave en sistemas empotrados, los cuales suelen disponer de poca memoria.
+El equipo de desarrollo ha creído conveniente centrar sus esfuerzos en crear un código óptimo en memoria ya que este es un limitante clave en sistemas empotrados dado que la cantidad de la que disponen es fija y difícilmente ampliable.
 
 \subsection{Operaciones}
 

@@ -9,4 +9,11 @@ No se restringe la velocidad de transmisión (\textit{baud--rate}), ya que se as
     \item Simplicidad: no es necesario entender cómo se conectan los cables sino directamente conectar los extremos.
 \end{itemize}
 
-Para un correcto funcionamiento, la comunicación ha de ser bidireccional, en particular \textit{full duplex}. De esta forma, se podrán recibir y enviar datos simultáneamente, pudiendo así conocer el estado del brazo robótico y actuar en consecuencia en caso de que se encuentre algún tipo de error o problema. Al utilizar el \ac{USB} como método de comunicación este problema está subsanado, ya que va implícito en la definición del estándar.
+Para un correcto funcionamiento, la comunicación ha de ser bidireccional, en particular \textit{full duplex}. 
+De esta forma, se podrán recibir y enviar datos simultáneamente, pudiendo así conocer el estado del brazo robótico 
+y actuar en consecuencia en caso de que se encuentre algún tipo de error o problema. 
+Dado que la mayoría de placas base disponen de conexión \ac{UART} las cuales se pueden
+utilizar para comunicación con el exterior y que los equipos informáticos habituales
+disponen de múltiples puertos \ac{USB}, se pueden usar conexiones \ac{UART}--\ac{USB}
+económicas y eficaces para la comunicación entre ambos sistemas quedando subsanado además
+la cuestión de la comunicación \textit{full--duplex}.
