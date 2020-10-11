@@ -251,11 +251,12 @@ Del triángulo mostrado en la figura \ref{fig:ik_over_arm} se conocen siempre la
 `$a$' y `$c$'. La distancia `$b$' sin embargo también se puede obtener. Para la cinemática
 inversa se tiene el punto $\left(x, y, z\right)$ que referencia la posición final del
 \textit{end--effector}. En la figura \ref{fig:ik_over_arm}, el triángulo que se muestra
-está situado sobre el plano $XZ$, por lo que de los puntos anteriores se sabe que el 
-\textit{end--effector} se sitúa en: $P_{ee} = \left(x', z'\right)$, por lo que se puede
-definir un vector desde la base $\overrightarrow{x'z'}$ que represente el lado `$b$'.
-Como se puede apreciar, no se usan los puntos $\left(x, z\right)$ originales sino que
-previamente es necesario modificarlos:
+está situado sobre el plano $XYZ$ (ya que la rotación de la base es en el plano $XY$
+y afecta a la posición final), por lo que de los puntos anteriores
+se sabe que el \textit{end--effector} se sitúa en: $P_{ee} = \left(x', y, z'\right)$, 
+por lo que se puede definir un vector desde la base $\overrightarrow{x'yz'}$ que 
+represente el lado `$b$'. Como se puede apreciar, no se usan los puntos $\left(x, z\right)$ 
+originales sino que previamente es necesario modificarlos:
 \begin{itemize}
     \item Para la coordenada `$x$' se ha de reducir la longitud del \textit{end--effector}
     $\left(\overline{A_{EF_L}}\right)$ junto con la desviación de la base $\left(\overline{A_{B_D}}\right)$
@@ -263,21 +264,7 @@ previamente es necesario modificarlos:
     \begin{equation}\label{eq:x_prime}
         x' = x - \overline{A_{EF_L}} - \overline{A_{B_D}} = x - 44.5 - 13.2 = x - 57.7
     \end{equation}
-    \item Además, para la coordenada anterior, se define una dependencia respecto a la
-    posición en `$y$', ya que dicha posición define (según la vista cenital) el largo del
-    brazo y la posición del mismo. Por ello, no se puede físicamente estirar el brazo sin
-    alterar la distancia en `$x$' (ver figura \ref{fig:y_movement}):
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=.5\linewidth]{pictures/y_coord_movevment.png}
-        \caption{Demostración de cómo un ajuste en la posición `$y$' provoca una alteración en `$x$'.}
-        \label{fig:y_movement}
-    \end{figure}
-
-    De esta manera, la coordenada $x'$ se define como:
-    \begin{equation*}
-        x' = \frac{x'}{\sin{\theta_0}}
-    \end{equation*}
+    
     \item Para la coordenada `$z$' es necesario quitar la altura de la base $\left(A_{B_h}\right)$
     además de añadir la altura del \textit{end--effector} $h_o$ para dejar un punto 
     relativo al $\left(0\right)$. Así, el punto $z'$ se puede definir
@@ -287,9 +274,32 @@ previamente es necesario modificarlos:
     \end{equation}
 \end{itemize}
 
+Como el movimiento del brazo se realiza sobre un plano tridimensional, la posición y
+longitud desde la base hasta $P_{ee}$ requiere tener en cuenta las tres coordenadas
+$\left(x, y, z\right)$. Por ejemplo, la posición $y = \numprint[mm]{200}$ solo es 
+alcanzable si el brazo está estirado al completo, pero en ese punto $x = 0$, al igual
+que la posición $x = \numprint[mm]{200}$ solo es alcanzable si $y = 0$ (esto se muestra
+en la figura \ref{fig:arm_limits}).
+
+\begin{figure}[H]
+    \begin{minipage}{.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pictures/arm_y_max.png}
+        \caption{Posición máxima en `$y$', donde $x = 0$.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{.45\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pictures/arm_x_max.png}
+        \caption{Posición máxima en `$x$', donde $y = 0$.}
+    \end{minipage}
+    \caption{Demostración de la correlación entre `$x$' e `$y$'.}
+    \label{fig:arm_limits}
+\end{figure}
+
 Con estos datos ya obtenidos se puede definir el lado `$b$' como:
 \begin{equation*}
-    b = \left|\overrightarrow{x'z'}\right| = \sqrt{x'^2 + z'^2}
+    b = \left|\overrightarrow{x'yz'}\right| = \sqrt{x'^2 + y^2 + z'^2}
 \end{equation*}
 
 Cabe destacar que $h_o$ varía según el \textit{end--effector} que se encuentre acoplado
@@ -315,7 +325,7 @@ Con las modificaciones en los lados ya listas, se puede definir un triángulo qu
         \end{aligned}\right.
     \end{equation*}
     \item Tiene un lado variable `$b$' definido por el vector $\overrightarrow{x'z'}$
-    y cuya longitud es: $b = \left|\overrightarrow{x'z'}\right| = \sqrt{x'^2 + z'^2}$.
+    y cuya longitud es: $b = \left|\overrightarrow{x'yz'}\right| = \sqrt{x'^2 + y^2 + z'^2}$.
 \end{itemize}
 Así, el triángulo resultante se define según las siguientes dimensiones y ángulos (figura
 \ref{fig:ik_triangle}):
@@ -342,16 +352,16 @@ dos veces el teorema del coseno (ecuación \ref{eq:cosine_law_angle}) para obten
 los valores de $\theta_1'$ (ver ecuación \ref{eq:t1}) y $\theta_2'$ (ver ecuación \ref{eq:t2}):
 
 \begin{align}
-    \theta_1' & = \arccos{\left(\frac{-\overline{A_L}^2 - \left(x'^2 + z'^2\right) + \overline{A_U}^2} %
-    {-2 \cdot \overline{A_L} \cdot \sqrt{x'^2 + z'^2}}\right)} \label{eq:t1} \\[2ex]
-    \theta_2' & = \arccos{\left(\frac{-\overline{A_L}^2 - \overline{A_U}^2 + x'^2 + z'^2} %
-    {-2 \cdot \overline{A_L} \cdot \overline{A_U}}\right)} \label{eq:t2}
+    \theta_1' & = \arccos{\left(\frac{-\overline{A_L}^2 - \left(x'^2 + y^2 + z'^2\right) + \overline{A_U}^2} %
+    {-2 \overline{A_L} \sqrt{x'^2 + y^2 + z'^2}}\right)} \label{eq:t1} \\[2ex]
+    \theta_2 & = \arccos{\left(\frac{-\overline{A_L}^2 - \overline{A_U}^2 + x'^2 + y^2 + z'^2} %
+    {-2 \overline{A_L} \cdot \overline{A_U}}\right)} \label{eq:t2}
 \end{align}
 
 Como se puede apreciar en las ecuaciones anteriores, todavía no se tienen los valores finales
-de los ángulos sino una primera aproximación a ellos. Esto es debido a que tanto el ángulo
-$\theta_1$ como el ángulo $\theta_2$ que aparecen en el triángulo de la figura \ref{fig:ik_triangle}
-no se encuentran paralelos al plano del suelo, en este caso, el eje $X$ (tal y como se puede ver
+de los ángulos sino una primera aproximación a ellos. Esto es debido a que el ángulo
+$\theta_1$ que aparece en el triángulo de la figura \ref{fig:ik_triangle}
+no se encuentra paralelo al plano del suelo, en este caso, el plano $XY$ (tal y como se puede ver
 en la figura \ref{fig:u_triangle_over_arm}).
 
 Para poder obtener los ángulos reales se ha de añadir el ángulo `$\phi$' que relaciona el triángulo
@@ -368,21 +378,16 @@ Para poder obtener los ángulos reales se ha de añadir el ángulo `$\phi$' que 
 La obtención de dicho ángulo se muestra en la ecuación \ref{eq:phi}
 
 \begin{equation}\label{eq:phi}
-    \phi = \arctan{\frac{x'}{z'}}~rad
+    \phi = \arctan{\frac{z'}{\sqrt{x'^2 + y^2}}}~rad
 \end{equation}
 
-y los ángulos finales $\theta_1$ y $\theta_2$ se obtienen mediante la ecuación
+y $\theta_1$ se obtiene mediante la ecuación
 \ref{eq:final_theta}\footnote{el ángulo $\phi$ se suma o se resta según la orientación
     del triángulo ya que la arcotangente varía en signo según la posición de los puntos
     $x'$ y $z'$, tal como se muestra en la documentación al desarrollador\cite{UArmDeveloperSwiftProForArduino}.}:
 
 \begin{equation}\label{eq:final_theta}
-    \left\{
-    \begin{aligned}
-        \theta_1 & = \theta_1' - \phi \\
-        \theta_2 & = \theta_2' + \phi \\
-    \end{aligned}
-    \right.
+    \theta_1 = \theta_1' - \phi
 \end{equation}
 
 Finalmente, por seguridad, se puede comprobar que en efecto los distintos ángulos obtenidos
