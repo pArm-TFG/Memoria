@@ -6,14 +6,19 @@
  */
 
 #include <p33EP512GM604.h>
-
 #include "tmr4.h"
+#include "../utils/types.h"
 #include "../motor/motor.h"
+#include "../sync/barrier.h"
 
-motor_t *tmr4_motor;
+motor_t *TMR4_motor;
+barrier_t *TMR4_barrier;
+double64_t TMR4_count;
 
-void TMR4_Initialize(motor_t *motor) {
-    tmr4_motor = motor;
+void TMR4_Initialize(motor_t *motor, barrier_t *barrier) {
+    TMR4_motor = motor;
+    TMR4_barrier = barrier;
+    TMR4_count = .0F;
 
     //TMR4 0; 
     TMR4 = 0x00;
@@ -27,9 +32,14 @@ void TMR4_Initialize(motor_t *motor) {
 }
 
 void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
-    tmr4_motor->angle_us += 1.0016F;
-    if (tmr4_motor->angle_us >= tmr4_motor->movement_duration) {
-        tmr4_motor->movement_finished = true;
+    TMR4_count += 1.0016F;
+
+    if (TMR4_count >= TMR4_motor->movement_duration) {
+        TMR4_motor->movement_finished = true;
+        BARRIER_arrive(TMR4_barrier);
+        // If movement is clockwise then add the count to current angle_us
+        // else, the count must be substracted
+        TMR4_motor->angle_us += (TMR4_motor->clockwise * TMR4_count);
         TMR4_Stop();
     }
     IFS1bits.T4IF = 0;
@@ -37,7 +47,7 @@ void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
 
 void TMR4_Start(void) {
     /* Clear old value*/
-    tmr4_motor->angle_us = .0F;
+    TMR4_count = .0F;
 
     /*Enable the interrupt*/
     IEC1bits.T4IE = 1;

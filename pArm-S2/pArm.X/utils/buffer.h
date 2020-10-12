@@ -20,22 +20,23 @@
  */
 
 /* 
- * File: uart.h
+ * File: buffer.h
  * Author: Javinator9889
- * Comments: UART general I/O file handler
- * Revision history: 1.0
+ * Comments: Buffer handler and shortcuts for handling buffer_t
+ * Revision history: v1.0
  */
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef UART_H
-#define	UART_H
+#ifndef BUFFER_H
+#define	BUFFER_H
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <stdlib.h>
+#include "types.h"
 
-void putch(char character);
-void _putchar(char character);
+buffer_t *BUFFER_create(size_t size);
+void BUFFER_update_size(buffer_t *buffer, size_t size);
+void BUFFER_free(buffer_t *buffer);
 
-#endif	/* UART_H */
+#endif	/* BUFFER_H */
 

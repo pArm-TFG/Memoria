@@ -20,22 +20,37 @@
  */
 
 /* 
- * File: uart.h
+ * File: barrier.h
  * Author: Javinator9889
- * Comments: UART general I/O file handler
- * Revision history: 1.0
+ * Comments: Synchronization mechanism using a barrier and mutex.
+ * Revision history: v1.0
  */
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef UART_H
-#define	UART_H
+#ifndef BARRIER_H
+#define	BARRIER_H
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "mutex.h"
 
-void putch(char character);
-void _putchar(char character);
+#ifndef barrier_t
+typedef struct {
+    uint16_t counter;
+    uint16_t total;
+    bool flag;
+    mut_t lock;
+} barrier_t;
+#define barrier_t barrier_t
+#endif
 
-#endif	/* UART_H */
+barrier_t *BARRIER_create(uint16_t total);
+void BARRIER_arrive(barrier_t *barrier);
+void BARRIER_set_total(barrier_t *barrier, uint16_t p);
+void BARRIER_clr(barrier_t *barrier);
+void BARRIER_set_done(barrier_t *barrier);
+bool BARRIER_all_done(barrier_t *barrier);
+
+#endif	/* BARRIER_H */
 

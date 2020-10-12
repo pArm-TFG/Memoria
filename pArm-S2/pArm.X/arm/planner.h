@@ -33,6 +33,7 @@
 
 #include "../motor/motor.h"
 #include "../utils/types.h"
+#include "../sync/barrier.h"
 
 typedef struct {
     motor_t *base_motor;
@@ -43,9 +44,10 @@ typedef struct {
 
 extern motors_t motors;
 
-void PLANNER_go_home(void);
-void PLANNER_move_xyz(point_t xyz);
-void PLANNER_move_angle(angle_t angle);
+void PLANNER_init(barrier_t *barrier);
+double64_t PLANNER_go_home(void);
+double64_t PLANNER_move_xyz(point_t xyz);
+double64_t PLANNER_move_angle(angle_t angle);
 void PLANNER_move_waiting(angle_t angle);
 void PLANNER_stop_moving(void);
 point_t *PLANNER_get_position(void);

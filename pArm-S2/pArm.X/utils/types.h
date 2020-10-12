@@ -30,6 +30,9 @@
 #define	TYPES_H
 
 #include <stdint.h>
+#include <stdbool.h>
+#include <float.h>
+#include <stddef.h>
 
 // Time definitions
 #ifndef time_t
@@ -39,7 +42,7 @@ typedef uint64_t time_t;
 
 // Double precision double type
 #ifndef double64_t
-#ifndef USE_LONG_DOUBLE
+#if DBL_MANT_DIG < LDBL_MANT_DIG
 typedef long double double64_t;
 #else
 typedef double double64_t;
@@ -69,10 +72,69 @@ typedef struct {
 #define angle_t angle_t
 #endif
 
+// Pointer to function definitions
 #ifndef TMR_func
 
-typedef void (*TMR_func)(void);
+typedef void (*TMR_func)(void) ;
 #define TMR_func TMR_func
+#endif
+
+// GCODE custom return type
+#ifndef GCODE_ret_t
+
+typedef struct {
+    bool is_err;
+    int_fast16_t code;
+    void *gcode_ret_val;
+} GCODE_ret;
+#define GCODE_ret_t GCODE_ret
+#endif
+
+// order_t defs
+#ifndef MAX_ORDER_LENGTH
+#define MAX_ORDER_LENGTH 1024U
+#endif
+
+
+// buffer_t definition for arbitrary buffers
+#ifndef buffer_t
+
+typedef struct {
+    size_t size;
+    size_t bsize;
+    char *buffer;
+} buffer_t;
+#define buffer_t buffer_t
+#endif
+
+#ifndef order_t
+
+typedef struct {
+    /**
+     * Flag active when a new message is received through UART port.
+     * It is updated at <pre>interrupts.h#_U1RXInterrupt</pre>.
+     * 
+     * @type bool
+     * @see interrupts.h#_U1RXInterrupt
+     */
+    bool message_received;
+
+    /**
+     * Buffer which contains the order received by the UART. It has fixed
+     * size so no extra space is used. This variable is updated at
+     * <pre>interrupts.h#_U1RXInterrupt</pre>.
+     * 
+     * @type buffer_t
+     * @see interrupts.h#_U1RXInterrupt
+     */
+    buffer_t *order_buffer;
+}
+/**
+ * Order container with all the required information for managing
+ * the UART messages.
+ */
+order_t;
+#define order_t order_t
 #endif
 
 #endif	/* TYPES_H */

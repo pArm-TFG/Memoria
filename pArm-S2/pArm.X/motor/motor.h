@@ -38,7 +38,7 @@
 
 #define MAX_MOTORS                      4U
 #define US_PER_DEGREE                   5245.275704F
-#define MOTOR_elapsed_time_us(radians)  ((US_PER_DEGREE * radians) / (MATH_PI / 180.F))
+#define MOTOR_elapsed_time_us(rad)      (US_PER_DEGREE * rad * MATH_TRANS)
 
 typedef struct {
     servo_t *servoHandler;
@@ -46,15 +46,16 @@ typedef struct {
     volatile double64_t movement_duration;
     volatile double64_t angle_us;
     volatile bool movement_finished;
+    int8_t clockwise;
     TMR_func TMR_Start;
     TMR_func TMR_Stop;
 } motor_t;
 
 
-static void handleInterrupt(void);
-void MOTOR_move(motor_t *motor, double64_t angle);
-void MOTOR_home(motor_t motor[MAX_MOTORS]);
+void MOTOR_move(motor_t *motor, double64_t angle_rad);
 void MOTOR_freeze(motor_t *motor);
+char MOTOR_calibrate(motor_t *motor);
+double64_t MOTOR_home(motor_t motors[MAX_MOTORS]);
 double64_t MOTOR_position_us(motor_t *motor);
 double64_t MOTOR_position_rad(motor_t *motor);
 double64_t MOTOR_position_deg(motor_t *motor);

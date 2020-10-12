@@ -1,0 +1,175 @@
+El \ac{S2} supone una parte fundamental en el desarrollo del proyecto ya que es el
+encargado de la gestión al completo del \pArm{}. El \ac{SW} que ejecuta se encuentra
+escrito puramente en C (en particular, \texttt{C99}) y se ha programado utilizando
+el paradigma de programación estructurada, utilizando subrutinas, secuencias, condiciones
+(\texttt{if}, \texttt{switch}) e iteradores (\texttt{for},
+\texttt{while})\cite{ProgramacionEstructurada2020}.
+
+La estructura de la aplicación consta de los siguientes paquetes y ficheros:
+\begin{itemize}
+    \item[\texttt{arm} --] contiene el planificador de movimientos del \pArm{},
+    definido por los ficheros \texttt{planner.h} (listado de código \ref{lst:planner_h})
+    y \texttt{planner.c} (listado de código \ref{lst:planner_c}).
+
+    \item[\texttt{gcode} --] contiene el intérprete de GCode que se utiliza
+    principalmente para la comunicación entre \ac{S1} y \ac{S2}. Se encuentra
+    compuesto for los ficheros \texttt{gcode.h} (listado de código
+    \ref{lst:gcode_h}) y \texttt{gcode.c} (listado de código \ref{lst:gcode_c}).
+
+    \item[\texttt{motor} --] este paquete aúna la lógica de control de los
+    motores que componen el \pArm{}.
+
+    Por una parte, se define un primer nivel de abstracción sobre el control
+    de los servomotores implementado en los ficheros \texttt{servo.h} 
+    (listado de código \ref{lst:servo_h}) y \texttt{servo.c} 
+    (listado de código \ref{lst:servo_c}).
+
+    Sobre lo anterior, se define un segundo nivel de abstracción para el
+    control de los servomotores que simplifica las operaciones a realizar sobre
+    los mismos. Se encuentra implementado en los ficheros \texttt{motor.h}
+    (listado de código \ref{lst:motor_h}) y \texttt{motor.c} (listado de
+    código \ref{lst:motor_c}).
+
+    Finalmente, se establece un tercer nivel de abstracción que permite el
+    control de los distintos motores mediante la cinemática directa
+    (utilizando los ángulos $\left\{\theta_0, \theta_1, \theta_2\right\}$)
+    y mediante la cinemática inversa (utilizando los puntos $\left\{x, y, z\right\}$).
+    La lógica se encuentra implementada en los ficheros \texttt{kinematics.h}
+    (listado de código \ref{lst:kinematics_h}) y \texttt{kinematics.c}
+    (listado de código \ref{lst:kinematics_c}).
+
+    \item[\texttt{printf} --] una implementación adaptada para trabajar con la placa
+    de control dsPIC33E basada en la librería
+    \texttt{mpaland/printf}\footnote{\url{https://github.com/mpaland/printf}}
+    \cite{palandMpalandPrintf2020}.
+
+    Se definen nuevos ficheros para la gestión de la librería y se encuentra
+    estructurada en \texttt{io.h} (listado de código \ref{lst:io_h}), 
+    \texttt{printf\_config.h} (listado de código \ref{lst:printf_config_h}),
+    \texttt{printf.h} (listado de código \ref{lst:printf_h}) y \texttt{printf.c}
+    (listado de código \ref{lst:printf_c}).
+
+    \item[\texttt{rsa} --] paquete que recoge las principales funcionalidades
+    del algoritmo RSA para realizar firma digital y encriptado de datos. Se
+    encuentra implementado en los ficheros \texttt{rsa.h} (listado de código
+    \ref{lst:rsa_h}) y \texttt{rsa.c} (listado de código \ref{lst:rsa_c}).
+
+    Además, contiene otras funcionalidades útiles como la generación de
+    números pseudo--aleatorios, implementada en los ficheros \texttt{rand.h}
+    (listado de código \ref{lst:rand_h}) y \texttt{rand.c} (listado de código
+    \ref{lst:rand_c}); los algoritmos de \texttt{clz} 
+    (``\textit{count leading zeros}'') y \texttt{ctz}
+    (``\textit{count trailing zeros}'') implementadas en los ficheros
+    \texttt{zeros.h} (listado de código \ref{lst:zeros_h}) y \texttt{zeros.c}
+    (listado de código \ref{lst:zeros_c}); y un algoritmo de comprobación 
+    para saber si un número `$p$' de 64 bits es primo, implementado en el
+    fichero \texttt{primes.h} (listado de código \ref{lst:primes_h}) y
+    \texttt{primes.c} (listado de código \ref{lst:primes_c}).
+
+    \item[\texttt{sync} --] un paquete que recoge funciones de sincronización
+    entre distintos hilos de ejecución. Pese a que el dsPIC33E no cuenta
+    con dicha funcionalidad, las rutinas de tratamiento de interrupciones
+    se ejecutan en su propio contexto y podrían llegar a provocar una colisión
+    con respecto al valor de ciertas variables.
+
+    Este paquete se utiliza principalmente para conocer cuándo los tres motores
+    que afectan a la posición del robot han finalizado su movimiento,
+    implementando un algoritmo de exclusión mútua, desarrollado en los ficheros
+    \texttt{mutex.h} (listado de código \ref{lst:mutex_h}) y \texttt{mutex.c}
+    (listado de código \ref{lst:mutex_c}), y el algoritmo de barrera,
+    escrito en los ficheros \texttt{barrier.h} (listado de código
+    \ref{lst:barrier_h}) y \texttt{barrier.c} (listado de código \ref{lst:barrier_c}).
+
+    \item[\texttt{timers} --] implementación de los \textit{timers} que
+    gestionan la posición y movimiento de los tres motores. Ofrecen una
+    interfaz común para poder gestionar la sincronización entre ellos así
+    como cuándo se empieza un movimiento y cuándo se finaliza.
+
+    El paquete se encuentra dividido en: \texttt{tmr3.h} (listado de código
+    \ref{lst:tmr3_h}) y \texttt{tmr3.c} (listado de código \ref{lst:tmr3_c});
+    \texttt{tmr4.h} (listado de código \ref{lst:tmr4_h}) y \texttt{tmr4.c}
+    (listado de código \ref{lst:tmr4_c}); y \texttt{tmr5.h} (listado de código
+    \ref{lst:tmr5_h}) y \texttt{tmr5.c} (listado de código \ref{lst:tmr5_c}).
+
+    \item[\texttt{utils} --] distintas utilidades que se utilizan a lo largo
+    de toda la aplicación. Se encuentran definidas utilidades para el manejo
+    de \textit{buffers} de tamaño arbitrario, implementado en los ficheros
+    \texttt{buffer.h} (listado de código \ref{lst:buffer_h}) y \texttt{buffer.c}
+    (listado de código \ref{lst:buffer_c}); constantes matemáticas o 
+    utilidades que se usan en tiempo de compilado por el preprocesador, 
+    implementado en el fichero \texttt{defs.h}
+    (listado de código \ref{lst:defs_h}); librería para el manejo del tiempo
+    que ha pasado desde la ejecución de la aplicación, tanto en $ms$ como en
+    $\mu s$, implementado en los ficheros \texttt{time.h} (listado de código
+    \ref{lst:time_h}) y \texttt{time.c} (listado de código \ref{lst:time_c});
+    definiciones de nuevos tipos de datos basados en estructuras, redefiniciones
+    de tipos ya existentes y de constantes relacionadas a ellos, implementado en
+    el fichero \texttt{types.h} (listado de código \ref{lst:types_h}); gestión
+    de la salida estándar al puerto del microcontrolador para ser enviado vía
+    \ac{UART}, implementado en los ficheros \texttt{uart.h} (listado de código
+    \ref{lst:uart_h}) y \texttt{uart.c} (listado de código \ref{lst:uart_c});
+    y finalmente distintas utilidades varias que no necesitan de ningún fichero
+    específico para ellas ya que se consideran de carácter general, como puede
+    ser la implementación de la rutina \texttt{foreach} en C, funciones de
+    \textit{delay} según el tiempo especificado, comprobaciones con respecto
+    a valores tipo \texttt{double} (por ejemplo, si son \texttt{NaN}) y utilidades
+    para mapear un valor entre un límite superior e inferior, implementado en los
+    ficheros \texttt{utils.h} (listado de código \ref{lst:utils_h}) y \texttt{utils.c}
+    (listado de código \ref{lst:utils_c}).
+
+    \item[\texttt{arm\_config.h} --] paquete que define las constantes físicas
+    del brazo robótico, implementado en el fichero \ref{lst:arm_config_h}. Entre otros
+    valores, se encuentran las longitudes de los segmentos inferior y superior del
+    brazo (definidos anteriormente como $\overline{A_L}$ y $\overline{A_U}$),
+    la altura de la base ($B_h$), etc.
+
+    \item[\texttt{init} --] rutinas de configuración e inicialización de toda la
+    placa, además de algunas funciones complementarias para permitir habilitar
+    y deshabilitar interrupciones.
+
+    En los ficheros \texttt{init.h} (listado de código \ref{lst:init_h}) e
+    \texttt{init.c} (listado de código \ref{lst:init_c}) se encuentran rutinas para
+    establecer la frecuencia de oscilación del reloj interno, los baudios a los
+    que trabaja la \ac{UART}, los distintos \textit{timers} que se utilizan así como
+    la inicialización de los pines de la placa y las interrupciones.
+
+    \item[\texttt{interrupts} --] paquete que engloba múltiples rutinas de tratamiento
+    de interrupciones del sistema.
+
+    Implementadas en los ficheros \texttt{interrupts.h} 
+    (listado de código \ref{lst:interrupts_h}) e \texttt{interrupts.c} (listado de
+    código \ref{lst:interrupts_c}), destacan principalmente las rutinas de tratamiento
+    de los fines de carrera así como las de gestión de la \ac{UART}, encargadas de
+    asegurar una comunicación fiable entre ambos sistemas \ac{S1} y \ac{S2}.
+
+    \item[\texttt{pragmas.h} --] implementación de la configuración básica del 
+    microcontrolador. En dicho fichero (listado de código \ref{lst:pragmas_h}) se
+    definen opciones como permitir la reasignación de puertos en tiempo de ejecución,
+    \textit{overclock} de la velocidad del reloj, etc.
+
+    \item[\texttt{s\_types.h} --] definición de tipos básicos del sistema
+    para facilitar el manejo de ciertos registros, en particular, el registro
+    \texttt{CORCON}. Implementado en el fichero \texttt{system\_types.h}
+    (listado de código \ref{lst:system_types_h}).
+
+    \item[\texttt{main.c} --] punto de entrada de la ejecución del \ac{SW} de
+    \ac{S2}. Aúna todos los ficheros y paquetes mencionados anteriormente y los
+    coordina para que el sistema se ejecute según se espera.
+
+    Se compone principalmente de una rutina de inicialización (\texttt{setup()})
+    y del bucle principal (\texttt{loop()}), donde configura el sistema para que
+    respete los parámetros establecidos y gestiona los distintos eventos recibidos
+    por la \ac{UART}. Configura además un modo \textit{cli} que permite la interacción
+    directa con el sistema sin necesidad de una interfaz de usuario así como de un
+    modo \textit{debug} que han de ser activados ambos en tiempo de compilación.
+
+    Por otra parte, la gestión de los errores recae sobre este fichero así como
+    el \textit{heartbeat} que mantiene activa la comunicación entre sistemas. Al ser
+    además el coordinador de todo el sistema, las órdenes recibidas por la \ac{UART}
+    son derivadas a otros paquetes para su interpretación y luego delegadas para
+    realizar las órdenes especificadas, o indicar error en caso de que no sea un
+    dispositivo verificado o si es una instrucción no implementada por el sistema.
+
+    Se encuentra implementado en el fichero \texttt{main.c} (listado de código
+    \ref{lst:main_c}).
+\end{itemize}

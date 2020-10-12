@@ -20,25 +20,28 @@
  */
 
 /* 
- * File: rand.h
+ * File: mutex.h
  * Author: Javinator9889
- * Comments: Generate random numbers using the elapsed time in ns.
+ * Comments: Ensures mutual exclusion when accessing a critical section.
  * Revision history: v1.0
  */
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef RAND_H
-#define	RAND_H
+#ifndef MUTEX_H
+#define	MUTEX_H
 
-#include <stdlib.h>
+#include <stdbool.h>
+#define LOCKED      1
+#define UNLOCKED    0
 
-void RAND_init(void);
-void RAND_init_seed(void);
-void RAND_stop(void);
-int_fast64_t RAND(int_fast64_t min, int_fast64_t max);
-int RAND_random(void);
-void __attribute__ ((interrupt, no_auto_psv)) _T6Interrupt();
+#ifndef mut_t
+typedef volatile unsigned char mut_t;
+#define mut_t mut_t
+#endif
 
-#endif	/* RAND_H */
+void mutex_acquire(mut_t *lock);
+void mutex_release(mut_t *lock);
+
+#endif	/* MUTEX_H */
 
