@@ -1,53 +1,75 @@
-Debido a la crisis sanitaria mundial, al periodo de confinamiento nacional y a muchos otros contratiempos derivados de esta situación, el proyecto no ha podido respetar la planificación temporal inicial.
+Debido a la crisis sanitaria mundial del COVID--19, al periodo de confinamiento nacional y a muchos otros contratiempos derivados de esta situación, el proyecto no ha podido respetar la planificación temporal inicial.
 
-El día 15 de Marzo se declaro el comienzo del confinamiento y como se observa en el diagrama \ref{fig:gantt_proyecto} ya se había dado comienzo a la fase de desarrollo. A partir de ese día se dejo de tener constancia documentada del tiempo empleado en las distintas fases del proyecto.
+El día 15 de marzo se declaró el comienzo del confinamiento y como se observa en el diagrama \ref{fig:gantt_proyecto} ya se había dado comienzo a la fase de desarrollo. A partir de ese día, se dejó de tener constancia documentada del tiempo empleado en las distintas fases del proyecto.
 
-Observamos que el diseño lógico del sistema, el desarrollo hardware y el desarrollo software fueron interrumpidos. El equipo de desarrollo volvió a la a la universidad el día 1 de Julio. Entre el 15 de Marzo y el 1 de Julio transcurrieron 108 días.
+Se observa que el diseño lógico del sistema, el desarrollo \ac{HW} y el desarrollo \ac{SW} fueron interrumpidos. El equipo de desarrollo pudo volver a la a la universidad el día 1 de julio con un permiso especial para continuar con el proyecto. Entre el 15 de marzo y el 1 de julio transcurrieron 108 días.
 
-En este periodo el equipo de desarrollo completo tareas que no requiriesen el uso de las instalaciones o los materiales que universidad ponía a su disposición, a saber:
-
-\begin{itemize}
-    \item Se crearon los diagramas de clases que abstraían \ac{S1}
-    \item Se crearon los diagramas de bloques y de estados que abstraían \ac{S2}.
-    \item Se realizaron los diagramas lógicos y físicos de la placa de control de \ac{S2}.
-    \item Se creo el proyecto \LaTeX y se definió la estructura general de la memoria.
-    \item Se empezaron a redactar ciertos apartados de la memoria 
-    \item Se empezaron a investigar distintos \textit{frameworks} que facilitaran el desarrollo de la interfaz gráfica.
-\end{itemize}
-
-La intención del equipo de desarrollo en aquel momento era intentar terminar la máxima cantidad de trabajo que no requiriese de las instalaciones o el material de la universidad, con el objetivo de poder centrarse en las labores de impresión del brazo y construcción de la PCB una vez fuese posible volver a ella.
-
-El día 1 de Julio el equipo de desarrollo volvió a la universidad en un horario de 9:00 a 14:00.
+En este periodo se completaron tareas que no requiriesen el uso de las instalaciones o los materiales que la universidad ponía a su disposición, a saber:
 
 \begin{itemize}
-    \item Del Miércoles 1 de Julio al Domingo 5 de Julio: estos días fueron empleados para organizar trabajo y planificar cursos de acción. Además, el equipo empezó a preparar el laboratorio I1 para trabajar. Se busco información sobre la impresora y se configuró esta. Se realizaron las primeras impresiones de prueba.
-    \item Del Lunes 6 de Julio al Domingo 12 de Julio:
-    se refinaron los diseños lógicos y físicos de la PCB y tras dos fracasos, se consiguieron obtener pistas de manera satisfactoria.
-    \item Del Lunes 13 de Julio al Domingo 19 de Julio: se hicieron distintas comprobaciones sobre la placa, se solucionaron distintos problemas referentes a las pistas y se soldaron los componentes. 
-    \item Del Lunes 20 de Julio al Domingo 26 de Julio: en esta semana se hizo la primera puesta en marcha de la placa de control y se comprobó el correcto funcionamiento de ciertos módulos mientras que otros presentaban fallos en su funcionamiento.
-    Con la placa completamente construida se observo que esta no podía caber dentro de la caja del diseño original de p-Arm. El equipo de desarrollo se empezó a formar en diseño 3D dado que sería necesario crear partes nuevas para el brazo.
-    \item Del Lunes 27 de Julio al Domingo 2 de Agosto: se siguió experimentando con el diseño 3D. Se escribieron apartados relacionados con el proceso de fabricación de la placa en la memoria del proyecto. Se empezó a desarrollar código para \ac{S2}. Y se intentaron corregir los errores de los módulos que fallaban
-    \item Del Lunes 3 de Agosto al Domingo 9 de Agosto: se tuvo que arreglar la impresora 3D ya que una impresión fallida provoco la obstrucción de un extrusor. Además, varios integrantes del equipo de desarrollo, junto con el tutor del proyecto se desplazaron hasta una tienda especializada para comprar materiales de impresión ya que los que habían sido pedidos anteriormente no llegaban.
-    \item Del Lunes 10 de Agosto al Domingo 23 de Agosto:
-    durante estos días la universidad cerro y el equipo de desarrollo continuo escribiendo apartados de la memoria.
-    \item Del Lunes 24 de Agosto al Domingo 30 de Agosto:
-    esta semana, debido a la compra del material de impresión necesario, empieza la impresión diaria de piezas para el brazo. Los esfuerzos también se empiezan a centrar en el desarrollo del código de \ac{S1} y \ac{S2}.
-    
+    \item Los diagramas de clases que abstraían \ac{S1}.
+    \item Los diagramas de bloques y de estados que abstraían \ac{S2}.
+    \item Los diagramas lógicos y físicos de la placa de control de \ac{S2}.
+    \item La creación del proyecto \LaTeX{} y la estructura general de la memoria.
+    \item La redacción de ciertos apartados de la memoria.
+    \item La evaluación de distintos \textit{frameworks} que facilitaran el desarrollo de la interfaz gráfica.
 \end{itemize}
-    
+
+La intención del equipo de desarrollo en aquel momento era intentar terminar la máxima cantidad de trabajo que no requiriese ni de las instalaciones ni del material de la universidad, con el objetivo de poder centrarse en las labores de impresión del brazo y construcción de la PCB una vez fuese posible volver a ella.
+
+El día 1 de julio se pudo volver la universidad en un horario de 9:00 a 14:00, donde
+se realizaron las siguientes labores:
+
+\begin{vtimeline}[.85]{Planificación de los meses de julio y agosto.}
+    01/07 & Estos días fueron empleados para organizar trabajo y planificar cursos de acción. Además, se empezó a preparar el laboratorio I1 para trabajar en él y se buscó información sobre la impresora para realizar una primera configuración. Se realizaron las primeras impresiones de prueba (ver imagen \ref{fig:test_prints}).\\
+    06/07 & Se refinaron los diseños lógicos y físicos de la PCB y, tras dos fracasos, se consiguieron obtener las pistas que unen los componentes de manera satisfactoria.\\
+    13/07 & Se hicieron distintas comprobaciones sobre la placa, se solucionaron distintos problemas referentes a las pistas y se soldaron los componentes.\\
+    20/07 & En esta semana se hizo la primera puesta en marcha de la placa de control y se comprobó el correcto funcionamiento de ciertos módulos mientras que otros presentaban fallos en su funcionamiento.
+    Con la placa completamente construida, se observó que esta no podía caber dentro de la caja del diseño original de \pArm{} por lo que el equipo de desarrollo se empezó a formar en diseño 3D dado que sería necesario crear partes nuevas para el brazo.\\
+    27/07 & Se siguió experimentando con el diseño 3D. Se escribieron apartados relacionados con el proceso de fabricación de la placa en la memoria del proyecto y se empezó a desarrollar código para \ac{S2}. En relación a lo ocurrido la semana anterior, se intentaron corregir los errores en la \ac{PCB} de los módulos que fallaban.\\
+    03/08 & Se tuvo que arreglar la impresora 3D ya que una impresión fallida provoco la obstrucción de uno de los extrusores (ver imagen \ref{fig:3d_extruder_fail}). Además, varios integrantes del equipo de desarrollo junto con el tutor del proyecto se desplazaron hasta una tienda especializada para comprar materiales de impresión, ya que los que habían sido pedidos anteriormente no llegaron a lo largo de las dos semanas anteriores, provocando que múltiples piezas no pudieran ser impresas.\\
+    10/08 & Durante estos días la universidad estuvo cerrada hasta el 23/08 y se continuó escribiendo apartados de la memoria.\\
+    24/08 & En esta semana, debido a la compra del material de impresión necesario, se empieza la impresión diaria de piezas para el brazo. Los esfuerzos también se empiezan a centrar en el desarrollo de los código de \ac{S1} y \ac{S2}.\\
+\end{vtimeline}
+
+\begin{figure}[H]
+    \begin{minipage}{.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pictures/3d_test.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pictures/3d_test_detail.jpg}
+    \end{minipage}
+    \caption{Figura de prueba impresa en 3D.}
+    \label{fig:test_prints}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{minipage}{.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pictures/clogged_extruders.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pictures/extruded_ball.jpg}
+    \end{minipage}
+    \caption{Extrusores bloqueados y parcialmente dañados por una bola de plástico.}
+    \label{fig:3d_extruder_fail}
+\end{figure}
+
 A partir de esta semana y hasta el momento de la entrega de este documento, el equipo de desarrollo se ha centrado en trabajar de manera paralela en el código del los dos sistemas, imprimir y refinar las distintas piezas del brazo y escribir apartados de la memoria.
 
 Cabe destacar que el hecho de que se haya empleado tanto tiempo en estas labores durante la etapa final del proyecto es principalmente por la multitud de problemas que han ido apareciendo a medida que este ha ido avanzando, entre ellas se pueden nombrar:
 
 \begin{itemize}
     \item Problemas con el material hidrosoluble. Este absorbe humedad del ambiente y se deteriora con el tiempo.
-    \item Editar todas las piezas para adaptarlas a la métrica de los tornillo. El equipo de desarrollo llego a la conclusión de que todas las piezas del brazo deberán ser editadas para adaptar sus medidas a los tornillo, ejes y rodamientos ya existentes.
-    \item Varios problemas con la placa de control. Estos problemas se dieron desde el primer momento, pero empeoraron con el paso del tiempo. Los módulos de la placa de control dejaron de funcionar hasta el punto en el que la placa tenia un funcionamiento anómalo e impredecible.
-    \item El software de \ac{S1} tuvo que ser adaptado a
-    los problemas que iban apareciendo en relación con la interconexión de la interfaz de usuario, con la lógica y esta a su vez con \ac{S2}.
+    \item Editar todas las piezas para adaptarlas a las métricas de los tornillos. El equipo de desarrollo llegó a la conclusión de que todas las piezas del brazo debían de ser editadas para adaptar sus medidas a los tornillo, ejes y rodamientos ya existentes.
+    \item Varios problemas con la placa de control: desde el primer momento se produjeron múltiples problemas con la placa, pero empeoraron con el paso del tiempo. Los módulos de la placa de control dejaron de funcionar hasta el punto en el que la placa mostraba un funcionamiento anómalo e impredecible.
+    \item El \ac{SW} de \ac{S1} tuvo que ser adaptado a
+    los problemas que iban apareciendo en relación con la interconexión de la interfaz de usuario y con la lógica, esta a su vez con \ac{S2}.
 \end{itemize}
 
-Sabiendo que la fecha de inicio oficial del proyecto es el 6 de Febrero de 2020  y la fecha de entrega de la memoria del proyecto es el 8 de Octubre de 2020, se calcula que el periodo de desarrollo de este proyecto es de 242 días.
-
-
-
+Sabiendo que la fecha de inicio oficial del proyecto es el 6 de febrero de 2020 y la fecha de entrega de la memoria del proyecto es el 16 de octubre de 2020, se calcula que el periodo de desarrollo de este proyecto es de 250 días.
