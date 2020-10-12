@@ -257,7 +257,16 @@ La pieza plana que protruye hacia un lateral sirve para que el cilindro pueda al
 
 En la figura \ref{fig:sistema_completo} se observa la construcción completa de la base. En esta imagen se dejan las paredes y la tapa superior con cierta transparencia para poder ver el interior de la caja. Entre el cilindro montado encima del motor y la base giratoria habrá un eje metálico que comunicara el movimiento.
 
-En fase mas avanzadas del proyecto, el equipo de desarrollo observo tras realizar pruebas, que el eje metálico no podía ser asegurado en el centro del cilindro (Mas detalles en el apartado \ref{pruebas_post_impresión}). También concluyó que en determinadas configuraciones geométricas del brazo, este podía ejercer demasiada fuerza sobre el eje de giro horizontal.
+Por otro lado, para que sea posible ubicar los motores que se encargaran del movimiento vertical del brazo se han de crear nuevas piezas en las que puedan ser atornillados. Esta pieza puede observarse en la figura \ref{fig:pletina_sujecion_motor}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{pictures/pletina_motor.png}
+    \caption{Placa de sujeción de los motores laterales}
+    \label{fig:pletina_sujecion_motor}
+\end{figure}
+
+En fases mas avanzadas del proyecto, el equipo de desarrollo observo tras realizar pruebas, que el eje metálico no podía ser asegurado en el centro del cilindro (Mas detalles en el apartado \ref{pruebas_post_impresión}). También concluyó que en determinadas configuraciones geométricas del brazo, este podía ejercer demasiada fuerza sobre el eje de giro horizontal.
 
 Por ello se tuvieron que realizar los siguientes cambios.
 
@@ -280,7 +289,7 @@ Para evitar emplear un eje metálico, el equipo de desarrollo diseña una pieza 
 \end{figure}
 
 Según se observa en la figura \ref{fig:pieza_sustituta_eje} la base giratoria y la parte que servirá para sustituir al eje metálico, serán unidas mediante dos tornillos.
-También se puede observar el eje de la base rotatoria en una perspectiva ascendente.
+También se puede observar el carril de la base rotatoria en una perspectiva ascendente.
 
 \begin{figure}[H]
     \centering
@@ -292,20 +301,21 @@ También se puede observar el eje de la base rotatoria en una perspectiva ascend
 En la imagen \ref{fig:sistema_completo_eje} se puede observar la ultima pieza del sistema. Su cometido es servir como engranaje sobre el eje del motor y por tanto transmitir el movimiento a las piezas superiores.
 Será unida a la pieza superior mediante 4 tornillos.
 
-Por otro lado, para que sea posible ubicar los motores que se encargaran del movimiento vertical del brazo se han de crear nuevas piezas en las que puedan ser atornillados. Esta pieza puede observarse en la figura \ref{fig:pletina_sujecion_motor}
+Otra pieza que tuvo que ser modificada es la sujeción del \textit{end--efector}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=.9\linewidth]{pictures/pletina_motor.png}
-    \caption{Placa de sujeción de los motores laterales}
-    \label{fig:pletina_sujecion_motor}
+    \includegraphics[width=.9\linewidth]{pictures/EndEffectorModificado.png}
+    \caption{\textit{End--effector} inicial (izquierda). \textit{End--effector} modificado (derecha)}
+    \label{fig:end_effector_modificado}
 \end{figure}
+
+Como se puede observar en la figura \ref{fig:end_effector_modificado}, la modificación consiste en la adición de un refuerzo en las partes menos resistentes. 
+Esta pieza fue modificada tras observar la fragilidad de las paredes laterales cuando estas se rompieron en la pieza sin refuerzo.
 
 Cabe destacar que, pese a que una gran parte de las piezas no han sido mencionadas de manera concreta en este apartado, todas ellas han sido revisadas de manera individual y han sido editadas para posibilitar el uso de los tornillos, rodamientos y ejes disponibles.
 
 Mas concretamente, los tornillos de 4x16 en el caso de las piezas que han sido construidas desde cero por parte del equipo de desarrollo, y tornillos de 3x10 y 3x20 según el caso, en piezas editadas.
-
-Por otro lado, los ejes que se han empleado tiene 4mm de diámetro y una longitud variable en función de su cometido.
 
 En ultimo lugar se han adaptado las ranuras para los rodamientos de 8mm de diámetro externo que han sido adquiridos para el proyecto.
 
