@@ -8,11 +8,11 @@ Además, en relación a los \ac{ODS}, con el desarrollo de este sistema se prete
     \item [10 -] Reducción de las desigualdades\footnote{\url{https://www.un.org/sustainabledevelopment/es/inequality/}}.
 \end{itemize}
 
-Para el primero, se tiene en cuenta que el producto se desarrollará siguiendo las iniciativas \ac{OS} y \ac{OH}, las cuales facilitan el acceso a la información a cualquiera que la requiera. Además, se facilitará el desarrollo al completo detallado y explicado, con la resolución de los problemas pertinentes y el porqué de ella.
+Para el primero, se tiene en cuenta que el producto se desarrollará siguiendo las iniciativas \ac{OS} y \ac{OH}, las cuales facilitan el acceso a la información a cualquiera que la requiera. %Además, se facilitará el desarrollo al completo, detallado y explicado, con la resolución de los problemas pertinentes y el porqué de ella.
 
 Para el segundo, el \pArm{} utilizará la electricidad como fuente de energía, evitando así otras más contaminantes como las producidas por combustibles fósiles. En añadido, se trabajará para que el consumo de energía sea el menor posible, permitiendo así un mayor tiempo de uso con la misma fuente de alimentación y no abusando de los recursos de los que se disponen.
 
-Finalmente, se pretende hacer que el \pArm{} tenga un coste bajo, permitiendo así el acceso a los recursos y los procesos de fabricación a todo el mundo que pudiera estar interesado y que disponga de la cantidad mínima necesaria para poder poner en funcionamiento el brazo robótico.
+Finalmente, se pretende hacer que el \pArm{} tenga un coste bajo, permitiendo así el acceso a los recursos y a los procesos de fabricación a todo el mundo que pudiera estar interesado. % y que disponga de la cantidad mínima necesaria para poder poner en funcionamiento el brazo robótico.
 
 Por otra parte, el \pArm{} es dependiente de otro sistema que lo controle, ya que no se plantea como sistema autónomo. Por consiguiente, se proponen diversos métodos de conexión entre el brazo y dicho sistema. Por ejemplo, se puede utilizar el puerto serie \ac{USB} o bien comunicaciones inalámbricas, como \textit{Bluetooth} y \textit{WiFi}. Además, debido a su disponibilidad multiplataforma, se propone el uso de Python como alternativa de programación.
 
@@ -21,7 +21,7 @@ De ahora en adelante, se denominará ``\ac{S1}'' al equipo que controla al \pArm
 Para este proyecto, se ha de desarrollar el \ac{SW} que se ejecutará en \ac{S1} y el \ac{SW} y el \ac{HW} que irán en \ac{S2}.
 También habrá que adaptar la estructura mecánica para que esta pueda ser impresa en 3D.
 
-\subsection{Interfaz del sistema}
+\subsubsection{Interfaz del sistema}
 En un principio, el sistema estará dividido en dos módulos:
 
 \subsection*{\ac{S1}}
@@ -52,7 +52,7 @@ En resumen (ver la tabla \ref{tab:s1_requirements}):
 
 En principio, no será necesaria la conexión a Internet, pero tampoco se descarta el uso de la misma a la hora de poder recibir actualizaciones o en lo referente a futuras mejoras.
 
-\subsection*{\ac{S2}}
+\subsubsection*{\ac{S2}}
 Para el sistema \ac{S2} no se ha pensado en ningún microprocesador ni \ac{SoC} en particular, pero se han contemplado algunos que cumplen con las características requeridas (ver la tabla \ref{tab:s2_chips}).
 
 Será necesario que el circuito escogido disponga de algún tipo de entrada de las propuestas para la comunicación con \ac{S1}. Debido a la característica descrita en la tabla \ref{tab:s1_requirements} sobre la interfaz de comunicación, no será estrictamente necesario que la velocidad sea adaptable (ya que se asume que se adaptará en \ac{S1}); sin embargo, sí será requisito fundamental que la conexión sea dúplex y que soporte gran cantidad de datos con las menores pérdidas posibles.
@@ -82,7 +82,7 @@ Teniendo en cuenta lo anterior, se plantea el uso de los siguientes dispositivos
 
 Finalmente, el equipo de desarrollo decide usar el dsPIC33EP512GM604-I ya que está disponible entre las distintas opciones que la universidad pone a su disposición y por tanto no hay que soportar el coste de este en el presupuesto del proyecto. Por otro lado, cumple con los requisitos técnicos que el equipo de desarrollo ha supuesto necesarios.
 
-\subsection{Interfaz de usuario}
+\subsubsection{Interfaz de usuario}
 
 El usuario final del producto solamente interactuara de manera directa con \ac{S1}.
 Para que esta interacción sea posible, se desarrollara un panel de control que permita al usuario definir movimientos que el robot deberá realizar. El panel de control se mostrará en una sola pantalla y permitirá al usuario, mediante una interfaz gráfica sencilla, mover de manera independiente cada uno de los motores del robot, o bien mediante el uso del ratón, describir trayectorias que el robot realizará en tiempo real replicando el movimiento del ratón.
@@ -98,7 +98,7 @@ Además, también se podrá desplazar el robot indicando la posición $\left\{x,
 
 La especificación de los elementos de la interfaz anterior (figura \ref{fig:ui_design}) se hace en mayor profundidad en el punto \ref{sec:ui_reqs} del documento.
 
-\subsection{Memoria}
+\subsubsection{Memoria}
 
 Por experiencia en proyectos relacionados, se estima que la memoria disponible para 
 código y datos, en el microcontrolador seleccionado, ofrecen margen suficiente para este
@@ -110,6 +110,6 @@ microcontrolador:
     \item 48 KB de memoria \ac{RAM}, donde se alojarán los datos temporales durante la ejecución, teniendo en especial consideración las matrices de las ecuaciones cinemáticas.
 \end{itemize}
 
-\subsection{Operaciones}
+\subsubsection{Operaciones}
 
 Los usuarios deberán desempeñar acciones tales que generen los movimientos deseados en el brazo. Estas acciones pueden implicar interactuar con los \textit{widgets} presentes en el panel de control o bien efectuar movimientos con el ratón para que el robot los desempeñe directamente.
