@@ -21,7 +21,7 @@ De ahora en adelante, se denominará ``\ac{S1}'' al equipo que controla al \pArm
 Para este proyecto, se ha de desarrollar el \ac{SW} que se ejecutará en \ac{S1} y el \ac{SW} y el \ac{HW} que irán en \ac{S2}.
 También habrá que adaptar la estructura mecánica para que esta pueda ser impresa en 3D.
 
-\subsubsection{Interfaz del sistema}
+\subsection{Interfaz del sistema}
 En un principio, el sistema estará dividido en dos módulos:
 
 \subsection*{\ac{S1}}
@@ -82,7 +82,7 @@ Teniendo en cuenta lo anterior, se plantea el uso de los siguientes dispositivos
 
 Finalmente, el equipo de desarrollo decide usar el dsPIC33EP512GM604-I ya que está disponible entre las distintas opciones que la universidad pone a su disposición y por tanto no hay que soportar el coste de este en el presupuesto del proyecto. Por otro lado, cumple con los requisitos técnicos que el equipo de desarrollo ha supuesto necesarios.
 
-\subsubsection{Interfaz de usuario}
+\subsection{Interfaz de usuario}
 
 El usuario final del producto solamente interactuara de manera directa con \ac{S1}.
 Para que esta interacción sea posible, se desarrollara un panel de control que permita al usuario definir movimientos que el robot deberá realizar. El panel de control se mostrará en una sola pantalla y permitirá al usuario, mediante una interfaz gráfica sencilla, mover de manera independiente cada uno de los motores del robot, o bien mediante el uso del ratón, describir trayectorias que el robot realizará en tiempo real replicando el movimiento del ratón.
@@ -98,7 +98,7 @@ Además, también se podrá desplazar el robot indicando la posición $\left\{x,
 
 La especificación de los elementos de la interfaz anterior (figura \ref{fig:ui_design}) se hace en mayor profundidad en el punto \ref{sec:ui_reqs} del documento.
 
-\subsubsection{Memoria}
+\subsection{Memoria}
 
 Por experiencia en proyectos relacionados, se estima que la memoria disponible para 
 código y datos, en el microcontrolador seleccionado, ofrecen margen suficiente para este
@@ -110,6 +110,6 @@ microcontrolador:
     \item 48 KB de memoria \ac{RAM}, donde se alojarán los datos temporales durante la ejecución, teniendo en especial consideración las matrices de las ecuaciones cinemáticas.
 \end{itemize}
 
-\subsubsection{Operaciones}
+\subsection{Operaciones}
 
 Los usuarios deberán desempeñar acciones tales que generen los movimientos deseados en el brazo. Estas acciones pueden implicar interactuar con los \textit{widgets} presentes en el panel de control o bien efectuar movimientos con el ratón para que el robot los desempeñe directamente.
