@@ -6,11 +6,11 @@ Puesto que esta división se considera esencial, cada una de las secciones del c
 
 \subsection{Interfaz Gráfica de Usuario (GUI)}
 
-La interfaz gráfica de usuario ha sido desarrollada haciendo uso de la biblioteca gráfica multiplataforma \textit{Qt}, la cual se encuentra originalmente implementada en $C++$ y que ha sido adaptada a Python, siendo conocida tambíen como \textit{PyQt}. Esta librería gráfica permite un desarrollo rápido y sencillo de interfaces gráficas de usuario mediante el paradigma de programación orientada a objetos.
+La interfaz gráfica de usuario ha sido desarrollada haciendo uso de la biblioteca gráfica multiplataforma \textit{Qt}, la cual se encuentra originalmente implementada en $C++$ y que ha sido adaptada a Python, siendo conocida también como \textit{PyQt}. Esta librería gráfica permite un desarrollo rápido y sencillo de interfaces gráficas de usuario mediante el paradigma de programación orientada a objetos.
 
 En primer lugar, es importante destacar las principales razones que han desembocado en la elección de esta librería:
 \begin{itemize}
-    \item La curva de aprendizaje de esta librería es rápida y permite desarrollar interfaces gráficas de forma rápida y eficaz.
+    \item La curva de aprendizaje de esta librería es rápida y permite desarrollar interfaces gráficas de forma ágil y eficaz.
     \item La librería dispone de abundante documentación, la cual facilita su uso en el proyecto.
     \item Qt cuenta con una gran variedad de componentes gráficos y herramientas, las cuales cubren de sobra las aspiraciones de este proyecto.
     \item Es una de las librerías gráficas mas usadas por la comunidad de desarrolladores en la programación de interfaces gráficas empleando Python.
@@ -23,7 +23,8 @@ En términos generales, la interfaz gráfica de usuario se considera un componen
 \begin{itemize}
     \item Controlar el movimiento del brazo robótico mediante el control de algunos parámetros del mismo, por ejemplo, mediante la posición angular de los servomotores o la posición cartesiana del \textit{end-effector} del brazo.
     \item Visualizar gráficamente una previsualización de la posición del brazo antes de que el mismo realice el movimiento físicamente.
-    \item Gestionar la comunicación de \ac{S1} y \ac{S2}.
+    \item Gestionar la comunicación de \ac{S1} y \ac{S2} a través de la selección de un puerto serie.
+    \iteem Mostrar información sobre la ejecución de la aplicación y el estado del sistema.
 \end{itemize}
 
 En relación a lo anteriormente mencionado, se planteó un diseño teórico que aproximaba la apariencia de la interfaz gráfica de usuario según los requisitos planteados:
