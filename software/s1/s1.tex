@@ -14,7 +14,7 @@ En primer lugar, es importante destacar las principales razones que han desemboc
     \item La librería dispone de abundante documentación, la cual facilita su uso en el proyecto.
     \item Qt cuenta con una gran variedad de componentes gráficos y herramientas, las cuales cubren de sobra las aspiraciones de este proyecto.
     \item Es una de las librerías gráficas mas usadas por la comunidad de desarrolladores en la programación de interfaces gráficas empleando Python.
-    \item Proporciona una herramienta de diseño gráfico de interfaces de usuario llamada \textit{Qt Designer} y que agiliza las etapas tempranas de desarrollo de la interfaz gráfica, sobre todo en cuanto al ámbito de la distribución gráfica de los distintos \textit{widgets}, botones, desplegables, etc.
+    \item Proporciona una herramienta de diseño gráfico de interfaces de usuario llamada \textit{Qt Designer} y que agiliza las etapas tempranas de desarrollo de la interfaz gráfica, sobre todo en cuanto al ámbito de la distribución gráfica de los distintos \textit{widgets}, botones, desplegables, etc. Este archivo XML puede ser cargado desde el código Python y por lo tanto, cada componente gráfico se corresponde con un objeto.
 \end{itemize}
 
 Una vez se ha introducido la librería gráfica utilizada, se procede a describir la interfaz gráfica desarrollada, las decisiones tomadas durante este desarrollo y el resultado final obtenido.
@@ -56,18 +56,103 @@ Teniendo el cuenta el diseño teórico propuesto previamente a desarrollar la in
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{pictures/DesignerGui.PNG}
-    \caption{Diseño propuesto para la interfaz gráfica de usuario.}
+    \caption{Diseño final para la interfaz gráfica de usuario.}
     \label{fig:ui_QtDesigner}
 \end{figure}
 
-Mediante la herramienta anterior, se puede diseñar gráficamente cual va a ser la apariencia de la interfaz gráfica. Tal y como se puede ver en la parte izquierda de la imagen, Qt proporciona numerosos componentes gráficos de todos los tipos, los cuales, pueden ser incluidos en el diseño con tan solo arrastrarlos al mismo.
+Mediante la herramienta anterior, se puede diseñar gráficamente cual va a ser la apariencia de la interfaz gráfica. Tal y como se puede ver en la parte izquierda de la imagen, Qt proporciona numerosos componentes gráficos de todos los tipos, los cuales, pueden ser incluidos en el diseño con tan solo arrastrarlos al mismo. Esta herramienta de diseño, proporciona un archivo de salida XML que tiene extensión .ui y que posteriormente será cargado desde Python para la programación de la lógica que existe entre los distintos componentes gráficos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{pictures/XmlGui.PNG}
+    \caption{Fragmento del archivo XML que describe la apariencia de la GUI.}
+    \label{fig:ui_XML}
+\end{figure}
+
+A continuación se presenta una breve descripción de los componentes gráficos que aparecen en el diseño final de la interfaz gráfica de usuario y que posteriormente será extendida para mostrar los detalles técnicos mas relevantes:
+\begin{itemize}
+    \item Por un lado, en la sección izquierda de la interfaz gráfica de usuario se encuentran los siguientes componentes:
+    \begin{itemize}
+        \item En la barra de herramientas de la parte superior se encuentran el menú desplegable de selección de puerto serie, así como el menú desplegable que da a conocer la documentación del proyecto al usuario.
+        \item En la parte central, tal y como describe el título ``\textit{Position Control Sliders}'', se encuentran los \textit{Sliders} y \textit{SpinBoxes} que permiten al usuario controlar el valor de las coordenadas angulares de los motores y las coordenadas cartesianas del \textit{end-effector}.
+        \item Justo debajo de los \textit{Sliders}, se encuentran tres botones que permiten al usuario: cambiar el tipo de coordenadas de los \textit{Sliders}, devolver al brazo robótico a su posición inicial y ejecutar o cancelar un movimiento.
+        \item En la parte mas inferior de la mitad izquierda, se encuentra la barra de progreso que indica el estado del movimiento en el momento de la realización del mismo.
+    \end{itemize}
+    \item Por otro lado, en la sección derecha de la interfaz gráfica de usuario se encuentran lo siguientes componentes:
+    \begin{itemize}
+        \item Tal y como describe el título, en esta parte de la interfaz se encuentran las dos representaciones gráficas de la posición del brazo robótico, las cuales además, permiten al usuario controlar la posición del brazo mediante movimientos del ratón.
+        \item Justo debajo de ambas representaciones, se encuentra la consola de salida que proporciona al usuario la información sobre los \textit{logs} generados por la aplicación.
+    \end{itemize}
+\end{itemize}
+
+En relación a los componentes gráficos anteriores, es importante destacar algunas decisiones esenciales que han sido tomadas durante el desarrollo de la interfaz gráfica y que por lo tanto han condicionado el resultado final:
+
+En primer lugar, inicialmente se disponía de unos rangos de valor teóricos para cada uno de los \textit{Sliders} y \textit{SpinBoxes}, los cuales, tras realizar algunas pruebas físicas con el prototipo del brazo robótico, han sido reajustados para cumplir con las limitaciones físicas y de seguridad de la estructura:
+    \begin{itemize}
+        \item Cuando los controles se encuentran en modo de coordenadas angulares, los tres \textit{Sliders} y \textit{SpinBoxes} representan a los ángulos de giro $(\theta_{0}, \theta_{1}, \theta_{2})$. Estos ángulos tienen los siguientes rangos de valores:
+        \begin{itemize}
+            \item El ángulo $\theta_{0}$ es ajustable entre 0° y 151°, que coincide con el rango de giro máximo del servomotor de la base.
+            \item El ángulo $\theta_{1}$ es ajustable entre 0° y 135°, este rango se deduce de las limitaciones físicas de la estructura del brazo.
+            \item El ángulo $\theta_{2}$ es ajustable entre 10° y 120°, este rango se deduce de las limitaciones físicas de la estructura del brazo.
+        \end{itemize}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.55\linewidth]{pictures/Joints_Gui.PNG}
+            \caption{Controles en modo coordenadas angulares.}
+            \label{fig:ui_joint}
+         \end{figure}
+        \item Cuando los controles se encuentran en modo de coordenadas cartesianas, los tres \textit{Sliders} y \textit{SpinBoxes} representan a la posición cartesiana del \textit{end-effector} del brazo $(x, y, z)$. Estas coordenadas tienen los siguientes rangos de valores:
+        \begin{itemize}
+            \item La coordenada X es ajustable entre 0.0mm y 346.0mm, puesto que el \textit{end-effector} siempre se sitúa delante de la base, coincidiendo con la parte positiva del eje X. 
+            \item La coordenada Y es ajustable entre -346.0mm y 346.0mm, puesto que el \textit{end-effector} puede desplazarse hacia la derecha e izquierda de la base, coincidiendo con la parte positiva y negativa del eje Y.
+            \item La coordenada Z es ajustable entre -106.0mm y 360.6mm, puesto que el \textit{end-effector} puede desplazarse hacia arriba y abajo, teniendo como limite inferior la parte mas baja de la base del brazo y coincidiendo con la parte positiva  y negativa del eje Z.
+        \end{itemize}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.55\linewidth]{pictures/Cartesian_Gui.PNG}
+            \caption{Controles en modo coordenadas cartesianas.}
+            \label{fig:ui_cartesian}
+        \end{figure}
+    \end{itemize}
+
+En segundo lugar y en relación con las representaciones gráficas del brazo robótico, se ha tomado la decisión de incluir dos vistas:
+    \begin{itemize}
+        \item Vista cenital o desde arriba: la cual muestra como el ángulo $\theta_{0}$ o las coordenadas X e Y afectan a la posición del brazo. Esta vista es absoluta y no se encuentra fijada a la estructura del brazo robótico.
+        \item Vista lateral o de perfil fijada: la cual muestra como los ángulos $\theta_{1}$ y $\theta_{2}$ o las coordenadas X, Y, Z afectan a la posición del brazo. Esta vista cuenta con una particularidad y es que se encuentra fijada a la estructura del robot y por lo tanto, no contempla el desplazamiento de profundidad del brazo robótico, es decir, el enfoque es siempre completamente paralelo al lateral del brazo. 
+        \item En ambas vistas se muestran los dos segmentos del brazo en colores distintos para  así distinguirlos con claridad, así como la base sobre la que se encuentra situado el brazo.
+         \item Ambas representaciones gráficas anteriores usan los modelos matemáticos de cinemática directa e inversa para realizar los cálculos que permiten dibujar los diferentes puntos y segmentos.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.55\linewidth]{pictures/Views_GUI.PNG}
+            \caption{Representaciones gráficas de la posición del brazo.}
+            \label{fig:ui_views}
+         \end{figure}
+    \end{itemize}
+    
+Cabe destacar que, a pesar de que los controles del brazo pueden ser ajustados libremente por el usuario, se tiene que el brazo robótico tiene un rango limitado por su estructura física y por ello, se ha programado un método que verifica si la posición que el usuario ha seleccionado es viable. En caso de serlo, el movimiento puede ser ejecutado y enviado como orden a \ac{S2}, en caso contrario, la representación del brazo se colorea de color rojo y el botón de ejecutar movimiento se desactiva, de esta forma el usuario es notificado y debe modificar los valores de los controles.    
+
+Continuando con el proceso de desarrollo de la interfaz gráfica de usuario y una vez se ha creado el diseño gráfico de la misma, el siguiente paso consiste en la programación de la lógica que existe entre los diferentes componentes gráficos, así como sus interacciones. Para la programación de la lógica entre los componentes gráficos, se hace uso de las señales que proporciona la librería Qt.
+
+En la librería gráfica Qt, las señales representan el mecanismo principal para notificar cambios de estado y eventos que afectan a componentes gráficos de una interfaz. El concepto de señal, puede ser asemejado con el concepto de interrupción, en el cual, cuando sucede cierto evento, se dispara una señal  o notificación que puede ser manejada por el programador y que dispara la realización de una cierta rutina. Uno de los ejemplos mas claros de este mecanismo, es la señal ``\textit{clicked()}'' de un botón del tipo ``\textit{QPushButton}'' perteneciente a los \textit{widget} que ofrece Qt: cuando el botón es clickado, se dispara una señal que  permite al usuario ejecutar una función programada por el mismo tras este evento. 
+
+El concepto mas importante tras las señales es el hecho de que Qt ofrece la posibilidad de conectar cada una de las  posibles señales a la  ejecución de un método programado por el desarrollador, de esta forma, mediante estas señales, se puede establecer una lógica que orquesta las interacciones entre los diferentes componentes gráficos.
+
+Teniendo en cuenta el concepto anterior, el código de la interfaz gráfica de usuario consiste en un archivo Python desde el cual se carga el archivo XML que contiene el diseño gráfico de la interfaz, y en el cual se han programado los diferentes métodos a ejecutar tras la recepción de las diferentes señales de los distintos componentes gráficos.
+
+Como detalle final, es importante remarcar que el punto de enlace entre el código de la interfaz gráfica y el código de la lógica de comunicaciones se realiza mediante la clase denominada  ``\textit{control interface}'', la cual describe en el subapartado siguiente. Esta clase proporciona una serie de métodos que al ser ejecutados dentro de las rutinas de gestión de señales, disparan y ejecutan los métodos necesarios del código de la lógica de comunicaciones que permiten el envío de las ordenes generadas por el usuario mediante la interfaz gráfica.
+
+Finalmente se muestra una imagen de la interfaz gráfica de usuario final en ejecución:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{pictures/Gui_Final.png}
+    \caption{Interfaz de usuario final en ejecución}
+    \label{fig:ui_finalexe}
+\end{figure}
+
+El código de la interfaz gráfica de usuario se muestra en el anexo y el archivo que lo contiene recibe el nombre de ``GUI.py''.
 
 
-
-
-
-
-\subsection{Lógica}
+\subsection{Lógica de comunicaciones}
 Antes de proceder con la explicación del código conviene especificar ciertos aspectos destacados del \ac{SW}.
 
 Al tener que comunicar \ac{S1} con \ac{S2}, es necesario que existan hilos de cómputo dedicados específicamente a las labores de lectura y escritura en la UART. Esto se debe a que no se debe ocupar el hilo principal de cómputo con labores de comunicación ya que esto supondría bloquear la interacción con la interfaz gráfica mientras duren las comunicaciones.
@@ -182,7 +267,5 @@ Se emplea la librería \texttt{collections} para permitir el uso de tipos de dat
 
 %% TO-DO - hablar de la librería atomics.py [J]
 
-\subsubsection{\texttt{GUI}}
-% TO-DO
 
 
