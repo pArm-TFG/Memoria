@@ -1,6 +1,6 @@
-El proyecto tiene una clara división del \ac{SW} en función del dispositivo donde este será ejecutado. Por un lado, se ha desarrollado un \ac{SW} de alto nivel en Python, el cual permite la interacción directa de un operador humano con el brazo robótico mediante una interfaz de usuario. Este \ac{SW} gobierna \ac{S1}. 
+El proyecto tiene una clara división en cuanto al \ac{SW} implementado en función de los diferentes dispositivos usados para el control del brazo robótico. Por un lado, se ha desarrollado un \ac{SW} de alto nivel implementado en Python, el cual permite la interacción directa de un operador humano con el brazo robótico mediante una interfaz de usuario. Este \ac{SW} se ejecuta en \ac{S1}. 
 
-Por otro lado, y de manera concurrente, se ha desarrollado un \ac{SW} que será cargado en la placa de control, cuyo propósito es generar las señales necesarias para mover los motores, e interpretar las órdenes de movimiento que lleguen de \ac{S1}. Este \ac{SW} gobierna \ac{S2}.
+Por otro lado, y de manera concurrente, se ha desarrollado un \ac{SW} implementado en C,  que será cargado en la placa de control y cuyo propósito es generar las señales necesarias para mover los motores, así como interpretar las órdenes de movimiento que lleguen de \ac{S1}. Este \ac{SW} se ejecuta en \ac{S2}.
 
 Para comunicar estos dos sistemas se ha desarrollado un pseudo lenguaje basado en GCode el cual servirá para agilizar las comunicaciones y simplificar el envío y recepción de datos como posiciones o mensajes de error.
 
