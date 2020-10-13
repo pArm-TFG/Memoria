@@ -14,12 +14,12 @@ En primer lugar, es importante destacar las principales razones que han desemboc
     \item La librería dispone de abundante documentación, la cual facilita su uso en el proyecto.
     \item Qt cuenta con una gran variedad de componentes gráficos y herramientas, las cuales cubren de sobra las aspiraciones de este proyecto.
     \item Es una de las librerías gráficas mas usadas por la comunidad de desarrolladores en la programación de interfaces gráficas empleando Python.
-    \item Proporciona una herramienta de diseño gráfico de interfaces de usuario llamada \textit{Qt Designer} y que agiliza las etapas tempranas de desarrollo de la interfaz gráfica, sobre todo en cuanto al ámbito de la distribución gráfica de los distintos \textit{widgets}, botones, desplegables, etc. Este archivo XML puede ser cargado desde el código Python y por lo tanto, cada componente gráfico se corresponde con un objeto.
+    \item Proporciona una herramienta de diseño gráfico de interfaces de usuario, llamada \textit{Qt Designer}, que agiliza las etapas tempranas de desarrollo de la interfaz gráfica, sobre todo en cuanto al ámbito de la distribución gráfica de los distintos \textit{widgets}, botones, desplegables, etc. Este diseñador proporciona un archivo de salida XML que puede ser cargado desde Python y por lo tanto, cada componente gráfico de la \ac{GUI} se corresponde con un objeto dentro de la aplicación.
 \end{itemize}
 
 Una vez se ha introducido la librería gráfica utilizada, se procede a describir la interfaz gráfica desarrollada, las decisiones tomadas durante este desarrollo y el resultado final obtenido.
 
-En términos generales, la interfaz gráfica de usuario se considera un componente esencial del proyecto y su función es la de facilitar la interacción entre el usuario y el brazo robótico. Tal y como se ha podido ver en apartados anteriores de esta memoria, la interfaz gráfica de usuario ofrece una al usuario la posibilidad de:
+En términos generales, la interfaz gráfica de usuario se considera un componente esencial del proyecto y su función es la de facilitar la interacción entre el usuario y el brazo robótico. Tal y como se ha podido ver en apartados anteriores de esta memoria, la interfaz gráfica ofrece al usuario la posibilidad de:
 \begin{itemize}
     \item Controlar el movimiento del brazo robótico mediante el control de algunos parámetros del mismo, por ejemplo, mediante la posición angular de los servomotores o la posición cartesiana del \textit{end-effector} del brazo.
     \item Visualizar gráficamente una previsualización de la posición del brazo antes de que el mismo realice el movimiento físicamente.
@@ -60,7 +60,7 @@ Teniendo el cuenta el diseño teórico propuesto previamente a desarrollar la in
     \label{fig:ui_QtDesigner}
 \end{figure}
 
-Mediante la herramienta anterior, se puede diseñar gráficamente cual va a ser la apariencia de la interfaz gráfica. Tal y como se puede ver en la parte izquierda de la imagen, Qt proporciona numerosos componentes gráficos de todos los tipos, los cuales, pueden ser incluidos en el diseño con tan solo arrastrarlos al mismo. Esta herramienta de diseño, proporciona un archivo de salida XML que tiene extensión .ui y que posteriormente será cargado desde Python para la programación de la lógica que existe entre los distintos componentes gráficos.
+Mediante la herramienta anterior, se puede diseñar gráficamente cual va a ser la apariencia de la interfaz. Tal y como se puede ver en la parte izquierda de la imagen, Qt proporciona numerosos componentes gráficos de todos los tipos, los cuales, pueden ser incluidos en el diseño con tan solo arrastrarlos al mismo. Esta herramienta de diseño, proporciona un archivo de salida XML que tiene extensión .ui y que posteriormente será cargado desde Python para la programación de la lógica que existe entre los distintos componentes gráficos.
 
 \begin{figure}[H]
     \centering
@@ -69,7 +69,7 @@ Mediante la herramienta anterior, se puede diseñar gráficamente cual va a ser 
     \label{fig:ui_XML}
 \end{figure}
 
-A continuación se presenta una breve descripción de los componentes gráficos que aparecen en el diseño final de la interfaz gráfica de usuario y que posteriormente será extendida para mostrar los detalles técnicos mas relevantes:
+A continuación se presenta una breve descripción de los componentes gráficos que aparecen en el diseño final de la interfaz de usuario y que posteriormente será extendida para mostrar los detalles técnicos mas relevantes:
 \begin{itemize}
     \item Por un lado, en la sección izquierda de la interfaz gráfica de usuario se encuentran los siguientes componentes:
     \begin{itemize}
@@ -105,7 +105,7 @@ En primer lugar, inicialmente se disponía de unos rangos de valor teóricos par
         \begin{itemize}
             \item La coordenada X es ajustable entre 0.0mm y 346.0mm, puesto que el \textit{end-effector} siempre se sitúa delante de la base, coincidiendo con la parte positiva del eje X. 
             \item La coordenada Y es ajustable entre -346.0mm y 346.0mm, puesto que el \textit{end-effector} puede desplazarse hacia la derecha e izquierda de la base, coincidiendo con la parte positiva y negativa del eje Y.
-            \item La coordenada Z es ajustable entre -106.0mm y 360.6mm, puesto que el \textit{end-effector} puede desplazarse hacia arriba y abajo, teniendo como limite inferior la parte mas baja de la base del brazo y coincidiendo con la parte positiva  y negativa del eje Z.
+            \item La coordenada Z es ajustable entre -106.0mm y 360.6mm, puesto que el \textit{end-effector} puede desplazarse hacia arriba y abajo, teniendo como límite inferior la parte mas baja de la base del brazo y coincidiendo con la parte positiva  y negativa del eje Z.
         \end{itemize}
         \begin{figure}[H]
             \centering
