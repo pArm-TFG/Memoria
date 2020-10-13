@@ -1,0 +1,27 @@
+El cálculo de los movimientos según los puntos recibidos se realizan utilizando
+tanto la cinemática directa como la cinemática inversa, explicadas previamente
+en el capítulo \ref{chap:maths}.
+
+Dichas cinemáticas se implementan en el paquete \texttt{kinematics}, implementado
+en los listados de códigos \ref{lst:kinematics_h} y \ref{lst:kinematics_c}.
+
+Se definen dos estructuras que permiten manejar los ángulos y los puntos:
+
+\lstinputlisting[linerange={53-73}, firstnumber=53, caption=, style=C]{pArm-S2/pArm.X/utils/types.h}
+
+Con dichos tipos de datos, las funciones dedicadas a la cinemática directa como la
+cinemática inversa computan el valor de entrada y actualizan la dirección de memoria
+en la que se espera obtener el valor resultante.
+
+En principio, los métodos anteriores suelen funcionar correctamente pero se establecen
+unos casos en los cuales la obtención del valor falla:
+
+\begin{itemize}
+    \item Cuando alguno de los ángulos provistos/obtenidos es \texttt{NaN}.
+    \item Si alguno de los valores provistos en la función $\arccos$ produce un
+    resultado mayor a uno, provocando que dicha función falle.
+    \item Si alguno de los valores de entrada no se encuentra dentro de los rangos
+    de los motores.
+\end{itemize}
+
+En todos los casos anteriores, la función falla con un código de error \texttt{EXIT\_FAILURE}.

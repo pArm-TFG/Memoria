@@ -1,0 +1,57 @@
+\begin{longtable}{| C{0.5} | C{1} |}
+    \caption{Órdenes GCode interpretadas por \ac{S2}.}
+    \label{tab:gcode_def}
+    \endfirsthead
+    \endhead
+    \hline
+    \textbf{Orden} & \textbf{Funcionalidad} \\
+    \hline
+    \texttt{G0 Xnnn Ynnn Znnn} & Orden para dirigir el \textit{end--effector} al punto $\left\{x, y, z\right\}$ indicado. \\
+    \hline
+    \texttt{G1 Xnnn Ynnn Znnn} & Orden para mover los motores los ángulos $\left\{\theta_0, \theta_1, \theta_2\right\}$ equivalentes a los parámetros recibidos. \\
+    \hline
+    \texttt{G28} & Orden para mover los motores a la posición inicial, es decir, posicionar el \textit{end--effector} en $P_{ee} = \left\{0, 0, 0\right\}$. \\
+    \hline
+    \texttt{M1} & Parada incondicional. Detiene cualquier movimiento y fija los motores en la posición resultante. Contesta con otra orden \texttt{M1} cuando se han detenido definitivamente los motores. \\
+    \hline
+    \texttt{M114} & Obtener la posición actual del \textit{end--effector}. Responde con un código \texttt{G0} junto con la posición. \\
+    \hline
+    \texttt{M280} & Obtener la posición actual a nivel de coordenadas angulares. Responde con un código \texttt{G1} junto con las coordenadas angulares. \\
+    \hline
+    \texttt{I1} & Comando personalizado que indica la intención de obtener el módulo `$n$' y la clave pública `$e$' en RSA. Responde con las órdenes \texttt{I2}, \texttt{I3}, \texttt{I4} en caso de que el dispositivo esté autorizado para pedir las claves. En otro caso, responde con un \texttt{J8}. \\
+    \hline
+    \texttt{I2 n} & Comando personalizado que indica el módulo `$n$' de la clave RSA. Solo es invocado tras una orden \texttt{I1} exitosa. \\
+    \hline
+    \texttt{I3 e} & Comando personalizado que indica la clave pública `$e$' de la clave RSA. Solo es invocado tras una orden \texttt{I1} exitosa. \\
+    \hline
+    \texttt{I4 msg} & Comando personalizado que envía un mensaje firmado con la clave privada `$d$'. Solo es invocado tras una orden \texttt{I1} exitosa. \\
+    \hline
+    \texttt{I5 msg} & Comando personalizado que recibe un mensaje encriptado para verificar al emisor. \\
+    \hline
+    \texttt{I6} & Comando personalizado que fuerza la generación de un nuevo par de claves RSA. Solo puede ser invocado tras un \textit{timeout} del \textit{heartbeat} o si no hay ningún dispositivo de confianza. \\
+    \hline
+    \texttt{I7 msg} & Comando personalizado que funciona como \textit{heartbeat}. \\
+    \hline
+    \texttt{J1} & Comando personalizado utilizado como ACK. \\
+    \hline
+    \texttt{J2} & Comando personalizado que indica un error de calibración en los motores. \\
+    \hline
+    \texttt{J3} & Comando personalizado que indica un error de GCode desconocido. \\
+    \hline
+    \texttt{J4} & Comando personalizado que indica un error de fuera de rango. \\
+    \hline
+    \texttt{J5} & Comando personalizado que indica un error de cancelación sin movimiento (no implementado). \\
+    \hline
+    \texttt{J6} & Comando personalizado que indica un error durante el \textit{handshake}. \\
+    \hline
+    \texttt{J7} & Comando personalizado que indica un error de múltiples movimientos enviados. \\
+    \hline
+    \texttt{J8} & Comando personalizado que indica un error de falta de coordenadas para \texttt{G0}. \\
+    \hline
+    \texttt{J9} & Comando personalizado que indica un error de falta de coordenadas para \texttt{G1}. \\
+    \hline
+    \texttt{J10} & Comando personalizado que indica un error de dispositivo de no confianza. \\
+    \hline
+    \texttt{J11} & Comando personalizado que indica un error de \textit{buffer overflow} de la \ac{UART}. \\
+    \hline
+\end{longtable}

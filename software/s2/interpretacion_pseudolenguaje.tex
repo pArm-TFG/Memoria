@@ -1,0 +1,68 @@
+Las comunicaciones entre los sistemas \ac{S2} y \ac{S1} se realiza mediante \ac{UART}
+pero los mensajes no se componen de un lenguaje propio sino que se utiliza una
+adaptación del GCode.
+
+El GCode es el nombre que recibe habitualmente el lenguaje de programación más usado
+de control numérico, el cual posee múltiples implementaciones \cite{Gcode2020}. La
+estructura típica de un código en GCode se compone de una orden y una serie de
+parámetros que pueden ser opcionales. Según la web de RepRap, se definen los siguientes
+tipos de GCode \cite{GcodeEsRepRap}:
+
+\begin{itemize}
+    \item \texttt{Gnnn} -- Comando GCode estándar, como moverse hasta un punto.
+    \item \texttt{Mnnn} -- Comando definido por RepRap, como encender un ventilador.
+    \item \texttt{Tnnn} -- Seleccionar la herramienta nnn. En RepRap, las herramientas son extrusores.
+    \item \texttt{Snnn} -- Parámetro de comando, como la tensión enviada a un motor.
+    \item \texttt{Pnnn} -- Parámetro de comando, como el tiempo en milisegundos.
+    \item \texttt{Xnnn} -- Una coordenada X, normalmente para moverse a ella. Puede ser un número entero o racional.
+    \item \texttt{Ynnn} -- Una coordenada Y, normalmente para moverse a ella. Puede ser un número entero o racional.
+    \item \texttt{Znnn} -- Una coordenada Z, normalmente para moverse a ella. Puede ser un número entero o racional.
+    \item \texttt{Innn} -- Parámetro - Actualmente no utilizado.
+    \item \texttt{Jnnn} -- Parámetro - Actualmente no utilizado.
+    \item \texttt{Fnnn} -- \textit{Feedrate} en mm por minuto. (Velocidad de movimiento del cabezal de impresión).
+    \item \texttt{Rnnn} -- Parámetro - usado para temperaturas.
+    \item \texttt{Qnnn} -- Parámetro - Actualmente no utilizado.
+    \item \texttt{Ennn} -- Longitud a extruir en mm. Ex exactamente como X, Y y Z, pero para la cantidad de filamento a extruir. Es común que los nuevos sistemas basados en pasos lo interpreten... Mejor: Skeinforge 40 y siguientes interpretan esto como la longitud absuluta de filamento insertado, no como la longitud de la extrusión que sale.
+    \item \texttt{Nnnn} -- Número de línea. Utilizado para pedir la repetición de la transmisión en caso de errores de comunicación.
+    \item \texttt{*nnn} -- Checksum. Usado para comprobar errores de comunicación.
+\end{itemize}
+
+En este proyecto se han utilizado los siguientes GCode:
+
+\begin{itemize}
+    \item \texttt{Gnnn} -- para indicar movimientos hasta un punto o coordenada angular.
+    \item \texttt{Mnnn} -- para indicar órdenes, como detener el movimiento u obtener la posición actual.
+    \item \texttt{Innn} -- órdenes relacionadas con el intercambio de mensajes en RSA.
+    \item \texttt{Jnnn} -- órdenes que indican distintos tipos de errores durante la ejecución.
+\end{itemize}
+
+Durante la ejecución, los caracteres recibidos por la \ac{UART} son guardados en un
+\textit{buffer} temporal de hasta 1024 caracteres. Una vez se recibe un salto de línea,
+el \textit{buffer} es copiado a una cadena de caracteres de tamaño fijo, para no
+emplear más memoria de la necesaria. Dicha acción activa además un \textit{flag}
+que indica que un nuevo mensaje ha sido recibido, delegando su tratamiento al
+bucle principal.
+
+La gestión de los bytes recibidos se realiza en la rutina de tratamiento de
+interrupción de la \ac{UART}:
+
+\lstinputlisting[linerange={28-77}, firstnumber=28, caption=, style=C]{pArm-S2/pArm.X/interrupts.c}
+
+y el GCode es interpretado en el paquete \texttt{gcode}, definido por los listados
+de código \ref{lst:gcode_h} y \ref{lst:gcode_c}.
+
+Actualmente, \ac{S2} interpreta y entiende las siguientes órdenes (tabla \ref{tab:gcode_def}):
+
+\LTXtable{\linewidth}{software/s2/gcode_orders}
+
+Cuando se recibe una orden esta es guardada junto con toda la información relativa a
+ella en una estructura del tipo \texttt{order\_t}:
+
+\lstinputlisting[linerange={110-138}, firstnumber=110, caption=, style=C]{pArm-S2/pArm.X/utils/types.h}
+
+Dicha estructura contiene un \texttt{buffer\_t} con la orden recibida y un \textit{flag}
+indicando si hay una nueva orden lista para ser interpretada. El bucle principal de 
+ejecución comprueba en cada iteración si hay algún mensaje pendiente y, en caso afirmativo,
+delega la interpretación al paquete \texttt{gcode} (listados de código \ref{lst:gcode_h}
+y \ref{lst:gcode_c}). Una vez interpretada la línea recibida, se devuelve el control
+al bucle principal y se realizan las acciones oportunas.
