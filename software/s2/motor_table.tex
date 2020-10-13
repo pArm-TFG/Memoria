@@ -1,0 +1,22 @@
+\begin{longtable}{C{1} | C{0.5}}
+    \caption{Métodos de \texttt{motor} y descripciones.}
+    \label{tab:motors_def}
+    \endfirsthead
+    \endhead
+    \hline
+    \textbf{Método} & \textbf{Descripción} \\
+    \hline
+    \lstinline[style=C]!void MOTOR_move(motor_t *motor, double64_t angle_rad)! & Planifica un movimiento controlado del robot e inicializa los \textit{timers} para el control de la posición actual. \\
+    \hline
+    \lstinline[style=C]!void MOTOR_freeze(motor_t *motor)! & Detiene inmediatamente el movimiento de los motores, manteniendo fija la posición actual. Deshabilita el \textit{timer} si estaba habilitado. \\
+    \hline
+    \lstinline[style=C]!void MOTOR_calibrate(motor_t *motor)! & Según el motor y su fin de carrera, se calibra y se actualizan los valores de \texttt{min\_angle} y \texttt{max\_angle}. \\
+    \hline
+    \lstinline[style=C]!double64_t MOTOR_home(motor_t motors[MAX_MOTORS])! & Itera sobre los motores de la lista y los mueve a la posición inicial. \\
+    \hline
+    \lstinline[style=C]!double64_t MOTOR_position_us(motor_t *motor)! & Obtiene el valor actual de la posición del motor en microsegundos. \\
+    \hline
+    \lstinline[style=C]!double64_t MOTOR_position_rad(motor_t *motor)! & Obtiene el valor de la posición actual del motor en radianes. \\
+    \hline
+    \lstinline[style=C]!double64_t MOTOR_position_deg(motor_t *motor)! & Obtiene el valor de la posición actual del motor en grados.
+\end{longtable}

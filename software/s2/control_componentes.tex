@@ -128,13 +128,13 @@ encuentran entre (figura \ref{fig:servo_dtc}):
 La conversión en sí consiste en hacer un mapeo del valor de entrada, el cual responde
 a la siguiente ecuación (ecuación \ref{eq:map}):
 
-\begin{gather}
+\begin{gather*}
     \left\{\begin{aligned}
         x & \in \left[n, m\right] \\[1ex]
         o & \in \left[k, v\right]    
     \end{aligned}\right. \notag \\[2ex]
     o = \frac{\left(x - n\right) \cdot \left(v - k\right)}{\left(m - n\right) + k} \\ \label{eq:map}
-\end{gather}
+\end{gather*}
 
 Así, el mapeo se haría con una entrada $x \in \left[0, \pi\right]~rad$ y una salida 
 $o \in \left[0.75, 2.25\right]~ms$, obteniendo así el \textit{duty cycle} buscado.
@@ -148,3 +148,115 @@ Con respecto a trabajar directamente con la posición según el tiempo y el valo
 
 De esta manera se pueden generar \textit{duty cycles} que van acorde al tiempo que
 ha de durar a nivel alto dicho valor.
+
+Con respecto a la abstracción de \texttt{motor}, se define una estructura que
+maneja el \textit{driver} definido anteriormente:
+
+\lstinputlisting[linerange={43-52}, firstnumber=43, caption=, style=C]{pArm-S2/pArm.X/motor/motor.h}
+
+Dicha estructura define:
+
+\begin{itemize}
+    \item La dirección de memoria del \textit{driver} del servo.
+    \item Un identificador único para el motor.
+    \item La duración, si procede, del movimiento que está realizando actualmente el motor.
+    \item El ángulo actual, en microsegundos, en el que se encuentra el motor.
+    \item \textit{Flag} para indicar si el movimiento actual se ha finalizado.
+    \item \textit{Flag} de control indicando si el movimiento es en el sentido de las agujas del reloj o en sentido contrario.
+    \item Función que permite iniciar el \textit{timer} dedicado al movimiento del motor.
+    \item Función que permite detener el \textit{timer} dedicado al movimiento del motor.
+\end{itemize}
+
+El paquete anterior define una interfaz con métodos útiles para permitir el manejo
+de los motores:
+
+\lstinputlisting[linerange={55-61}, firstnumber=55, caption=, style=C]{pArm-S2/pArm.X/motor/motor.h}
+
+\LTXtable{\linewidth}{software/s2/motor_table}
+
+Un punto interesante del manejo de la posición de los motores es el método empleado.
+Los servomotores que se están empleando no cuentan con ningún tipo de retroalimentación
+que indique la posición en la que se encuentra más allá del control que pueda llevar
+el desarrollador a nivel de aplicación. Además, el sistema \ac{S2} permite cancelar un
+movimiento en ejecución, por lo que es necesario saber en cada instante de tiempo la
+posición del motor. Una ventaja que presentan los servomotores es que, si trabajan
+dentro de los límites establecidos (no mueven más carga de la especificada, etc.)
+presentan una velocidad de giro que puede considerarse constante.
+
+Se plantea entonces el sistema \ac{S2} para manejar de forma precisa el punto
+en el que se encuentra el motor. Para ello, se establece una precisión de microsegundo
+y se inicializa un contador que es el encargado de llevar el registro del tiempo
+que ha pasado desde que un motor ha iniciado su movimiento.
+
+Para ello, se definen tres \textit{timers} que son iniciados independientemente y
+cuando un motor comienza a realizar un giro. Todos reciben la dirección de memoria
+en la que se encuentra el motor que están manejando y siguen una implementación
+similar, la cual se muestra a continuación:
+
+\lstinputlisting[linerange={35-47}, firstnumber=35, caption=, style=C]{pArm-S2/pArm.X/timers/tmr3.c}
+
+El método anterior es simple pero fundamental para llevar el control de la posición:
+
+\begin{enumerate}
+    \item Por una parte, se suma cada vez que es invocado el valor $\numprint[\tcmu s]{1.0016}$
+    al contador de tiempo propio del \textit{timer}. Esto es debido a que, con la frecuencia
+    de oscilación actual no es posible conseguir un valor exacto de $\numprint[\tcmu s]{1}$.
+    \item Si la cuenta de tiempo es mayor o igual que la duración del movimiento del
+    motor quiere decir que se ha llegado a la posición indicada. Se indica entonces que
+    el movimiento ha finalizado, que el servomotor ha llegado a la posición de destino
+    y se actualiza la posición actual del motor sumando (o restando) el tiempo que lleva
+    activo el \textit{timer} con la posición anterior. Finalmente, detiene el \textit{timer}.
+    \item En cualquier caso, desactiva el \textit{flag} de la interrupción para evitar
+    entrar múltiples veces en la rutina de tratamiento.
+\end{enumerate}
+
+De esta manera, si el usuario decide cancelar el movimiento se tiene de manera
+bastante precisa la posición del servomotor en ese instante de tiempo. Tras realizar
+un estudio estadístico con 30 muestras\footnote{Se tomaron 30 marcas temporales en las
+que el motor se hizo girar una cantidad predefinida de grados (en particular, 90\textdegree),
+y se midió el tiempo que se tardaba en realizar dicho movimiento. Se obtuvo una media de
+$\overline{x} = \numprint[s]{0.457}$ y una desviación estándar de 
+$S(x) \approx \numprint[s]{0.0150748134}$, por lo que se estimó (teniendo en cuenta
+el posible fallo humano) que en hacer 
+$1\degree \approx \numprint[s]{0.0052452757} \Rightarrow M_{Speed} \approx \numprint[\degree / s]{190.6477479}$.}
+(ya que no se encontró ninguna información en la documentación del fabricante)
+se estima que la velocidad de giro del motor es:
+
+\begin{equation*}
+    M_{Speed} \approx \numprint[\tcmu s / \degree]{5245.27504}
+\end{equation*}
+
+Con la relación anterior se pueden establecer \textit{timers} que actúan cada
+$\numprint[\mu s]{1.0016}$ para saber con alta precisión el punto aproximado en el
+que el motor se encuentra. La precisión se podría mejorar si:
+
+\begin{itemize}
+    \item Se cuenta con la velocidad de giro precisa de los motores, dada por el fabricante.
+    \item Se incrementa la precisión del \textit{timer} a nivel nanométrico. Esta alternativa
+    se planteó pero la interrupción se realizaba con una frecuencia suficientemente elevada
+    como para que el sistema se volviera inestable.
+\end{itemize}
+
+Finalmente, se encuentra la abstracción de \texttt{planner}. En dicha abstracción se
+aúnan todos los motores que componen el brazo en la siguiente estructura:
+
+\lstinputlisting[linerange={38-43}, firstnumber=38, caption=, style=C]{pArm-S2/pArm.X/arm/planner.h}
+
+En dicha estructura se guarda la dirección de memoria de cada uno de los motores
+que componen el brazo. La razón de ser de la misma es recoger, de forma ordenada,
+la cantidad de motores disponibles y poder utilizarlo a lo largo del \ac{SW}.
+
+La interfaz \texttt{planner} ofrece un nuevo nivel de abstracción sobre los dos
+anteriores para poder planificar movimientos completos o bien moviendo los tres
+motores del brazo robótico según unos ángulos de entrada 
+$\left\{\theta_0, \theta_1, \theta_2\right\}$ o bien mediante la posición en
+coordenadas cartesianas del \textit{end--effector}: $P_{ee} = \left\{x, y, z\right\}$.
+Además, se ofrecen maneras de conocer la posición exacta tanto en coordenadas angulares
+como en coordenadas cartesianas de los tres motores a la vez o del \textit{end--effector},
+respectivamente.
+
+Se definen pues los siguientes métodos:
+
+\lstinputlisting[linerange={47-54}, firstnumber=47, caption=, style=C]{pArm-S2/pArm.X/arm/planner.h}
+
+\LTXtable{\linewidth}{software/s2/planner_table}

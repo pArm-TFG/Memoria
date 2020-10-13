@@ -1,0 +1,24 @@
+\begin{longtable}{C{1} | C{0.5}}
+    \caption{Métodos de \texttt{planner} y descripciones.}
+    \label{tab:planner_def}
+    \endfirsthead
+    \endhead
+    \hline
+    \textbf{Método} & \textbf{Descripción} \\
+    \hline
+    \lstinline[style=C]!void PLANNER_init(barrier_t *barrier)! & Inicializa la barrera que controla cuándo los motores han llegado a la posición final. \\
+    \hline
+    \lstinline[style=C]!double64_t PLANNER_go_home(void)! & Mueve a los tres motores a la posición inicial. Devuelve el tiempo esperado. \\
+    \hline
+    \lstinline[style=C]!double64_t PLANNER_move_xyz(point_t xyz)! & Según el punto dado $\left\{x, y, z\right\}$ mueve los motores para alcanzar dicha posición. Devuelve el tiempo esperado. \\
+    \hline
+    \lstinline[style=C]!double64_t PLANNER_move_angle(angle_t angle)! & Según el ángulo dado $\left\{\theta_0, \theta_1, \theta_2\right\}$ mueve los motores hasta alcanzar dicho ángulo. Devuelve el tiempo esperado. \\
+    \hline
+    \lstinline[style=C]!void PLANNER_move_waiting(angle_t angle)! & Mueve los motores bloqueando el hilo principal de ejecución. \\
+    \hline
+    \lstinline[style=C]!void PLANNER_stop_moving(void)! & Detiene el movimiento inmediatamente de los tres motores. \\
+    \hline
+    \lstinline[style=C]!point_t *PLANNER_get_position(void)! & Devuelve la coordenada $\left\{x, y, z\right\}$ del \textit{end--effector}. \\
+    \hline
+    \lstinline[style=C]!angle_t *PLANNER_get_angles(void)! & Devuelve los ángulos $\left\{\theta_0, \theta_1, \theta_2\right\}$ del \textit{end--effector}.
+\end{longtable}
