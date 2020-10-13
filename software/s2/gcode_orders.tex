@@ -26,9 +26,9 @@
     \hline
     \texttt{I4 msg} & Comando personalizado que envía un mensaje firmado con la clave privada `$d$'. Solo es invocado tras una orden \texttt{I1} exitosa. \\
     \hline
-    \texttt{I5 msg} & Comando personalizado que recibe un mensaje encriptado para verificar al emisor. \\
+    \texttt{I5 msg} & Comando personalizado que recibe un mensaje encriptado para verificar al emisor. Si la verificación es válida se responde con \texttt{I5} sin ningún mensaje. \\
     \hline
-    \texttt{I6} & Comando personalizado que fuerza la generación de un nuevo par de claves RSA. Solo puede ser invocado tras un \textit{timeout} del \textit{heartbeat} o si no hay ningún dispositivo de confianza. \\
+    \texttt{I6 msg} & Comando personalizado que fuerza la generación de un nuevo par de claves RSA. Solo puede ser invocado tras autentificarse con el mensaje aleatorio enviado previamente cifrado. \\
     \hline
     \texttt{I7 msg} & Comando personalizado que funciona como \textit{heartbeat}. \\
     \hline
