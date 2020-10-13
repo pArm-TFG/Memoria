@@ -32,11 +32,10 @@
 #define	UART_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
-void putch(char data);
+void putch(char character);
 void _putchar(char character);
-
-uint8_t getch(void);
 
 #endif	/* UART_H */
 

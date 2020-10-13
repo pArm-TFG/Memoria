@@ -19,14 +19,15 @@
                 <sourceRootElem>aes</sourceRootElem>
                 <sourceRootElem>rsa_embedded</sourceRootElem>
                 <sourceRootElem>rsa</sourceRootElem>
+                <sourceRootElem>sync</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
-                    <name>recording</name>
+                    <name>simulation</name>
                     <type>2</type>
                 </confElem>
                 <confElem>
-                    <name>simulation</name>
+                    <name>recording</name>
                     <type>2</type>
                 </confElem>
             </confList>
