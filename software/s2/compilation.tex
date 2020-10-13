@@ -1,0 +1,12 @@
+Durante la compilación es necesario definir opciones adicionales a las básicas
+establecidas por defecto, ya que en otro caso la compilación fallará o no contendrá
+todas las características esperables.
+
+Por una parte, es necesario definir que se trabaje con \texttt{C99}. Esto se hace
+definiendo la opción del compilador adicional \texttt{-std=gnu99}. Además, es recomendable
+trabajar con \texttt{double} de 64 bits, pero en otro caso se utilizarán tipos de datos
+propios para trabajar con esa precisión.
+
+Es recomendable designar al menos $\numprint[KB]{8}$ de memoria RAM dedicada a memoria
+\textit{heap} para la creación de espacios de memoria reservados a variables de
+forma dinámica.
