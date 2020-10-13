@@ -1,0 +1,59 @@
+El objetivo de este apartado es el de mostrar algunas de las mejoras que podrían realizarse en futuras versiones o implementaciones del proyecto y que además, el equipo de desarrollo de este TFG, considera como ideas o mejoras factibles que aumentarían el valor del proyecto en términos generales.
+
+Este conjunto de ideas y mejoras, ha ido creciendo a lo largo del proyecto y ha sido fruto del crecimiento en términos de conocimiento técnico de los miembros del equipo de desarrollo. Las mejoras que se plantean en este apartado afectan a distintos apartados del proyecto y es por ello que contienen ideas multidisciplinares.
+
+A continuación se presentan las principales ideas de mejora, es decir, aquellas que se consideran factibles y que son, en términos objetivos, realizables en un futuro,s i se dispusiese de los financiación, herramientas, materiales y tiempo necesario:
+
+\begin{itemize}
+    \item En primer lugar, una de las mejoras que se considera mas relevante y que cambiaría por completo el resultado final del proyecto, sería el emplear materiales de construcción mas resistentes, por ejemplo, el aluminio.
+    
+    Esta mejora plantearía la construcción de la estructura física del brazo robótico en aluminio, dotándolo de una mayor integridad estructural, resistencia y rigidez. El hecho de que la estructura estuviese construida en aluminio en lugar de en material plástico, aumentaría sin ninguna duda las prestaciones del brazo robótico, haciéndolo mucho mas resistente al desgaste de las partes móviles producido por el funcionamiento habitual, así como reduciendo el riesgo de rotura de la estructura al levantar objetos de peso considerable.
+    
+    Actualmente y puesto que el brazo esta construido en material plástico, se ha observado que el brazo presenta poca resistencia al levantamiento de objetos, así como problemas de sobreesfuerzo de la estructura física en ciertas posiciones del rango de movilidad del brazo robótico, los cuales, ponen en peligro la integridad estructural del mismo.
+    
+    En relación a esta mejora y dispuestos a realizar la construcción del brazo robótico en aluminio, se presenta también la posibilidad de incrementar el tamaño del mismo, así como de emplear nuevos motores eléctricos con mayor potencia, para dotar al brazo de una mayor capacidad de transporte de objetos.
+    
+    Esta mejora acarrearía la modificación de otros de los elementos del brazo robótico, como por ejemplo, la PCB que orquesta el movimiento de los motores, la tornillería, juntas, ejes y demás, con el fin de adaptarlos al nuevo tamaño y material de la estructura del brazo robótico. A pesar de ello y puesto que el diseño de la estructura ya se ha realizado, esta mejora consistiría en realizar adaptaciones, con lo cual, se considera viable.
+    
+    \item En segundo lugar, otra de las mejoraras que se considera viable y que no ha podido ser implementada durante el desarrollo del proyecto, es la implementación de un modo de descripción de trayectorias dentro del rango de movimientos del brazo robótico.
+    
+    Esta mejora plantearía la posibilidad de que el sistema ofreciese al usuario un modo de descripción de trayectorias, en el cual el usuario podría generar una trayectoria formada por diversos puntos espaciales o por una función matemática, para que posteriormente el brazo realizase de forma automática dicha trayectoria.
+    
+    Esta mejora se considera una de las mas viables y para su implementación, se tendrían que modificar principalmente los elementos \textit{software} del sistema, es decir, el código de \ac{S1} y \ac{S2}, así como una mejora del protocolo de comunicación para soportar el aumento del tráfico de mensajes entre \ac{S1} y \ac{S2}.
+    
+    \item En tercer lugar, se plantea la posibilidad de poder controlar el movimiento del brazo robótico en tiempo real utilizando un controlador como el ratón o un joystick. Esta funcionalidad se planteo desde un inicio en el proyecto, sin embargo, debido a su complejidad, se ha clasificado como futura mejora.
+    
+    La implementación de esta mejora conllevaría la realización de modificaciones en el código de \ac{S1} y \ac{S2} y el protocolo de comunicación, así como alguna posible modificación hardware para el uso del nuevo dispositivo de control, en el caso por ejemplo de tratarse de un joystick o similar.
+    
+    \item En cuarto lugar, se plantea una mejora en relación a las comunicaciones entre \ac{S1} y \ac{S2}, la cual aumentaría la comodidad a la hora de poner en funcionamiento el brazo robótico. Esta mejora consiste en incluir un método de conexión inalámbrica entre \ac{S1} y \ac{S2}, la cual se podría llevar a cabo mediante la tecnología \textit{Wifi} o \textit{Bluetooth}, por ejemplo.
+    
+    La implementación de esta mejora conllevaría la realización de modificaciones en el código de \ac{S1} y \ac{S2} y el protocolo de comunicación, así como modificaciones \textit{hardware} en \ac{S2} para dotar a la PCB de un chip que la permitiese establecer comunicaciones inalámbricas.
+    
+    \item En quinto lugar, se plantea una de las mejoras que podría generar mas impacto en cuanto a las funcionalidades del prototipo final. Esta mejora consiste en el diseño y construcción de diferentes adaptadores para el \textit{end-effector} del brazo robótico, los cuales podrían dotarlo de capacidades muy variadas.
+    
+    Existen innumerables tipos de \textit{end-effector}, así como herramientas que pueden ser usadas e incrustadas en ellos, sin embargo, se considera que los siguientes son los factibles a incluir en este proyecto:
+    \begin{itemize}
+        \item Pinza que fuese capaz de agarrar y soltar objetos.
+        \item Ventosa con la capacidad de succionar objetos para sujetarlos.
+        \item Adaptador para bolígrafo, lápiz o similar.
+        \item Cabezal de impresora 3D
+    \end{itemize}
+    Además, a cada uno del \textit{end-effector} anteriores se les podría incluir una cámara que permitiese al brazo robótico realizar procesado de imagen y visión por computador.
+    
+    Esta mejora plantea retos interesantes y de mediana dificultad, los cuales podrían añadir numerosas capacidades nuevas al brazo robótico.
+    
+    \item En sexto lugar, se plantea una mejora técnica que afectaría a \ac{S2} y que persigue incluir un micro kernel en el microcontrolador dsPic de la PCB.
+    
+    Mediante la implementación de este micro kernel, se conseguiría una gestión mas eficiente de los recursos y componentes de \ac{S2}, así como la posibilidad de ejecución concurrente de varios procesos en este sistema.
+    
+    Esta mejora presenta gran complejidad y requeriría una gran inversión de tiempo.
+    
+    \item En séptimo y último lugar, se plantea la mejora de la interfaz gráfica de usuario, para hacerla aún mas amigable y estéticamente atractiva.
+    
+    La interfaz gráfica de usuario actual cumple su función y permite al usuario operar el brazo robótico, sin embargo, por simplicidad, se decidió que esta no fuese \textit{responsive} y que por lo tanto, su apariencia y estructura tuviesen tamaños fijos y estáticos.
+    
+    Esta mejora pretende la reconversión de la interfaz gráfica de usuario para que esta presentase una estructura dinámica y adaptativa a diferentes dimensiones, dispositivos, tamaños de monitor, etc. Es evidente que, a pesar de que esta mejora no representa un gran aporte en términos de funcionalidades, sin duda alguna, añade valor a la aplicación de \ac{S1}, puesto que la hace mas atractiva y amigable frente al usuario.
+
+\end{itemize}
+
+Existen numerosas mejoras más que podrían aplicarse a este proyecto, sin embargo se considera que las descritas anteriormente son la intersección perfecta entre valor añadido al proyecto, dificultad de implementación y posibilidad de realización en función de los conocimientos técnicos de los integrantes del equipo.
