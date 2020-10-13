@@ -9,6 +9,6 @@
 *.run.xml
 *.synctex.gz
 *.toc
-*.pdf
+main.pdf
 *.lof
 *.synctex*
