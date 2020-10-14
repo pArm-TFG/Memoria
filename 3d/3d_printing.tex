@@ -200,3 +200,77 @@ correctamente la pieza (figura \ref{fig:vpiece_ok}):
 
 Según el material en uso, se han de adaptar ciertas configuraciones para intentar que
 las impresiones salgan bien, las cuales se detallan a continuación.
+
+\subsection{Los parámetros de configuración}
+Como se ha mencionado anteriormente, el \pArm{} está compuesto principalmente por:
+\begin{itemize}
+    \item \ac{PLA} para piezas de soporte, que no van a moverse sobre otras piezas.
+    \item \ac{CPE} para piezas mecánicas que necesitan transmitir fuerzas a través
+    de la estructura mecánica del brazo.
+\end{itemize}
+
+Para el primero de los materiales, la configuración básica que ofrece el \ac{SW}
+Cura es suficiente, ya que es de los materiales más utilizados a la hora de imprimir.
+En cambio, con el \ac{CPE} en conjunto con \ac{PVA} como material de soporte las
+opciones de impresión han de ser configuradas con cierto rigor.
+
+El material de soporte puede resultar bastante problemático en impresiones de larga
+duración y acarrea consigo un mantenimiento que hay que realizar después de cada
+impresión. Las impresoras Ultimaker necesitan tener conectados ambos extrusores
+al cabezal de impresión, ya que utilizan el calor que pueden generar individualmente
+para crear retroalimentación positiva entre ellos, esto es, se contribuyen mútuamente
+para alcanzar la temperatura deseada (referencia en la imagen \ref{fig:um3_extruders}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.5\linewidth]{pictures/um3_extruders.png}
+    \caption{Vista del cabezal de impresión junto con los extrusores de la Ultimaker 3 \cite{Ultimaker}.}
+    \label{fig:um3_extruders}
+\end{figure}
+
+Uno de los problemas de que el extrusor esté siempre contribuyendo a la temperatura
+y al flujo de aire se produce cuando además tiene plástico \ac{PVA} en su interior.
+Como se ha mencionado anteriormente, el \ac{PVA} absorbe con mucha facilidad la humedad
+del aire y, al someterlo a calor, se pudre. Por ello, las impresiones de larga duración
+suelen tener problemas con dicho material ya que durante el tiempo que no se está
+utilizando sigue absorbiendo humedad y, al estar en constante contacto con el calor,
+se empieza a pudrir, provocando que cuando se quiere hacer un soporte con dicho material
+no se pueda.
+
+Después de muchas pruebas, se ha conseguido llegar finalmente a una configuración en
+la que la impresión con dicho material suele tener resultados satisfactorios. Dicha
+configuración se basa en:
+
+\begin{itemize}
+    \item Retirar el plástico del \textit{nozzle} cuando se ha dejado de imprimir,
+    de forma que no está expuesto al calor de forma tan directa.
+
+    \item Reducir la temperatura del extrusor cuando no se está utilizando. Esto
+    permite evitar que se pudra el plástico que pudiera quedar en el \textit{nozzle}
+    y reduce el flujo de calor que llega al plástico retraído.
+
+    \item Reducir la velocidad de impresión con \ac{PVA}, de manera que cuando se
+    extruye el material se hace de forma precisa, evitando posibles problemas al
+    realizarlo a mayor velocidad.
+
+    \item Aplicar una velocidad de giro del ventilador de impresión constante, entre
+    el 1\% y el 3\%. De esta manera se contribuye al secado del \ac{PVA} cuando ya
+    ha sido extruído sin aplicar un flujo constante de aire al plástico que está
+    en el \textit{hot end}.
+
+    \item Utilizar el \textit{prime tower}, una construcción que permite limpiar
+    el plástico que va a ser utilizado para imprimir.
+
+    \item Retractar el eje $Z$ cuando se hace el cambio de materiales o no se está
+    imprimiendo. Pese a que esta característica no afecta directamente al \ac{PVA},
+    se evitan posibles accidentes de que el cabezal de impresión pueda chocar con
+    alguna pieza que esté siendo impresa.
+
+    \item Reducir la temperatura del extrusor cuando se imprime \ac{PVA}, unos grados
+    por debajo de la de por defecto pero que todavía es útil para poder imprimir.
+\end{itemize}
+
+A continuación se detalla en la tabla \ref{tab:um3} las características de impresión
+definidas para poder trabajar con múltiples materiales junto con el material de soporte:
+
+\LTXtable{\linewidth}{3d/UM3_config}

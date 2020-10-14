@@ -1,0 +1,64 @@
+\begin{longtable}{ C{0.5} | C{0.5} | C{1} }
+    \caption{Configuración de la Ultimaker 3 para generar material de soporte en \ac{PVA}.}
+    \label{tab:um3}
+    \endfirsthead
+    \endhead
+    \hline
+    \textbf{Configuración} & \textbf{Valor} & \textbf{Descripción} \\[2ex]
+    \hline
+    \texttt{Layer height} & $[\numprint[mm]{0.06}$, $\numprint[mm]{0.1}$, $\numprint[mm]{0.15}$, $\numprint[mm]{0.2}]$ & El tamaño de la capa de plástico que es utilizada para crecer verticalmente. Valores pequeños otorgan más precisión pero incrementan el tiempo de impresión. \\
+    \hline
+    \texttt{Enable Ironing} & \done & Vuelve a recorrer la última capa impresa extruyendo muy poco material para suavizarla al tacto. \\
+    \hline
+    \texttt{Infill density} & 20\% - 80\% & Cantidad de material introducido en capas huecas. Mayor material incrementa la resistencia pero aumenta el peso y el tiempo de impresión. Se recomienda no usar valores por encima del 50\%. \\
+    \hline
+    \texttt{Infill pattern} & \textit{Tri--Hexagon} & El patrón de relleno del \textit{infill}. Por defecto son triángulos, pero ``\textit{tri--hexagon}'' gasta más material a cambio de mayor soporte físico. \\
+    \hline
+    \texttt{Printing temperature} & $\numprint[\tccelsius]{215}$ & Para el \ac{PVA}, se establece la temperatura de impresión en el rango habitual. \\
+    \hline
+    \texttt{Final printing temperature} & $\numprint[\tccelsius]{200}$ & La temperatura final de acabado de impresión (para el \ac{PVA}). \\
+    \hline
+    \texttt{Standby temperature} & $\numprint[\tccelsius]{60}$ & La temperatura que se establece en el extrusor cuando no se está utilizando activamente. \\
+    \hline
+    \texttt{Enable retraction} & \done & Retractar el eje $Z$ cuando el \textit{nozzle} se mueve sobre un área sin objetos impresos. \\
+    \hline
+    \texttt{Retraction at layer change} & \done & Retractar el \textit{nozzle} cuando se avanza a la siguiente capa de impresión. \\
+    \hline
+    \texttt{Retraction distance} & $\numprint[mm]{4.5}$ & La cantidad de material que es recogido cuando se retracta el \textit{nozzle}. \\
+    \hline
+    \texttt{Avoid printed parts when travelling} & \done & Si es posible, evitar mover el cabezal de impresión sobre zonas ya impresas. \\
+    \hline
+    \texttt{Avoid supports when travelling} & \done & Si es posible, evitar las partes impresas con material soporte. \\
+    \hline
+    \texttt{Z hop when retracted} & \done & Cuando se mueve la cabeza de impresión, se baja además el \textit{build plate} para evitar colisiones. \\
+    \hline
+    \texttt{Z hop only over printed parts} & \done & Solo se realiza la retracción anterior si se mueve el cabezal sobre partes ya impresas. \\
+    \hline
+    \texttt{Z hop after extruder switch} & \done & Retractar el eje $Z$ cuando se cambia de extrusor. \\
+    \hline
+    \texttt{Enable print cooling} & \done & Activa el ventilador que ayuda a solidificar el plástico recién impreso. \\
+    \hline
+    \texttt{Regular fan speed} & 20\% & Velocidad a la que suele estar el ventilador. \\
+    \hline
+    \texttt{Maximum fan speed} & 80\% & Velocidad máxima que puede alcanzar el ventilador. \\
+    \hline
+    \texttt{Initial fan speed} & 0\% & Empieza con el ventilador apagado. \\
+    \hline
+    \texttt{Regular fan speed at height} & $\numprint[mm]{0.51}$ & Altura a la cual se activa el ventilador a la velocidad normal. \\
+    \hline
+    \texttt{Regular fan speed at layer} & 6 & Iniciar, si no se ha alcanzado todavía, los ventiladores a velocidad regular en esa capa de impresión. \\
+    \hline
+    \texttt{Generate support} & \done & Genera una capa de soporte utilizando el extrusor especificado. \\
+    \hline
+    \texttt{Support pattern} & \textit{Triangles} o \textit{Tri--Hexagon} & Patrón que utiliza el extrusor para poner material de soporte. \\
+    \hline
+    \texttt{Support density} & 50\% & La cantidad de soporte que es utilizado para sujetar una pieza. \\
+    \hline
+    \texttt{Enable support interface} & \done & Se crea una serie de capas con \textit{infill} de casi el 100\% para crear una superficie plana antes de imprimir el nuevo material sobre ella. \\
+    \hline
+    \texttt{Enable support roof} & \done & Crea la capa mencionada anteriormente sobre el material de soporte, antes de imprimir sobre él. \\
+    \hline
+    \texttt{Enable support floor} & \done & Crea la capa mencionada anteriormente sobre la cama caliente o la pieza impresa previamente, antes de extruir material de soporte. \\
+    \hline
+    \texttt{Enable prime tower} & \done & Crea una torre en una esquina de la cama caliente que se utiliza principalmente para limpiar los cabezales después de no haber sido utilizados durante el cambio de material. \\
+\end{longtable}
