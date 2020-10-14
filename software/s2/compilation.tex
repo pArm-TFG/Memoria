@@ -5,8 +5,51 @@ todas las características esperables.
 Por una parte, es necesario definir que se trabaje con \texttt{C99}. Esto se hace
 definiendo la opción del compilador adicional \texttt{-std=gnu99}. Además, es recomendable
 trabajar con \texttt{double} de 64 bits, pero en otro caso se utilizarán tipos de datos
-propios para trabajar con esa precisión.
+propios para trabajar con esa precisión:
+
+\lstinputlisting[linerange={43-51}, firstnumber=43, caption=, style=C]{pArm-S2/pArm.X/utils/types.h}
 
 Es recomendable designar al menos $\numprint[KB]{8}$ de memoria RAM dedicada a memoria
 \textit{heap} para la creación de espacios de memoria reservados a variables de
-forma dinámica.
+forma dinámica. Esto permite que funciones como \lstinline[style=C]{void* malloc(size_t)} o
+\lstinline[style=C]{void* realloc(void*, size_t)} no fallen y reserven la cantidad de memoria necesaria.
+
+En lo referente a los modelos de memoria, se pueden establecer todos ellos como
+\textit{small}: \texttt{code model}, \texttt{memory model}, \texttt{data model}. Por
+otra parte, es recomendable habilitar el nivel de optimización del código \texttt{-O2},
+de forma que las librerías auxiliares que se utilizan son optimizadas para reducir
+el tamaño y mejorar el rendimiento. Además, se recomienda marcar las siguientes opciones:
+
+\begin{itemize}
+    \item ``\textit{Do not override inline}'', para mantener la estructura de las funciones
+    \texttt{inline}.
+    \item ``\textit{Unroll loops}'', donde se aplica la técnica de optimización de
+    bucles en donde, si se conoce de antemano el tamaño del mismo, se desenrolla
+    en múltiples instrucciones que son más rápidas en tiempo de ejecución pero
+    consumen más memoria de programa.
+    \item ``\textit{Align arrays}'', para establecer el modelo de memoria que 
+    distribuye las posiciones que componen un \textit{array}.
+\end{itemize}
+
+Para reducir el tamaño del código, se recomienda habilitar la opción del \textit{linker} para eliminar
+los segmentos de código no utilizados en el programa, con la opción ``\textit{Remove
+unused sections}''.
+
+Finalmente, se proveen las siguientes macros del compilador para habilitar distintas
+opciones a lo largo del código:
+
+\begin{itemize}
+    \item \texttt{PRINTF\_INCLUDE\_CONFIG\_H} -- se usa una configuración propia para
+    la librería adaptada de \texttt{printf}.
+    \item \texttt{USE\_CUSTOM\_PRINTF} -- se utiliza una versión personalizada de
+    \texttt{printf} en lugar de la provista por \lstinline[style=C]{stdio.h}.
+    \item \texttt{DEBUG\_ENABLED} -- añade nuevas opciones de depuración al código.
+    \item \texttt{CONFIG\_SIMULATOR} -- si se está trabajando con el simulador, para
+    deshabilitar opciones no usadas.
+    \item \texttt{CLI\_MODE} -- para habilitar el modo de control mediante consola
+    de comandos, comunicando directamente desde la \ac{UART}.
+\end{itemize}
+
+En la tabla \ref{tab:gcc} se resumen las opciones habilitadas y empleadas:
+
+\LTXtable{\linewidth}{software/s2/compilation_options_table}

@@ -1,0 +1,54 @@
+\begin{longtable}{ C{0.5} | C{1} }
+    \caption{Opciones de compilación definidas para \ac{S2}.}
+    \label{tab:gcc}
+    \endfirsthead
+    \endhead
+    \hline
+    \textbf{Opción de compilación} & \textbf{Valor} \\[2ex]
+    \hline
+    \texttt{Optimization level} & 2 \\
+    \hline
+    \texttt{Code model} & \texttt{Small} \\
+    \hline
+    \texttt{Data model} & \texttt{Small} \\
+    \hline
+    \texttt{Remove unused sections} & \done \\
+    \hline
+    \texttt{Heap size} & $\numprint{8192}$ \\
+    \hline
+    \texttt{Use legacy libc} & \done \\
+    \hline
+    \texttt{Fast floating point math} & \done \\
+    \hline 
+    \texttt{Additional options} & \texttt{-std=gnu99} \\
+    \hline
+    \texttt{Allow call optimization} & \done \\
+    \hline
+    \texttt{Generate debug info} & \done{} (modo \textit{debug}) -- \wontfix{} (producción) \\
+    \hline
+    \texttt{Use 64 bit double} & \done \\
+    \hline
+    \texttt{Scalar mode} & \texttt{Small} \\
+    \hline
+    \texttt{Do not override 'inline'} & \done \\
+    \hline
+    \texttt{Unroll loops} & \done \\
+    \hline
+    \texttt{Align arrays} & \done \\
+    \hline
+    \texttt{Smart IO forwarding level} & 1 \\
+    \hline
+    \texttt{Min stack size} & 16 \\
+    \hline
+    \texttt{Use local stack} & \done \\
+    \hline
+    \texttt{Init data sections} & \done \\
+    \hline
+    \texttt{Pack data template} & \done \\
+    \hline
+    \texttt{Create handles} & \done \\
+    \hline
+    \texttt{Create default ISR} & \done \\
+    \hline
+    \texttt{Define common macros} & \texttt{[PRINTF\_USE\_CONFIG\_H, USE\_CUSTOM\_PRINTF, DEBUG\_ENABLED, CLI\_MODE, CONFIG\_SIMULATOR]}
+\end{longtable}
