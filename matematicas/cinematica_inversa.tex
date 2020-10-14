@@ -1,6 +1,6 @@
 La cinemática inversa se presenta como lo ``más cercano'' a nuestro mundo y a nuestra
 forma de actuar. El ser humano, como ser tridimensional, se mueve mediante coordenadas
-cartesianas conformadas por puntos definidos en espacio definido por los planos de los
+cartesianas formadas por puntos definidos en espacio conformado por los planos de los
 ejes $XYZ$, pero no se desenvuelve con la misma soltura con las coordenadas angulares.
 Cuando se realiza un giro en alguno de los brazos no se hace pensando: ``\textit{voy a mover el codo
     15\textdegree{} a la derecha y el hombro 23\textdegree{} a la izquierda y así coloco la
@@ -14,7 +14,7 @@ motores. De esta forma, el estudio de la cinemática inversa se convierte en una
 partes más importantes del modelo matemático de cualquier manipulador.
 
 El problema surge en tanto que la cinemática inversa, a diferencia de la cinemática
-directa, no dispone de ecuaciones que permitan obtenerla directamente. Si bien en el
+directa, no dispone de un método sistemático que permita obtener dicho modelo. Si bien en el
 punto anterior se vio cómo, a partir de una tabla de \textit{Denavit--Hartenberg},
 se calculaban las matrices que permiten obtener tanto las traslaciones como las rotaciones
 relativas y, al multiplicarlas, la traslación absoluta $T$ y la rotación absoluta $R$,
@@ -60,8 +60,8 @@ diferencia entre uno y otro:
     \item Por una parte, el rendimiento: el modelo matemático suele ser en general
           bastante eficiente en lo que a tiempo de cálculo se refiere, pero siempre va
           supeditado al manipulador que representa. Esto es, manipuladores con más
-          grados de libertad implican en general un modelo matemático mucho más complejo que según
-          las operaciones que implique puede no ser viable para el sistema en que se va a ejecutar.
+          grados de libertad implican en general un modelo matemático mucho más complejo, que según
+          la complejidad o la cantidad de operaciones que lo definen puede no ser viable para el sistema en que se va a ejecutar.
 
           Por otro lado, un mapa por su estructura y organización siempre permite el acceso a las
           claves y sus valores bajo un $\bigO{1}$, haciéndolos la mejor opción en términos
@@ -117,7 +117,7 @@ Para plantear la cinemática inversa del \pArm{} se han de distinguir dos partes
           del resto de motores.
 
     \item El triángulo superior, conformado por $\left\{\theta_1, \theta_2\right\}$ donde
-          los ambos ángulos dependen de la posición final y están directamente relacionados.
+          ambos ángulos dependen de la posición final y están directamente relacionados.
 \end{itemize}
 
 Por otra parte, dada la configuración geométrica del robot, sabemos las siguientes premisas:

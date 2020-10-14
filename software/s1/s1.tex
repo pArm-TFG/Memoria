@@ -1,4 +1,4 @@
-El \ac{SW} de \ac{S1} se ha desarrollado íntegramente usando el lenguaje Python y los editores de código Visual Studio Code y PyCharm.
+El \ac{SW} de \ac{S1} se ha desarrollado íntegramente usando el lenguaje Python y los editores de código Visual Studio Code, así como el IDE PyCharm.
 
 Es de vital importancia destacar que el \ac{SW} de \ac{S1} esta formado por dos secciones diferenciadas: código de la interfaz gráfica de usuario (GUI) y código que gestiona la lógica de las comunicaciones entre \ac{S1} y \ac{S2}.
 
@@ -6,20 +6,20 @@ Puesto que esta división se considera esencial, cada una de las secciones del c
 
 \subsection{Interfaz Gráfica de Usuario (GUI)}
 
-La interfaz gráfica de usuario ha sido desarrollada haciendo uso de la biblioteca gráfica multiplataforma \textit{Qt}, la cual se encuentra originalmente implementada en $C++$ y que ha sido adaptada a Python, siendo conocida también como \textit{PyQt}. Esta librería gráfica permite un desarrollo rápido y sencillo de interfaces gráficas de usuario mediante el paradigma de programación orientada a objetos.
+La interfaz gráfica de usuario ha sido desarrollada haciendo uso de la biblioteca gráfica multiplataforma \textit{Qt}, la cual se encuentra originalmente implementada en $C++$ y que ha sido adaptada a Python, siendo conocida también como \textit{PyQt}. Esta librería permite un desarrollo rápido y sencillo de interfaces gráficas de usuario mediante el paradigma de programación orientada a objetos.
 
 En primer lugar, es importante destacar las principales razones que han desembocado en la elección de esta librería:
 \begin{itemize}
-    \item La curva de aprendizaje de esta librería es rápida y permite desarrollar interfaces gráficas de forma ágil y eficaz.
+    \item La curva de aprendizaje es rápida y permite desarrollar interfaces gráficas de forma ágil y eficaz.
     \item La librería dispone de abundante documentación, la cual facilita su uso en el proyecto.
     \item Qt cuenta con una gran variedad de componentes gráficos y herramientas, las cuales cubren de sobra las aspiraciones de este proyecto.
-    \item Es una de las librerías gráficas mas usadas por la comunidad de desarrolladores en la programación de interfaces gráficas empleando Python.
-    \item Proporciona una herramienta de diseño gráfico de interfaces de usuario, llamada \textit{Qt Designer}, que agiliza las etapas tempranas de desarrollo de la interfaz gráfica, sobre todo en cuanto al ámbito de la distribución gráfica de los distintos \textit{widgets}, botones, desplegables, etc. Este diseñador proporciona un archivo de salida XML que puede ser cargado desde Python y por lo tanto, cada componente gráfico de la \ac{GUI} se corresponde con un objeto dentro de la aplicación.
+    \item Es una de las librerías mas usadas por la comunidad de desarrolladores en la programación de interfaces gráficas empleando Python.
+    \item Proporciona una herramienta de diseño gráfico de interfaces de usuario, llamada \textit{Qt Designer}, que agiliza las etapas tempranas de desarrollo de la interfaz gráfica, sobre todo en cuanto al ámbito de la distribución gráfica de los distintos \textit{widgets}, botones, desplegables, etc.
 \end{itemize}
 
-Una vez se ha introducido la librería gráfica utilizada, se procede a describir la interfaz gráfica desarrollada, las decisiones tomadas durante este desarrollo y el resultado final obtenido.
+Una vez se ha introducido la librería utilizada, se procede a describir la interfaz gráfica desarrollada, las decisiones tomadas durante este desarrollo y el resultado final obtenido.
 
-En términos generales, la interfaz gráfica de usuario se considera un componente esencial del proyecto y su función es la de facilitar la interacción entre el usuario y el brazo robótico. Tal y como se ha podido ver en apartados anteriores de esta memoria, la interfaz gráfica ofrece al usuario la posibilidad de:
+En términos generales, la interfaz gráfica de usuario se considera un componente esencial del proyecto y su función es la de facilitar la interacción del usuario con el brazo robótico. Tal y como se ha podido ver en apartados anteriores de esta memoria, la interfaz gráfica ofrece al usuario la posibilidad de:
 \begin{itemize}
     \item Controlar el movimiento del brazo robótico mediante el control de algunos parámetros del mismo, por ejemplo, mediante la posición angular de los servomotores o la posición cartesiana del \textit{end-effector} del brazo.
     \item Visualizar gráficamente una previsualización de la posición del brazo antes de que el mismo realice el movimiento físicamente.
@@ -60,7 +60,7 @@ Teniendo el cuenta el diseño teórico propuesto previamente a desarrollar la in
     \label{fig:ui_QtDesigner}
 \end{figure}
 
-Mediante la herramienta anterior, se puede diseñar gráficamente cual va a ser la apariencia de la interfaz. Tal y como se puede ver en la parte izquierda de la imagen, Qt proporciona numerosos componentes gráficos de todos los tipos, los cuales, pueden ser incluidos en el diseño con tan solo arrastrarlos al mismo. Esta herramienta de diseño, proporciona un archivo de salida XML que tiene extensión .ui y que posteriormente será cargado desde Python para la programación de la lógica que existe entre los distintos componentes gráficos.
+Mediante la herramienta anterior, se puede diseñar gráficamente cual va a ser la apariencia de la interfaz. Tal y como se puede ver en la parte izquierda de la imagen, Qt proporciona numerosos componentes gráficos de todos los tipos, los cuales, pueden ser incluidos en el diseño con tan solo arrastrarlos al mismo. Esta herramienta de diseño, proporciona un archivo de salida XML que tiene extensión .ui y que posteriormente será cargado desde Python para la programación de la lógica que existe entre los distintos componentes gráficos, los cuales, son tratados como objetos de un cierto tipo en el código.
 
 \begin{figure}[H]
     \centering
@@ -69,16 +69,16 @@ Mediante la herramienta anterior, se puede diseñar gráficamente cual va a ser 
     \label{fig:ui_XML}
 \end{figure}
 
-A continuación se presenta una breve descripción de los componentes gráficos que aparecen en el diseño final de la interfaz de usuario y que posteriormente será extendida para mostrar los detalles técnicos mas relevantes:
+A continuación se presenta una breve descripción de los componentes gráficos que aparecen en el diseño final de la interfaz de usuario, además, posteriormente se comentarán los detalles técnicos mas relevantes en profundidad.
 \begin{itemize}
     \item Por un lado, en la sección izquierda de la interfaz gráfica de usuario se encuentran los siguientes componentes:
     \begin{itemize}
         \item En la barra de herramientas de la parte superior se encuentran el menú desplegable de selección de puerto serie, así como el menú desplegable que da a conocer la documentación del proyecto al usuario.
         \item En la parte central, tal y como describe el título ``\textit{Position Control Sliders}'', se encuentran los \textit{Sliders} y \textit{SpinBoxes} que permiten al usuario controlar el valor de las coordenadas angulares de los motores y las coordenadas cartesianas del \textit{end-effector}.
         \item Justo debajo de los \textit{Sliders}, se encuentran tres botones que permiten al usuario: cambiar el tipo de coordenadas de los \textit{Sliders}, devolver al brazo robótico a su posición inicial y ejecutar o cancelar un movimiento.
-        \item En la parte mas inferior de la mitad izquierda, se encuentra la barra de progreso que indica el estado del movimiento en el momento de la realización del mismo.
+        \item En la parte mas inferior de la mitad izquierda, se encuentra la barra de progreso que indica el estado del movimiento en el momento de la realización del mismo. Esta barra solo aparece mientras se está realizando un movimiento.
     \end{itemize}
-    \item Por otro lado, en la sección derecha de la interfaz gráfica de usuario se encuentran lo siguientes componentes:
+    \item Por otro lado, en la sección derecha de la interfaz gráfica de usuario se encuentran los siguientes componentes:
     \begin{itemize}
         \item Tal y como describe el título, en esta parte de la interfaz se encuentran las dos representaciones gráficas de la posición del brazo robótico, las cuales además, permiten al usuario controlar la posición del brazo mediante movimientos del ratón.
         \item Justo debajo de ambas representaciones, se encuentra la consola de salida que proporciona al usuario la información sobre los \textit{logs} generados por la aplicación.
@@ -105,7 +105,7 @@ En primer lugar, inicialmente se disponía de unos rangos de valor teóricos par
         \begin{itemize}
             \item La coordenada X es ajustable entre 0.0mm y 346.0mm, puesto que el \textit{end-effector} siempre se sitúa delante de la base, coincidiendo con la parte positiva del eje X. 
             \item La coordenada Y es ajustable entre -346.0mm y 346.0mm, puesto que el \textit{end-effector} puede desplazarse hacia la derecha e izquierda de la base, coincidiendo con la parte positiva y negativa del eje Y.
-            \item La coordenada Z es ajustable entre -106.0mm y 360.6mm, puesto que el \textit{end-effector} puede desplazarse hacia arriba y abajo, teniendo como límite inferior la parte mas baja de la base del brazo y coincidiendo con la parte positiva  y negativa del eje Z.
+            \item La coordenada Z es ajustable entre -106.0mm y 360.6mm, puesto que el \textit{end-effector} puede desplazarse hacia arriba y abajo, teniendo como límite inferior la parte mas baja de la base del brazo y coincidiendo con la parte positiva y negativa del eje Z.
         \end{itemize}
         \begin{figure}[H]
             \centering
@@ -129,17 +129,16 @@ En segundo lugar y en relación con las representaciones gráficas del brazo rob
          \end{figure}
     \end{itemize}
     
-Cabe destacar que, a pesar de que los controles del brazo pueden ser ajustados libremente por el usuario, se tiene que el brazo robótico tiene un rango limitado por su estructura física y por ello, se ha programado un método que verifica si la posición que el usuario ha seleccionado es viable. En caso de serlo, el movimiento puede ser ejecutado y enviado como orden a \ac{S2}, en caso contrario, la representación del brazo se colorea de color rojo y el botón de ejecutar movimiento se desactiva, de esta forma el usuario es notificado y debe modificar los valores de los controles.    
-
+Cabe destacar que, a pesar de que los controles del brazo pueden ser ajustados libremente por el usuario, se puede afirmar que el brazo robótico tiene un rango limitado por su estructura física y por ello, se ha programado un método que verifica si la posición que el usuario ha seleccionado es viable. En caso de serlo, el movimiento puede ser ejecutado y enviado como orden a \ac{S2}, en caso contrario, la representación del brazo se colorea de color rojo y el botón de ejecutar movimiento se desactiva, de esta forma el usuario es notificado y debe modificar los valores de los controles.    
 Continuando con el proceso de desarrollo de la interfaz gráfica de usuario y una vez se ha creado el diseño gráfico de la misma, el siguiente paso consiste en la programación de la lógica que existe entre los diferentes componentes gráficos, así como sus interacciones. Para la programación de la lógica entre los componentes gráficos, se hace uso de las señales que proporciona la librería Qt.
 
-En la librería gráfica Qt, las señales representan el mecanismo principal para notificar cambios de estado y eventos que afectan a componentes gráficos de una interfaz. El concepto de señal, puede ser asemejado con el concepto de interrupción, en el cual, cuando sucede cierto evento, se dispara una señal  o notificación que puede ser manejada por el programador y que dispara la realización de una cierta rutina. Uno de los ejemplos mas claros de este mecanismo, es la señal ``\textit{clicked()}'' de un botón del tipo ``\textit{QPushButton}'' perteneciente a los \textit{widget} que ofrece Qt: cuando el botón es clickado, se dispara una señal que  permite al usuario ejecutar una función programada por el mismo tras este evento. 
+En la librería gráfica Qt, las señales representan el mecanismo principal para notificar cambios de estado y eventos que afectan a componentes gráficos de una interfaz. El concepto de señal, puede ser asemejado con el concepto de interrupción, en el cual, cuando sucede cierto evento, se dispara una señal asíncrona o notificación, que puede ser manejada por el programador y que dispara la realización de una cierta rutina. Uno de los ejemplos mas claros de este mecanismo, es la señal ``\textit{clicked()}'' de un botón del tipo ``\textit{QPushButton}'' perteneciente a los \textit{widget} que ofrece Qt: cuando el botón es clickado, se dispara una señal que permite al usuario ejecutar una función programada por el mismo tras este evento. 
 
-El concepto mas importante tras las señales es el hecho de que Qt ofrece la posibilidad de conectar cada una de las  posibles señales a la  ejecución de un método programado por el desarrollador, de esta forma, mediante estas señales, se puede establecer una lógica que orquesta las interacciones entre los diferentes componentes gráficos.
+El concepto mas importante tras las señales es el hecho de que Qt ofrece la posibilidad de conectar cada una de las posibles señales a la ejecución de un método programado por el desarrollador, de esta forma, mediante estas señales, se puede establecer una lógica que orquesta las interacciones entre los diferentes componentes gráficos, en base a los eventos que vayan ocurriendo.
 
-Teniendo en cuenta el concepto anterior, el código de la interfaz gráfica de usuario consiste en un archivo Python desde el cual se carga el archivo XML que contiene el diseño gráfico de la interfaz, y en el cual se han programado los diferentes métodos a ejecutar tras la recepción de las diferentes señales de los distintos componentes gráficos.
+Teniendo en cuenta el concepto anterior, el código de la interfaz gráfica de usuario consiste en un archivo Python desde el cual se carga el archivo XML que contiene el diseño gráfico de la interfaz, y en el cual se han programado los diferentes métodos a ejecutar tras la recepción de las diferentes señales de los distintos componentes gráficos. Este archivo Python contiene a la clase ``Ui'', en la cual, se realiza la importación del archivo .ui, se realiza la configuración inicial de los diferentes componentes de la interfaz y se establece la conexión entre las señales y las rutinas de tratamiento de las mismas.
 
-Como detalle final, es importante remarcar que el punto de enlace entre el código de la interfaz gráfica y el código de la lógica de comunicaciones se realiza mediante la clase denominada  ``\textit{control interface}'', la cual describe en el subapartado siguiente. Esta clase proporciona una serie de métodos que al ser ejecutados dentro de las rutinas de gestión de señales, disparan y ejecutan los métodos necesarios del código de la lógica de comunicaciones que permiten el envío de las ordenes generadas por el usuario mediante la interfaz gráfica.
+Como detalle final, es importante remarcar que el punto de enlace entre el código de la interfaz gráfica y el código de la lógica de comunicaciones se realiza mediante la clase denominada  ``\textit{control interface}'', la cual se describe en el subapartado siguiente. Esta clase proporciona una serie de métodos que al ser ejecutados dentro de las rutinas de gestión de señales, disparan y ejecutan los métodos necesarios del código de la lógica de comunicaciones que permiten el envío de las ordenes generadas por el usuario a través del canal de comunicación con \ac{S2}
 
 Finalmente se muestra una imagen de la interfaz gráfica de usuario final en ejecución:
 \begin{figure}[H]
@@ -181,13 +180,7 @@ Otro problema es la comunicación de mensajes entre hilos y la sincronización d
 
 Este problema se origina ante la necesidad de que la interfaz gráfica se mantenga actualizada con los datos que se reciben en el hilo de comunicación. Para solucionarlo se han empleado futuros, los cuales pueden desencadenar la ejecución de una función en el hilo principal, cuando el futuro finaliza su ejecución.
 
-Concretamente, el futuro que se ha implementado en \ac{S1} se encarga de ordenar el movimiento del brazo, monitorizarlo, recoger posibles errores, pedir las posiciones reales al acabar el movimiento y finalmente comunicarle dichas posiciones a la interfaz gráfica cuando esta las requiera.
-
-%% INDICAR PREVIAMENTE QUE PUEDE DEVOLVER O BIEN EL ERROR QUE SE HAYA RECOGIDO
-%% O BIEN LA INTERFAZ DE 'CONTROL' EN SÍ CON LAS POSICIONES ACTUALIZADAS
-Además, el futuro puede contener los datos que la interfaz principal necesita y por tanto esta puede acceder a ellos.
-
-%% UNIR CON LO DE ARRIBA PORQUE ES XD (SEGÚN MIHAI)
+Concretamente, el futuro que se ha implementado en \ac{S1} se encarga de ordenar el movimiento del brazo, monitorizarlo, recoger posibles errores, pedir las posiciones reales al acabar el movimiento y finalmente comunicarle dichas posiciones a la interfaz gráfica o bien devolver un error en caso de que este ocurra.
 
 La lógica de control se ha dividido en varios paquetes para encapsular distintas funcionalidades del sistema por separado, estos paquetes son: ``\texttt{communications}'', ``\texttt{control}'', ``\texttt{gcode}'', ``\texttt{logger}'', ``\texttt{security}'' y ``\texttt{utils}''.
 
