@@ -73,3 +73,157 @@ Cabe destacar que el hecho de que se haya empleado tanto tiempo en estas labores
 \end{itemize}
 
 Sabiendo que la fecha de inicio oficial del proyecto es el 6 de febrero de 2020 y la fecha de entrega de la memoria del proyecto es el 16 de octubre de 2020, se calcula que el periodo de desarrollo de este proyecto es de 250 días.
+
+\subsection{Contratiempos de la impresión 3D}
+En el momento en que se recibió la impresora 3D, se hicieron varias pruebas de
+impresión (figura \ref{fig:test_prints}) y se comenzaron a estudiar las características
+de la impresora. Se vió entonces el sistema de doble extrusor que utilizaba para
+generar el material de impresión junto con el material de soporte soluble (\ac{PVA}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.7\linewidth]{pictures/test_piece.jpg}
+    \caption*{Pieza de prueba componente actual del \pArm{}.}
+\end{figure}
+
+Sin embargo, cuando se realizaron impresiones utilizando dicho material de soporte,
+se vio que la calidad del mismo no era la mejor o no se correspondía con cómo debería
+quedar según la web de Ultimaker (figura \ref{fig:oof_comparisson}):
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pictures/arm_oof_pva.jpg}
+        \caption{Una figura de prueba que necesita \ac{PVA}.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pictures/pva_support_ok.png}
+        \caption{Cómo debería quedar una impresión con \ac{PVA} según Ultimaker \cite{MaterialUltimakerPVA}.}
+    \end{minipage}
+    \caption{Comparación de la pieza de prueba con \ac{PVA} frente a cómo deberían quedar según la web de Ultimaker.}
+    \label{fig:oof_comparisson}
+\end{figure}
+
+Después de hacer múltiples pruebas con el material de soporte se vio que salían granos
+color negro en lugar de un hilo de plástico, por lo que se dedujo que el material de
+soporte no estaba en buen estado o que el extrusor estaba dañado. Ante esa situación,
+se desmontó el \textit{nozzle} y se comprobó que en efecto estaba completamente lleno
+de \ac{PVA} seco y podrido (figura \ref{fig:nozzle_oof}):
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{.49\linewidth}
+        \includegraphics[width=\linewidth]{pictures/clogged_nozzle.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{.49\linewidth}
+        \includegraphics[width=\linewidth]{pictures/nozzle_oof_2.jpg}
+    \end{minipage}
+    \caption{\textit{Nozzle} completamente obstruído con \ac{PVA}.}        
+    \label{fig:nozzle_oof}
+\end{figure}
+
+Como estaba lleno de \ac{PVA}, se optó por dejar el \textit{nozzle} en remojo para
+intentar que el material de soporte se disuelva. Tras varios días, una gran parte
+pudo ser quitada pero todavía quedaba bastante en su interior, que tuvo que ser
+retirada manualmente.
+
+Igualmente, tras poder utilizar nuevamente el \textit{nozzle} para generar material
+de soporte, quedó nuevamente bloqueado cuando se imprimió múltiples veces. Se dedujo
+entonces que el material \ac{PVA} estaba dañado por el usuario anterior. Como se
+comentó en el apartado de impresión 3D, es un material que absorbe rápidamente la
+humedad y que si, además, se encuentra expuesto a la luz se agrava el daño recibido.
+Cuando se recibió la impresora, el material estaba completamente expuesto además de 
+no estar protegido siquiera contra la luz.
+
+Tras realizar una investigación sobre este problema, se descubrió que era algo
+común a los usuarios que utilizaban \ac{PVA} como material de soporte y que se
+solucionaba guardando los plásticos de impresión en una caja aislada del exterior
+junto con un purificador de aire que absorbe humedad\footnote{Se puede encontrar
+la caja empleada en Thingiverse: \url{https://www.thingiverse.com/thing:2756012}}.
+
+En la figura \ref{fig:dry_box} se puede ver el resultado final:
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pictures/dry_box_1.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{pictures/dry_box_2.jpg}
+    \end{minipage}
+    \caption{Caja para guardar los plásticos de impresión y mantenerlos protegidos de la humedad.}
+    \label{fig:dry_box}
+\end{figure}
+
+Tras intentar aproximar el problema anterior, la impresión con \ac{PVA} seguía sin
+salir como se buscaba, por lo que fue necesario comprar un nuevo hilo de dicho material.
+
+Se empezó además a trabajar con material de impresión \ac{CPE}, pero ocurrió un nuevo
+imprevisto al imprimir con los dos materiales en donde el cabezal de impresión
+se chocó con una de las piezas que se estaban imprimiendo, provocando que se generase
+una bola de plástico alrededor de los extrusores, dejándolos bastante dañados (figura
+\ref{fig:damaged_nozzle}).
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{.49\linewidth}
+        \includegraphics[width=\linewidth]{pictures/damaged_nozzle_2.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{.49\linewidth}
+        \includegraphics[width=\linewidth]{pictures/extruded_ball.jpg}
+    \end{minipage}
+    \hfill \\[1ex]
+    \includegraphics[width=.9\linewidth]{pictures/damaged_nozzle.jpg}
+    \caption{Los extrusores bloqueados y dañados tras una colisión con una pieza.}
+    \label{fig:damaged_nozzle}
+\end{figure}
+
+Después de conseguir arreglar los extrusores después del bloqueo anterior, se pudieron
+empezar a imprimir diversas piezas que requerían de soporte con \ac{PVA} de forma
+exitosa, obteniendo los resultados deseados (ver figura \ref{fig:good_pieces}):
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{.49\linewidth}
+        \includegraphics[width=\linewidth]{pictures/box_good.jpg}
+    \end{minipage}
+    \hfill \\[1ex]
+    \begin{minipage}{.49\linewidth}
+        \includegraphics[width=\linewidth]{pictures/pieces_good.jpg}
+    \end{minipage}
+    \caption{Figuras siendo correctamente impresas tras reparar los extrusores y usando material nuevo.}
+    \label{fig:good_pieces}
+\end{figure}
+
+Finalmente, pese a que se consiguió reparar parcialmente los extrusores, tras el
+uso el extrusor del material de soporte de \ac{PVA} se acabó rompiendo por lo que
+las impresiones tuvieron que detenerse. Por suerte, se contactó con unos alumnos
+de la Escuela Técnica Superior de Telecomunicaciones y se pudo hacer un uso provisional
+de sus impresoras 3D (ya que tienen de un laboratorio de fabricación) para continuar el
+desarrollo, usando además una Ultimaker 3, mismo modelo con el que se contaba en la
+universidad (figura \ref{fig:telec}):
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{.49\linewidth}
+        \includegraphics[width=\linewidth]{pictures/teleco-1.jpg}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{.49\linewidth}
+        \includegraphics[width=\linewidth]{pictures/teleco_2.jpg}
+    \end{minipage}
+    \caption{Laboratorio de fabricación de la escuela de Telecomunicaciones prestado temporalmente para continuar con el proyecto.}
+    \label{fig:telec}
+\end{figure}
+
+Una vez se recibió el extrusor nuevo, se pudo continuar con las impresiones sin
+más inconvenientes. Añadir que, después de cada impresión utilizando \ac{PVA}, era
+necesario realizar un mantenimiento de los cabezales para evitar su obstrucción.
