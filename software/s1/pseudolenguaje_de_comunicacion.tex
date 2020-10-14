@@ -1,4 +1,4 @@
-Para poder comunicar los dispositivos entre si de manera eficiente, hemos planteado un pseudo-lenguaje basado en GCode para poder realizar el envió y la recepción de datos desde, y hacia la placa.
+Para poder comunicar los dispositivos entre si de manera eficiente, se ha planteado un pseudo-lenguaje basado en GCode para poder realizar el envío y la recepción de datos desde, y hacia la placa.
 
 El formato general del mensaje que se envía es el siguiente:
 
@@ -6,8 +6,8 @@ El formato general del mensaje que se envía es el siguiente:
     {\Large G1 X10 Y10 Z10}
 \end{center}
 
-Donde la G representa el tipo de trama y el numero a su derecha el identificador individual de una trama concreta de ese tipo.
-Después, separado por un espacio, tenemos los parámetros de la trama. El numero de parámetro dependerá del tipo concreto de orden.
+Donde la G representa el tipo de trama y el número a su derecha el identificador individual de una trama concreta de ese tipo.
+Después, separado por un espacio, tenemos los parámetros de la trama. El número de parámetro dependerá del tipo concreto de orden.
 
 Para este proyecto se han reservado 4 tipos de trama, a saber, tipo I, J, G y M.
 
@@ -33,11 +33,11 @@ Por otro lado, si la misma trama fuese proveniente de \ac{S2} con destino a \ac{
 \subsubsection{G1}
 Este tipo de trama sirve para comunicar una posición ya que es de tipo G. Mas concretamente, como es G1, sirve para comunicar posiciones angulares.
 
-Los parámetros de esta trama son X, Y y Z los cuales van seguidos de un valor numérico que representa el ángulo en theta1, theta2 y theta3.
+Los parámetros de esta trama son X, Y y Z los cuales van seguidos de un valor numérico que representa el ángulo en $\theta_{1}$, $\theta_{2}$ y $\theta_{3}$.
 
 Por ejemplo, G1 X10 Y20 Z30 proveniente de \ac{S1} y con destino a \ac{S2} significa que \ac{S2} se ha de mover a las posiciones angulares theta=10º, theta2=20º y theta=30º.
 
-Obsérvame que, pese a que los parámetros siguen siendo X, Y, y Z, en S1 se interpretan como ángulos, a diferencia de G0, donde se interpretaban como coordenadas cartesianas.
+Obsérvese que, pese a que los parámetros siguen siendo X, Y, y Z, en S1 se interpretan como ángulos, a diferencia de G0, donde se interpretaban como coordenadas cartesianas.
 
 \subsubsection{G28}
 Este tipo de trama sirve para comunicar una posición ya que es de tipo G. Mas concretamente, como es G28, sirve para comunicar al brazo que debe volver a la posición de origen.
@@ -47,14 +47,14 @@ Esta trama no tiene parámetros ya que la posición de origen es conocida por el
 La trama G28 solo puede ser enviada desde \ac{S1} a \ac{S2}.
 
 \subsubsection{M1}
-Este tipo de trama sirve para comunicar peticiones al brazo robotico ya que es de tipo M. Mas concretamente, como es M1, sirve para pedir a \ac{S2} que cancele el movimiento que esta ejecutando.
+Este tipo de trama sirve para comunicar peticiones al brazo robótico ya que es de tipo M. Mas concretamente, como es M1, sirve para pedir a \ac{S2} que cancele el movimiento que esta ejecutando.
 
 Esta trama no tiene parámetros ya que la petición de cancelar el movimiento es interpretada por si sola y no hace falta datos adicionales.
 
 La trama M1 solo puede ser enviada desde \ac{S1} a \ac{S2}
 
 \subsubsection{M114}
-Este tipo de trama sirve para comunicar peticiones al brazo robotico ya que es de tipo M. Mas concretamente, como es M114,
+Este tipo de trama sirve para comunicar peticiones al brazo robótico ya que es de tipo M. Mas concretamente, como es M114,
 sirve para pedir a \ac{S2} que comunique la posición cartesiana actual en la que se encuentra el \textit{end--efector}.
 
 Esta trama no tiene parámetros ya que la petición de la posición cartesiana es interpretada por si sola y no hacen falta datos adicionales.
@@ -62,7 +62,7 @@ Esta trama no tiene parámetros ya que la petición de la posición cartesiana e
 La trama M114 solo puede ser enviada desde \ac{S1} a \ac{S2}
 
 \subsubsection{M280}
-Este tipo de trama sirve para comunicar peticiones al brazo robotico ya que es de tipo M. Mas concretamente, como es M280, sirve para pedir a \ac{S2} que comunique la posición angular
+Este tipo de trama sirve para comunicar peticiones al brazo robótico ya que es de tipo M. Mas concretamente, como es M280, sirve para pedir a \ac{S2} que comunique la posición angular
 actual en la que se encuentra el \textit{end--effector}.
 
 Esta trama no tiene parámetros ya que la petición de la posición angular es interpretada por si sola y no hacen falta datos adicionales.
@@ -70,7 +70,7 @@ Esta trama no tiene parámetros ya que la petición de la posición angular es i
 La trama M280 solo puede ser enviada desde \ac{S1} a \ac{S2}.
 
 \subsubsection{I1}
-Este tipo de trama sirve para realizar el \textit{handshake} inicial entre el \ac{S1} y el \ac{S2} ya que es de tipo I. Mas concretamente, como es I1, sirve para al \ac{S2} que se identifique mandando su n (modulo) y e (exponente) para poder calcular su clave publica.
+Este tipo de trama sirve para realizar el \textit{handshake} inicial entre el \ac{S1} y el \ac{S2} ya que es de tipo I. Mas concretamente, como es I1, sirve para al \ac{S2} que se identifique mandando su n (módulo) y e (exponente) para poder calcular su clave pública.
 
 Esta trama no tiene parámetros ya que la petición de inicio del \textit{handshake} es interpretada por si sola y no hacen falta datos adicionales.
 
@@ -86,7 +86,7 @@ La trama I5 solo puede ser enviada desde \ac{S1} a \ac{S2}.
 \subsubsection{I6}
 Este tipo de trama sirve para hacer una petición al \ac{S2} de recalcular su claves con el objetivo de poder cambiar a un \ac{S1} distinto.
 
-En el estado actual de desarrollo esta trama no se utiliza ya que solo tendría sentido si todas las comunicaciones del entre los dos sistemas estuviesen cifradas. En el estado actual del proyecto, no lo están.
+En el estado actual de desarrollo esta trama no se utiliza ya que solo tendría sentido si todas las comunicaciones entre los dos sistemas estuviesen cifradas. En el estado actual del proyecto, no lo están.
 
 La trama I6 solo puede ser enviada desde \ac{S1} a \ac{S2}.
 
