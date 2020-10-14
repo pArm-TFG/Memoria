@@ -242,11 +242,13 @@ Se ha usado la librería ``typing'' para simplificar el tratamiento de los datos
 \subsubsection{\texttt{logger}}
 
 Este paquete permite llevar un registro de los datos y las acciones importantes que ocurren en \ac{S1}. Genera un archivo en el que se guardan diferentes datos para poder hacer \textit{debugging} y revisar \textit{crashlogs}.
-
-Contiene un único archivo, \texttt{logger.py}(anexo \ref{lst:logger_py}), el cual alberga las funciones necesarias para crear el archivo y operar con él, además de dar un formato estándar a las diferentes trazas.
-
-En este paquete destaca el uso de la librería ``\texttt{logging}'' para poder generar registros de manera unificada y poder definir distintos niveles dentro de los registros, de manera que se pueden definir
+Destaca el uso de la librería ``\texttt{logging}'' para poder generar registros de manera unificada y poder definir distintos niveles dentro de los registros, de manera que se pueden definir
 niveles que serán ignorados.
+
+Contiene dos ficheros, \texttt{logger.py} (anexo \ref{lst:logger_py}), el cual alberga las funciones necesarias para crear el archivo y operar con él, además de dar un formato estándar a las diferentes trazas;
+y el fichero \texttt{PyQtHandler.py} (anexo \ref{lst:pyqthandler_py}), el cual
+contiene un \textit{wrapper} para que la librería \texttt{logging} también escriba
+los registros en la interfaz de usuario, en un \textit{widget} de Qt.
 
 \subsubsection{\texttt{security}}
 
