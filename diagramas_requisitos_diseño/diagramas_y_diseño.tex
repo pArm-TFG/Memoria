@@ -22,11 +22,11 @@ Para explicar la lógica del sistema \ac{S1} se hará una división por paquetes
 \end{figure}
 
 \begin{itemize}
-    \item Paquete Utils: este paquete contiene clases cuyos objetos son instanciados en otras clases para facilitar ciertas labores. Dentro de este paquete encontramos las siguientes clases:
+    \item Paquete Utils: este paquete contiene clases cuyos objetos son instanciados con el objetivo de realizar labores genéricas que no están relacionadas de manera directa con la lógica o que no encajan en ningún otro paquete. Dentro de este paquete encontramos las siguientes clases:
     \begin{itemize}
         \item Logger: esta clase sirve para instanciar un objeto el cual genera archivos de registro del funcionamiento. Empleando ciertos métodos de esta clase, a lo largo del código, es posible guardar datos del sistema en un archivo, el cual es persistente en el tiempo. Posteriormente se puede leer este archivo para poder hacer labores de \textit{debugging} tanto en las etapas de diseño como en la etapa de producción y despliegue.
-        \item Message: los objetos de esta clase sirven para dar una estructura general a los diferentes mensajes que se mostrarán en la GUI con el objetivo de uniformizar la información que estos muestran.
-        \item 3DPoint: los objetos de esta clase representan puntos en el espacio cartesiano y se emplean para poder aunar las coordenadas en un solo objeto y por tanto simplificar la comunicación de estos datos dentro del sistema. Los métodos que contiene son \textit{getters} y \textit{setters} de las distintas coordenadas.
+        \item Message: los objetos de esta clase sirven para dar una estructura general a los diferentes mensajes que se mostrarán en la GUI con el objetivo de uniformizar la forma de mostrar la información.
+        \item 3DPoint: los objetos de esta clase representan puntos en el espacio cartesiano y se emplean para poder aunar las coordenadas en un solo objeto. Con esto se consigue simplificar la comunicación de los datos dentro del sistema. Los métodos que contiene son \textit{getters} y \textit{setters} de las distintas coordenadas.
         \item Joints: Hereda de 3DPoints y los métodos son \textit{wrappers} de los \textit{getters} y lo \textit{setter} de esta.
     \end{itemize}
     \item Clase pArm: la clase pArm contiene los métodos necesarios para realizar los movimientos del brazo, inicializar las comunicaciones y posteriormente gestionarlas. Es la clase principal de la lógica del sistema.
@@ -41,7 +41,7 @@ Para explicar la lógica del sistema \ac{S1} se hará una división por paquetes
     \label{fig:diagrama_clases_GUI_s1}
 \end{figure}
 
-En este caso toda la GUI esta contenido dentro de un mismo paquete.
+En este caso toda la GUI esta contenida dentro de un mismo paquete.
 
 \begin{itemize}
     \item Clase Window: esta clase representa la ventana principal de la aplicación en ella se encuentran todos los elementos con el que le usuario puede interactuar.
@@ -63,7 +63,7 @@ En este caso toda la GUI esta contenido dentro de un mismo paquete.
 \end{figure}
 
 El diagrama \ref{fig:diagrama_estados_error_s1} representa el tratamiento de errores en el \ac{S1}.
-Se observa que dependiendo de si los errores son fatales o no, el sistema se apagará o seguira funcionando.
+Se observa que dependiendo de si los errores son fatales o no, el sistema se apagará o seguirá funcionando.
 
 \begin{figure}[H]
     \centering
