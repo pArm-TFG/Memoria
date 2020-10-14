@@ -265,7 +265,20 @@ Solo contiene un archivo, \texttt{error\_data.py}(anexo \ref{lst: error_data.py}
 
 Se emplea la librería \texttt{collections} para permitir el uso de tipos de datos auxiliares.
 
-%% TO-DO - hablar de la librería atomics.py [J]
+Por otra parte, se declara una nueva estructura de datos en el fichero \texttt{atomics.py}
+(listado de código \ref{lst:atomics_py}). Se define una clase base 
+\lstinline[style=Python]!class Atomic(ABC, Generic[T])! que se diseña para que las clases
+hijas hereden de ella y establezcan el tipo de dato que van a contener, junto con
+las especializaciones requeridas.
 
+Se definen dos clases hijas:
+\begin{itemize}
+    \item \lstinline[style=Python]!class AtomicFloat(Atomic[float])! para contener
+    valores en coma flotante de forma atómica.
+    \item \lstinline[style=Python]!class AtomicInteger(Atomic[int])! para contener
+    valores enteros y añadir además opciones para incrementar dicho valor.
+\end{itemize}
 
-
+La principal función de estas clases no es solo guardar un dato de forma atómica
+sino además poder utilizar la misma dirección de memoria a lo largo del programa,
+pudiendo tener acceso simultáneo al recurso.
