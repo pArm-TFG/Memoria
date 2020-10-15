@@ -1,5 +1,5 @@
 Aprovechando la licencia original GPL 3.0 del $\mu$Arm, se ha recuperado el modelo 3D proporcionado por UFACTORY como punto de partida. 
-Dicho modelo se ha tomado como punto de partida para el \pArm{}, teniendo que realizar diversas
+Se han tenido que realizar diversas
 modificaciones de distintas piezas para adaptarlas a los materiales que se van a usar,
 los motores que se emplearán y el tamaño de la nueva placa, entre otros.
 
@@ -32,93 +32,93 @@ El flujo de trabajo que se ha seguido desde el modelo 3D hasta la impresión de 
 
 Antes de proceder a explicar cada una de las nuevas piezas que se han diseñado, se tomará una de ellas como ejemplo para explicar el proceso de diseño detallado.
 
-Inicialmente se parte de un bloque que represente la forma general de la pieza, para posteriormente añadir detalles. En el caso de la pieza que se usa como ejemplo, tenemos un cuadrado de 120mm de ancho por 120mm de alto y 3 mm de groso.
+Inicialmente se parte de un bloque que represente la forma general de la pieza, para posteriormente añadir detalles. En el caso de la pieza que se usa como ejemplo, tenemos un cuadrado de $\numprint[mm]{120}$ de ancho por $\numprint[mm]{120}$ de alto y $\numprint[mm]{3}$ de grosor.
 
 \begin{figure}[H]
-\centering
-\subfigure[Plano vacío]{\includegraphics[width=82mm]{pictures/PlanoVacio.png}}
-\subfigure[Forma general de la tapa]{\includegraphics[width=82mm]{pictures/SketchTapaInicial.png}}
-\caption{Construcción de la forma general}
-\label{fig:forma_general_tapa_superior}
+    \centering
+    \subfigure[Plano vacío]{\includegraphics[width=.49\linewidth]{pictures/PlanoVacio.png}}
+    \hfill
+    \subfigure[Forma general de la tapa]{\includegraphics[width=.49\linewidth]{pictures/SketchTapaInicial.png}}
+    \caption{Construcción de la forma general.}
+    \label{fig:forma_general_tapa_superior}
 \end{figure}
 
-Tras crear la forma general, añadimos los agujeros en las esquinas para poder atornillar la tapa. Los agujeros tienen un radio de 1,9mm y se distancian de los laterales 3,9mm para hacerlos coincidir con los agujeros de las paredes.
+Tras crear la forma general, se añaden los agujeros en las esquinas para poder atornillar la tapa. Los agujeros tienen un radio de $\numprint[mm]{1.9}$ y se distancian de los laterales $\numprint[mm]{3.9}$ para hacerlos coincidir con los agujeros de las paredes.
 
 \begin{figure}[H]
-\centering
-\subfigure[Plano 2D de los agujeros]{\includegraphics[width=.9\linewidth]{pictures/SketchAgujerosEsquinas.png}}
-\subfigure[Detalle de una esquina]{\includegraphics[width=.9\linewidth]{pictures/DetalleAgujerosEsquinas.png}}
-\caption{Agujeros para tornillos }
-\label{fig:agujeros_tornillos_tapa_superior}
+    \centering
+    \subfigure[Plano 2D de los agujeros]{\includegraphics[width=.9\linewidth]{pictures/SketchAgujerosEsquinas.png}}
+    \hfill
+    \subfigure[Detalle de una esquina]{\includegraphics[width=.9\linewidth]{pictures/DetalleAgujerosEsquinas.png}}
+    \caption{Agujeros para tornillos.}
+    \label{fig:agujeros_tornillos_tapa_superior}
 \end{figure}
 
 Tras realizar los agujeros de los exteriores de la pieza, se hace un agujero central y se extruye una torre centrada sobre dicho agujero.
 
 \begin{figure}[H]
-\centering
-\subfigure[Sketch del agujero central]
-{\includegraphics[width=0.9\linewidth]{pictures/SketchAgujeroCentral.png}}
-\subfigure[Agujero central sin torre]
-{\includegraphics[width=0.9\linewidth]{pictures/AgujeroCentral.png}}
-\caption{Agujeros central}
-\label{fig:agujeros_central_tapa_superior}
+    \centering
+    \subfigure[\textit{Sketch} del agujero central]{\includegraphics[width=0.9\linewidth]{pictures/SketchAgujeroCentral.png}}
+    \subfigure[Agujero central sin torre]{\includegraphics[width=0.9\linewidth]{pictures/AgujeroCentral.png}}
+    \caption{Agujeros centrales.}
+    \label{fig:agujeros_central_tapa_superior}
 \end{figure}
 
-Tras definir el agujero, se extruye la torre.
+Tras definir el agujero, se extruye la torre:
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/TorreCentral.png}
-    \caption{Tapa con torre central}
+    \caption{Tapa con torre central.}
     \label{fig:torre_central_tapa_superior}
 \end{figure}
 
-A continuación se procede a eliminar material de la torre con
-el objetivo de disminuir la superficie de contacto con el disco rotativo y por tanto, eliminar parte del rozamiento.
+A continuación, se procede a eliminar material de la torre con
+el objetivo de disminuir la superficie de contacto con el disco rotativo y, por tanto, eliminar parte del rozamiento.
 
 \begin{figure}[H]
-\centering
-\subfigure[Sketch del desgaste]
-{\includegraphics[width=0.9\linewidth]{pictures/SketchAnillo.png}}
-\subfigure[Torre central tras el rebaje]
-{\includegraphics[width=0.9\linewidth]{pictures/Anillo.png}}
-\caption{Agujeros central}
-\label{fig:anillo_tapa_superior}
+    \centering
+    \subfigure[\textit{Sketch} del desgaste.]
+    {\includegraphics[width=0.9\linewidth]{pictures/SketchAnillo.png}}
+    \subfigure[Torre central tras el rebaje.]
+    {\includegraphics[width=0.9\linewidth]{pictures/Anillo.png}}
+    \caption{Desgastes y rebaje.}
+    \label{fig:anillo_tapa_superior}
 \end{figure}
 
-Para disminuir aun mas el rozamiento debido a posibles bordes imperfectos que queden en el disco, se realiza un chaflán en el diámetro interior y exterior.
+Para disminuir aún más el rozamiento debido a posibles bordes imperfectos que queden en el disco, se realiza un chaflán en el diámetro interior y exterior.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/Chaflanes.png}
-    \caption{Torre con chaflanes}
+    \caption{Torre con chaflanes.}
     \label{fig:chaflanes_tapa_superior}
 \end{figure}
 
-Finalmente se añade una ranura para que sea posible llevar los cables de los motores exteriores a la placa de control que se haya en la caja.
+Finalmente, se añade una ranura para que sea posible llevar los cables de los motores exteriores a la placa de control que se haya en la caja.
 
 \begin{figure}[H]
-\centering
-\subfigure[Sketch de la ranura]
-{\includegraphics[width=0.9\linewidth]{pictures/SketchAgujeroCables.png}}
-\subfigure[Ranura para cables]
-{\includegraphics[width=0.9\linewidth]{pictures/AgujeroCables.png}}
-\caption{Tapa con ranura para cables}
-\label{fig:ranura_cables_tapa_superior}
+    \centering
+    \subfigure[\textit{Sketch} de la ranura]
+    {\includegraphics[width=0.9\linewidth]{pictures/SketchAgujeroCables.png}}
+    \subfigure[Ranura para cables]
+    {\includegraphics[width=0.9\linewidth]{pictures/AgujeroCables.png}}
+    \caption{Tapa con ranura para cables.}
+    \label{fig:ranura_cables_tapa_superior}
 \end{figure}
 
-Con esto concluimos la explicación del proceso de creación de piezas y pasamos a explicar cada una de las piezas por separado detallando los motivos por los cuales es necesario remodelar ciertas piezas y los inconvenientes y contratiempos que han surgido durante el modelado y la impresión de estas.
+Con esto concluimos la explicación del proceso de creación de piezas y pasamos a explicar cada una de las piezas por separado, detallando los motivos por los cuales es necesario remodelar algunas de ellas y los inconvenientes y contratiempos que han surgido durante el modelado y la impresión de estas.
 
-En primer lugar se explicará la caja que alberga la placa de control y uno de los motores.
+En primer lugar, se explicará la caja que alberga la placa de control y uno de los motores.
 
 La placa de control del brazo robótico no es la misma que en el caso del $\mu$Arm de UFACTORY. Además, los motores que se han empleado en este proyecto son servomotores con carcasa y sistema de sujeción distintos a los motores paso a paso del $\mu$Arm. Debido a estos dos factores se ha tenido que diseñar nuevas partes para la base del brazo robótico.
 
-Mas concretamente, la necesidad de rediseñar esta parte es debida a que la base original era demasiado pequeña en superficie para permitir introducir la placa de control. Además, el servomotor no podría haber cabido junto con la placa ya que la altura era insuficiente. Por otro lado los sistemas de sujeción presentes en la caja existente no podían ser empleados para la placa de control desarrollada en este proyecto.
+Más en concreto, la necesidad de rediseñar esta parte es debida a que la base original era demasiado pequeña en superficie para permitir introducir en ella la placa de control. Además, el servomotor no podría haber cabido junto con la placa ya que la altura era insuficiente. Por otro lado, los sistemas de sujeción presentes en la caja existente no podían ser empleados para la placa de control desarrollada en este proyecto.
  
  \begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/PlacaYBase.png}
-    \caption{Proyección de la placa de control (naranja) sobre la base original del $\mu$Arm (gris)}
+    \caption{Proyección de la placa de control (naranja) sobre la base original del $\mu$Arm (gris).}
     \label{fig:placa_y_base_antiguas}
 \end{figure}
 
@@ -126,7 +126,7 @@ Mas concretamente, la necesidad de rediseñar esta parte es debida a que la base
  \begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/PlacaMotorYParedes1.png}
-    \caption{Placa y motor dentro de la caja original del $\mu$Arm}
+    \caption{Placa y motor dentro de la caja original del $\mu$Arm.}
     \label{fig:placa_motor_y_paredes1}
 \end{figure}
 
@@ -141,11 +141,11 @@ Para solucionar los anteriores problemas se diseña una nueva base en la que se 
     \label{fig:placa_y_paredes_nuevas}
 \end{figure}
 
-Inicialmente las paredes de la caja se habían diseñado con un grosor de 2mm. Tras una serie de pruebas se concluyo que dicho grosor no era suficiente para proporcionar resistencia y estabilidad suficiente, por tanto, se opto por un grosor de 3mm en la versión final.
+Inicialmente las paredes de la caja se habían diseñado con un grosor de $\numprint[mm]{2}$. Tras una serie de pruebas se concluyo que dicho grosor no era suficiente para proporcionar resistencia y estabilidad suficiente, por tanto, se optó por uno de $\numprint[mm]{3}$ en la versión final.
 
 En la base se observan los raíles que servirán para introducir y retirar la placa de la estructura. 
 
-Se ha optado por un sistema de raíles en vez de una sujeción fia ya que de esta manera se consigue una mayor versatilidad a la hora de extraer e introducir la placa en labores de depuración y construcción. 
+Se ha optado por un sistema de raíles en vez de una sujeción fija ya que, de esta manera, se consigue una mayor versatilidad a la hora de extraer e introducir la placa en labores de depuración y construcción. 
 
 Además, debido al escaso espacio dentro de la caja, se hace prácticamente imposible la introducción de las herramientas necesarias para atornillar la placa a la estructura. Gracias al sistema de raíles se evita desmontar ciertas piezas al intentar introducir o extraer la placa.
 
@@ -154,150 +154,149 @@ Después de que la placa sea insertada en estos carriles, se asegura su posició
  \begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/railes.png}
-    \caption{Sistema de raíles de la placa}
+    \caption{Sistema de raíles de la placa.}
     \label{fig:railes_placa}
 \end{figure}
 
-En la figura \ref{fig:railes_placa} se observan las piezas que se añadirán a la placa de control para poder deslizar esta sobre los carriles. En el exterior de la imagen aparecen los carriles presentes en la base de la caja, donde se puede ver que, al estar la placa completamente introducida en los carriles, los agujeros del carril y del raíl se posición de tal manera que se permite introducir un pasador que asegura la posición de la placa.
+En la figura \ref{fig:railes_placa} se observan las piezas que se añadirán a la placa de control para poder deslizarla sobre los carriles. En el exterior de la imagen aparecen los carriles presentes en la base de la caja, donde se puede ver que, al estar la placa completamente introducida en los carriles, los agujeros del carril y del raíl se posicionan de tal manera que se puede introducir un pasador que asegura la posición de la placa.
 
-Debido a que tanto los raíles como los carriles se fabricaron con unas medidas teóricas, extraídas del diseño físico inicial de la placa, resulto que el ensamblaje físico no era posible.
+Debido a que tanto los raíles como los carriles se fabricaron con unas medidas teóricas, extraídas del diseño físico inicial de la placa, se comprobó que el ensamblaje físico no era posible.
 
-Para solucionar este problemas se desplazaron los agujeros por los que se unía el raíl a la placa. Esto se observa en la figura \ref{fig:railes_placa_final}
+Para solucionar este problemas se desplazaron los agujeros por los que se unía el raíl a la placa. Esto se observa en la figura \ref{fig:railes_placa_final}:
 
  \begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/RailesBien.png}
-    \caption{Versión final de los carriles}
+    \caption{Versión final de los carriles.}
     \label{fig:railes_placa_final}
 \end{figure}
 
-Por otro lado, para poder sujetar el motor que moverá el brazo alrededor del eje vertical se ha tenido que diseñar la siguiente pieza.
-
- \begin{figure}[H]
+Por otro lado, para poder sujetar el motor que moverá el brazo alrededor del eje vertical, se ha tenido que diseñar la siguiente pieza:
+\begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/sujecciónMotor.png}
-    \caption{Pieza de sujeción del motor}
+    \caption{Pieza de sujeción del motor de la base.}
     \label{fig:sujecion_motor}
 \end{figure}
 
-Esta pieza se atornilla a las paredes de la caja y empleando las solapas del motor, este se atornilla en el centro de la pieza como se puede ver en la figura \ref{fig:pieza_sujecio_en_caja}.
-
- \begin{figure}[H]
+Esta pieza se atornilla a las paredes de la caja y empleando las solapas del motor, este se atornilla en el centro de la pieza como se puede ver en la figura \ref{fig:pieza_sujecio_en_caja_resaltada}.
+\begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/cajaConMotor.png}
-    \caption{Pieza de sujeción del motor (verde) dentro de la caja}
+    \caption{Pieza de sujeción del motor (verde) dentro de la caja.}
     \label{fig:pieza_sujecio_en_caja_resaltada}
 \end{figure}
 
 Dado que el tamaño de la base y de las paredes ha cambiado, la tapa superior debe también ser modificada para adaptar su tamaño y su sistema de sujeción a los nuevos diseños
 
- \begin{figure}[H]
+\begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/DosTapas.png}
-    \caption{Tapa original (derecha) junto a la tapa modificada (izquierda)}
+    \caption{Tapa original (derecha) junto a la tapa modificada (izquierda).}
     \label{fig:tapas_caja}
 \end{figure}
 
 En la figura \ref{fig:tapas_caja} se observa que en la parte superior las diferencias entre ambas piezas son mínimas respetándose los diámetros del disco exterior e interior sobre los que descansará la base giratoria.
 
-En la figura \ref{fig:tapas_caja_con_disco} podemos observar como la base giratoria descansa sobre los anillos superiores y se inserta dentro de la tapa.
-
- \begin{figure}[H]
+En la figura \ref{fig:tapas_caja_con_disco} se puede observar cómo la base giratoria descansa sobre los anillos superiores y se inserta dentro de la tapa.
+\begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/TapaSuperiorConDisco.png}
-    \caption{Tapa superior transparente y base giratoria (verde)}
+    \caption{Tapa superior transparente y base giratoria (verde).}
     \label{fig:tapas_caja_con_disco}
 \end{figure}
 
-De esta manera se consigue que el peso de la parte móvil del brazo descanse sobre la tapa y no sobre el eje de rotación. Por otro lado, el hecho de que la base giratoria protruya hacia el interior de la tapa permite que la pieza este mas cerca del motor permitiendo acortar el eje.
+De esta manera se consigue que el peso de la parte móvil del brazo descanse sobre la tapa y no sobre el eje de rotación. Por otro lado, el hecho de que la base giratoria protruya hacia el interior de la tapa permite que la pieza esté más cerca del motor permitiendo acortar el eje.
 
 A en la figura \ref{fig:cilindro_con_pletina} se muestra la pieza que conecta el motor a la base giratoria a través de un eje. Esta pieza tiene en su base un desgaste tal que permite que el engranaje del motor pueda ser introducido dentro, mientras que en la parte de arriba tiene unos agujeros que permiten la sujeción de un eje metálico el cual llega hasta la base giratoria y transmite el movimiento del motor a esta.
 
-La pieza plana que protruye hacia un lateral sirve para que el cilindro pueda alcanzar un fin de carrera que indique cuando el motor ha llegado a una posición extrema.
+La pieza plana que protruye hacia un lateral sirve para que el cilindro pueda alcanzar un fin de carrera que indique cuándo el motor ha llegado a una posición extrema.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/CilindroConPletina.png}
-    \caption{Pieza de unión del motor y el eje}
+    \caption{Pieza de unión del motor y el eje.}
     \label{fig:cilindro_con_pletina}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/SistemaCompleto.png}
-    \caption{Sistema completo}
+    \caption{Sistema completo.}
     \label{fig:sistema_completo}
 \end{figure}
 
-En la figura \ref{fig:sistema_completo} se observa la construcción completa de la base. En esta imagen se dejan las paredes y la tapa superior con cierta transparencia para poder ver el interior de la caja. Entre el cilindro montado encima del motor y la base giratoria habrá un eje metálico que comunicara el movimiento.
+En la figura \ref{fig:sistema_completo} se observa la construcción completa de la base. En esta imagen se dejan las paredes y la tapa superior con cierta transparencia para poder ver el interior de la caja. Entre el cilindro montado encima del motor y la base giratoria habrá un eje metálico que comunicará el movimiento.
 
-Por otro lado, para que sea posible ubicar los motores que se encargaran del movimiento vertical del brazo se han de crear nuevas piezas en las que puedan ser atornillados. Esta pieza puede observarse en la figura \ref{fig:pletina_sujecion_motor}
+Por otro lado, para que sea posible ubicar los motores que se encargaran del movimiento vertical del brazo se han de crear nuevas piezas en las que puedan ser atornillados. Esta pieza puede observarse en la figura \ref{fig:pletina_sujecion_motor}:
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/pletina_motor.png}
-    \caption{Placa de sujeción de los motores laterales}
+    \caption{Placa de sujeción de los motores laterales.}
     \label{fig:pletina_sujecion_motor}
 \end{figure}
 
-En fases mas avanzadas del proyecto, el equipo de desarrollo observo tras realizar pruebas, que el eje metálico no podía ser asegurado en el centro del cilindro (Mas detalles en el apartado \ref{pruebas_post_impresión}). También concluyó que en determinadas configuraciones geométricas del brazo, este podía ejercer demasiada fuerza sobre el eje de giro horizontal.
+En fases más avanzadas del proyecto, el equipo de desarrollo observó, tras realizar pruebas, que el eje metálico no podía ser asegurado en el centro del cilindro (más detalles en el apartado \ref{pruebas_post_impresión}). También concluyó que en determinadas configuraciones geométricas del brazo, este podía ejercer demasiada fuerza sobre el eje de giro horizontal.
 
-Por ello se tuvieron que realizar los siguientes cambios.
+Por ello se tuvieron que realizar los siguientes cambios:
 
-En el disco rotativo se añadió un carril que encajara en la ranura de la tapa superior. El cometido de este carril es evitar movimientos en el plano horizontal, dar mejor soporte ante el peso y ayudar a guiar el movimiento.
+\begin{itemize}
+    \item En el disco rotativo se añadió un carril que encajará en la ranura de la tapa superior. El cometido de este carril es evitar movimientos en el plano horizontal, dar mejor soporte ante el peso y ayudar a guiar el movimiento.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.9\linewidth]{pictures/TapaConBaseRotatoria.png}
-    \caption{Base de giro con raíl}
-    \label{fig:base_de_giro_con_rail}
-\end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=.9\linewidth]{pictures/TapaConBaseRotatoria.png}
+        \caption{Base de giro con raíl.}
+        \label{fig:base_de_giro_con_rail}
+    \end{figure}
 
-Para evitar emplear un eje metálico, el equipo de desarrollo diseña una pieza que pueda ser acoplada a la base giratoria1.
+    \item Para evitar emplear un eje metálico, el equipo de desarrollo diseña una pieza que pueda ser acoplada a la base giratoria (figura \ref{fig:pieza_sustituta_eje}):
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.9\linewidth]{pictures/EjeMadeInElEquipoDeDesarrollo.png}
-    \caption{La pieza sustituta del eje metálico (naranja)}
-    \label{fig:pieza_sustituta_eje}
-\end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=.9\linewidth]{pictures/EjeMadeInElEquipoDeDesarrollo.png}
+        \caption{La pieza sustituta del eje metálico (naranja).}
+        \label{fig:pieza_sustituta_eje}
+    \end{figure}
 
-Según se observa en la figura \ref{fig:pieza_sustituta_eje} la base giratoria y la parte que servirá para sustituir al eje metálico, serán unidas mediante dos tornillos.
-También se puede observar el carril de la base rotatoria en una perspectiva ascendente.
+    Según se observa en la figura \ref{fig:pieza_sustituta_eje} la base giratoria y la parte que servirá para sustituir al eje metálico, serán unidas mediante dos tornillos.
+    También se puede observar el carril de la base rotatoria en una perspectiva ascendente.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.9\linewidth]{pictures/CadenaCineticaDelEje.png}
-    \caption{Sistema completo del eje giratorio}
-    \label{fig:sistema_completo_eje}
-\end{figure}
+    \item En la imagen \ref{fig:sistema_completo_eje} se puede observar la ultima pieza del sistema. Su cometido es servir como engranaje sobre el eje del motor y transmitir el movimiento a las piezas superiores.
+    Será unida a la pieza superior mediante 4 tornillos.
 
-En la imagen \ref{fig:sistema_completo_eje} se puede observar la ultima pieza del sistema. Su cometido es servir como engranaje sobre el eje del motor y por tanto transmitir el movimiento a las piezas superiores.
-Será unida a la pieza superior mediante 4 tornillos.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=.9\linewidth]{pictures/CadenaCineticaDelEje.png}
+        \caption{Sistema completo del eje giratorio.}
+        \label{fig:sistema_completo_eje}
+    \end{figure}
+\end{itemize}
 
-Otra pieza que tuvo que ser modificada es la sujeción del \textit{end--efector}.
+Otra pieza que tuvo que ser modificada es la sujeción del \textit{end--efector}:
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/EndEffectorModificado.png}
-    \caption{\textit{End--effector} inicial (izquierda). \textit{End--effector} modificado (derecha)}
+    \caption{\textit{End--effector} inicial (izquierda). \textit{End--effector} modificado (derecha).}
     \label{fig:end_effector_modificado}
 \end{figure}
 
 Como se puede observar en la figura \ref{fig:end_effector_modificado}, la modificación consiste en la adición de un refuerzo en las partes menos resistentes. 
-Esta pieza fue modificada tras observar la fragilidad de las paredes laterales cuando estas se rompieron en la pieza sin refuerzo.
+Esta pieza fue modificada tras observar la fragilidad de las paredes laterales cuando estas se rompieron en la pieza sin refuerzo tras ser impresas.
 
 Cabe destacar que, pese a que una gran parte de las piezas no han sido mencionadas de manera concreta en este apartado, todas ellas han sido revisadas de manera individual y han sido editadas para posibilitar el uso de los tornillos, rodamientos y ejes disponibles.
 
-Mas concretamente, los tornillos de 4x16 en el caso de las piezas que han sido construidas desde cero por parte del equipo de desarrollo, y tornillos de 3x10 y 3x20 según el caso, en piezas editadas.
+Más concretamente, los tornillos de $4 \times 16~mm$ en el caso de las piezas que han sido construidas desde cero por parte del equipo de desarrollo, y tornillos de $3 \times 10~mm$ y $3 \times 20~mm$ según el caso, en piezas editadas.
 
-En ultimo lugar se han adaptado las ranuras para los rodamientos de 8mm de diámetro externo que han sido adquiridos para el proyecto.
+En último lugar se han adaptado las ranuras para los rodamientos de $\numprint[mm]{8}$ de diámetro externo que han sido adquiridos para el proyecto.
 
-Tras añadir dichas piezas al diseño general y completar este con las piezas originales que no han sido modificados obtenemos el diseño definitivo del brazo robotico el cual se puede observar en la figura \ref{fig:brazo_completo_modificado}.
+Tras añadir dichas piezas al diseño general y completar este con las piezas originales que no han sido modificadas, se obtiene el diseño definitivo del brazo robótico el cual se puede observar en la figura \ref{fig:brazo_completo_modificado}:
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=.9\linewidth]{pictures/BrazoEntero.png}
-    \caption{Brazo robotico completo tras las modificaciones}
+    \caption{Brazo robotico completo tras las modificaciones.}
     \label{fig:brazo_completo_modificado}
 \end{figure}
