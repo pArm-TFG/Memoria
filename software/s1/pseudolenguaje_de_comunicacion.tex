@@ -1,4 +1,4 @@
-Para poder comunicar los dispositivos entre si de manera eficiente, se ha planteado un pseudo-lenguaje basado en GCode para poder realizar el envío y la recepción de datos desde, y hacia la placa.
+Para poder comunicar los dispositivos entre si de manera eficiente, se ha planteado un pseudo-lenguaje basado en GCode para poder realizar el envío y la recepción de datos desde y hacia la placa.
 
 El formato general del mensaje que se envía es el siguiente:
 
@@ -6,89 +6,89 @@ El formato general del mensaje que se envía es el siguiente:
     {\Large G1 X10 Y10 Z10}
 \end{center}
 
-Donde la G representa el tipo de trama y el número a su derecha el identificador individual de una trama concreta de ese tipo.
-Después, separado por un espacio, tenemos los parámetros de la trama. El número de parámetro dependerá del tipo concreto de orden.
+Donde la `G' representa el tipo de trama y el número a su derecha el identificador individual de una trama concreta de ese tipo.
+Después, separado por un espacio, se tienen los parámetros de la trama. El número del parámetro dependerá del tipo concreto de orden.
 
-Para este proyecto se han reservado 4 tipos de trama, a saber, tipo I, J, G y M.
+Para este proyecto se han reservado 4 tipos de trama, a saber, tipos: I, J, G y M.
 
-Las tramas de tipo I sirven para gestionar la autenticación inicial de los dispositivos.
+Las tramas de tipo `I' sirven para gestionar la autenticación inicial de los dispositivos.
 
-Las tramas de tipo J comunican fallos o para confirmar un funcionamiento correcto del sistema.
+Las tramas de tipo `J' comunican fallos o para confirmar un funcionamiento correcto del sistema.
 
-Las tramas de tipo G comunican valores de las posiciones tanto cartesianas como angulares.
+Las tramas de tipo `G' comunican valores de las posiciones tanto cartesianas como angulares.
 
-Las tramas de tipo M se emplean para pedir los valores de las posiciones cartesianas o angulares del brazo y para cancelar el movimiento de este.
+Las tramas de tipo `M' se emplean para pedir los valores de las posiciones cartesianas o angulares del brazo y para cancelar el movimiento de este.
 
 A continuación se pasará a analizar cada una de las tramas por separado.
 
 \subsubsection{G0}
-Este tipo de trama sirve para comunicar una posición ya que es de tipo G. Mas concretamente, como es G0 sirve para comunicar posiciones cartesianas.
+Este tipo de trama sirve para comunicar una posición ya que es de tipo G. Más concretamente, como es G0, sirve para comunicar posiciones cartesianas.
 
 Los parámetros de esta trama son X, Y y Z los cuales van seguidos de un valor numérico que representa la posición en cada uno de los respectivos ejes.
 
-Por ejemplo, G0 X10 Y20 Z30 proveniente de \ac{S1} y con destino a \ac{S2} significa que \ac{S2} se ha de mover a las posiciones cartesianas x=10mm, y=20mm y z=30mm con respecto a la posición inicial.
+Por ejemplo, G0 X10 Y20 Z30 proveniente de \ac{S1} y con destino a \ac{S2} significa que \ac{S2} se ha de mover a las posiciones cartesianas $x=\numprint[mm]{10}$, $y=\numprint[mm]{20}$ y $z=\numprint[mm]{30}$ con respecto a la posición inicial.
 
-Por otro lado, si la misma trama fuese proveniente de \ac{S2} con destino a \ac{S1}, esto significaría que se esta comunicando a \ac{S1} la posición cartesiana real del brazo.
+Por otro lado, si la misma trama fuese proveniente de \ac{S2} con destino a \ac{S1}, esto significaría que se está comunicando a \ac{S1} la posición cartesiana real del brazo.
 
 \subsubsection{G1}
-Este tipo de trama sirve para comunicar una posición ya que es de tipo G. Mas concretamente, como es G1, sirve para comunicar posiciones angulares.
+Este tipo de trama sirve para comunicar una posición ya que es de tipo G. Más concretamente, como es G1, sirve para comunicar posiciones angulares.
 
 Los parámetros de esta trama son X, Y y Z los cuales van seguidos de un valor numérico que representa el ángulo en $\theta_{1}$, $\theta_{2}$ y $\theta_{3}$.
 
-Por ejemplo, G1 X10 Y20 Z30 proveniente de \ac{S1} y con destino a \ac{S2} significa que \ac{S2} se ha de mover a las posiciones angulares theta=10º, theta2=20º y theta=30º.
+Por ejemplo, G1 X10 Y20 Z30 proveniente de \ac{S1} y con destino a \ac{S2} significa que \ac{S2} se ha de mover a las posiciones angulares $theta_1=\numprint[\tcdegree]{10}$, $theta_2=\numprint[\tcdegree]{20}$ y $theta_3=\numprint[\tcdegree]{30}$.
 
 Obsérvese que, pese a que los parámetros siguen siendo X, Y, y Z, en S1 se interpretan como ángulos, a diferencia de G0, donde se interpretaban como coordenadas cartesianas.
 
 \subsubsection{G28}
-Este tipo de trama sirve para comunicar una posición ya que es de tipo G. Mas concretamente, como es G28, sirve para comunicar al brazo que debe volver a la posición de origen.
+Este tipo de trama sirve para comunicar una posición ya que es de tipo G. Más concretamente, como es G28, sirve para comunicar al brazo que debe volver a la posición de origen.
 
 Esta trama no tiene parámetros ya que la posición de origen es conocida por el \ac{S2} y no hace falta comunicarla.
 
-La trama G28 solo puede ser enviada desde \ac{S1} a \ac{S2}.
+La trama G28 solo se envía actualmente desde \ac{S1} a \ac{S2}.
 
 \subsubsection{M1}
-Este tipo de trama sirve para comunicar peticiones al brazo robótico ya que es de tipo M. Mas concretamente, como es M1, sirve para pedir a \ac{S2} que cancele el movimiento que esta ejecutando.
+Este tipo de trama sirve para comunicar peticiones al brazo robótico ya que es de tipo M. Más concretamente, como es M1, sirve para pedir a \ac{S2} que cancele el movimiento que está ejecutando.
 
 Esta trama no tiene parámetros ya que la petición de cancelar el movimiento es interpretada por si sola y no hace falta datos adicionales.
 
-La trama M1 solo puede ser enviada desde \ac{S1} a \ac{S2}
+La trama M1 solo se envía actualmente desde \ac{S1} a \ac{S2}
 
 \subsubsection{M114}
-Este tipo de trama sirve para comunicar peticiones al brazo robótico ya que es de tipo M. Mas concretamente, como es M114,
+Este tipo de trama sirve para comunicar peticiones al brazo robótico ya que es de tipo M. Más concretamente, como es M114,
 sirve para pedir a \ac{S2} que comunique la posición cartesiana actual en la que se encuentra el \textit{end--efector}.
 
 Esta trama no tiene parámetros ya que la petición de la posición cartesiana es interpretada por si sola y no hacen falta datos adicionales.
 
-La trama M114 solo puede ser enviada desde \ac{S1} a \ac{S2}
+La trama M114 solo se envía actualmente desde \ac{S1} a \ac{S2}
 
 \subsubsection{M280}
-Este tipo de trama sirve para comunicar peticiones al brazo robótico ya que es de tipo M. Mas concretamente, como es M280, sirve para pedir a \ac{S2} que comunique la posición angular
+Este tipo de trama sirve para comunicar peticiones al brazo robótico ya que es de tipo M. Más concretamente, como es M280, sirve para pedir a \ac{S2} que comunique la posición angular
 actual en la que se encuentra el \textit{end--effector}.
 
-Esta trama no tiene parámetros ya que la petición de la posición angular es interpretada por si sola y no hacen falta datos adicionales.
+Esta trama no tiene parámetros ya que la petición de la posición angular es interpretada por sí sola y no hacen falta datos adicionales.
 
-La trama M280 solo puede ser enviada desde \ac{S1} a \ac{S2}.
+La trama M280 solo se envía actualmente desde \ac{S1} a \ac{S2}.
 
 \subsubsection{I1}
-Este tipo de trama sirve para realizar el \textit{handshake} inicial entre el \ac{S1} y el \ac{S2} ya que es de tipo I. Mas concretamente, como es I1, sirve para al \ac{S2} que se identifique mandando su n (módulo) y e (exponente) para poder calcular su clave pública.
+Este tipo de trama sirve para realizar el \textit{handshake} inicial entre el \ac{S1} y el \ac{S2} ya que es de tipo I. Más concretamente, como es I1, sirve para al \ac{S2} que se identifique mandando su `$n$' (módulo) y `$e$' (exponente) para poder calcular su clave pública.
 
-Esta trama no tiene parámetros ya que la petición de inicio del \textit{handshake} es interpretada por si sola y no hacen falta datos adicionales.
+Esta trama no tiene parámetros ya que la petición de inicio del \textit{handshake} es interpretada por sí sola y no hacen falta datos adicionales.
 
-La trama I1 solo puede ser enviada desde \ac{S1} a \ac{S2}.
+La trama I1 solo se envía actualmente desde \ac{S1} a \ac{S2}.
 
 \subsubsection{I5}
-Este tipo de trama sirve para realizar el \textit{handshake} inicial entre el \ac{S1} y el \ac{S2} ya que es de tipo I. Mas concretamente, como es I5, sirve para enviar la trama firmada inicialmente por \ac{S2} de vuelta a este, sin firmar. 
+Este tipo de trama sirve para realizar el \textit{handshake} inicial entre el \ac{S1} y el \ac{S2} ya que es de tipo I. Más concretamente, como es I5, sirve para enviar la trama firmada inicialmente por \ac{S2} de vuelta a este, sin firmar y cifrada. 
 
-El parámetro que tiene esta trama es una cadena de números que representan la trama sin firmar.
+El parámetro que tiene esta trama es una cadena de números que representan la trama sin firmar y cifrada.
 
-La trama I5 solo puede ser enviada desde \ac{S1} a \ac{S2}.
+La trama I5 solo se envía actualmente desde \ac{S1} a \ac{S2}.
 
 \subsubsection{I6}
 Este tipo de trama sirve para hacer una petición al \ac{S2} de recalcular su claves con el objetivo de poder cambiar a un \ac{S1} distinto.
 
 En el estado actual de desarrollo esta trama no se utiliza ya que solo tendría sentido si todas las comunicaciones entre los dos sistemas estuviesen cifradas. En el estado actual del proyecto, no lo están.
 
-La trama I6 solo puede ser enviada desde \ac{S1} a \ac{S2}.
+La trama I6 solo se envía actualmente desde \ac{S1} a \ac{S2}.
 
 
 
