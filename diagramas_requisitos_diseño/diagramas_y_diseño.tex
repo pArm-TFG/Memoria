@@ -1,110 +1,110 @@
 
 En base a los anteriores requisitos el grupo de desarrollo ha generado diagramas para el software de \ac{S1} y \ac{S2}. A continuación se procederá a detallar cada uno de los distintos diagramas de cada uno de los sistemas . 
 
-\subsection{Diagramas software de S1}
+\section{Diagramas \textit{software} de S1}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{pictures/S1ClassDiagram.PNG}
-    \caption{Diagrama de clases de \ac{S1}}
+    \caption{Diagrama de clases de \ac{S1}.}
     \label{fig:diagrama_clases_s1}
 \end{figure}
 
-En el diagrama \ref{fig:diagrama_clases_s1} observamos el diagrama de clases completo de \ac{S1}. Debido a su envergadura procederemos a dividirlo en dos partes, a saber, la relacionada con la lógica del sistema y la relacionada con la GUI.
+En el diagrama \ref{fig:diagrama_clases_s1} se observa el diagrama de clases completo de \ac{S1}. Debido a su envergadura se procede a dividirlo en dos partes, a saber, la relacionada con la lógica del sistema y la relacionada con la GUI.
 
 Para explicar la lógica del sistema \ac{S1} se hará una división por paquetes y posteriormente se procederá a explicar cada una de las clases que componen el paquete.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{pictures/S1ClassDiagramLogic.PNG}
-    \caption{Recorte del diagrama de clases de \ac{S1} el cual representa la lógica del sistema}
+    \caption{Recorte del diagrama de clases de \ac{S1} el cual representa la lógica del sistema.}
     \label{fig:diagrama_clases_logica_s1}
 \end{figure}
 
 \begin{itemize}
-    \item Paquete Utils: este paquete contiene clases cuyos objetos son instanciados con el objetivo de realizar labores genéricas que no están relacionadas de manera directa con la lógica o que no encajan en ningún otro paquete. Dentro de este paquete encontramos las siguientes clases:
+    \item Paquete \texttt{Utils}: este paquete contiene clases cuyos objetos son instanciados con el objetivo de realizar labores genéricas que no están relacionadas de manera directa con la lógica o que no encajan en ningún otro paquete. Dentro de este paquete encontramos las siguientes clases:
     \begin{itemize}
-        \item Logger: esta clase sirve para instanciar un objeto el cual genera archivos de registro del funcionamiento. Empleando ciertos métodos de esta clase, a lo largo del código, es posible guardar datos del sistema en un archivo, el cual es persistente en el tiempo. Posteriormente se puede leer este archivo para poder hacer labores de \textit{debugging} tanto en las etapas de diseño como en la etapa de producción y despliegue.
-        \item Message: los objetos de esta clase sirven para dar una estructura general a los diferentes mensajes que se mostrarán en la GUI con el objetivo de uniformizar la forma de mostrar la información.
-        \item 3DPoint: los objetos de esta clase representan puntos en el espacio cartesiano y se emplean para poder aunar las coordenadas en un solo objeto. Con esto se consigue simplificar la comunicación de los datos dentro del sistema. Los métodos que contiene son \textit{getters} y \textit{setters} de las distintas coordenadas.
-        \item Joints: Hereda de 3DPoints y los métodos son \textit{wrappers} de los \textit{getters} y lo \textit{setter} de esta.
+        \item \texttt{Logger}: esta clase sirve para instanciar un objeto el cual genera archivos de registro del funcionamiento. Empleando ciertos métodos de esta clase, a lo largo del código, es posible guardar datos del sistema en un archivo, el cual es persistente en el tiempo. Posteriormente, se puede leer este archivo para poder hacer labores de \textit{debugging} tanto en las etapas de diseño como en la etapa de producción y despliegue.
+        \item \texttt{Message}: los objetos de esta clase sirven para dar una estructura general a los diferentes mensajes que se mostrarán en la GUI con el objetivo de mostrar la información de manera uniforme.
+        \item \texttt{3DPoint}: los objetos de esta clase representan puntos en el espacio cartesiano y se emplean para poder aunar las coordenadas en un solo objeto contenedor. Con esto se consigue simplificar la comunicación de los datos dentro del sistema. Los métodos que contiene son \textit{getters} y \textit{setters} de las distintas coordenadas.
+        \item \texttt{Joints}: hereda de 3DPoints y los métodos son \textit{wrappers} de los \textit{getters} y lo \textit{setter} de esta.
     \end{itemize}
-    \item Clase pArm: la clase pArm contiene los métodos necesarios para realizar los movimientos del brazo, inicializar las comunicaciones y posteriormente gestionarlas. Es la clase principal de la lógica del sistema.
-    \item Clase Application: esta clase inicializa la aplicación y los recursos necesarios para el funcionamiento de esta. En ella se instancian objetos de la clase pArm, logger y ui.
-    \item Paquete Communications: contiene a la clase UART. Sirve para inicializar los puertos UART y la tasa de transmisión, además, facilita los métodos para escribir en el canal de transmisión.
+    \item Clase \texttt{pArm}: contiene los métodos necesarios para realizar los movimientos del brazo, inicializar las comunicaciones y posteriormente gestionarlas. Es la clase principal de la lógica del sistema.
+    \item Clase \texttt{Application}: esta clase inicializa la aplicación y los recursos necesarios para el funcionamiento de esta. En ella se instancian objetos de las clases \texttt{pArm}, \texttt{Logger} y \texttt{ui}.
+    \item Paquete \texttt{Communications}: contiene a la clase \texttt{UART}. Sirve para inicializar los puertos UART y la tasa de transmisión. Además, facilita los métodos para escribir en el canal de transmisión.
 \end{itemize}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{pictures/S1ClassDiagramGUI.PNG}
-    \caption{Recorte del diagrama de clases de \ac{S1} el cual representa la interfaz gráfica de usuario}
+    \caption{Recorte del diagrama de clases de \ac{S1} el cual representa la interfaz gráfica de usuario.}
     \label{fig:diagrama_clases_GUI_s1}
 \end{figure}
 
 En este caso toda la GUI esta contenida dentro de un mismo paquete.
 
 \begin{itemize}
-    \item Clase Window: esta clase representa la ventana principal de la aplicación en ella se encuentran todos los elementos con el que le usuario puede interactuar.
-    \item Clase Slider: \textit{widget} de tipo \textit{Slider} que aparece dentro de la ventana principal y sirve para definir valores de las coordenadas cartesianas y angulares de manera gráfica.
-    \item Clase Input: \textit{widget} de tipo \textit{SpinBox} que parece dentro de la ventana principal y sirve para definir valores de las coordenadas cartesianas y angulares mediante valores numéricos.
-    \item Clase MouseControl: clase empleada para obtener las coordenadas del ratón.
-    \item Clase Button: \textit{widget} de tipo \textit{Button} que se emplea para desencadenar acciones en el sistema.
-    \item Clase InformationScreen: panel que contiene texto, el cual informa al operario de distintos datos relacionados con el brazo y la aplicación
-    \item Interfaz ViewItem: función de \textit{callback} para tener constancia de los cambios en los distintos \textit{widgets}.
-    \item Interfaz OnWindowChangeListener: función de \textit{callback} para tener constancia de los cambios en la ventana de la interfaz.
+    \item Clase \texttt{Window}: esta clase representa la ventana principal de la aplicación donde se encuentran todos los elementos con el que le usuario puede interactuar.
+    \item Clase \texttt{Slider}: \textit{widget} de tipo \textit{Slider} que aparece dentro de la ventana principal y sirve para definir valores de las coordenadas cartesianas y angulares de manera gráfica.
+    \item Clase \texttt{Input}: \textit{widget} de tipo \textit{SpinBox} que parece dentro de la ventana principal y sirve para definir valores de las coordenadas cartesianas y angulares de manera gráfica directamente con el valor en concreto.
+    \item Clase \texttt{MouseControl}: clase empleada para obtener las coordenadas del ratón.
+    \item Clase \texttt{Button}: \textit{widget} de tipo \textit{Button} que se emplea para desencadenar acciones en el sistema.
+    \item Clase \texttt{InformationScreen}: panel que contiene texto, el cual informa al operario de distintos datos relacionados con el brazo y la aplicación
+    \item Interfaz \texttt{ViewItem}: función de \textit{callback} para tener constancia de los cambios en los distintos \textit{widgets}.
+    \item Interfaz \texttt{OnWindowChangeListener}: función de \textit{callback} para tener constancia de los cambios en la ventana de la interfaz.
 \end{itemize}
 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{pictures/S1ErrorsDuringExecution.PNG}
-    \caption{Diagrama de estados del tratamiento de errores de \ac{S1}}
+    \caption{Diagrama de estados del tratamiento de errores de \ac{S1}.}
     \label{fig:diagrama_estados_error_s1}
 \end{figure}
 
 El diagrama \ref{fig:diagrama_estados_error_s1} representa el tratamiento de errores en el \ac{S1}.
-Se observa que dependiendo de si los errores son fatales o no, el sistema se apagará o seguirá funcionando.
+Se observa que, dependiendo de si los errores son fatales o no, el sistema se apagará o seguirá funcionando.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{pictures/S1NormalFunctionMode.PNG}
-    \caption{Diagrama de estados del funcionamiento normal de \ac{S1}}
+    \caption{Diagrama de estados del funcionamiento normal de \ac{S1}.}
     \label{fig:diagrama_estados_normal_s1}
 \end{figure}
 
-En este diagrama observamos que durante el funcionamiento normal de la aplicación se puede interactuar con esta o bien seleccionando un puerto o bien definiendo un movimiento que el brazo habrá de realizar.
-En el primer caso la aplicación vuelve al funcionamiento normal de manera directa, mientras que en el segundo caso, si el movimiento es correcto se procede al modo de movimiento, si por el contrario es un dato erróneo, se notifica del error.
+En este diagrama se observa que, durante el funcionamiento normal de la aplicación, se puede interactuar con esta o bien seleccionando un puerto o bien definiendo un movimiento que el brazo habrá de realizar.
+En el primer caso, la aplicación vuelve al funcionamiento normal de manera directa, mientras que en el segundo caso, si el movimiento es correcto se procede al modo de movimiento. Si por el contrario es un dato erróneo, se notifica del error.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{pictures/S1RobotMovementMode.PNG}
-    \caption{Diagrama que representa el movimiento del brazo robótico tanto en \ac{S1} como en \ac{S2}}
+    \caption{Diagrama que representa el movimiento del brazo robótico tanto en \ac{S1} como en \ac{S2}.}
     \label{fig:diagrama_estados_movimiento_s1}
 \end{figure}
 
-Tras recibir una orden de movimiento esta es interpretada y los valores de la posición destino son transmitidos al \ac{S2}. En este momento, los dos sistemas empiezan a funcionar de manera concurrente.
-\ac{S1} se encargará de monitorizar si se recibe una orden de cancelar movimiento por parte del usuario y esperara a que el \ac{S2} termine el movimiento.
-Por otro lado, \ac{S2} comprobara si su posición actual coincide con la posición destino y procederá a moverse en dirección a esta hasta que la alcance.
+Tras recibir una orden de movimiento esta es interpretada y los valores de la posición destino son transmitidos a \ac{S2}. En este momento, los dos sistemas empiezan a funcionar de manera concurrente.
+\ac{S1} se encargará de monitorizar si se recibe una orden de cancelar movimiento por parte del usuario y esperara a que \ac{S2} termine el movimiento.
+Por otro lado, \ac{S2} comprobará si su posición actual coincide con la posición destino y procederá a moverse en dirección a esta hasta que la alcance.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{pictures/S1SystemPowerOn.PNG}
-    \caption{Diagrama de estados del encendido de \ac{S1}}
+    \caption{Diagrama de estados del encendido de \ac{S1}.}
     \label{fig:diagrama_estados_encendido_s1}
 \end{figure}
 
-El sistema \ac{S1} inicia la aplicación y carga los recursos necesarios para que esta pueda empezar a mostrarse por pantalla. Al conectarse con el brazo, \ac{S1} comprueba que \ac{S2} este en un estado correcto y de ser asi finaliza la inicialización del sistema y permite la interacción con \ac{S2}.
+El sistema \ac{S1} inicia la aplicación y carga los recursos necesarios para que esta pueda empezar a mostrarse por pantalla. Al conectarse con el brazo, \ac{S1} comprueba que \ac{S2} esté en un estado correcto y de ser así finaliza la inicialización del sistema y permite la interacción con \ac{S2}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{pictures/S1SystemPowerOff.PNG}
-    \caption{Diagrama de estados del apagado de \ac{S1}}
+    \caption{Diagrama de estados del apagado de \ac{S1}.}
     \label{fig:diagrama_estados_apagado_s1}
 \end{figure}
 
-Para apagar el sistema, este tiene que asegurarse que el \ac{S2} no esta realizando un movimiento. En caso de que un movimiento este siendo realizado, \ac{S1} ordena a \ac{S2} que lo cancele, al asegurarse \ac{S1} que el movimiento ha parado, este se cierra.
+Para apagar el sistema, este tiene que asegurarse que \ac{S2} no está realizando un movimiento. En caso contrario, \ac{S1} ordena a \ac{S2} que lo cancele. Tras \ac{S1} asegurarse que el movimiento ha parado, se cierra.
 
-\subsection{Diagramas software de S2}
+\section{Diagramas \textit{software} de S2}
 
 En el caso de los diagramas de \ac{S2} cabe destacar que los estados de error funcionan en cascada, es decir, dado que cada uno de los diagramas de estados representa una función del código, estas podrán tener errores en su ejecución y estos errores se irán propagando en cascada hacia niveles mas altos de abstracción a lo largo de las diferentes funciones que han sido invocadas.
 
