@@ -1,35 +1,34 @@
 Desde el inicio del proyecto, los integrantes del equipo han mostrado un gran interés
 y ganas de desarrollar este proyecto. La idea inicial se planteó como un robot
-impreso en 3D que pudiera resultar accesible para cualquiera, a partir de lo estudiado
+impreso en 3D que pudiera resultar accesible para cualquiera, y surgió a raíz de lo estudiado
 y visto en la asignatura de Robótica del grado de Ingeniería de Computadores.
 
-El proyecto se planteó como un desarrollo integral de ingeniería, que implica:
+El proyecto se planteó como un desarrollo integral de ingeniería, lo cual implica, entre otros, los siguientes aspectos:
 \begin{itemize}
     \item Desarrollo de una especificación de requisitos que describieran el proyecto.
     \item Desarrollo de distintos diagramas que modelasen tanto el apartado
     \ac{SW} como \ac{HW}.
     \item Planificación temporal y de costes del proyecto.
     \item Gestión de recursos humanos (trabajo en equipo, gestión de tareas, etc.).
-    \item Construcción de piezas \ac{HW} y desarrollo del \ac{SW} que las controla.
-    \item Verificación del \ac{HW} construído y desarrollo de distintas pruebas tanto
+    \item Diseño y construcción de componentes\ac{HW}, así como desarrollo del \ac{SW} que las controla.
+    \item Verificación del \ac{HW} construido y desarrollo de distintas pruebas tanto
     para el \ac{HW} como el \ac{SW}.
     \item Documentación de los pasos seguidos así como de los resultados obtenidos
     y de los imprevistos sucedidos.
     \item Construcción y diseño 3D de las distintas piezas que componen el brazo
     robótico.
-    \item Entre otros.
 \end{itemize}
 
 Cuando se comenzaron las primeras fases del desarrollo, la estimación de tiempo
 se consideraba realista por parte de los integrantes del equipo, pero a medida
-que avanzaba el tiempo se vio que no cumplía con los plazos reales obtenidos.
+que avanzaba el tiempo, se vio que no cumplía con los plazos reales obtenidos.
 
 Por una parte, la crisis mundial del COVID--19 fue decisiva a la hora de tener que
 postergar distintas fases críticas del proyecto:
 \begin{itemize}
     \item Construcción del \ac{HW}.
     \item Impresión de las piezas que componen el \pArm{}.
-    \item Construcción del brazo robótico.
+    \item Ensamblado del brazo robótico.
     \item Pruebas del \ac{SW} desarrollado en \ac{S2}.
     \item Integración de \ac{S1} con \ac{S2}.
 \end{itemize}
@@ -44,7 +43,7 @@ ocasionaría problemas, nada más lejos de la realidad. Esto se debe principalme
 a que los integrantes del equipo no contaban con experiencia previa en este campo y
 a que se contaba con que el diseño original sería igualmente válido para una impresora
 3D (teniendo en cuenta que este se había concebido para ser fabricado en aluminio).
-Por ende, fue necesario aprender a cómo trabajar con una impresora de este estilo
+Por ende, fue necesario aprender a trabajar con una impresora de este estilo
 junto con cómo modelar y diseñar en 3D, para poder adaptar las piezas a los nuevos
 diseños y componentes.
 
@@ -61,19 +60,19 @@ previa a la hora tanto de desarrollar aplicaciones de alto nivel basadas en Pyth
 como de aplicaciones de bajo nivel para manejar microcontroladores. Aún así, los distintos
 objetivos planteados para el proyecto implicaron seguir aprendiendo en lo referente a
 técnicas de programación como a nuevas soluciones para implementar dichos objetivos,
-como el \textit{framework} de Qt para desarrollo de interfaces, una implementación
+como el \textit{framework} de Qt para desarrollo de interfaces gráficas, una implementación
 adaptada al microcontrolador del algoritmo RSA, etc.
 
 Finalmente, el fundamento matemático que define el comportamiento del \pArm{} no pudo
 ser validado hasta que múltiples componentes (como el brazo físico en sí o la
 interfaz de usuario) fueron completados. Esto es debido a que, por ejemplo,
 gracias a la interfaz gráfica se pudo comprobar cómo reaccionaba el brazo ante
-unos valores de entrada y, con el brazo construído en sí, se pudo posteriormente
+unos valores de entrada y, con el brazo construido en sí, se pudo posteriormente
 verificar con el diseño físico.
 
 Teniendo en cuenta lo anterior y lo mencionado a lo largo de este documento, cuando
 se pudo volver a la Universidad y comenzar el trabajo tanto físico como lógico
-(con las limitaciones de tiempo anteriormente mencionadas) se descubrió que las
+(con las limitaciones de tiempo anteriormente mencionadas), se descubrió que las
 estimaciones temporales, sobre todo en lo que respecta al diseño e impresión 3D,
 resultaban bastante optimistas: se tuvieron que fabricar distintas placas de
 control ya que algunas salieron defectuosas o con errores, se tuvo que investigar sobre los
@@ -104,8 +103,7 @@ De esta manera, el desarrollo del proyecto se puede dividir en:
     el diseño y adaptación de las piezas originales a las necesidades del \pArm{},
     el desarrollo del \ac{SW} que controla los distintos componentes que permiten
     el movimiento del manipulador junto con la comunicación con el exterior, 
-    el desarrollo del \ac{SW} que se ejecuta en \ac{S1} ofreciendo una interfaz 
-    para manejar el \pArm{} así como ir desarrollando y escribiendo la memoria 
+    el desarrollo del \ac{SW} que se ejecuta en \ac{S1} ofreciendo una interfaz gráfica para manejar el \pArm{}, así como ir desarrollando y escribiendo la memoria 
     del proyecto. Con diversos componentes finalizados, se pudo mejorar el
     modelo matemático hasta que este describió fielmente el comportamiento del brazo.
 \end{itemize}
@@ -122,7 +120,7 @@ Tras todo lo anterior, se saca en claro lo siguiente:
     \item La impresión 3D es todavía un campo en crecimiento y, para según qué se
     necesite, puede no contar con precisión suficiente. Para este proyecto, si bien
     ha supuesto una gran ayuda, ha sido necesario prestarle una atención elevada,
-    teniendo que dedicarle una gran parte del tiempo hasta que han salido resultados
+    teniendo que dedicarle una gran parte del tiempo hasta que se han obtenido resultados
     adecuados.
 
     \item El desarrollo de los distintos sistemas por separado permite un avance rápido
@@ -130,7 +128,7 @@ Tras todo lo anterior, se saca en claro lo siguiente:
     que no se tienen los dos funcionales individualmente no se pueden probar en conjunto.
 
     \item El proceso de fabricación de \ac{PCB} requiere de especial atención y tiempo,
-    ya que pueden aparecer fallos cuando ya se tiene montada, que implican volver a
+    ya que pueden aparecer fallos cuando ya se tiene ensamblada, que implican volver a
     fabricarla.
 \end{itemize}
 
