@@ -27,9 +27,9 @@ y la matriz final (ecuación \ref{eq:t03-final}):
 \begin{align}
     ^0T_1 & =
     \begin{bmatrix}
-        \cos{\theta_{1}} & 0 & \sin{\theta_{1}}   & d_{1} \cos{\theta_{1}} \\
-        \sin{\theta_{1}} & 0 & - \cos{\theta_{1}} & d_{1} \sin{\theta_{1}} \\
-        0                & 1 & 0                  & a_{1}                  \\
+        \cos{\theta_{1}} & 0 & \sin{\theta_{1}}   & a_{1} \cos{\theta_{1}} \\
+        \sin{\theta_{1}} & 0 & - \cos{\theta_{1}} & a_{1} \sin{\theta_{1}} \\
+        0                & 1 & 0                  & d_{1}                  \\
         0                & 0 & 0                  & 1                      \\
     \end{bmatrix}\label{eq:t01} \\[1ex]
     ^1T_2 & =
@@ -52,9 +52,9 @@ y la matriz final (ecuación \ref{eq:t03-final}):
         \sin{\theta_{1}} \cos{\theta_{2} - \theta_{3}} & \sin{\theta_{1}} \sin{\theta_{2} - \theta_{3}}                                                                    & \cos{\theta_{1}}   \\
         \sin{\theta_{2} - \theta_{3}}                  & - \cos{\theta_{2} - \theta_{3}}                                                                                   & 0                  \\
         0                                              & 0                                                                                                                 & 0                  \\
-                                                       & \qquad T_{X} + \left(a_{2} \cos{\theta_{2}} + a_{3} \cos{\theta_{2} - \theta_{3}} + d_{1}\right) \cos{\theta_{1}}                      \\
-                                                       & \qquad \left(a_{2} \cos{\theta_{2}} + a_{3} \cos{\theta_{2} - \theta_{3}} + d_{1}\right) \sin{\theta_{1}}                              \\
-                                                       & \qquad T_{Z} + a_{1} + a_{2} \sin{\theta_{2}} + a_{3} \sin{\theta_{2} - \theta_{3}}                                                    \\
+                                                       & \qquad T_{X} + \left(a_{1} + a_2 \cos{\theta_{2}} + a_{3} \cos{\theta_{2} - \theta_{3}}\right) \cos{\theta_{1}}                      \\
+                                                       & \qquad \left(a_1 + a_{2} \cos{\theta_{2}} + a_{3} \cos{\theta_{2} - \theta_{3}}\right) \sin{\theta_{1}}                              \\
+                                                       & \qquad T_{Z} + a_{2} \sin{\theta_{2}} + a_{3} \sin{\theta_{2} - \theta_{3}} + d_1                                                   \\
                                                        & \qquad 1                                                                                                                               \\
     \end{bmatrix}}\label{eq:t03-final}
 \end{align}

@@ -89,10 +89,10 @@ a articulaciones que responden a una función matemática) o de un brazo robóti
 
 La convención de parámetros de \textit{Denavit--Hartenberg} son los siguientes:
 \begin{itemize}
-    \item $d$ -- desviación a lo largo del eje $Z$ respecto a la normal común\footnote{la normal
+    \item $d$ -- distancia a lo largo del eje $Z$ respecto a la normal común\footnote{la normal
               común de dos articulaciones que no intersecan se define como la línea perpendicular a
               ambos ejes, que se usa comúnmente para conocer la separación entre ambas dos \cite{CommonNormalRobotics2017}.}
-          con el ángulo anterior.
+          con a la articulación anterior.
     \item $\theta$ -- el ángulo de rotación desde $x_i$ hasta $y_i$. Sirve para definir
           el sentido del mismo además de indicar el movimiento que realiza dicha articulación.
     \item $a$ -- la distancia respecto a la normal común entre dos articulaciones $\left(\overline{Z_{i - 1}Z_i}\right)$.
@@ -115,8 +115,8 @@ Esta relación se representa mediante una matriz, definida en la ecuación \ref{
     \displaystyle \operatorname {}
     ^{i-1}T_{i}=\left[{
                 \begin{array}{ccc|c}
-                    \cos{\theta_{i}} & -\sin{\theta_{i}}\cos{\alpha_{i}} & \sin{\theta_{i}}\sin{\alpha_{i}}  & d_{i}\cos{\theta_{i}} \\
-                    \sin{\theta_{i}} & \cos{\theta_{i}}\cos{\alpha_{i}}  & -\cos{\theta_{i}}\sin{\alpha_{i}} & d_{i}\sin{\theta_{i}} \\
+                    \cos{\theta_{i}} & -\sin{\theta_{i}}\cos{\alpha_{i}} & \sin{\theta_{i}}\sin{\alpha_{i}}  & a_{i}\cos{\theta_{i}} \\
+                    \sin{\theta_{i}} & \cos{\theta_{i}}\cos{\alpha_{i}}  & -\cos{\theta_{i}}\sin{\alpha_{i}} & a_{i}\sin{\theta_{i}} \\
                     0                & \sin{\alpha_{i}}                  & \cos{\alpha_{i}}                  & d_{i}                 \\
                     \hline
                     0                & 0                                 & 0                                 & 1
@@ -154,7 +154,7 @@ de \textit{Denavit--Hartenberg} como los mostrados en la tabla \ref{tab:dh-param
     \begin{tabular}{ c | c c c c }
         $i$ & $\theta_i$ & $d_i~(mm.)$ & $a_i~(mm.)$ & $\alpha_i$          \\ [0.5ex]
         \hline
-        $1$ & $\theta_1$ & $a_1$       & $d_1$       & $\nicefrac{\pi}{2}$ \\
+        $1$ & $\theta_1$ & $d_1$       & $a_1$       & $\nicefrac{\pi}{2}$ \\
         $2$ & $\theta_2$ & $0$         & $a_2$       & $\pi$               \\
         $3$ & $\theta_3$ & $0$         & $a_3$       & $0$                 \\
         $4$ & $\theta_4$ & $0$         & $a_4$       & $0$                 \\ [1ex]
@@ -163,13 +163,7 @@ de \textit{Denavit--Hartenberg} como los mostrados en la tabla \ref{tab:dh-param
     \label{tab:dh-params-with-phi}
 \end{table}
 
-En un estudio realizado previamente \cite{javieralonsosilvaEstudioManipuladorUArm2019},
-se descubrió (en relación con las tablas \ref{tab:uArm-ld-values} y \ref{tab:dh-params}
-y con el primer punto de la convención de los parámetros de \textit{Denavit--Hartenberg})
-que la desviación `$d_1$' de la primera articulación estaba invertida con la distancia de la normal común
-`$a_1$' ya que, como se puede ver en dicho primer punto, la desviación es sobre el eje $Z$.
-Por ello, en la tabla \ref{tab:uArm-ld-values} los valores de `$a_1$' y `$d_1$' están
-intercambiados. Además, también se vio que este tipo de estructuras pantográficas
+Además, también se vio que este tipo de estructuras pantográficas
 tienen su \textit{end--effector} siempre paralelo al plano del suelo (equivalente
 a que el ángulo con el plano $X$ es $\phi_e = \pi$), por lo que el cuarto elemento de
 los parámetros de \textit{Denavit--Hartenberg} para un manipulador basado en el $\mu$Arm
@@ -181,7 +175,7 @@ quedando como se muestra en la tabla \ref{tab:dh-params}:
     \begin{tabular}{ c | c c c c }
         $i$ & $\theta_i$ & $d_i~(mm.)$ & $a_i~(mm.)$ & $\alpha_i$          \\ [0.5ex]
         \hline
-        $1$ & $\theta_1$ & $a_1$       & $d_1$       & $\nicefrac{\pi}{2}$ \\
+        $1$ & $\theta_1$ & $d_1$       & $a_1$       & $\nicefrac{\pi}{2}$ \\
         $2$ & $\theta_2$ & $0$         & $a_2$       & $\pi$               \\
         $3$ & $\theta_3$ & $0$         & $a_3$       & $0$                 \\ [1ex]
     \end{tabular}
