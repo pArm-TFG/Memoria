@@ -88,14 +88,15 @@ a articulaciones que responden a una función matemática) o de un brazo robóti
 
 La convención de parámetros de \textit{Denavit--Hartenberg} son los siguientes:
 \begin{itemize}
-    \item $d$ -- distancia a lo largo del eje $Z$ respecto a la normal común\footnote{la normal
+    \item $d_i$ -- distancia desde el origen de coordenadas de $Z_{i - 1}$ a la normal común\footnote{la normal
               común de dos articulaciones que no intersecan se define como la línea perpendicular a
-              ambos ejes, que se usa comúnmente para conocer la separación entre ambas dos \cite{CommonNormalRobotics2017}.}
-          con a la articulación anterior.
-    \item $\theta$ -- el ángulo de rotación desde $x_i$ hasta $y_i$. Sirve para definir
-          el sentido del mismo además de indicar el movimiento que realiza dicha articulación.
-    \item $a$ -- la distancia respecto a la normal común entre dos articulaciones $\left(\overline{Z_{i - 1}Z_i}\right)$.
-    \item $\alpha$ -- el ángulo sobre la normal común, en este caso, desde $Z_{i - 1}$ hacia $Z_i$ $\left(\widehat{Z_aZ_b}\right)$.
+              ambos ejes, que se usa para conocer la distancia entre ambos \cite{CommonNormalRobotics2017}.}
+          con $Z_i$.
+    \item $\theta_i$ -- el ángulo de rotación que forman el eje $X_{i - 1}$ y el eje $X_i$,
+                    tomando como eje de rotación $Z_{i - 1}$. El sentido del ángulo viene definido además
+                    por $x_i$ hasta $y_i$.
+    \item $a_i$ -- la distancia de los ejes $Z_i$ y $Z_{i - 1}$, medida sobre su normal común $\left(\overline{Z_iZ_{i-1}}\right)$.
+    \item $\alpha_i$ -- el ángulo, tomando como eje de rotación la normal común, desde $Z_{i - 1}$ hacia $Z_i$ $\left(\widehat{Z_aZ_b}\right)$.
 \end{itemize}
 
 Esta convención es especialmente interesante porque permite definir de forma precisa

@@ -1,3 +1,7 @@
+Previo a comenzar este apartado, se quiere destacar que dicho apartado ha sido
+introducido con la única intención de plantear un análisis estrictamente cinemático
+(no dinámico) del movimiento del robot.
+
 Las matrices Jacobianas son una herramienta que permite definir la relación
 dinámica entre dos representaciones diferentes de un sistema. Para un manipulador
 de $n$ grados de libertad (con $n > 1$) se puede definir la posición del mismo de dos
@@ -57,45 +61,9 @@ por unidad de tiempo\cite{PotenciaFisica2020}, definido por la ecuación \ref{eq
     P & = \frac{W}{\varDelta t} \label{eq:power}
 \end{align}
 
-Por el teorema de la conservación de la energía el trabajo se realiza a la misma
-velocidad indiferentemente de la caracterización del sistema, por lo que las ecuaciones
-anteriores se pueden escribir tanto en términos del \textit{end--effector}
-como en términos de las articulaciones (ecuación \ref{eq:p_eq}):
-
-\begin{equation}\label{eq:p_eq}
-    P = \left\{\begin{aligned}
-        F^T_x & \cdot \dot{x} \\
-        F^T_q & \cdot \dot{q}
-    \end{aligned}\right.
-\end{equation}
-
-donde se tiene que:
-
-\begin{equation*}
-    \left\{\begin{aligned}
-        F_x     & \equiv \text{fuerza aplicada al brazo}                \\
-        F_q     & \equiv \text{fuerza aplicada a las articulaciones}    \\
-        \dot{x} & \equiv \text{velocidad del \textit{end--effector}}    \\
-        \dot{q} & \equiv \text{velocidad angular de las articulaciones}
-    \end{aligned}\right.
-\end{equation*}
-
-Igualando las ecuaciones anteriores, obtenemos:
-
-\begin{align*}
-    F^T_{q_{hand}} \cdot{} \dot{q} & = F^T_x \dot{x}                                    \\
-    F^T_{q_{hand}} \cdot{} \dot{q} & = F^T_x \cdot{} J_{ee}\left(q\right) \cdot \dot{q} \\
-    F^T_{q_{hand}}                 & = J^T_{ee}\left(q\right) \cdot F_x
-\end{align*}
-
-donde $J_{ee}\left(q\right)$ es la matriz Jacobiana para el \textit{end--effector}
-del robot y $F_{q_{hand}}$ representa las fuerzas en el espacio de articulaciones
-que afecta al movimiento del brazo.
-
-De esta manera, se puede utilizar la matriz Jacobiana no solamente para relacionar
-la velocidad de un espacio de estados con otro sino que además se puede utilizar
-para calcular las fuerzas que se necesiten en el espacio de articulaciones para conseguir
-las fuerzas deseadas en el espacio del \textit{end--effector}.
+Atendiendo a lo comentado anteriormente, se puede afirmar que es equivalente
+representar el movimiento del brazo articulado en base al movimiento de sus
+articulaciones a representarlo en base a la velocidad del \textit{end--effector}.
 
 \subsection*{Construyendo la matriz Jacobiana}
 Como se mostró anteriormente, la velocidad del \textit{end--effector} se puede
@@ -149,13 +117,14 @@ De esta manera, la matriz Jacobiana `$J$' se puede definir como
         J_v\left(\dot{q}\right) \\[1ex]
         J_{\omega}\left(\dot{q}\right)
     \end{bmatrix} = \\[2ex]
-    {\footnotesize\begin{bmatrix}
-        - \left(a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}} + d_{1}\right) \sin{\theta_{0}} & \left(- a_{2} \sin{\theta_{1}} - a_{3} \sin{\theta_{1} - \theta_{2}}\right) \cos{\theta_{0}} & a_{3} \sin{\theta_{1} - \theta_{2}} \cos{\theta_{0}} \\
-        \left(a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}} + d_{1}\right) \cos{\theta_{0}}   & \left(- a_{2} \sin{\theta_{1}} - a_{3} \sin{\theta_{1} - \theta_{2}}\right) \sin{\theta_{0}} & a_{3} \sin{\theta_{0}} \sin{\theta_{1} - \theta_{2}} \\
-        0                                                                                                    & a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}}                                 & - a_{3} \cos{\theta_{1} - \theta_{2}}                \\[1ex]
-        0                                                                                                    & 1                                                                                            & -1                                                   \\
-        0                                                                                                    & 0                                                                                            & 0                                                    \\
-        1                                                                                                    & 0                                                                                            & 0                                                    \\
+    {\footnotesize
+    \begin{bmatrix}
+     - \left(a_{1} + a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}}\right) \sin{\theta_{0}} &  \left(- a_{2} \sin{\theta_{1}} - a_{3} \sin{\theta_{1} - \theta_{2}}\right) \cos{\theta_{0}} &  a_{3} \sin{\theta_{1} - \theta_{2}} \cos{\theta_{0}} \\
+     \left(a_{1} + a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}}\right) \cos{\theta_{0}} &  \left(- a_{2} \sin{\theta_{1}} - a_{3} \sin{\theta_{1} - \theta_{2}}\right) \sin{\theta_{0}} &  a_{3} \sin{\theta_{0}} \sin{\theta_{1} - \theta_{2}} \\
+     0 &  a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}} &  - a_{3} \cos{\theta_{1} - \theta_{2}} \\[2ex]
+     0 &  1 &  -1 \\
+     0 &  0 &  0 \\
+     1 &  0 &  0 \\
     \end{bmatrix}} \nonumber
 \end{gather}
 
@@ -171,7 +140,7 @@ Para la matriz Jacobiana anterior (ecuación \ref{eq:j}), se obtiene el siguient
 determinante (ecuación \ref{eq:j_det}):
 
 \begin{equation}\label{eq:j_det}
-    \left|J_{ee}\left(\dot{q}\right)\right| = - a_{2} a_{3} \left(a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}} + d_{1}\right) \sin{\theta_{2}}
+    \left|J_{ee}\left(\dot{q}\right)\right| = - a_{2} a_{3} \left(a_{1} + a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}}\right) \sin{\theta_{2}}
 \end{equation}
 
 Analíticamente se puede observar que los puntos críticos del \pArm{} se dan para
@@ -190,7 +159,7 @@ Entre los dos segmentos superiores del brazo robótico se situará un fin de car
 efectos de evitar dicha tensión además de regular y calibrar los motores.
 
 Al igual que en el caso de la cinemática directa, se puede obtener una matriz Jacobiana
-inversa que permite, dada una fuerza en un otro espacio $\dot{x}$, obtener qué par han
+inversa que permite, dada la velocidad lineal del \textit{end--effector} $\dot{x}$, obtener qué par han
 de generar las articulaciones $\dot{q}$ para obtener dicha fuerza. La Jacobiana inversa
 depende directamente de que el determinante sea distinto de cero ya que, en otro caso,
 implicará que la matriz es una matriz singular y que por consiguiente no es invertible
@@ -222,13 +191,13 @@ $\theta_2$ para existir. El valor que se obtiene de la inversa es el siguiente (
 \begin{gather}\label{eq:pinv}
     J^{-1} = J^+ = \\
     {\footnotesize\begin{bmatrix}
-        - \frac{\sin{\theta_{0}}}{a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}} + d_{1}}                                   & \frac{\cos{\theta_{0}}}{a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}} + d_{1}}                                     & 0                                                                                                   \\[3ex]
+        - \frac{\sin{\theta_{0}}}{a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}} + a_{1}}                                   & \frac{\cos{\theta_{0}}}{a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}} + a_{1}}                                     & 0                                                                                                   \\[3ex]
         - \frac{\cos{\theta_{0}} \cos{\theta_{1} - \theta_{2}}}{a_{2} \sin{\theta_{2}}}                                                   & - \frac{\sin{\theta_{0}} \cos{\theta_{1} - \theta_{2}}}{a_{2} \sin{\theta_{2}}}                                                   & - \frac{\sin{\theta_{1} - \theta_{2}}}{a_{2} \sin{\theta_{2}}}                                      \\[3ex]
         - \frac{\left(a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}}\right) \cos{\theta_{0}}}{a_{2} a_{3} \sin{\theta_{2}}} & - \frac{\left(a_{2} \cos{\theta_{1}} + a_{3} \cos{\theta_{1} - \theta_{2}}\right) \sin{\theta_{0}}}{a_{2} a_{3} \sin{\theta_{2}}} & - \frac{a_{2} \sin{\theta_{1}} + a_{3} \sin{\theta_{1} - \theta_{2}}}{a_{2} a_{3} \sin{\theta_{2}}} \\[2ex]
     \end{bmatrix}} \nonumber
 \end{gather}
 
-No ha sido necesario emplear la matriz pseudo-inversa en este proyecto, pero se muestra en el anexo \ref{anex:pinv} por si en un futuro interesa recurrir a ella.
-Esta matriz ha sido calculada empleando un
-\textit{Jupyter Notebook} que se encuentra en el anexo
-\ref{anex:jupyter_binder}.
+No ha sido necesario emplear la matriz pseudo-inversa en este proyecto, pero se muestra
+en el anexo \ref{anex:pinv} por si en un futuro interesa recurrir a ella.
+Esta matriz ha sido calculada empleando un \textit{Jupyter Notebook} que se encuentra
+en el anexo \ref{anex:jupyter_binder}.

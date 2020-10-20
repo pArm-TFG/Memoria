@@ -175,11 +175,10 @@ se muestra en la ecuación \ref{eq:t0}:
 
 \begin{equation}\label{eq:t0}
     \theta_0 = \left\{\begin{aligned}
-        \pi - \arctan{\frac{x}{y}} & ,~y > 0 \\
-        - \arctan{\frac{x}{y}}     & ,~y < 0 \\
-        \frac{\pi}{2}              & ,~y = 0
-    \end{aligned}
-    \right.
+        \arctan{\frac{y}{x}} & ,~x \neq 0        \\
+        \frac{\pi}{2}        & ,~x = 0,~y \geq 0 \\
+        -\frac{\pi}{2}       & ,~x = 0,~y < 0
+    \end{aligned}\right.
 \end{equation}
 
 La obtención de los dos ángulos restantes $\left\{\theta_1, \theta_2\right\}$ es más
@@ -247,33 +246,32 @@ el ángulo `$\gamma$' aplicando una forma particular del teorema del coseno
 Del triángulo mostrado en la figura \ref{fig:ik_over_arm} se conocen siempre las longitudes
 `$a$' y `$c$'. La distancia `$b$' sin embargo también se puede obtener. Para la cinemática
 inversa se tiene el punto $\left(x, y, z\right)$ que referencia la posición final del
-\textit{end--effector}. En la figura \ref{fig:ik_over_arm}, el triángulo que se muestra
-está situado sobre el plano $XYZ$ (ya que la rotación de la base es en el plano $XY$
-y afecta a la posición final), por lo que de los puntos anteriores
-se sabe que el \textit{end--effector} se sitúa en: $P_{ee} = \left(x', y, z'\right)$, 
-por lo que se puede definir un vector desde la base $\overrightarrow{x'yz'}$ que 
-represente el lado `$b$'. Como se puede apreciar, no se usan los puntos $\left(x, z\right)$ 
+\textit{end--effector}. En la figura \ref{fig:ik_over_arm}, el lado `$b$' se encuentra
+siempre situado sobre el plano definido por los lados `$a$' y `$c$', por lo que de los puntos anteriores
+se sabe que el \textit{end--effector} se sitúa en: $P_{ee} = \left(x', y, z'\right)$,
+por lo que se puede definir un vector desde la base $\overrightarrow{x'yz'}$ que
+represente el lado `$b$'. Como se puede apreciar, no se usan los puntos $\left(x, z\right)$
 originales sino que previamente es necesario modificarlos:
 \begin{itemize}
     \item Para la coordenada `$x$' se ha de reducir la longitud del \textit{end--effector}
-    $\left(\overline{A_{EF_L}}\right)$ junto con la desviación de la base $\left(\overline{A_{B_D}}\right)$
-    (ecuación \ref{eq:x_prime}):
-    \begin{equation}\label{eq:x_prime}
-        x' = x - \overline{A_{EF_L}} - \overline{A_{B_D}} = x - 44.5 - 13.2 = x - 57.7
-    \end{equation}
-    
+          $\left(\overline{A_{EF_L}}\right)$ junto con la desviación de la base $\left(\overline{A_{B_D}}\right)$
+          (ecuación \ref{eq:x_prime}):
+          \begin{equation}\label{eq:x_prime}
+              x' = x - \overline{A_{EF_L}} - \overline{A_{B_D}} = x - 44.5 - 13.2 = x - 57.7
+          \end{equation}
+
     \item Para la coordenada `$z$' es necesario quitar la altura de la base $\left(A_{B_h}\right)$
-    además de añadir la altura del \textit{end--effector} $h_o$ para dejar un punto 
-    relativo al $\left(0\right)$. Así, el punto $z'$ se puede definir
-    como (ecuación \ref{eq:z_prime}):
-    \begin{equation}\label{eq:z_prime}
-        z' = z - A_{B_h} + h_o = z - 106.1 + 16.01 = z - 90.09
-    \end{equation}
+          además de añadir la altura del \textit{end--effector} $h_o$ para dejar un punto
+          relativo al $\left(0\right)$. Así, el punto $z'$ se puede definir
+          como (ecuación \ref{eq:z_prime}):
+          \begin{equation}\label{eq:z_prime}
+              z' = z - A_{B_h} + h_o = z - 106.1 + 16.01 = z - 90.09
+          \end{equation}
 \end{itemize}
 
 Como el movimiento del brazo se realiza sobre un plano tridimensional, la posición y
 longitud desde la base hasta $P_{ee}$ requiere tener en cuenta las tres coordenadas
-$\left(x, y, z\right)$. Por ejemplo, la posición $y = \numprint[mm]{200}$ solo es 
+$\left(x, y, z\right)$. Por ejemplo, la posición $y = \numprint[mm]{200}$ solo es
 alcanzable si el brazo está estirado al completo, pero en ese punto $x = 0$, al igual
 que la posición $x = \numprint[mm]{200}$ solo es alcanzable si $y = 0$ (esto se muestra
 en la figura \ref{fig:arm_limits}).
@@ -315,14 +313,14 @@ Para el \pArm{}, en esta primera versión del desarrollo, se establece $h_o = \n
 Con las modificaciones en los lados ya listas, se puede definir un triángulo que cumple que:
 \begin{itemize}
     \item Tiene dos lados fijos, `$a$' y `$c$', donde:
-    \begin{equation*}
-        \left\{\begin{aligned}
-            a &= \overline{A_L} = \numprint[mm]{142.07} \\
-            c &= \overline{A_U} = \numprint[mm]{158.8}
-        \end{aligned}\right.
-    \end{equation*}
+          \begin{equation*}
+              \left\{\begin{aligned}
+                  a & = \overline{A_L} = \numprint[mm]{142.07} \\
+                  c & = \overline{A_U} = \numprint[mm]{158.8}
+              \end{aligned}\right.
+          \end{equation*}
     \item Tiene un lado variable `$b$' definido por el vector $\overrightarrow{x'z'}$
-    y cuya longitud es: $b = \left|\overrightarrow{x'yz'}\right| = \sqrt{x'^2 + y^2 + z'^2}$.
+          y cuya longitud es: $b = \left|\overrightarrow{x'yz'}\right| = \sqrt{x'^2 + y^2 + z'^2}$.
 \end{itemize}
 Así, el triángulo resultante se define según las siguientes dimensiones y ángulos (figura
 \ref{fig:ik_triangle}):
@@ -350,9 +348,9 @@ los valores de $\theta_1'$ (ver ecuación \ref{eq:t1}) y $\theta_2$ (ver ecuaci�
 
 \begin{align}
     \theta_1' & = \arccos{\left(\frac{-\overline{A_L}^2 - \left(x'^2 + y^2 + z'^2\right) + \overline{A_U}^2} %
-    {-2 \overline{A_L} \sqrt{x'^2 + y^2 + z'^2}}\right)} \label{eq:t1} \\[2ex]
-    \theta_2 & = \arccos{\left(\frac{-\overline{A_L}^2 - \overline{A_U}^2 + x'^2 + y^2 + z'^2} %
-    {-2 \overline{A_L} \cdot \overline{A_U}}\right)} \label{eq:t2}
+    {-2 \overline{A_L} \sqrt{x'^2 + y^2 + z'^2}}\right)} \label{eq:t1}                                       \\[2ex]
+    \theta_2  & = \arccos{\left(\frac{-\overline{A_L}^2 - \overline{A_U}^2 + x'^2 + y^2 + z'^2}              %
+        {-2 \overline{A_L} \cdot \overline{A_U}}\right)} \label{eq:t2}
 \end{align}
 
 Como se puede apreciar en las ecuaciones anteriores, todavía no se tienen los valores finales
