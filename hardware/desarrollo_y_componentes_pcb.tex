@@ -26,7 +26,7 @@ En primer lugar, los componentes de alimentación eléctrica son aquellos que fo
 En segundo lugar, el microcontrolador y sus componentes auxiliares representan el núcleo de la \ac{PCB}:
 \begin{itemize}
     \item El dsPIC se encuentra localizado en el centro de la \ac{PCB} y de él surgen todas las conexiones necesarias hacia los periféricos.
-    \item Los componentes auxiliares del microcontrolador son componentes eléctricos que aseguran el correcto funcionamiento del dsPIC. En el caso específico de este microcontrolador, es necesario incluir varios condensadores en sus pines de alimentación.
+    \item Los componentes auxiliares del microcontrolador son componentes eléctricos que aseguran el correcto funcionamiento del dsPIC. En el caso específico de este microcontrolador, es recomendable incluir varios condensadores en sus pines de alimentación.
 \end{itemize}
 
 En último lugar, se han utilizado los siguientes periféricos:
@@ -36,9 +36,9 @@ En último lugar, se han utilizado los siguientes periféricos:
     
     \item Puerto de programación, donde se puede conectar la sonda de programación del microcontrolador y por lo tanto es un elemento con especial importancia y relevancia dentro del sistema.
     
-    \item Puerto TRIS para recibir señales digitales y analógicas, las cuales son procesadas por el microcontrolador. En este proyecto, estos puertos se utilizan para monitorizar los finales de carrera de la estructura del brazo robótico.
+    \item Puerto entrada salida: para recibir señales digitales y analógicas, las cuales son procesadas por el microcontrolador. En este proyecto, estos puertos se utilizan para monitorizar los finales de carrera de la estructura del brazo robótico.
     
-    \item Puerto PWM: capaz de generar señales PWM, es decir, señales digitales cuadradas y con un ancho de pulso variable, las cuales son necesarias para controlar los servomotores.
+    \item Puerto PWM: capaz de generar señales PWM, es decir, señales digitales con un ancho de pulso variable, las cuales son necesarias para controlar los servomotores.
     
     \item UART, donde se establece un canal de comunicación \textit{hardware} con S1, el cual se usa para recibir órdenes, movimientos y realimentar su resultado de vuelta a S1.
     
@@ -141,7 +141,7 @@ El funcionamiento de los reguladores L7805CV y AZ1117H es sencillo de comprender
     
 \end{itemize}
 
-Teniendo en cuenta la información expuesta anteriormente, se ha decidido conectar en serie ambos reguladores, consiguiendo de esta forma una regulación de $9V$ a $5V$ y posteriormente una regulación de $5V$ a $3.3V$. El diagrama esquemático final es el siguiente (ver imagen \ref{fig:Esquematico_Alimentación}):
+Teniendo en cuenta la información expuesta anteriormente, se ha decidido conectar en serie ambos reguladores, consiguiendo de esta forma una regulación de $9V$ a $5V$ y posteriormente una regulación de $5V$ a $3.3V$. El diagrama esquemático final es el siguiente\footnote{No se realiza un análisis más detallado de "bypass" y desacoplo, porque no se presuponen escenarios comprometedores ni en la alimentación del sistema ni en las cargas del mismo}\textsuperscript{,}\footnote{Todos los reguladores trabajan lejos de sus márgenes de potencia máxima por lo que no es necesario instalar disipadores térmicos para evacuar calor} (ver imagen \ref{fig:Esquematico_Alimentación}):
 
     \begin{figure}[H]
     \centering 
@@ -154,7 +154,7 @@ Es importante destacar tres aspectos:
 \begin{itemize}
     \item La primera etapa de alimentación incluye clemas para su conexionado con los servomotores.
     \item La segunda etapa de alimentación incluye un puerto de cuatro pines, los cuales se usan para alimentar los micro-interruptores y el microcontrolador.
-    \item El conexionado de todos los reguladores se ha realizado en paralelo, dedicando un regulador para cada servomotor así como para el microcontrolador. El objetivo de esta configuración es garantizar una vía de alimentación independiente para cada componente, reduciendo las interferencias de alimentación entre los reguladores y diferenciando la etapa de alimentación de los servomotores y microcontrolador.
+    \item El conexionado de todos los reguladores se ha realizado en paralelo, dedicando un regulador para cada servomotor así como para el microcontrolador. El objetivo de esta configuración es garantizar una vía de alimentación relativamente independientes para cada componente, reduciendo las interferencias de alimentación entre los reguladores y diferenciando la etapa de alimentación de los servomotores y microcontrolador.
 \end{itemize}
 
 En segundo lugar se procede a describir detalladamente el diagrama esquemático del microcontrolador y sus periféricos. A continuación se muestra el diagrama esquemático final y posteriormente se detallará cada uno de los periféricos:
@@ -166,7 +166,7 @@ En segundo lugar se procede a describir detalladamente el diagrama esquemático 
     \label{fig:Esquematico_Final}
 \end{figure}
 
-Primeramente, es importante describir los condensadores auxiliares necesarios para el correcto funcionamiento del microcontrolador, los cuales se encuentran conectados en los pines de alimentación del mismo. Su conexionado es sugerido por el fabricante en el \textit{datasheet} según el siguiente esquema (ver imagen \ref{fig:Conexionado_Minimo}):
+Primeramente, es importante describir los condensadores auxiliares recomendables para el correcto funcionamiento del microcontrolador, los cuales se encuentran conectados en los pines de alimentación del mismo. Su conexionado es sugerido por el fabricante en el \textit{datasheet} según el siguiente esquema (ver imagen \ref{fig:Conexionado_Minimo}):
 
 \begin{figure}[H]
     \centering 
@@ -220,7 +220,7 @@ A continuación, se describe el conexionado del resto de puertos y periféricos:
     \label{fig:Sonda_Esquematico}
     \end{figure}
     
-    \item Puerto TRIS, usado para detectar si el brazo robótico se encuentra en uno de sus finales de carrera o zonas límite de movimiento. Mediante dicha señal y dado que estos micro-interruptores se encuentran conectados a los pines 19, 20, 21 y 22 del microcontrolador, se puede realizar la lectura de los mismos y detectar el estado de micro-interruptor. De esta manera, se consigue saber cuándo el manipulador ha alcanzado o no un final de carrera.
+    \item Puerto PORT, usado para detectar si el brazo robótico se encuentra en uno de sus finales de carrera o zonas límite de movimiento. Mediante dicha señal y dado que estos micro-interruptores se encuentran conectados a los pines 19, 20, 21 y 22 del microcontrolador, se puede realizar la lectura de los mismos y detectar el estado de micro-interruptor. De esta manera, se consigue saber cuándo el manipulador ha alcanzado o no un final de carrera.
     
     A continuación se muestra un esquema de lo mencionado anteriormente:
     
@@ -397,7 +397,7 @@ La huella asignada al componente lógico es la siguiente (ver imagen \ref{fig:Hu
 \label{fig:Huella_Pic}
 \end{figure}
 
-Cabe destacar que muchas de las huellas pueden ser usadas para distintos componentes de distintos fabricantes, ya que los encapsulados suelen ser similares. Sin embargo, para evitar errores, siempre se deben realizar comprobaciones con respecto a las dimensiones, número de pines, etc.
+Cabe destacar que muchas de las huellas pueden ser usadas para distintos componentes de distintos fabricantes, ya que los encapsulados están estandarizados. Sin embargo, para evitar errores, siempre se deben realizar comprobaciones con respecto a las dimensiones, número de pines, etc.
 
 Una vez se ha realizado el primer paso, se debe generar un listado de redes de los componentes lógicos usados, sus huellas físicas asignadas y las conexiones existentes entre todos ellos. Este listado de redes se genera usando la herramienta ``Generar listado de redes'' disponible en la barra de herramientas de la parte superior de la ventana:
 
@@ -469,7 +469,7 @@ Durante el proceso de enrutado de las pistas de una \ac{PCB} es habitual combina
 
 Para este proyecto se ha decidido realizar un proceso de enrutado íntegramente manual, debido a que, a pesar de haber intentado utilizar la herramienta ``FreeRouting'' de enrutado automático, no se ha obtenido un resultado apropiado y era bastante complejo.
 
-El proceso de enrutado se ha realizado utilizando ambas capas de la \ac{PCB}, esto quiere decir que se han trazado pistas en la capa de soldadura y en la capa de componentes. Esta decisión se ha tomado principalmente debido a que en esta \ac{PCB} se usan componentes de tipo ``\ac{THT}'' y ``\ac{SMD}'', por lo tanto es completamente necesario incluir pistas en la capa de componentes y capa de soldadura.
+El proceso de enrutado se ha realizado utilizando ambas capas de la \ac{PCB}, esto quiere decir que se han trazado pistas en la capa de soldadura y en la capa de componentes.
 
 En relación con lo anterior, las dos capas mencionadas anteriormente cumplen una función específica:
 \begin{itemize}
@@ -482,7 +482,7 @@ En relación con lo anterior, las dos capas mencionadas anteriormente cumplen un
 
 Otro de los aspectos claves a la hora de enrutar una \ac{PCB} es escoger un ancho de pista adecuado. Algunos de los factores que afectan a esta decisión son los siguientes:
 \begin{itemize}
-    \item Intensidad de corriente y voltaje que conducirá la pista. Distinción entre pistas de alimentación y de comunicación de señales digitales.
+    \item Intensidad de corriente que conducirá la pista. Distinción entre pistas de alimentación y de comunicación de señales digitales.
     \item Requerimientos de tamaño de la \ac{PCB}, ya sea por número de pistas, espacio disponible, tamaño de los pines de conexión de componentes, etc.
     \item Limitaciones físicas y de precisión del proceso de fabricación de la \ac{PCB}.
     \item Otros factores como la resistividad del material de la pista, el aumento de temperatura máximo tolerado por la misma o su longitud aproximada, son factores determinantes para el ancho de la pista.
@@ -497,7 +497,7 @@ KiCad incluye una herramienta denominada ``\ac{PCB} Calculator'' la cual permite
 \label{fig:Pcb_Calculator}
 \end{figure}
 
-Mediante la herramienta anterior (imagen \ref{fig:Pcb_Calculator}) se puede realizar el cálculo para los dos tipos de pistas usadas en esta \ac{PCB}: pistas de alimentación y pistas de comunicación. Para el cálculo de ambos tipos, se asume un aumento de temperatura máximo de 10 ºC, una longitud del conductor de $20cm$ y un valor de resistividad de $1.72 \cdot 10^{-8}\rho$.
+Mediante la herramienta anterior (imagen \ref{fig:Pcb_Calculator}) se puede realizar el cálculo para los dos tipos de pistas usadas en esta \ac{PCB}: pistas de alimentación y pistas de comunicación. Para el cálculo de ambos tipos, se asume un aumento de temperatura máximo de 10 ºC, una longitud del conductor de $20cm$ y un valor de resistividad de $1.72 \cdot 10^{-8}\ohm/metro$.
 
 En primer lugar, se considera que las pistas de alimentación de la \ac{PCB} conducen $2A$ de intensidad y un voltaje de $9V$ máximo. Teniendo en cuenta dichos datos, el ancho de pista obtenido es el siguiente (imagen \ref{fig:Ancho_Alimentacion}):
 
