@@ -14,7 +14,7 @@ Los motivos por los cuales se ha usado este modelo son los siguientes:
 %% REVISAR ALEX
 Una parte crítica del proyecto es la precisión y el control de los motores. En este aspecto, los canales \ac{PWM} del \ac{DSP} permiten generar ciclos de trabajo a partir de un registro de 16 bits. Para una frecuencia de $50Hz$ (período de $20ms$), un giro de 360\degree{} supondría una duración del nivel alto del \ac{PWM} de $5ms$. Es decir, se podrá controlar la rotación entre 0\degree{} y 360\degree{} con $\sfrac{2^{16}}{4} = 16384\,bits$ de control. Esto supone que obtendremos una precisión máxima de $\sfrac{360}{16384} = 0'02197\degree{}$, lo cual es suficiente para el proyecto.
 
-Cabe destacar, que si bien los motor son capaces de girar 360\degree{} hexadecimales, debido a las limitaciones geométricas del brazo, los ángulos de giro se ven limitados en la aplicación concreta que se les dará.
+Cabe destacar, que si bien los motor son capaces de girar 360\degree{} sexagesimales, debido a las limitaciones geométricas del brazo, los ángulos de giro se ven limitados en la aplicación concreta que se les dará.
 
 En cuanto a las operaciones matemáticas, el \ac{DSP} cuenta con un circuito \ac{PLL}, el cual permite incrementar la frecuencia del oscilador para conseguir de esta manera una mayor cantidad de instrucciones por segundo y, por tanto, un mayor volumen de operaciones.
 
