@@ -1,4 +1,23 @@
 /*
+ * Copyright (C) 2020 - present | pArm-S2 by Javinator9889
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see https://www.gnu.org/licenses/.
+ *
+ * Created by Javinator9889 on 2020 - pArm-S1.
+ */
+
+/*
  * File:   main.c
  * Author: javinator9889
  *
@@ -44,18 +63,46 @@ rsa_t *RSA_key = NULL;
  */
 volatile order_t *order = NULL;
 
+/**
+ * Custom handler defined to know when all the motors have finished their
+ * movement.
+ */
 static double64_t motor_movement_finished_time = LDBL_MAX;
+
+/**
+ * Custom handler to know when all the motors started moving.
+ */
 static time_t movement_start_time = UINT64_MAX;
+
+/**
+ * Global defined barrier using accross the entire program.
+ */
 volatile barrier_t *barrier;
+
+/**
+ * Own flag defined to know if there is any movement.
+ */
 static volatile bool is_moving = false;
+
 #ifdef LIMIT_SWITCH_ENABLED
+/**
+ * Limit switch map used accross the entire application.
+ */
 volatile uint_fast8_t limit_switch_map[4] = {0};
 #endif
+
 #ifdef CLI_MODE
+/**
+ * Custom flag (used only in CLI_MODE) to show the cursor when a command ends.
+ */
 static bool show_cursor = true;
 #else
+
+/**
+ * Last beat time - used to check if S1 is still alive.
+ */
 static time_t last_beat = 0ULL;
-static time_t turn_led_off_time = UINT64_MAX;
+
 /**
  * Application's random message used for authoring the remote
  * device. When the host changes this message is destroyed.
@@ -70,14 +117,48 @@ static int_fast64_t rnd_message;
 volatile bool trusted_device = false;
 #endif
 
+/**
+ * Does the device setup. Setups motors, UART and other configuration needed
+ * to allow the usage of the pArm. Can fail if any of the motors is not
+ * correctly detected. In addition, this method calibrates the motors.
+ */
 void setup(void);
+
+/**
+ * Heart of the application. The looping logic that is executed always.
+ */
 void loop(void);
+
+/**
+ * Checks the attached motors status.
+ * 
+ * @return EXIT_SUCCESS if all motors are OK, else EXIT_FAILURE.
+ */
 char check_motor_status(void);
-void handle_order(void);
-//void do_movement(double64_t expected_time);
+
+#ifndef USE_MOTOR_TMRS
+/**
+ * When not using motors timers, updates current motor position if moving.
+ * 
+ * @param motor - the motor to be updated.
+ */
 void update_motor_time(motor_t *motor);
+#endif
+
 #ifndef CLI_MODE
+
+/**
+ * Performs the handshake with S1. Called only if not in CLI_MODE and no
+ * trusted device.
+ */
 void do_handshake(void);
+
+/**
+ * Algorithm to update S1 status. If 5 missing beats (i.e.: 1 second passed)
+ * deauthenticates the device.
+ * 
+ * @param encrypted_msg - the random message used when authenticating.
+ */
 void beat(int_fast64_t encrypted_msg);
 #endif
 
@@ -148,7 +229,7 @@ inline void setup(void) {
     // Calibrate the motors. If someone returns
     // not OK, stop execution until rebooted
     // and notify turning on an LED
-    if (false && check_motor_status() == EXIT_FAILURE) {
+    if (check_motor_status() == EXIT_FAILURE) {
 #ifdef DEBUG_ENABLED
         printf("[SETUP]\tMotor failure!\n");
 #endif
@@ -440,6 +521,8 @@ inline void do_handshake(void) {
 }
 #endif
 
+#ifndef USE_MOTOR_TMRS
+
 void update_motor_time(motor_t *motor) {
     if (!motor->movement_finished) {
         motor->current_movement_count =
@@ -451,6 +534,7 @@ void update_motor_time(motor_t *motor) {
         }
     }
 }
+#endif
 
 #ifndef CLI_MODE
 
@@ -462,7 +546,6 @@ inline void beat(int_fast64_t encrypted_msg) {
         PORTBbits.RB5 = 1;
         PORTBbits.RB6 = 1;
         PORTBbits.RB7 = 1;
-        turn_led_off_time = (TIME_now() + 100ULL);
     }
 }
 #endif

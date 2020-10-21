@@ -1,4 +1,23 @@
 /*
+ * Copyright (C) 2020 - present | pArm-S2 by Javinator9889
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see https://www.gnu.org/licenses/.
+ *
+ * Created by Javinator9889 on 2020 - pArm-S1.
+ */
+
+/*
  * File:   gcode.c
  * Author: javinator9889
  *
@@ -18,10 +37,12 @@
 static buffer_t *gcode_buffer = NULL;
 
 /**
+ * With the given input code and the buffer, iterates through the latest one
+ * until the code is found or returns the default value.
  * 
- * @param code
- * @param ret
- * @return 
+ * @param code - the code to search.
+ * @param ret - return value if not found.
+ * @return the number after the given code or the given return value if not found.
  */
 double64_t GCODE_parse_number(char code, double64_t ret) {
     char *token;
@@ -38,6 +59,12 @@ double64_t GCODE_parse_number(char code, double64_t ret) {
     return ret;
 }
 
+/**
+ * Safely clears the GCODE structures.
+ * 
+ * @param ret - the return code to be returned after finishing.
+ * @return ret
+ */
 static inline GCODE_ret_t GCODE_finish(GCODE_ret_t ret) {
     BUFFER_free(gcode_buffer);
     return ret;

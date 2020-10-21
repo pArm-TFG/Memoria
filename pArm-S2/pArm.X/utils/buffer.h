@@ -1,22 +1,20 @@
-/* Microchip Technology Inc. and its subsidiaries.  You may use this software 
- * and any derivatives exclusively with Microchip products. 
- * 
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES, WHETHER 
- * EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
- * WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A 
- * PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP PRODUCTS, COMBINATION 
- * WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION. 
+/*
+ * Copyright (C) 2020 - present | pArm-S2 by Javinator9889
  *
- * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
- * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
- * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
- * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE 
- * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS 
- * IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF 
- * ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE 
- * TERMS. 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see https://www.gnu.org/licenses/.
+ *
+ * Created by Javinator9889 on 2020 - pArm-S1.
  */
 
 /* 
@@ -34,8 +32,30 @@
 #include <stdlib.h>
 #include "types.h"
 
+/**
+ * Creates a buffer of the given size, and initializes it.
+ * 
+ * @param size - the buffer size.
+ * @return a pointer to the new created buffer.
+ */
 buffer_t *BUFFER_create(size_t size);
+
+/**
+ * Updates the given buffer size. If the new size is lower than the one
+ * that was before, any stored value is destroyed.
+ * 
+ * @param buffer - the buffer whose size will be updated.
+ * @param size - the new buffer size. Set to '0' to destroy the buffer.
+ */
 void BUFFER_update_size(buffer_t *buffer, size_t size);
+
+/**
+ * Safely frees the buffer data from the memory. Caution: this method
+ * does not free the space used by the buffer_t itself. Use {@link free(void*)}
+ * instead.
+ * 
+ * @param buffer - the buffer to be cleared.
+ */
 void BUFFER_free(buffer_t *buffer);
 
 #endif	/* BUFFER_H */

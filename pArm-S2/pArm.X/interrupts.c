@@ -1,3 +1,22 @@
+/*
+ * Copyright (C) 2020 - present | pArm-S2 by Javinator9889
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see https://www.gnu.org/licenses/.
+ *
+ * Created by Javinator9889 on 2020 - pArm-S1.
+ */
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -91,6 +110,14 @@ void __attribute__((__interrupt__, no_auto_psv)) _U1RXInterrupt(void) {
     }
 }
 
+void __attribute__((__interrupt__, no_auto_psv)) _U1ErrInterrupt(void) {
+    if ((U1STAbits.OERR == 1)) {
+        U1STAbits.OERR = 0;
+    }
+
+    IFS4bits.U1EIF = 0;
+}
+
 void __attribute__((__interrupt__, no_auto_psv)) _CNInterrupt(void) {
 #ifdef LIMIT_SWITCH_ENABLED
     if (limit_switch_map != NULL) {
@@ -101,12 +128,4 @@ void __attribute__((__interrupt__, no_auto_psv)) _CNInterrupt(void) {
     }
 #endif
     _CNIF = 0; // Clear the interruption flag
-}
-
-void __attribute__((__interrupt__, no_auto_psv)) _U1ErrInterrupt(void) {
-    if ((U1STAbits.OERR == 1)) {
-        U1STAbits.OERR = 0;
-    }
-
-    IFS4bits.U1EIF = 0;
 }

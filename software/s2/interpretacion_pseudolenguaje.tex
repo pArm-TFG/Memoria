@@ -46,7 +46,7 @@ bucle principal.
 La gestión de los bytes recibidos se realiza en la rutina de tratamiento de
 interrupción de la \ac{UART}:
 
-\lstinputlisting[linerange={38-92}, firstnumber=38, caption=, style=C]{pArm-S2/pArm.X/interrupts.c}
+\lstinputlisting[linerange={57-111}, firstnumber=57, caption=, style=C]{pArm-S2/pArm.X/interrupts.c}
 
 y el GCode es interpretado en el paquete \texttt{gcode}, definido por los listados
 de código \ref{lst:gcode_h} y \ref{lst:gcode_c}.
@@ -58,7 +58,7 @@ Actualmente, \ac{S2} interpreta y entiende las siguientes órdenes (tabla \ref{t
 Cuando se recibe una orden esta es guardada junto con toda la información relativa a
 ella en una estructura del tipo \texttt{order\_t}:
 
-\lstinputlisting[linerange={110-138}, firstnumber=110, caption=, style=C]{pArm-S2/pArm.X/utils/types.h}
+\lstinputlisting[linerange={123-151}, firstnumber=123, caption=, style=C]{pArm-S2/pArm.X/utils/types.h}
 
 Dicha estructura contiene un \texttt{buffer\_t} con la orden recibida y un \textit{flag}
 indicando si hay una nueva orden lista para ser interpretada. El bucle principal de 

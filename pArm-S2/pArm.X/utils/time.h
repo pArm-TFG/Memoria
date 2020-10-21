@@ -1,22 +1,20 @@
-/* Microchip Technology Inc. and its subsidiaries.  You may use this software 
- * and any derivatives exclusively with Microchip products. 
- * 
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES, WHETHER 
- * EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
- * WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A 
- * PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP PRODUCTS, COMBINATION 
- * WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION. 
+/*
+ * Copyright (C) 2020 - present | pArm-S2 by Javinator9889
  *
- * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
- * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
- * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
- * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE 
- * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS 
- * IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF 
- * ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE 
- * TERMS. 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see https://www.gnu.org/licenses/.
+ *
+ * Created by Javinator9889 on 2020 - pArm-S1.
  */
 
 /* 
@@ -33,14 +31,45 @@
 
 #include "types.h"
 
+/**
+ * Initializes the time counting machine.
+ */
 void TIME_init(void);
+
+/**
+ * Updates the milliseconds timestamp using the microseconds one.
+ */
 void TIME_updateMs(void);
+
+/**
+ * Obtains current time in milliseconds.
+ * 
+ * @return time_t - current time in milliseconds.
+ */
 time_t TIME_now(void);
+
+/**
+ * Obtains the current time in microseconds.
+ * 
+ * @return time_t - current time in microseconds.
+ */
 time_t TIME_now_us(void);
-void TIME_increment_us(void);
+
+/**
+ * Sets the current time with the given value, in microseconds.
+ * 
+ * @param value_us - the new timestamp.
+ */
 void TIME_set_time(time_t value_us);
 
+/**
+ * TMR1 interrupt handler - counts-up microseconds.
+ */
 void __attribute__((__interrupt__, no_auto_psv)) _T1Interrupt(void);
+
+/**
+ * TMR2 interrupt handler - counts-up milliseconds.
+ */
 void __attribute__((__interrupt__, no_auto_psv)) _T2Interrupt(void);
 
 #endif	/* TIME_H */
