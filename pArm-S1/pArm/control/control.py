@@ -100,7 +100,7 @@ class Control(ControlInterface):
                 with self.connection as conn:
                     conn.write(byte_stream)
             except SerialException:
-                log.warning("There is no suitable connection with the device")
+                log.warning("There is no suitable connection with the device", exc_info=True)
             err = control_management.verify_movement_completed(time_object)
             if err:
                 return err
@@ -134,7 +134,7 @@ class Control(ControlInterface):
                 with self.connection as conn:
                     conn.write(byte_stream)
             except SerialException:
-                log.warning("There is no suitable connection with the device")
+                log.warning("There is no suitable connection with the device", exc_info=True)
             else:
                 log.debug(
                     "theta1, theta2, theta3 values successfully sent to device")
@@ -162,7 +162,7 @@ class Control(ControlInterface):
                 with self.connection as conn:
                     conn.write(byte_stream)
             except SerialException:
-                log.warning("There is no suitable connection with the device")
+                log.warning("There is no suitable connection with the device", exc_info=True)
             else:
                 log.debug(f"Device sent to origin")
             err = control_management.verify_movement_completed(time_object)
@@ -191,7 +191,7 @@ class Control(ControlInterface):
                 self.y = cartesian_positions.y
                 self.z = cartesian_positions.z
         except SerialException:
-            log.warning("There is no suitable connection with the device")
+            log.warning("There is no suitable connection with the device", exc_info=True)
 
     def read_angular_positions(self):
         """
@@ -209,7 +209,7 @@ class Control(ControlInterface):
                 self.theta2 = angular_positions.t2
                 self.theta3 = angular_positions.t3
         except SerialException:
-            log.warning("There is no suitable connection with the device")
+            log.warning("There is no suitable connection with the device", exc_info=True)
 
     def cancel_movement(self) -> Future:
         """
@@ -234,7 +234,7 @@ class Control(ControlInterface):
                     err_code = int(line[1:])
                     return interpreter.errors[err_code]
             except SerialException:
-                log.warning("There is no suitable connection with the device")
+                log.warning("There is no suitable connection with the device", exc_info=True)
 
         return self.executor.submit(fn)
 
@@ -290,28 +290,39 @@ class Control(ControlInterface):
         control_management.request_handshake()
         try:
             gcode.add('I2')
-            found, missed_instructions, n = interpreter.wait_for(gcode)
+            found, missed_instructions, line = interpreter.wait_for(gcode, timeout=20)
+            n = interpreter.parse_line(line)
+            log.debug("n:"+n)
             if found and isinstance(n, str):
                 gcode.add('I3')
-                found, missed_instructions, e = interpreter.wait_for(gcode)
+                found, missed_instructions, line = interpreter.wait_for(gcode)
+                e = interpreter.parse_line(line)
+                log.debug("e: "+e)
                 if found and isinstance(e, str):
-                    rsa = RSA(int(n), int(e))
+                    n, e = int(n), int(e)
+                    rsa = RSA(n=n, e=e)
                     gcode.add('I4')
-                    found, missed_instructions, signed_value = \
+                    found, missed_instructions, line = \
                         interpreter.wait_for(gcode)
+                    signed_value = interpreter.parse_line(line)
+                    print(signed_value)
                     if found and isinstance(signed_value, str):
-                        verified_value = rsa.verify(int(signed_value))
+                        signed_value = int(signed_value)
+                        verified_value = rsa.verify(signed_value)
                         encrypted_value = rsa.encrypt(verified_value)
-                        heart = Heart(int(encrypted_value))
-                        with self.connection as conn:
-                            conn.write(generator
-                                       .generate_unsigned_string(encrypted_value))
-                            found, missed_instructions, line = \
-                                interpreter.wait_for('I5')
-                            if found:
-                                log.info("Handshake done.")
-                                heart.start_beating = True
+                        heart = Heart(encrypted_value, conn=self.connection)
+                        log.debug("Se ha iniciado el corazon")
+                        conn.write(generator
+                                   .generate_unsigned_string(encrypted_value))
+                        gcode.add('I5')
+                        log.debug("He escrito el valor encriptado")
+                        found, missed_instructions, line = \
+                            interpreter.wait_for('I5')
+                        if found:
+                            log.info("Handshake done.")
+                            heart.start_beating = True
                     else:
+                        self.connection.ser.close()
                         return signed_value
                 else:
                     return e
@@ -319,4 +330,4 @@ class Control(ControlInterface):
                 return n
 
         except SerialException:
-            log.warning("There is no suitable connection with the device")
+            log.error("Error in handshake procedure", exc_info=True)

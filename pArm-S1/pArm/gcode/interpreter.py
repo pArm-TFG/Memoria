@@ -40,7 +40,7 @@ def read_buffer_line():
         with connection as conn:
             line = conn.readline()
     except SerialException:
-        log.warning("There is no suitable connection with the device")
+        log.warning("There is no suitable connection with the device", exc_info=True)
     else:
         log.debug("Line read successfully")
 
@@ -81,7 +81,7 @@ def parse_i_order(i_order):
     :return: returns the parameter of the order.
     """
     split_order = i_order.split(' ')
-    order_number = int(i_order[0][1:])
+    order_number = int(split_order[0][1:])
 
     if order_number == 2:
         return split_order[1]
@@ -147,9 +147,8 @@ def parse_j_order(j_order):
         return 'Arrived to position'
 
 
-def wait_for(gcode: Union[str, Iterable[str]], timer: int = 5) -> Tuple[bool,
-                                                                        List[str],
-                                                                        str]:
+def wait_for(gcode: Union[str, Iterable[str]], timeout: int = 5) -> \
+        Tuple[bool, List[str], str]:
     """
     This function keeps reading the buffer until it finds the GCode that its
     passed as parameter. It is also capable to wait for an order from within an
@@ -157,7 +156,7 @@ def wait_for(gcode: Union[str, Iterable[str]], timer: int = 5) -> Tuple[bool,
 
     :param gcode: The order or interval of orders that the function has to
     look for
-    :param timer: The time that has to elapse until the function reaches timeout
+    :param timeout: The time that has to elapse until the function reaches timeout
     and stops looking for the specified order
     :return: Boolean, to know if the function finished because it found the
     order or because it reached timeout.
@@ -166,16 +165,21 @@ def wait_for(gcode: Union[str, Iterable[str]], timer: int = 5) -> Tuple[bool,
     String, contains the whole line where the order has been found.
     """
     missed_inst = []
-    timeout = time.time() + timer
+    timeout += time.time()
 
     line = connection.sreadline()
+    log.debug(f"Read line: {line}")
 
     def check_valid(c_line, gcode) -> bool:
-        return c_line in gcode if isinstance(gcode, Iterable) else c_line != gcode
+        if len(c_line) == 0:
+            return False
+        code = c_line.split()[0]
+        return code in gcode if isinstance(gcode, Iterable) else code != gcode
 
-    while not check_valid(line.split()[0], gcode) and time.time() <= timeout:
+    while not check_valid(line, gcode) and time.time() <= timeout:
         if line != '':
             missed_inst.append(line)
         time.sleep(0.1)
+        line = connection.sreadline()
 
-    return timeout < time.time(), missed_inst, line
+    return timeout > time.time(), missed_inst, line

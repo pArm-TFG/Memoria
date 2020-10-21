@@ -48,6 +48,11 @@ opciones a lo largo del código:
     deshabilitar opciones no usadas.
     \item \texttt{CLI\_MODE} -- para habilitar el modo de control mediante consola
     de comandos, comunicando directamente desde la \ac{UART}.
+    \item \texttt{USE\_MOTOR\_TMRS} -- para usar un \textit{timer} por cada motor en
+    lugar del contador global. Permite obtener mayor precisión pero hay un \textit{delay}
+    apreciable en la ejecución de movimientos.
+    \item \texttt{LIMIT\_SWITCH\_ENABLED} -- utiliza los fines de carrera para 
+    detectar la posición de los motores.
 \end{itemize}
 
 En la tabla \ref{tab:gcc} se resumen las opciones habilitadas y empleadas:

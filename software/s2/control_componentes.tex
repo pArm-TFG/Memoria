@@ -44,7 +44,7 @@ Por esto mismo, la rutina de tratamiento de interrupción mapea el valor de los
 pines a un espacio de memoria que ya ha sido registrado previamente por el motor
 que lo va a utilizar:
 
-\lstinputlisting[linerange={79-86}, firstnumber=79, caption=, style=C]{pArm-S2/pArm.X/interrupts.c}
+\lstinputlisting[linerange={94-104}, firstnumber=94, caption=, style=C]{pArm-S2/pArm.X/interrupts.c}
 
 De esta forma se tiene constancia de cuándo un motor ha tocado con un fin de carrera,
 ya que su valor referenciado cambiará. Como la interrupción anterior se produce tanto
@@ -107,7 +107,7 @@ Dicha estructura define:
 
 Además, se ofrecen métodos complementarios para facilitar el manejo de esta estructura:
 
-\lstinputlisting[linerange={8-23}, firstnumber=8, caption=, style=C]{pArm-S2/pArm.X/motor/servo.c}
+\lstinputlisting[linerange={7-22}, firstnumber=8, caption=, style=C]{pArm-S2/pArm.X/motor/servo.c}
 
 Dichos métodos permiten el control de los servomotores mediante un ángulo en radianes,
 mediante una posición según el tiempo en milisegundos o directamente mediante un
@@ -152,7 +152,7 @@ ha de durar a nivel alto dicho valor.
 Con respecto a la abstracción de \texttt{motor}, se define una estructura que
 maneja el \textit{driver} definido anteriormente:
 
-\lstinputlisting[linerange={43-52}, firstnumber=43, caption=, style=C]{pArm-S2/pArm.X/motor/motor.h}
+\lstinputlisting[linerange={43-88}, firstnumber=43, caption=, style=C]{pArm-S2/pArm.X/motor/motor.h}
 
 Dicha estructura define:
 
@@ -170,7 +170,7 @@ Dicha estructura define:
 El paquete anterior define una interfaz con métodos útiles para permitir el manejo
 de los motores:
 
-\lstinputlisting[linerange={55-61}, firstnumber=55, caption=, style=C]{pArm-S2/pArm.X/motor/motor.h}
+\lstinputlisting[linerange={90-135}, firstnumber=90, caption=, style=C]{pArm-S2/pArm.X/motor/motor.h}
 
 \LTXtable{\linewidth}{software/s2/motor_table}
 
@@ -193,7 +193,7 @@ cuando un motor comienza a realizar un giro. Todos reciben la dirección de memo
 en la que se encuentra el motor que están manejando y siguen una implementación
 similar, la cual se muestra a continuación:
 
-\lstinputlisting[linerange={35-47}, firstnumber=35, caption=, style=C]{pArm-S2/pArm.X/timers/tmr3.c}
+\lstinputlisting[linerange={36-43}, firstnumber=36, caption=, style=C]{pArm-S2/pArm.X/timers/tmr3.c}
 
 El método anterior es simple pero fundamental para llevar el control de la posición:
 
@@ -240,7 +240,7 @@ que el motor se encuentra. La precisión se podría mejorar si:
 Finalmente, se encuentra la abstracción de \texttt{planner}. En dicha abstracción se
 aúnan todos los motores que componen el brazo en la siguiente estructura:
 
-\lstinputlisting[linerange={38-43}, firstnumber=38, caption=, style=C]{pArm-S2/pArm.X/arm/planner.h}
+\lstinputlisting[linerange={39-44}, firstnumber=39, caption=, style=C]{pArm-S2/pArm.X/arm/planner.h}
 
 En dicha estructura se guarda la dirección de memoria de cada uno de los motores
 que componen el brazo. La razón de ser de la misma es recoger, de forma ordenada,
@@ -257,6 +257,6 @@ respectivamente.
 
 Se definen pues los siguientes métodos:
 
-\lstinputlisting[linerange={47-54}, firstnumber=47, caption=, style=C]{pArm-S2/pArm.X/arm/planner.h}
+\lstinputlisting[linerange={48-59}, firstnumber=48, caption=, style=C]{pArm-S2/pArm.X/arm/planner.h}
 
 \LTXtable{\linewidth}{software/s2/planner_table}

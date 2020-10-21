@@ -4,14 +4,14 @@
  * Comments: Standard utils for using them along the project
  * Revision history: 1.0
  */
-#include "types.h"
-#include "defs.h"
 #include <math.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <libpic30.h>
 #include <stdbool.h>
 #include "utils.h"
+#include "types.h"
+#include "defs.h"
 
 /**
  * Maps a value in between the output range by the given input range
@@ -45,8 +45,7 @@ inline double64_t mapf(double64_t x, double64_t in_min, double64_t in_max, doubl
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-#ifndef __isnan
-
+//#ifndef __isnan
 bool __isnan(double64_t x) {
     int_fast64_t hx;
     EXTRACT_WORDS64(hx, x);
@@ -54,15 +53,15 @@ bool __isnan(double64_t x) {
     hx = UINT64_C(0x7ff0000000000000) - hx;
     return (bool) (((uint64_t) hx) >> 63);
 }
-#define isnan __isnan
-#endif
+//#define isnan __isnan
+//#endif
 
-inline void delay_ms(uint64_t ms) {
-    __delay_ms(ms);
+inline void delay_ms(time_t ms) {
+    return delay_us(ms * 1000ULL);
 }
 
-inline void delay_us(uint64_t us) {
-    __delay_us(us);
+inline void delay_us(time_t us) {
+    __delay32(us * (FCY / 1000000ULL));
 }
 
 void cstrncpy(char source[], char dest[], uint16_t size) {

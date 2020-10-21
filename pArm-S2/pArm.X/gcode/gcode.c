@@ -17,21 +17,24 @@
 
 static buffer_t *gcode_buffer = NULL;
 
-inline angle_t GCODE_get_position(void) {
-
-    return (angle_t) {
-        motors.base_motor->angle_us,
-                motors.lower_arm->angle_us,
-                motors.upper_arm->angle_us
-    };
-}
-
+/**
+ * 
+ * @param code
+ * @param ret
+ * @return 
+ */
 double64_t GCODE_parse_number(char code, double64_t ret) {
-    char *ptr = strtok(gcode_buffer->buffer, ' ');
-    while (ptr != NULL) {
-        if (*ptr == code) return atof(ptr + 1);
-        ptr = strtok(NULL, ' ');
+    char *token;
+    char *ptr;
+    char *copy = (char *) malloc(gcode_buffer->bsize);
+    double64_t value_if_missing = ret;
+    strcpy(copy, gcode_buffer->buffer);
+    for (ptr = copy; ret == value_if_missing; ptr = NULL) {
+        token = strtok(ptr, " ");
+        if (token == NULL) break;
+        if (token[0] == code) ret = atof(token + 1);
     }
+    free(copy);
     return ret;
 }
 
@@ -42,21 +45,18 @@ static inline GCODE_ret_t GCODE_finish(GCODE_ret_t ret) {
 
 GCODE_ret_t GCODE_process_command(volatile order_t *order) {
 #ifdef DEBUG_ENABLED
-    printf("[DEBUG]\tParsing order '%s'\n", order->order_buffer);
+    printf("[DEBUG]\tParsing order '%s'\n", order->order_buffer->buffer);
 #endif
     GCODE_ret_t ret; // = {false, -1, NULL};
-    
+
     if (gcode_buffer == NULL) {
         gcode_buffer = BUFFER_create(order->order_buffer->size);
     }
-    
+
     if (gcode_buffer->size != order->order_buffer->size) {
         BUFFER_update_size(gcode_buffer, order->order_buffer->size);
     }
     strcpy(gcode_buffer->buffer, order->order_buffer->buffer);
-#ifdef DEBUG_ENABLED
-    printf("[DEBUG]\tGCODE buffer: %s\n", GCODE_BUFFER);
-#endif
     int_fast16_t cmd = (int_fast16_t) GCODE_parse_number('G', -1.0F);
     switch (cmd) {
             // G0 X1.234 Y1.234 Z1.234
@@ -66,25 +66,26 @@ GCODE_ret_t GCODE_process_command(volatile order_t *order) {
             // throw an error
         case 0:
         {
-            point_t position = {
-                GCODE_parse_number('X', LDBL_MIN),
-                GCODE_parse_number('Y', LDBL_MIN),
-                GCODE_parse_number('Z', LDBL_MIN)
-            };
-            if (position.x == LDBL_MIN ||
-                    position.y == LDBL_MIN ||
-                    position.z == LDBL_MIN) {
-                const char *msg = "Some coordinate is missing for GCODE G0\n";
+            point_t *position = (point_t *) malloc(sizeof(point_t));
+            position->x = GCODE_parse_number('X', LDBL_MIN);
+            position->y = GCODE_parse_number('Y', LDBL_MIN);
+            position->z = GCODE_parse_number('Z', LDBL_MIN);
+            if (position->x == LDBL_MIN ||
+                    position->y == LDBL_MIN ||
+                    position->z == LDBL_MIN) {
+#ifdef DEBUG_ENABLED
+                printf("[ERROR]\tCoordinates missing for GCODE G0!\n");
+#endif
                 ret = (GCODE_ret_t){
                     true, // is_err
                     cmd,
-                    msg
+                    NULL
                 };
             } else {
                 ret = (GCODE_ret_t){
                     false, // is_err
                     cmd, // code
-                    &position // the return value itself
+                    position // the return value itself
                 };
             }
             break;
@@ -98,25 +99,26 @@ GCODE_ret_t GCODE_process_command(volatile order_t *order) {
             // an error
         case 1:
         {
-            angle_t angles = {
-                GCODE_parse_number('X', LDBL_MIN),
-                GCODE_parse_number('Y', LDBL_MIN),
-                GCODE_parse_number('Z', LDBL_MIN)
-            };
-            if (angles.theta0 == LDBL_MIN &&
-                    angles.theta1 == LDBL_MIN &&
-                    angles.theta2 == LDBL_MIN) {
-                const char *msg = "Angles are missing for GCODE G1\n";
+            angle_t *angles = (angle_t *) malloc(sizeof(angle_t));
+            angles->theta0 = GCODE_parse_number('X', LDBL_MIN);
+            angles->theta1 = GCODE_parse_number('Y', LDBL_MIN);
+            angles->theta2 = GCODE_parse_number('Z', LDBL_MIN);
+            if (angles->theta0 == LDBL_MIN &&
+                    angles->theta1 == LDBL_MIN &&
+                    angles->theta2 == LDBL_MIN) {
+#ifdef DEBUG_ENABLED
+                printf("[ERROR]\tAngles missing for GCODE G1!\n");
+#endif
                 ret = (GCODE_ret_t){
                     true, // is_err
                     cmd,
-                    msg
+                    NULL
                 };
             } else {
                 ret = (GCODE_ret_t){
                     false, // is_err
                     cmd, // code
-                    &angles // the return value itself
+                    angles // the return value itself
                 };
             }
             break;
@@ -138,11 +140,16 @@ GCODE_ret_t GCODE_process_command(volatile order_t *order) {
             // (not implemented)
         default:
         {
-            const char *msg = "Unknown GCODE G%d\n";
+#ifdef DEBUG_ENABLED
+            if (cmd == -1)
+                printf("[INFO]\tGCODE type 'G' not found\n");
+            else
+                printf("[ERROR]\tUnknown GCODE G%d\n", cmd);
+#endif
             ret = (GCODE_ret_t){
                 true, // is_err
                 cmd, // the code itself
-                msg // the error message
+                NULL // the error message
             };
             break;
         }
@@ -158,14 +165,6 @@ GCODE_ret_t GCODE_process_command(volatile order_t *order) {
             // When this command is received, the arm
             // must stop moving and keep current position
         case 1:
-        {
-            ret = (GCODE_ret_t){
-                false, // is_err
-                cmd * 10, // code
-                NULL // the return value itself
-            };
-            break;
-        }
             // GCODE M114 - get current position in XYZ
             // By default, obtains the position in angular
             // coordinates and leaves the conversion to 
@@ -174,11 +173,10 @@ GCODE_ret_t GCODE_process_command(volatile order_t *order) {
             // GCODE M280 - get current position in angles
         case 280:
         {
-            angle_t current_position = GCODE_get_position();
             ret = (GCODE_ret_t){
                 false, // is_err
                 cmd * 10, // code
-                &current_position // the return value itself
+                NULL // the return value itself
             };
             break;
         }
@@ -186,11 +184,16 @@ GCODE_ret_t GCODE_process_command(volatile order_t *order) {
             // (not implemented)
         default:
         {
-            const char *msg = "Unknown GCODE M%d\n";
+#ifdef DEBUG_ENABLED
+            if (cmd == -1)
+                printf("[INFO]\tGCODE type 'M' not found\n");
+            else
+                printf("[ERROR]\tUnknown GCODE M%d\n", cmd);
+#endif
             ret = (GCODE_ret_t){
                 true, // is_err
                 cmd * 10, // the code
-                msg // the error message
+                NULL // the error message
             };
             break;
         }
@@ -225,12 +228,9 @@ GCODE_ret_t GCODE_process_command(volatile order_t *order) {
             // the trusted device is still alive
         case 7:
         {
-            size_t size = (size_t) ((gcode_buffer->size - 3) * sizeof(char));
+            size_t size = (size_t) ((gcode_buffer->size - 3) * sizeof (char));
             char *msg = (char *) malloc(size);
             strncpy(msg, gcode_buffer->buffer + 3, size);
-#ifdef DEBUG_ENABLED
-            printf("[DEBUG]\tDec msg: %s\n", msg);
-#endif
             ret = (GCODE_ret_t){
                 false, // is_err
                 cmd * 100, // the code
@@ -242,11 +242,16 @@ GCODE_ret_t GCODE_process_command(volatile order_t *order) {
             // (not implemented)
         default:
         {
-            const char *msg = "Unknown GCODE I%d\n";
+#ifdef DEBUG_ENABLED
+            if (cmd == -1)
+                printf("[INFO]\tGCODE type 'I' not found\n");
+            else
+                printf("[ERROR]\tUnknown GCODE I%d\n", cmd);
+#endif
             ret = (GCODE_ret_t){
                 true, // is_err
                 cmd * 100, // the code
-                msg // the error message
+                NULL // the msg
             };
             break;
         }

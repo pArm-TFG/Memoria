@@ -12,10 +12,11 @@
 #include "../sync/barrier.h"
 
 motor_t *TMR5_motor;
-barrier_t *TMR5_barrier;
-double64_t TMR5_count;
+volatile barrier_t *TMR5_barrier;
+static volatile int_fast32_t TMR5_count;
+static volatile int_fast32_t duration;
 
-void TMR5_Initialize(motor_t *motor, barrier_t *barrier) {
+void TMR5_Initialize(motor_t *motor, volatile barrier_t *barrier) {
     TMR5_motor = motor;
     TMR5_barrier = barrier;
     TMR5_count = .0F;
@@ -32,16 +33,11 @@ void TMR5_Initialize(motor_t *motor, barrier_t *barrier) {
 }
 
 void __attribute__((interrupt, no_auto_psv)) _T5Interrupt(void) {
-    TMR5_count += 1.0016F;
+    TMR5_count += 1L;
 
-    if (TMR5_count >= TMR5_motor->movement_duration) {
-        TMR5_motor->movement_finished = true;
-        BARRIER_arrive(TMR5_barrier);
-        // If movement is clockwise then add the count to current angle_us
-        // else, the count must be substracted
-        TMR5_motor->angle_us += (TMR5_motor->clockwise * TMR5_count);
+    if (TMR5_count >= duration)
         TMR5_Stop();
-    }
+
     IFS1bits.T5IF = 0;
 }
 
@@ -57,6 +53,11 @@ void TMR5_Start(void) {
 }
 
 void TMR5_Stop(void) {
+    TMR5_motor->movement_finished = true;
+    BARRIER_arrive(TMR5_barrier);
+    // If movement is clockwise then add the count to current angle_us
+    // else, the count must be substracted
+    TMR5_motor->angle_us += (TMR5_motor->clockwise * TMR5_count);
     /* Stop the Timer */
     T5CONbits.TON = 0;
 

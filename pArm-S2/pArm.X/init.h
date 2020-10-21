@@ -34,15 +34,35 @@
 #include <xc.h>
 #include "system_types.h"
 
-void initBoard(void);
+/**
+ * Initializes the PWM module with the required values at the specific ports.
+ */
 void initPWM(void);
+
+/**
+ * Initializes TMR1, which counts up every microsecond.
+ */
 void TMR1_Initialize(void);
+
+/**
+ * Initializes TMR2, which counts up every millisecond.
+ */
 void TMR2_Initialize(void);
-void initUnusedIOPorts(void);
+
+/**
+ * Initializes the peripheral ports.
+ */
 void init_ports(void);
-void init_pins(void);
+
+/**
+ * Initializes the UART communications.
+ */
+void initUART(void);
+
+/**
+ * Initializes the system clock.
+ */
 void init_clock(void);
-void init_interrupts(void);
 
 /**
   @Summary
@@ -93,6 +113,10 @@ inline static void SYSTEM_CORCONModeOperatingSet(SYSTEM_CORCON_MODES modeValue)
     CORCON = (CORCON & 0x00F2) | modeValue;
 }
 
+/**
+ * Initializes the entire system. This function is a wrapper of all the other
+ * functions declared in {@code init.h}.
+ */
 void system_initialize(void);
 
 #endif	/* INIT_H */

@@ -12,10 +12,11 @@
 #include "../sync/barrier.h"
 
 motor_t *TMR4_motor;
-barrier_t *TMR4_barrier;
-double64_t TMR4_count;
+volatile barrier_t *TMR4_barrier;
+static volatile int_fast32_t TMR4_count;
+static volatile int_fast32_t duration;
 
-void TMR4_Initialize(motor_t *motor, barrier_t *barrier) {
+void TMR4_Initialize(motor_t *motor, volatile barrier_t *barrier) {
     TMR4_motor = motor;
     TMR4_barrier = barrier;
     TMR4_count = .0F;
@@ -32,16 +33,11 @@ void TMR4_Initialize(motor_t *motor, barrier_t *barrier) {
 }
 
 void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
-    TMR4_count += 1.0016F;
-
-    if (TMR4_count >= TMR4_motor->movement_duration) {
-        TMR4_motor->movement_finished = true;
-        BARRIER_arrive(TMR4_barrier);
-        // If movement is clockwise then add the count to current angle_us
-        // else, the count must be substracted
-        TMR4_motor->angle_us += (TMR4_motor->clockwise * TMR4_count);
+    TMR4_count += 1L;
+    
+    if (TMR4_count >= duration)
         TMR4_Stop();
-    }
+
     IFS1bits.T4IF = 0;
 }
 
@@ -57,6 +53,11 @@ void TMR4_Start(void) {
 }
 
 void TMR4_Stop(void) {
+    TMR4_motor->movement_finished = true;
+    BARRIER_arrive(TMR4_barrier);
+    // If movement is clockwise then add the count to current angle_us
+    // else, the count must be substracted
+    TMR4_motor->angle_us += (TMR4_motor->clockwise * TMR4_count);
     /* Stop the Timer */
     T4CONbits.TON = 0;
 

@@ -41,23 +41,97 @@
 #define MOTOR_elapsed_time_us(rad)      (US_PER_DEGREE * rad * MATH_TRANS)
 
 typedef struct {
+    /**
+     * Pointer storing the driver that manages the servomotor.
+     */
     servo_t *servoHandler;
+    
+    /**
+     * Motor unique identifier.
+     */
     const uint8_t id;
+    
+    /**
+     * The current movement duration, in us.
+     */
     volatile double64_t movement_duration;
+    
+    /**
+     * The current motor angle in us.
+     */
     volatile double64_t angle_us;
+    
+    /**
+     * Flag indicating that the motor has finished its movement.
+     */
     volatile bool movement_finished;
+    
+    /**
+     * Flag indicating whether the movement is clockwise or anticlockwise.
+     */
     int8_t clockwise;
+    
+    /**
+     * Volatile counter indicating the elapsed time since the movement started.
+     */
+    volatile time_t current_movement_count;
+    
+    /**
+     * Function that initializes the timer attached to the motor.
+     */
     TMR_func TMR_Start;
+    
+    /**
+     * Function that finishes the timer attached to the motor.
+     */
     TMR_func TMR_Stop;
 } motor_t;
 
-
+/**
+ * Moves the motor to the specified angle in radians.
+ * 
+ * @param motor a pointer to the motor to move.
+ * @param angle_rad the radians to move.
+ */
 void MOTOR_move(motor_t *motor, double64_t angle_rad);
+
+/**
+ * Freezes the motor at the current position.
+ * 
+ * @param motor a pointer to the motor to freeze.
+ */
 void MOTOR_freeze(motor_t *motor);
+
+/**
+ * Performs the motor calibration.
+ * 
+ * @param motor a pointer to the motor to calibrate.
+ * @return EXIT_SUCCESS if calibration is OK or EXIT_FAILURE in other case.
+ */
 char MOTOR_calibrate(motor_t *motor);
-double64_t MOTOR_home(motor_t motors[MAX_MOTORS]);
+
+/**
+ * Gets the motor position as us.
+ * 
+ * @param motor a pointer to the motor.
+ * @return the position in microseconds.
+ */
 double64_t MOTOR_position_us(motor_t *motor);
+
+/**
+ * Gets the motor actual position in radians.
+ * 
+ * @param motor a pointer to the motor.
+ * @return the position in radians.
+ */
 double64_t MOTOR_position_rad(motor_t *motor);
+
+/**
+ * Gets the motor actual position in degrees.
+ * 
+ * @param motor a pointer to the motor.
+ * @return the position in degrees.
+ */
 double64_t MOTOR_position_deg(motor_t *motor);
 
 #endif	/* MOTOR_H */

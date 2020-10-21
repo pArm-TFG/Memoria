@@ -12,7 +12,7 @@ La inicialización del sistema cuenta de varias partes:
 
 Toda esta lógica se aúna en la función \texttt{system\_initialize}:
 
-\lstinputlisting[linerange={404-415}, firstnumber=404, caption=, style=C]{pArm-S2/pArm.X/init.c}
+\lstinputlisting[linerange={344-352}, firstnumber=344, caption=, style=C]{pArm-S2/pArm.X/init.c}
 
 \subsubsection{Configuración del microcontrolador}
 La configuración del microcontrolador es una parte crucial a la hora de poder
@@ -93,7 +93,7 @@ registros se espera de forma activa a que cambie la frecuencia del reloj
 (\texttt{OSWEN = 0} y \texttt{LOCK = 1}).
 
 Esta lógica se encuentra en la función \texttt{init\_clock}:
-\lstinputlisting[linerange={38-85}, firstnumber=38, caption=, style=C]{pArm-S2/pArm.X/init.c}
+\lstinputlisting[linerange={15-58}, firstnumber=15, caption=, style=C]{pArm-S2/pArm.X/init.c}
 
 \subsubsection{Inicialización de los pines y puertos}
 En el dsPIC33E se utilizan múltiples pines y puertos que han de ser inicializados para
@@ -111,18 +111,18 @@ En particular, se utilizan los pines 41 -- 44 para controlar los LEDs colocados 
 placa, los pines 19 -- 22 para controlar los microinterruptores conectados que actúan
 como fin de carrera. Esto se encuentra en la función \texttt{init\_ports}:
 
-\lstinputlisting[linerange={371-402}, firstnumber=371, caption=, style=C]{pArm-S2/pArm.X/init.c}
+\lstinputlisting[linerange={311-342}, firstnumber=311, caption=, style=C]{pArm-S2/pArm.X/init.c}
 
 Por otro lado, se utilizan los pines 9, 11, 13 y 15 para controlar la señal \ac{PWM}
 que controla los motores. Esto se realiza en la función \texttt{initPWM}:
 
-\lstinputlisting[linerange={201-205}, firstnumber=201, caption=, style=C]{pArm-S2/pArm.X/init.c}
+\lstinputlisting[linerange={138-143}, firstnumber=138, caption=, style=C]{pArm-S2/pArm.X/init.c}
 
 Finalmente, para controlar la \ac{UART} se utilizan los pines 3 y 2, los cuales son
 remapeables y es necesario establecer a qué puerto va cada uno y qué funcionalidad cumple.
 
 Esto se realiza en la función \texttt{initUART}:
-\lstinputlisting[linerange={99-101}, firstnumber=99, caption=, style=C]{pArm-S2/pArm.X/init.c}
+\lstinputlisting[linerange={60-78}, firstnumber=60, caption=, style=C]{pArm-S2/pArm.X/init.c}
 
 \subsubsection{Inicialización del módulo \ac{PWM}}
 El módulo \ac{PWM} requiere de una inicialización propia para establecer la frecuencia
@@ -178,7 +178,7 @@ la salida que se produce en la otra.
 
 Todo el código de inicialización se encuentra en la función \texttt{initPWM}:
 
-\lstinputlisting[linerange={201-296}, firstnumber=201, caption=, style=C]{pArm-S2/pArm.X/init.c}
+\lstinputlisting[linerange={138-236}, firstnumber=138, caption=, style=C]{pArm-S2/pArm.X/init.c}
 
 \subsubsection{Inicialización de la \ac{UART}}
 El módulo \ac{UART} permite la comunicación entre los dos sistemas \ac{S1} y \ac{S2}.
@@ -217,4 +217,4 @@ Por otra parte, se configuran múltiples parámetros de la \ac{UART} para:
 
 Todo esto se encuentra definido en la función \texttt{initUART}:
 
-\lstinputlisting[linerange={99-199}, firstnumber=99, caption=, style=C]{pArm-S2/pArm.X/init.c}
+\lstinputlisting[linerange={60-136}, firstnumber=60, caption=, style=C]{pArm-S2/pArm.X/init.c}

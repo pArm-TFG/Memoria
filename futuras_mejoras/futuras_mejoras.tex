@@ -15,13 +15,13 @@ A continuación se presentan las principales ideas de mejora, es decir, aquellas
     
     Esta mejora acarrearía la modificación de algunos de los elementos del brazo robótico, como por ejemplo, la PCB que orquesta el movimiento de los motores, la tornillería, juntas, ejes y demás, con el fin de adaptarlos al nuevo tamaño y material de la estructura del brazo robótico. A pesar de ello y puesto que el diseño de la estructura ya se ha realizado, esta mejora consistiría en realizar adaptaciones, con lo cual, se considera viable.
     
-    \item En segundo lugar y relacionada con la mejora anterior, se plantea el estudio del modelo dinámico del brazo robótico. Esta mejora se considera viable y requeriría de un esfuerzo intelectual medio por parte de los integrantes del equipo.
+    \item En segundo lugar y relacionada con la mejora anterior, se plantea el estudio del modelo dinámico del brazo robótico. Esta mejora se considera viable y permitiría una definición más precisa de los movimientos del manipulador así como la posibilidad de usarlo para levantar cargas más pesadas que las actuales.
     
-    El modelo dinámico del brazo robótico establece las relaciones matemáticas entre el movimiento del manipulador y las fuerzas que afectan al mismo. En este modelo, se contemplan aspectos tales como la relación existente entre las coordenadas angulares de las articulaciones y torques aplicados en ellas, con respecto a las coordenadas cartesianas, velocidad y aceleración del \textit{end--effector}, así como con algunos parámetros de la estructura del brazo robótico, como la masa de los diferente segmentos, inercias y demás.
+    El modelo dinámico del brazo robótico establece las relaciones matemáticas entre el movimiento del manipulador y las fuerzas que afectan al mismo. En este modelo, se contemplan aspectos tales como la relación existente entre las coordenadas angulares de las articulaciones y torques aplicados en ellas, con respecto a las coordenadas cartesianas, velocidad y aceleración del \textit{end--effector}, así como con algunos parámetros de la estructura del brazo robótico, como la masa de los diferente segmentos, inercias y demás \cite{LibroPracticasRobotica}.
     
-    Este modelo adquiere suma importancia cuando la estructura del brazo robótico adquiere unas dimensiones y masa no despreciable, puesto que las fuerzas descritas por el modelo dinámico comienzan a tener un efecto innegable en el comportamiento del brazo al realizar movimientos.
+    Este modelo adquiere suma importancia cuando la estructura del brazo robótico se define por unas dimensiones y una masa no despreciables, puesto que las fuerzas descritas por el modelo dinámico comienzan a tener un efecto innegable en el comportamiento del mismo al realizar movimientos.
     
-    Se considera que este modelo aportaría información muy útil a la hora de realizar el control de los movimientos del manipulador, sobre todo, si este fuera replicado en un tamaño mas grande y con materiales mas resistentes, los cuales seguramente aumentarían el peso del mismo.
+    Se considera que este modelo aportaría información muy útil a la hora de realizar el control de los movimientos del manipulador, sobre todo, si este fuera replicado en un tamaño mayor y con materiales más resistentes, los cuales probablemente afecten a la masa del mismo.
     
     \item En tercer lugar, otra de las mejoras que se considera viable y que no ha podido ser implementada durante el desarrollo del proyecto, es la implementación de un modo de descripción de trayectorias.
     
@@ -37,7 +37,7 @@ A continuación se presentan las principales ideas de mejora, es decir, aquellas
     
     La implementación de esta mejora conllevaría la realización de modificaciones en el código de \ac{S1} y \ac{S2} y el protocolo de comunicación, así como modificaciones \ac{HW} en \ac{S2} para dotar a la PCB de un chip que la permitiese establecer comunicaciones inalámbricas.
     
-    \item En sexto lugar, se plantea una de las mejoras que podría generar más impacto en cuanto a las funcionalidades del prototipo final. Esta mejora consiste en el diseño y construcción de diferentes adaptadores para el \textit{end-effector} del brazo robótico, los cuales podrían dotarlo de capacidades muy variadas.
+    \item En sexto lugar, se plantea una de las mejoras que podría generar más impacto en cuanto a las funcionalidades del prototipo final. Esta mejora consiste en el diseño y construcción de diferentes adaptadores para el \textit{end--effector} del brazo robótico, los cuales podrían dotarlo de capacidades muy variadas.
     
     Existen innumerables tipos de \textit{end--effector} así como herramientas que pueden ser usadas e incrustadas en ellos. Sin embargo, se considera que los siguientes son los factibles a incluir en este proyecto:
     \begin{itemize}

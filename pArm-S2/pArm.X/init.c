@@ -12,29 +12,6 @@
 #include "system_types.h"
 
 
-void init_pins(void) {
-    // Unlock the Peripheral Pin Selector (PPS)
-    // for allowing changes on TRIS ports without
-    // affecting expected device behavior.
-    // 0xBF is a shortcut for ~(1 << 6) == 191
-#ifndef CONFIG_SIMULATOR
-    __builtin_write_OSCCONL(OSCCON & 0xBF); // unlock PPS
-#endif
-    
-    TRISCbits.TRISC7 = 1;
-    TRISCbits.TRISC6 = 0;
-
-    RPOR6bits.RP54R = 0x0001; //RC6->UART1:U1TX
-    RPINR18bits.U1RXR = 0x0037; //RC7->UART1:U1RX
-
-    // Lock again the PPS as we are done
-    // configuring the remappable ports.
-    // 0x40 is a shortcut for (1 << 6) == 64
-#ifndef CONFIG_SIMULATOR
-    __builtin_write_OSCCONL(OSCCON | 0x40); // lock PPS
-#endif
-}
-
 void init_clock(void) {
 #ifndef CONFIG_SIMULATOR
     // FRCDIV FRC/1; PLLPRE 2; DOZE 1:8; PLLPOST 1:2; DOZEN disabled; ROI disabled; 
@@ -54,9 +31,6 @@ void init_clock(void) {
     // F_cy = F_osc / 2 = 59.904 MHz
     //
     // Then, setup the PLL's prescaler, postcaler and divisor
-//    PLLFBDbits.PLLDIV = 63; // M = PLLDIV + 2 -> PLLDIV = 65 - 2 = 63
-//    CLKDIVbits.PLLPOST = 0; // N2 = 2 * (PLLPOST + 1) -> PLLPOST = (N2 / 2) - 1 = 0
-//    CLKDIVbits.PLLPRE = 0; // N1 = PLLPRE + 2; -> PLLPRE = N1 - 2 = 0
     PLLFBD = 0x3F;
     // AD1MD enabled; PWMMD enabled; T3MD enabled; T4MD enabled; T1MD enabled; U2MD enabled; T2MD enabled; U1MD enabled; QEI1MD enabled; SPI2MD enabled; SPI1MD enabled; C2MD enabled; C1MD enabled; DCIMD enabled; T5MD enabled; I2C1MD enabled; 
     PMD1 = 0x00;
@@ -79,44 +53,11 @@ void init_clock(void) {
     // And wait for clock switching to happen
     // First, wait for clock switch to occur
     // and thenm wait the PLL to lock
-//    while (OSCCONbits.COSC != 0b011);
     while (OSCCONbits.LOCK != 1);
 #endif
 }
 
-void init_interrupts(void) {
-    //    TI: Timer 2
-    //    Priority: 1
-    IPC1bits.T2IP = 1;
-    //    TI: Timer 1
-    //    Priority: 1
-    IPC0bits.T1IP = 1;
-    //    UERI: UART1 Error
-    //    Priority: 1
-    IPC16bits.U1EIP = 1;
-}
-
 void initUART(void) {
-    RPOR6bits.RP54R = 0b00001;
-    RPINR18bits.U1RXR = 55;
-    U1MODEbits.USIDL = 1;
-    U1MODEbits.RXINV = 0;
-    U1MODEbits.BRGH = 0;
-    // 8 data bits without parity
-    U1MODEbits.PDSEL = 0b00;
-    U1MODEbits.UEN = 0b00;
-    U1BRG = 0x185;
-    U1STA = 0x400;
-    IEC0bits.U1TXIE = 1;
-    IEC0bits.U1RXIE = 1;
-    IFS0bits.U1RXIF = 0;
-    IFS0bits.U1TXIF = 0;
-
-    U1MODEbits.UARTEN = 1;
-    U1STAbits.UTXEN = 1;
-
-    DELAY_105uS;
-    return;
     // Unlock the Peripheral Pin Selector (PPS)
     // for allowing changes on TRIS ports without
     // affecting expected device behavior.
@@ -141,7 +82,7 @@ void initUART(void) {
     
     // Setup UART
     // Stop on idle
-    U1MODEbits.USIDL = 0;
+    U1MODEbits.USIDL = 1;
     // Disable IrDA
     U1MODEbits.IREN = 0;
     // Use only TX and RX pins
@@ -149,8 +90,8 @@ void initUART(void) {
     U1MODEbits.UEN = 0b00;
     // Do not wake-up with UART
     U1MODEbits.WAKE = 0;
-    // Enable loopback mode
-    U1MODEbits.LPBACK = 1;
+    // Disable loopback mode
+    U1MODEbits.LPBACK = 0;
     // Do not use automatic baudrate when receiving
     U1MODEbits.ABAUD = 0;
     // Disable polarity inversion. Idle state is '1'
@@ -173,9 +114,6 @@ void initUART(void) {
     // UTXISEL0 TX_ONE_CHAR; UTXINV disabled; OERR NO_ERROR_cleared; URXISEL RX_ONE_CHAR; UTXBRK COMPLETED; UTXEN enabled; ADDEN disabled; 
     U1STA = 0x400;
     
-    // Interrupt on each received character
-    U1STAbits.URXISEL = 0b00;
-    
     // Enable UART TX Interrupt
     IEC0bits.U1TXIE = 1;
     IEC0bits.U1RXIE = 1;
@@ -188,7 +126,6 @@ void initUART(void) {
     //Make sure to set LAT bit corresponding to TxPin as high before UART initialization
     LATCbits.LATC7 = 1;
     LATCbits.LATC6 = 1;
-    PORTCbits.RC7 = 1;
     U1MODEbits.UARTEN = 1; // enabling UART ON bit
     U1STAbits.UTXEN = 1;
     
@@ -202,7 +139,8 @@ void initPWM(void) {
     TRISBbits.TRISB11 = 0; // PWM3L
     TRISBbits.TRISB13 = 0; // PMW2L
     TRISBbits.TRISB15 = 0; // PWM1L
-    TRISBbits.TRISB14 = 0; // PWM1H
+    TRISAbits.TRISA7 = 0;  // PWM4L
+//    TRISBbits.TRISB14 = 0; // PWM1H
 
     PTCON2bits.PCLKDIV = 0b110; // Prescaler 1:32
 
@@ -224,13 +162,15 @@ void initPWM(void) {
     SPHASE3 = 0;
     SPHASE2 = 0;
     SPHASE1 = 0;
-    PHASE1 = 0;
+    SPHASE4 = 0;
+//    PHASE1 = 0;
 
     // By default, set no duty cycle of programmed signals
     SDC3 = 0;
     SDC2 = 0;
     SDC1 = 0;
-    PDC1 = 0;
+    SDC4 = 0;
+//    PDC1 = 0;
 
     // Disable Dead Time values
     ALTDTR4 = 0;
@@ -267,7 +207,7 @@ void initPWM(void) {
     IOCON3bits.PENL = 1;
     IOCON2bits.PENL = 1;
     IOCON1bits.PENL = 1;
-    IOCON1bits.PENH = 1;
+//    IOCON1bits.PENH = 1;
     // Disable high output as we are not using it
     IOCON4bits.PENH = 0;
     IOCON3bits.PENH = 0;
@@ -405,11 +345,8 @@ inline void system_initialize(void) {
     INTERRUPT_GlobalDisable();
     init_clock();
     init_ports();
-//    init_pins();
     initPWM();
     initUART();
     SYSTEM_CORCONModeOperatingSet(CORCON_MODE_PORVALUES);
-    // Init interrupts only after the hole initialization process is finished
-//    init_interrupts();
     INTERRUPT_GlobalEnable();
 }

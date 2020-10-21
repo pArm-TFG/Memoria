@@ -11,6 +11,7 @@
 #include <float.h>
 #include <math.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include "../motor/motor.h"
 #include "../utils/types.h"
 #include "../utils/utils.h"
@@ -21,19 +22,22 @@
 #include "../timers/tmr5.h"
 #include "../utils/defs.h"
 #include "../sync/barrier.h"
+#ifdef DEBUG_ENABLED
+#include "../printf/io.h"
+#endif
 
-servo_t base_servo = {&SDC1, &limit_switch_map[0], MATH_PI, LOWER_UPPER_MIN_ANGLE, LOWER_UPPER_MAX_ANGLE};
-servo_t lower_arm_servo = {&SDC2, &limit_switch_map[1], .0, LOWER_ARM_MIN_ANGLE, LOWER_ARM_MAX_ANGLE};
-servo_t upper_arm_servo = {&SDC3, &limit_switch_map[2], (MATH_PI / 18), UPPER_ARM_MIN_ANGLE, UPPER_ARM_MAX_ANGLE};
-servo_t end_effector_servo = {&PDC1, &limit_switch_map[3], .0, .0, 180.};
+servo_t base_servo = {&SDC1, NULL, MATH_PI, LOWER_UPPER_MIN_ANGLE, LOWER_UPPER_MAX_ANGLE};
+servo_t lower_arm_servo = {&SDC2, NULL, MATH_PI, LOWER_ARM_MIN_ANGLE, LOWER_ARM_MAX_ANGLE};
+servo_t upper_arm_servo = {&SDC3, NULL, MATH_PI, UPPER_ARM_MIN_ANGLE, UPPER_ARM_MAX_ANGLE};
+servo_t end_effector_servo = {&SDC4, NULL, .0, .0, 180.};
 
-motor_t base_motor = {&base_servo, 0ULL, .0F, .0F, false, 1, TMR3_Start, TMR3_Stop};
-motor_t lower_arm_motor = {&lower_arm_servo, 1ULL, .0F, .0F, false, 1, TMR4_Start, TMR4_Stop};
-motor_t upper_arm_motor = {&upper_arm_servo, 2ULL, .0F, .0F, false, 1, TMR5_Start, TMR5_Stop};
-motor_t end_effetor_motor = {&end_effector_servo, 3ULL, .0F, .0F, false, 1, NULL, NULL};
+motor_t base_motor = {&base_servo, 0ULL, .0F, .0F, false, 1, 0ULL, TMR3_Start, TMR3_Stop};
+motor_t lower_arm_motor = {&lower_arm_servo, 1ULL, .0F, .0F, false, 1, 0ULL, TMR4_Start, TMR4_Stop};
+motor_t upper_arm_motor = {&upper_arm_servo, 2ULL, .0F, .0F, false, 1, 0ULL, TMR5_Start, TMR5_Stop};
+motor_t end_effetor_motor = {&end_effector_servo, 3ULL, .0F, .0F, false, 1, 0ULL, NULL, NULL};
 
 motors_t motors = {&base_motor, &lower_arm_motor, &upper_arm_motor, &end_effetor_motor};
-barrier_t *PLANNER_barrier;
+volatile barrier_t *PLANNER_barrier;
 
 static inline double64_t expected_duration(angle_t angle) {
     double64_t max_angle = LDBL_MIN;
@@ -47,7 +51,15 @@ static inline double64_t expected_duration(angle_t angle) {
     return MOTOR_elapsed_time_us(max_angle);
 }
 
-void PLANNER_init(barrier_t *barrier) {
+#ifdef LIMIT_SWITCH_ENABLED
+void PLANNER_init(volatile barrier_t *barrier, uint_fast8_t switch_map[4]) {
+    base_servo.limit_switch_value = &switch_map[0];
+    lower_arm_servo.limit_switch_value = &switch_map[1];
+    upper_arm_servo.limit_switch_value = &switch_map[2];
+    end_effector_servo.limit_switch_value = &switch_map[3];
+#else
+void PLANNER_init(volatile barrier_t *barrier) {
+#endif
     PLANNER_barrier = barrier;
     TMR3_Initialize(motors.base_motor, PLANNER_barrier);
     TMR4_Initialize(motors.lower_arm, PLANNER_barrier);
@@ -55,6 +67,9 @@ void PLANNER_init(barrier_t *barrier) {
 }
 
 double64_t PLANNER_go_home(void) {
+#ifdef DEBUG_ENABLED
+    printf("[DEBUG]\tMoving motors to home...\n");
+#endif
     BARRIER_clr(PLANNER_barrier);
     angle_t home_angles = {
         motors.base_motor->servoHandler->home,
@@ -70,17 +85,30 @@ double64_t PLANNER_go_home(void) {
 double64_t PLANNER_move_xyz(point_t xyz) {
     BARRIER_clr(PLANNER_barrier);
     angle_t *angle = (angle_t *) malloc(sizeof (angle_t));
-    inverse_kinematics(xyz, angle);
-    double64_t expected_duration = PLANNER_move_angle(*angle);
+    char ret = inverse_kinematics(xyz, angle);
+    if (ret != EXIT_SUCCESS)
+        return -1.0F;
+    double64_t duration = expected_duration(*angle);
+    MOTOR_move(motors.base_motor, angle->theta0);
+    MOTOR_move(motors.lower_arm, angle->theta1);
+    MOTOR_move(motors.upper_arm, angle->theta2);
+//    double64_t expected_duration = PLANNER_move_angle(*angle);
     free(angle);
-    return expected_duration;
+    return duration;
 }
 
 double64_t PLANNER_move_angle(angle_t angle) {
     BARRIER_clr(PLANNER_barrier);
+    point_t *position = (point_t *) malloc(sizeof(point_t));
+    forward_kinematics(angle, position);
+    if (!check_constraints_ok(&angle, position))
+        return -1.0F;
+    /*if (!check_angle_constraints(&angle))
+        return -1.0F;*/
     MOTOR_move(motors.base_motor, angle.theta0);
     MOTOR_move(motors.lower_arm, angle.theta1);
     MOTOR_move(motors.upper_arm, angle.theta2);
+    free(position);
     return expected_duration(angle);
 }
 
@@ -89,11 +117,14 @@ void PLANNER_move_waiting(angle_t angle) {
     delay_us(expected_time);
 }
 
-void PLANNER_stop_moving(void) {
+uint8_t PLANNER_stop_moving(void) {
+    /*if (PLANNER_barrier->flag)
+        return EXIT_FAILURE;*/
     MOTOR_freeze(motors.base_motor);
     MOTOR_freeze(motors.lower_arm);
     MOTOR_freeze(motors.upper_arm);
     BARRIER_set_done(PLANNER_barrier);
+    return EXIT_SUCCESS;
 }
 
 point_t *PLANNER_get_position(void) {

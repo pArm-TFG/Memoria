@@ -40,14 +40,14 @@
 
 // Servo definition
 typedef struct {
-    uint16_t *dutyCycleRegister;
-    uint16_t *limit_switch_value;
+    volatile uint16_t *dutyCycleRegister;
+    volatile uint_fast8_t *limit_switch_value;
     double64_t home;
     double64_t min_angle;
     double64_t max_angle;
 } servo_t;
 
-extern volatile uint_fast8_t limit_switch_map[4];
+//extern volatile uint_fast8_t limit_switch_map[4];
 
 void SERVO_write_angle(const servo_t *servo, double64_t angle_rad);
 void SERVO_write_milliseconds(const servo_t *servo, double64_t ms);
