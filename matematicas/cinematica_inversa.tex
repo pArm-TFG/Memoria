@@ -299,7 +299,7 @@ Con estos datos ya obtenidos se puede definir el lado `$b$' como:
 
 Cabe destacar que $h_o$ varía según el \textit{end--effector} que se encuentre acoplado
 al brazo robótico. Para el $\mu$Arm, según la documentación oficial, dichas alturas varían
-y son\cite{UArmDeveloperSwiftProForArduino}:
+y son\cite{ufactoryUArmDeveloperSwiftProForArduino}:
 \begin{itemize}
     \item $\numprint[mm]{74.55}$ para el \textit{end--effector} normal.
     \item $\numprint[mm]{51.04}$ para el cabezal láser.
@@ -379,7 +379,7 @@ La obtención de dicho ángulo se muestra en la ecuación \ref{eq:phi}
 y $\theta_1$ se obtiene mediante la ecuación
 \ref{eq:final_theta}\footnote{el ángulo $\phi$ se suma o se resta según la orientación
     del triángulo ya que la arcotangente varía en signo según la posición de los puntos
-    $x'$ y $z'$, tal como se muestra en la documentación al desarrollador\cite{UArmDeveloperSwiftProForArduino}.}:
+    $x'$ y $z'$, tal como se muestra en la documentación al desarrollador\cite{ufactoryUArmDeveloperSwiftProForArduino}.}:
 
 \begin{equation}\label{eq:final_theta}
     \theta_1 = \theta_1' - \phi
@@ -387,7 +387,7 @@ y $\theta_1$ se obtiene mediante la ecuación
 
 Finalmente, por seguridad, se puede comprobar que en efecto los distintos ángulos obtenidos
 están comprendidos dentro del rango de movimiento de cada una de las articulaciones
-\cite{UArmDeveloperSwiftProForArduino}:
+\cite{ufactoryUArmDeveloperSwiftProForArduino}:
 
 \begin{align*}
     \theta_0 & \in \left[\frac{\pi}{18}, \frac{151}{180}\pi\right] \\
