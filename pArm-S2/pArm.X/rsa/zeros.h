@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 - present | pArm-S2 by Javinator9889
+ * 2020 | pArm-S2 by Javinator9889
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,20 @@
 
 extern const unsigned char clz_8b[256];
 
+/**
+ * Counts the amount of leading zeros of the given value.
+ * 
+ * @param x - the value to check.
+ * @return the amount of leading zeros.
+ */
 int_fast64_t clz(int_fast64_t x);
+
+/**
+ * Counts the amount of trailing zeros of the given value.
+ * 
+ * @param x - the value to check.
+ * @return the amount of trailing zeros.
+ */
 int_fast64_t ctz(int_fast64_t x);
 
 #endif	/* ZEROS_H */

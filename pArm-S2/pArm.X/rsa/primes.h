@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 - present | pArm-S2 by Javinator9889
+ * 2020 | pArm-S2 by Javinator9889
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +32,15 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+/**
+ * Checks if the given number is prime or not. More trials improves accuracy.
+ * Uses the Miller-Rabin primality test.
+ * 
+ * @param p - the number to be checked.
+ * @param trials - the trials until a number is decided to be prime or 
+ *         check again.
+ * @return true if prime, else false. 
+ */
 bool check_prime(int_fast64_t p, uint_fast16_t trials);
 
 #endif	/* PRIMES_H */

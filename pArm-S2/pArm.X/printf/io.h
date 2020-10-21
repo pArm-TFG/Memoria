@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 - present | pArm-S2 by Javinator9889
+ * 2020 | pArm-S2 by Javinator9889
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,6 +29,11 @@
 #ifndef IO_H
 #define	IO_H
 
+/**
+ * This is a simple wrapper for switching between custom printf implementation
+ * and stdio.h one, alongside with all the other tools included in both
+ * packages
+ */
 #ifdef USE_CUSTOM_PRINTF
 #include "printf.h"
 #else
